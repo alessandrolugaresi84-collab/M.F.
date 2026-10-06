@@ -38,4 +38,22 @@ const MATERIALI = [
     descrizione: "Concetti chiari collegati da frecce, ognuno con una spiegazione in parole semplici.",
     data: "2026-10-06",
   },
+  {
+    materia: "meccanica",
+    unita: "Appunti fino al 1° ottobre",
+    titolo: "Appunti di Meccanica",
+    tipo: "pdf",
+    file: "meccanica-appunti-1-ottobre.pdf",
+    descrizione: "La forza e le sue caratteristiche; funzioni trigonometriche: seno, coseno, tangente, cotangente.",
+    data: "2026-10-06",
+  },
+  {
+    materia: "sistemi",
+    unita: "Appunti fino al 1° ottobre",
+    titolo: "Appunti di Sistemi",
+    tipo: "pdf",
+    file: "sistemi-appunti-1-ottobre.pdf",
+    descrizione: "Grandezze e unità di misura, formule inverse, elettrizzazione, legge di Coulomb, corrente elettrica.",
+    data: "2026-10-06",
+  },
 ];
