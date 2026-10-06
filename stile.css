@@ -122,3 +122,14 @@ h3{font-size:20px;line-height:1.3;margin:0 0 4px}
 .legenda span{display:inline-flex;align-items:center;gap:8px}
 .campione{width:26px;height:16px;border-radius:4px;border:2px solid var(--inchiostro);background:var(--carta)}
 .campione.oltre{border:2px dashed var(--giallo-bordo);background:var(--giallo)}
+
+/* ===== Mappa: concetto + "In parole semplici" ===== */
+:root{--semplice:#E6F0FA;--semplice-bordo:#9DBDE3;--semplice-testo:#1D4A7A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--semplice:#17273A;--semplice-bordo:#35577F;--semplice-testo:#A9CBF2}}
+:root[data-theme="dark"]{--semplice:#17273A;--semplice-bordo:#35577F;--semplice-testo:#A9CBF2}
+.nodo .concetto{margin:0 0 12px}
+.nodo .semplice{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:10px;padding:10px 12px;font-size:18px;line-height:1.5}
+.nodo .semplice .tag{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:4px}
+.solo-semplice .nodo .concetto{display:none}
+.campione.semplice{border:1px solid var(--semplice-bordo);background:var(--semplice)}
+.sintesi .semplice-scuro{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);font-size:18px}

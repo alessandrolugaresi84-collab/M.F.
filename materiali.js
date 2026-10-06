@@ -32,10 +32,10 @@ const MATERIALI = [
   {
     materia: "italiano",
     unita: "Dante e la Divina Commedia",
-    titolo: "Mappa concettuale: introduzione alla Commedia",
+    titolo: "Mappa: introduzione alla Divina Commedia",
     tipo: "mappa",
     file: "dante-mappa.html",
-    descrizione: "Quattro domande, i passaggi logici tra un'idea e l'altra e ciò che va oltre il testo.",
+    descrizione: "Concetti chiari collegati da frecce, ognuno con una spiegazione in parole semplici.",
     data: "2026-10-06",
   },
 ];
