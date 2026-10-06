@@ -19,29 +19,23 @@
 const NOME_SITO = "Quaderno di studio";
 
 const MATERIE = [
-  { id: "italiano",   nome: "Italiano",   colore: "#9A3B2A", descrizione: "Letteratura, testi, lingua" },
-  { id: "storia",     nome: "Storia",     colore: "#1E6A73", descrizione: "Eventi, epoche, cause e conseguenze" },
-  { id: "inglese",    nome: "Inglese",    colore: "#3A4A8F", descrizione: "Grammatica, lessico, comprensione" },
-  { id: "matematica", nome: "Matematica", colore: "#4E6A2C", descrizione: "Regole, procedimenti, esercizi guidati" },
+  { id: "meccanica",  nome: "Meccanica",  colore: "#1E6A73", descrizione: "" },
+  { id: "sistemi",    nome: "Sistemi",    colore: "#3A4A8F", descrizione: "" },
+  { id: "tecnologia", nome: "Tecnologia", colore: "#8A4B12", descrizione: "" },
+  { id: "matematica", nome: "Matematica", colore: "#4E6A2C", descrizione: "" },
+  { id: "inglese",    nome: "Inglese",    colore: "#6B3A7A", descrizione: "" },
+  { id: "italiano",   nome: "Italiano",   colore: "#9A3B2A", descrizione: "" },
+  { id: "storia",     nome: "Storia",     colore: "#5A5F6E", descrizione: "" },
 ];
 
 const MATERIALI = [
   {
     materia: "italiano",
     unita: "Dante e la Divina Commedia",
-    titolo: "Introduzione alla Divina Commedia",
-    tipo: "lezione",
-    file: "dante-introduzione.html",
-    descrizione: "Il testo della lezione, diviso in paragrafi, con le parole chiave spiegate.",
-    data: "2026-10-06",
-  },
-  {
-    materia: "italiano",
-    unita: "Dante e la Divina Commedia",
-    titolo: "Mappa concettuale dell'introduzione",
+    titolo: "Mappa concettuale: introduzione alla Commedia",
     tipo: "mappa",
     file: "dante-mappa.html",
-    descrizione: "Quattro domande, i passaggi logici tra un'idea e l'altra e ciò che la lezione dà per scontato.",
+    descrizione: "Quattro domande, i passaggi logici tra un'idea e l'altra e ciò che va oltre il testo.",
     data: "2026-10-06",
   },
 ];
