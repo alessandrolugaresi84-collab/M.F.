@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materia</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css">
+<script src="materiali.js"></script>
+<script src="comune.js"></script>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a></p>
+  <h1 id="titolo">Materia</h1>
+  <p class="sottotitolo" id="descr"></p>
+  <div id="contenuto"></div>
+</main>
+<footer id="piede"></footer>
+<script>
+var id = new URLSearchParams(location.search).get("m");
+var mat = materiaDa(id);
+var box = document.getElementById("contenuto");
+if (!mat) {
+  document.getElementById("titolo").textContent = "Materia non trovata";
+  box.innerHTML = '<p><a href="index.html">Torna all\'elenco delle materie</a></p>';
+} else {
+  document.title = mat.nome + " · " + NOME_SITO;
+  var t = document.getElementById("titolo");
+  t.textContent = mat.nome;
+  t.style.color = mat.colore;
+  document.getElementById("descr").textContent = mat.descrizione || "";
+
+  var propri = MATERIALI.filter(function (x) { return x.materia === mat.id; });
+  if (!propri.length) {
+    box.innerHTML = '<div class="vuoto">I materiali di questa materia arriveranno presto.</div>';
+  } else {
+    var unita = [];
+    propri.forEach(function (x) { if (unita.indexOf(x.unita) < 0) unita.push(x.unita); });
+    box.innerHTML = unita.map(function (u) {
+      return "<h2>" + esc(u) + '</h2><ul class="elenco">' +
+        propri.filter(function (x) { return x.unita === u; }).map(function (x) { return voceMateriale(x, false); }).join("") +
+        "</ul>";
+    }).join("");
+  }
+}
+</script>
+</body>
+</html>

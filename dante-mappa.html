@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mappa concettuale · Introduzione alla Divina Commedia</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css">
+<script src="materiali.js"></script>
+<script src="comune.js"></script>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=italiano">Italiano</a> › Dante e la Divina Commedia</p>
+  <h1>Mappa concettuale: introduzione alla Commedia</h1>
+  <p class="sottotitolo">Si legge dall'alto verso il basso, una colonna alla volta. Le parole sulle frecce dicono <i>perché</i> si passa da un'idea all'altra.</p>
+
+  <div class="pulsanti">
+    <button class="pulsante" type="button" id="modo" aria-pressed="false">Prima lettura: solo i concetti</button>
+    <a class="pulsante" href="dante-introduzione.html">Rileggi la lezione</a>
+    <a class="pulsante" href="Mappa_Dante.pdf" download>Scarica in PDF</a>
+    <a class="pulsante" href="Mappa_Dante.png" download>Scarica come immagine</a>
+  </div>
+
+  <div class="legenda">
+    <span><span class="campione"></span>Concetto della lezione</span>
+    <span><span class="campione oltre"></span><b>Oltre il testo</b>: ciò che la lezione dà per scontato</span>
+  </div>
+
+  <div id="mappa">
+    <div class="mappa-centro">
+      <div class="nome">DIVINA COMMEDIA</div>
+      <div class="info">Dante Alighieri · composta in esilio, dal 1306 circa al 1321<br>3 cantiche · 100 canti · versi in terzine</div>
+    </div>
+    <div class="diramazione"></div>
+    <div class="colonne" id="colonne"></div>
+    <div class="sintesi">
+      <div class="nome">Realtà umana + significato spirituale</div>
+      Un universo già giudicato da Dio, abitato da uomini e donne veri, con storie, passioni, errori. È questa doppia natura a rendere la Commedia così complessa e, dopo 700 anni, ancora viva: ecco la risposta alla domanda della colonna 1.
+    </div>
+  </div>
+</main>
+<footer id="piede"></footer>
+
+<script>
+/* Ogni colonna: titolo, colore, e una sequenza di nodi.
+   "via" = la parola sulla freccia che porta a quel nodo; "oltre: true" = riquadro giallo. */
+var COLONNE = [
+  { titolo: "1 · Perché la studiamo ancora?", colore: "var(--c1)", nodi: [
+    { t: "Una tradizione enorme", x: "Da sette secoli, in tutto il mondo, studenti e professori analizzano gli stessi versi. Gli studiosi consultano ancora i manoscritti, con guanti e mascherina." },
+    { via: "perché?", t: "Nessun autografo", x: "Non abbiamo nulla scritto da Dante di suo pugno: solo copie a mano, con piccole differenze (una parola, una forma) che cambiano l'interpretazione." },
+    { via: "perché diverse?", oltre: true, x: "Prima della stampa (metà del '400) ogni libro si copiava a mano, e ogni copista poteva sbagliare o “correggere”. Ricostruire il testo più vicino a quello di Dante è il lavoro della <b>filologia</b>." },
+    { via: "ma soprattutto", t: "Un'opera-mondo", x: "Racconta una storia, ma dentro contiene un mondo: l'umanità intera e il tentativo di darle un senso. Come Omero, Shakespeare, Cervantes, Goethe, Melville, Tolstoj, Proust, Joyce; come la Cappella Sistina o la Nona di Beethoven." },
+    { via: "ne deriva", t: "Genera altre opere", x: "Da sette secoli ispira artisti che ne ricavano storie, quadri, musiche: fino all'album <i>Divina Commedia</i> del rapper Tedua." },
+    { via: "eppure", t: "È difficile…", x: "Versi, rima e una lingua di 700 anni fa. Ma proprio per questo affascina." },
+    { via: "come mai la capiamo?", oltre: true, x: "Dante scrive nel <b>volgare</b> fiorentino, la lingua parlata, non in latino: vuole farsi capire da molti. Quel fiorentino è diventato la base dell'italiano: per questo, dopo 700 anni, lo capiamo ancora in buona parte." },
+  ]},
+  { titolo: "2 · Che cosa racconta?", colore: "var(--c2)", nodi: [
+    { t: "Un viaggio nell'aldilà", x: "Dante attraversa il mondo dei morti per scoprire che cosa accade agli uomini dopo la morte. È insieme protagonista e narratore." },
+    { via: "cioè", oltre: true, x: "Ci sono <b>due Dante</b>: il personaggio, che nel viaggio ha paura, sbaglia e impara; e il poeta, che racconta dopo, quando sa già tutto. Chi racconta ne sa più di chi cammina." },
+    { via: "attraverso", t: "Tre cantiche, tre regni, tre guide", x: "Inferno · Purgatorio · Paradiso.<br>Virgilio guida nell'Inferno e nel Purgatorio; Beatrice nel Paradiso terrestre e nel Paradiso; san Bernardo fino alla visione di Dio." },
+    { via: "perché tutto in 3?", oltre: true, x: "Il 3 richiama la <b>Trinità</b>. Tutto è costruito sul 3: tre cantiche, strofe di tre versi (<b>terzine</b>), 33 canti per cantica + 1 di introduzione = <b>100</b>, numero della perfezione." },
+    { via: "e perché 3 guide?", oltre: true, x: "Ogni guida arriva fin dove può. <b>Virgilio</b>, poeta pagano, è la ragione umana: basta a capire il peccato, non a vedere Dio. <b>Beatrice</b> è la fede e la grazia. <b>Bernardo</b>, santo mistico devoto di Maria, porta all'ultimo passo: la contemplazione." },
+    { via: "e il titolo?", oltre: true, x: "Perché <b>“Commedia”</b>? Il viaggio comincia nel buio (la selva oscura) e finisce nella luce (Dio): per i medievali una storia che finisce bene è una commedia, scritta in una lingua che mescola alto e basso. <b>“Divina”</b> lo aggiunse Boccaccio." },
+  ]},
+  { titolo: "3 · Perché Dante la scrive?", colore: "var(--c3)", nodi: [
+    { t: "Lo scopo", x: "Capire come l'anima può salvarsi e, raccontando il viaggio, indicare la strada della salvezza anche agli altri." },
+    { via: "si fonda su", t: "Il libero arbitrio", x: "L'essere umano è capace di scegliere tra il bene e il male. Chi sceglie il male è punito, chi sceglie il bene è premiato." },
+    { via: "quindi", oltre: true, x: "Se posso scegliere, sono <b>responsabile</b>. Solo per questo premio e pena sono giusti: senza libertà, nessuno meriterebbe nulla." },
+    { via: "ne deriva", t: "Anime concrete", x: "Le anime che Dante incontra sono realistiche perché portano con sé, per l'eternità, le conseguenze delle scelte fatte in vita." },
+    { via: "in che modo?", oltre: true, x: "La regola si chiama <b>contrappasso</b>: la pena somiglia alla colpa. I lussuriosi, travolti in vita dalla passione, sono travolti per sempre da una bufera (Inferno V)." },
+    { via: "ma attenzione", t: "Conta il pentimento", x: "Più della gravità del peccato contano la consapevolezza dell'errore e il pentimento prima di morire: anche il peccatore più convinto può riscattarsi, all'ultimo momento." },
+    { via: "per esempio", oltre: true, x: "<b>Manfredi</b>, re scomunicato («Orribil furon li peccati miei»), è in Purgatorio: si pentì in punto di morte (Purg. III). <b>Bonconte</b> si salva per «una lagrimetta» (Purg. V)." },
+    { via: "il fine ultimo", t: "Un modello di felicità", x: "Umiltà, pietà, fedeltà, pace: valori cristiani che ognuno può seguire. Se tutti li seguissero, anche sulla Terra la convivenza sarebbe più giusta e pacifica." },
+  ]},
+  { titolo: "4 · Come va letta?", colore: "var(--c4)", nodi: [
+    { t: "Il sovrassenso", x: "Personaggi e luoghi sono concreti, molti personaggi sono esistiti davvero; ma rimandano a un significato ulteriore, a volte evidente, a volte nascosto." },
+    { via: "perché?", t: "La mentalità medievale", x: "L'universo è un ordine creato da Dio: tutto ciò che esiste ha un significato da interpretare. Anche la Bibbia si legge così." },
+    { via: "da qui", t: "Due tipi di allegoria", x: "<b>In factis</b> (dei teologi): un fatto storico vero ne annuncia un altro, anch'esso vero. L'Esodo prefigura Cristo.<br><b>In verbis</b> (dei poeti): il significato spirituale si ricava da un'invenzione poetica. La IV Egloga di Virgilio letta come annuncio di Cristo." },
+    { via: "cioè", oltre: true, x: "In breve: <b>in factis</b> = è successo davvero, e significa anche altro. <b>In verbis</b> = è inventato, e significa altro. L'esempio di Dante stesso (Convivio): Orfeo che ammansisce le belve col canto = il saggio che con la parola rende miti gli uomini." },
+    { via: "Dante sceglie", t: "La lettera a Cangrande", x: "Dante indica la chiave: leggere la Commedia come l'uscita degli Ebrei dall'Egitto. Quindi <b>allegoria in factis</b>: il viaggio è presentato come reale, ma ha un senso più profondo." },
+    { via: "in dettaglio", oltre: true, x: "La lettera elenca <b>quattro sensi</b>: letterale (gli Ebrei lasciano l'Egitto), allegorico (Cristo salva l'umanità), morale (l'anima lascia il peccato), anagogico (l'anima va verso la gloria eterna). Alcuni studiosi dubitano che sia di Dante." },
+    { via: "e i critici?", t: "Due letture critiche", x: "<b>Singleton</b>: la Commedia come prosecuzione della Bibbia (allegoria dei teologi).<br><b>Auerbach</b>: concezione <b>figurale</b>. Virgilio è il poeta storico dell'Eneide e, insieme, figura della ragione: non smette mai di essere sé stesso." },
+    { via: "la differenza", oltre: true, x: "La differenza in una riga: nell'<b>allegoria</b> il simbolo prende il posto della persona; nella <b>figura</b> la persona resta, e il significato si aggiunge. Per questo nella Commedia nessuno è solo un'idea." },
+  ]},
+];
+
+var FRECCIA = '<svg width="14" height="40" viewBox="0 0 14 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 1V37"/><path d="M1 30l6 8 6-8"/></svg>';
+
+document.getElementById("colonne").innerHTML = COLONNE.map(function (c) {
+  var h = '<section class="colonna" style="--colore:' + c.colore + '"><h2 class="testa" style="margin:0">' + c.titolo + "</h2>";
+  h += '<div class="freccia">' + FRECCIA + "</div>";
+  c.nodi.forEach(function (n, i) {
+    if (i > 0) h += '<div class="freccia' + (n.oltre ? " verso-oltre" : "") + '">' + FRECCIA + "<span>" + n.via + "</span></div>";
+    h += '<div class="nodo' + (n.oltre ? " oltre" : "") + '">' +
+      (n.oltre ? '<span class="tag">OLTRE IL TESTO</span>' : '<b class="t">' + n.t + "</b>") + n.x + "</div>";
+  });
+  return h + "</section>";
+}).join("");
+
+var bottone = document.getElementById("modo");
+bottone.addEventListener("click", function () {
+  var attivo = bottone.getAttribute("aria-pressed") !== "true";
+  bottone.setAttribute("aria-pressed", attivo ? "true" : "false");
+  bottone.textContent = attivo ? "Mostra la lettura completa" : "Prima lettura: solo i concetti";
+  document.getElementById("mappa").classList.toggle("solo-concetti", attivo);
+});
+</script>
+</body>
+</html>

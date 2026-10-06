@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno di studio</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css">
+<script src="materiali.js"></script>
+<script src="comune.js"></script>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <h1 id="titolo">Quaderno di studio</h1>
+  <p class="sottotitolo">Mappe, riassunti e lezioni per ripassare e approfondire quello che facciamo in classe. Scegli una materia.</p>
+
+  <div class="griglia" id="materie"></div>
+
+  <h2>Ultimi materiali</h2>
+  <ul class="elenco" id="ultimi"></ul>
+</main>
+<footer id="piede"></footer>
+<script>
+document.getElementById("titolo").textContent = NOME_SITO;
+document.title = NOME_SITO;
+
+var g = "";
+MATERIE.forEach(function (m) {
+  var n = MATERIALI.filter(function (x) { return x.materia === m.id; }).length;
+  g += '<a class="materia" style="--colore:' + esc(m.colore) + '" href="materia.html?m=' + encodeURIComponent(m.id) + '">' +
+       '<span class="nome">' + esc(m.nome) + '</span>' +
+       '<span class="descr">' + esc(m.descrizione || "") + '</span>' +
+       '<span class="conta">' + (n === 0 ? "Materiali in arrivo" : n === 1 ? "1 materiale" : n + " materiali") + '</span></a>';
+});
+document.getElementById("materie").innerHTML = g;
+
+var recenti = MATERIALI.slice().sort(function (a, b) { return (b.data || "").localeCompare(a.data || ""); }).slice(0, 6);
+document.getElementById("ultimi").innerHTML = recenti.length
+  ? recenti.map(function (m) { return voceMateriale(m, true); }).join("")
+  : '<li class="vuoto">Ancora nessun materiale.</li>';
+</script>
+</body>
+</html>
