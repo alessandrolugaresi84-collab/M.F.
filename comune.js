@@ -75,3 +75,69 @@ function testataEPiede() {
   }
 }
 document.addEventListener("DOMContentLoaded", testataEPiede);
+
+/* =====================================================================
+   MATERIALI AUTOMATICI
+   Ogni file caricato su GitHub il cui nome comincia con il nome di una materia
+   (es. "Matematica - Equazioni di secondo grado.pdf") compare da solo
+   nella pagina di quella materia. Non serve modificare materiali.js.
+   ===================================================================== */
+var ESTENSIONI = { pdf: "pdf", png: "mappa", jpg: "mappa", jpeg: "mappa", html: "riassunto", docx: "pdf", pptx: "pdf" };
+
+function normalizza(s) {
+  return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+}
+
+function indirizzoRepo() {
+  var h = location.hostname;
+  if (!/\.github\.io$/.test(h)) return null;
+  var proprietario = h.split(".")[0];
+  var primo = location.pathname.split("/")[1] || "";
+  var repo = primo && !/\.html?$/.test(primo) ? decodeURIComponent(primo) : h;
+  return "https://api.github.com/repos/" + proprietario + "/" + encodeURIComponent(repo) + "/contents/";
+}
+
+function materialeDaFile(nome) {
+  var punto = nome.lastIndexOf(".");
+  if (punto < 0) return null;
+  var est = nome.slice(punto + 1).toLowerCase();
+  if (!ESTENSIONI[est]) return null;
+  var base = nome.slice(0, punto);
+  var nb = normalizza(base);
+  for (var i = 0; i < MATERIE.length; i++) {
+    var m = MATERIE[i];
+    var chiavi = [normalizza(m.id), normalizza(m.nome)];
+    for (var k = 0; k < chiavi.length; k++) {
+      var c = chiavi[k];
+      if (nb.indexOf(c) === 0 && (nb.length === c.length || /[\s_\-–—.]/.test(nb.charAt(c.length)))) {
+        var titolo = base.slice(c.length).replace(/^[\s_\-–—.]+/, "").replace(/_/g, " ").trim() || m.nome;
+        titolo = titolo.charAt(0).toUpperCase() + titolo.slice(1);
+        return { materia: m.id, unita: "Documenti", titolo: titolo, tipo: ESTENSIONI[est],
+                 file: encodeURIComponent(nome), descrizione: "", data: "", auto: true };
+      }
+    }
+  }
+  return null;
+}
+
+/* Restituisce (tramite callback) i materiali di materiali.js + quelli trovati su GitHub */
+function tuttiIMateriali(fatto) {
+  var base = MATERIALI.slice();
+  var noti = {};
+  base.forEach(function (m) { noti[decodeURIComponent(m.file)] = true; });
+  var url = indirizzoRepo();
+  if (!url || !window.fetch) { fatto(base); return; }
+  fetch(url, { headers: { Accept: "application/vnd.github+json" } })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (lista) {
+      var auto = [];
+      (lista || []).forEach(function (f) {
+        if (f.type !== "file" || noti[f.name]) return;
+        var m = materialeDaFile(f.name);
+        if (m) auto.push(m);
+      });
+      auto.sort(function (a, b) { return a.titolo.localeCompare(b.titolo, "it"); });
+      fatto(auto.concat(base));
+    })
+    .catch(function () { fatto(base); });
+}

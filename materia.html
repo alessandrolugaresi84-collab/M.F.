@@ -32,10 +32,12 @@ if (!mat) {
   t.style.color = mat.colore;
   document.getElementById("descr").textContent = mat.descrizione || "";
 
-  var propri = MATERIALI.filter(function (x) { return x.materia === mat.id; });
-  if (!propri.length) {
-    box.innerHTML = '<div class="vuoto">I materiali di questa materia arriveranno presto.</div>';
-  } else {
+  tuttiIMateriali(function (TUTTI) {
+    var propri = TUTTI.filter(function (x) { return x.materia === mat.id; });
+    if (!propri.length) {
+      box.innerHTML = '<div class="vuoto">I materiali di questa materia arriveranno presto.</div>';
+      return;
+    }
     var unita = [];
     propri.forEach(function (x) { if (unita.indexOf(x.unita) < 0) unita.push(x.unita); });
     box.innerHTML = unita.map(function (u) {
@@ -43,7 +45,7 @@ if (!mat) {
         propri.filter(function (x) { return x.unita === u; }).map(function (x) { return voceMateriale(x, false); }).join("") +
         "</ul>";
     }).join("");
-  }
+  });
 }
 </script>
 </body>

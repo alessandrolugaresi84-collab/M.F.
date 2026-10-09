@@ -25,20 +25,25 @@
 document.getElementById("titolo").textContent = NOME_SITO;
 document.title = NOME_SITO;
 
-var g = "";
-MATERIE.forEach(function (m) {
-  var n = MATERIALI.filter(function (x) { return x.materia === m.id; }).length;
-  g += '<a class="materia" style="--colore:' + esc(m.colore) + '" href="materia.html?m=' + encodeURIComponent(m.id) + '">' +
-       '<span class="nome">' + esc(m.nome) + '</span>' +
-       '<span class="descr">' + esc(m.descrizione || "") + '</span>' +
-       '<span class="conta">' + (n === 0 ? "Materiali in arrivo" : n === 1 ? "1 materiale" : n + " materiali") + '</span></a>';
-});
-document.getElementById("materie").innerHTML = g;
+tuttiIMateriali(function (TUTTI) {
+  var g = "";
+  MATERIE.forEach(function (m) {
+    var n = TUTTI.filter(function (x) { return x.materia === m.id; }).length;
+    g += '<a class="materia" style="--colore:' + esc(m.colore) + '" href="materia.html?m=' + encodeURIComponent(m.id) + '">' +
+         '<span class="nome">' + esc(m.nome) + '</span>' +
+         '<span class="descr">' + esc(m.descrizione || "") + '</span>' +
+         '<span class="conta">' + (n === 0 ? "Materiali in arrivo" : n === 1 ? "1 materiale" : n + " materiali") + '</span></a>';
+  });
+  document.getElementById("materie").innerHTML = g;
 
-var recenti = MATERIALI.slice().sort(function (a, b) { return (b.data || "").localeCompare(a.data || ""); }).slice(0, 6);
-document.getElementById("ultimi").innerHTML = recenti.length
-  ? recenti.map(function (m) { return voceMateriale(m, true); }).join("")
-  : '<li class="vuoto">Ancora nessun materiale.</li>';
+  /* i file caricati senza data (automatici) vengono considerati i più recenti */
+  var recenti = TUTTI.filter(function (x) { return x.auto; })
+    .concat(TUTTI.filter(function (x) { return !x.auto; }).sort(function (a, b) { return (b.data || "").localeCompare(a.data || ""); }))
+    .slice(0, 6);
+  document.getElementById("ultimi").innerHTML = recenti.length
+    ? recenti.map(function (m) { return voceMateriale(m, true); }).join("")
+    : '<li class="vuoto">Ancora nessun materiale.</li>';
+});
 </script>
 </body>
 </html>
