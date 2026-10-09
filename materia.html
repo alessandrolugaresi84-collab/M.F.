@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Materia</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="stile.css">
-<script src="materiali.js"></script>
-<script src="comune.js"></script>
+<link rel="stylesheet" href="stile.css?v=20261009">
+<script src="materiali.js?v=20261009"></script>
+<script src="comune.js?v=20261009"></script>
 </head>
 <body>
 <header id="testata"></header>
@@ -19,6 +19,7 @@
 </main>
 <footer id="piede"></footer>
 <script>
+if (typeof window.tuttiIMateriali !== "function") { window.tuttiIMateriali = function (f) { f(MATERIALI.slice()); }; }
 var id = new URLSearchParams(location.search).get("m");
 var mat = materiaDa(id);
 var box = document.getElementById("contenuto");

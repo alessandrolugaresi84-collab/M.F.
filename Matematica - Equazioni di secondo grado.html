@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equazioni di secondo grado · Matematica</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261009">
+<script src="materiali.js?v=20261009"></script>
+<script src="comune.js?v=20261009"></script>
+<style>
+  :root{--ar:#A84A12;--ar-chiaro:#FDF1E8;--ar-bordo:#E9B58F;
+        --v:#2F6B2F;--v-chiaro:#EAF4E8;--b:#2C5A99;--b-chiaro:#E8F0FA;--r:#A3302A;--r-chiaro:#FBEAEA}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ar:#F0A36E;--ar-chiaro:#2E2219;--ar-bordo:#6B4527;
+        --v:#8FCB86;--v-chiaro:#1C2A1B;--b:#93B8EE;--b-chiaro:#1A2433;--r:#EE9A94;--r-chiaro:#331C1B}}
+  :root[data-theme="dark"]{--ar:#F0A36E;--ar-chiaro:#2E2219;--ar-bordo:#6B4527;
+        --v:#8FCB86;--v-chiaro:#1C2A1B;--b:#93B8EE;--b-chiaro:#1A2433;--r:#EE9A94;--r-chiaro:#331C1B}
+
+  .schede{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 28px}
+  .scheda{min-height:48px;padding:10px 18px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:17px;font-weight:700;cursor:pointer}
+  .scheda[aria-selected="true"]{background:var(--ar);border-color:var(--ar);color:var(--carta)}
+  .pannello[hidden]{display:none}
+
+  .blocco{background:var(--carta);border:2px solid var(--ar-bordo);border-radius:14px;padding:18px 20px;margin:0 0 18px;position:relative}
+  .etic{display:inline-block;background:var(--ar);color:var(--carta);font-weight:700;font-size:15px;padding:4px 12px;border-radius:8px;margin:0 0 10px}
+  .fascia{background:var(--ar);color:var(--carta);border-radius:12px;padding:10px 18px;font-weight:700;font-size:20px;margin:28px 0 14px}
+  .formula{font-family:"Atkinson",Georgia,serif;font-size:24px;font-weight:700;text-align:center;margin:6px 0}
+  .nota{color:var(--tenue);font-size:16px;text-align:center}
+  .due{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .tre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  @media (max-width:760px){.due,.tre{grid-template-columns:1fr}}
+  .due .blocco,.tre .blocco{margin:0}
+  .passi{background:var(--ar-chiaro);border-radius:10px;padding:12px 14px;margin-top:10px}
+  .passi ol{margin:0;padding-left:22px}
+  .passi li{margin:6px 0}
+  .passi li::marker{color:var(--ar);font-weight:700}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.15;margin:0 2px;font-size:.92em}
+  .fr>span:first-child{border-bottom:2px solid currentColor;padding:0 3px}
+  .fr>span:last-child{padding:0 3px}
+  .rad{border-top:2px solid currentColor;padding:0 2px;margin-left:1px}
+  .riquadro-f{border:2px dashed var(--ar-bordo);border-radius:10px;padding:12px;background:var(--ar-chiaro);text-align:center;font-size:22px;font-weight:700;margin:6px 0 10px}
+
+  .casi-btn{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+  .casi-btn button{min-height:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .casi-btn button[aria-pressed="true"]{border-color:var(--inchiostro);background:var(--inchiostro);color:var(--carta)}
+  .caso{border-radius:14px;padding:16px 18px;border:2px solid;transition:opacity .2s, transform .2s}
+  .caso h3{margin:0 0 6px;font-size:18px}
+  .caso .tag{display:inline-block;color:#fff;font-weight:700;border-radius:8px;padding:2px 10px;margin-bottom:8px}
+  .caso.v{border-color:var(--v);background:var(--v-chiaro)} .caso.v .tag{background:#2F6B2F}
+  .caso.b{border-color:var(--b);background:var(--b-chiaro)} .caso.b .tag{background:#2C5A99}
+  .caso.r{border-color:var(--r);background:var(--r-chiaro)} .caso.r .tag{background:#A3302A}
+  .casi.filtro .caso{opacity:.3}
+  .casi.filtro .caso.attivo{opacity:1;transform:scale(1.02)}
+  .sol{background:var(--carta);border-radius:8px;padding:8px 10px;margin-top:6px;font-weight:700;font-size:19px}
+
+  .schema{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .schema li{display:flex;gap:14px;align-items:flex-start;background:var(--carta);border:2px solid var(--ar-bordo);border-radius:12px;padding:12px 14px}
+  .schema .num{flex:none;width:40px;height:40px;border-radius:10px;background:var(--ar);color:var(--carta);display:grid;place-items:center;font-weight:700;font-size:20px}
+  .schema .t{font-weight:700;color:var(--ar);font-size:18px}
+  .schema label{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:15px;color:var(--tenue);cursor:pointer;min-height:32px}
+  .schema input{width:22px;height:22px;accent-color:var(--ar)}
+  .schema li.fatto{opacity:.55}
+  .barra{height:10px;border-radius:99px;background:var(--bordo);overflow:hidden;margin:6px 0 16px}
+  .barra span{display:block;height:100%;background:var(--ar);width:0;transition:width .25s}
+  .attenzione{border:2px solid var(--r);background:var(--r-chiaro);border-radius:12px;padding:12px 16px;margin:16px 0}
+  table.notevoli{width:100%;border-collapse:collapse;background:var(--carta);border-radius:12px;overflow:hidden}
+  .notevoli th{background:var(--ar);color:var(--carta);text-align:left;padding:10px 12px}
+  .notevoli td{padding:10px 12px;border-top:1px solid var(--bordo);font-size:18px}
+  .notevoli td.f{font-weight:700;white-space:nowrap}
+  .tab-scroll{overflow-x:auto}
+
+  .prova{display:grid;grid-template-columns:repeat(3,minmax(0,120px)) auto;gap:12px;align-items:end}
+  @media (max-width:560px){.prova{grid-template-columns:repeat(3,minmax(0,1fr))}.prova .pulsante{grid-column:1/-1;justify-content:center}}
+  .prova .pulsante{justify-self:start;padding:8px 28px}
+  .prova label{display:flex;flex-direction:column;gap:4px;font-weight:700}
+  .prova input{min-height:48px;font:inherit;font-size:22px;padding:6px 10px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);width:100%}
+  .esito{margin-top:18px}
+  .esito .riga{background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:18px}
+  .esito .riga b.n{color:var(--ar)}
+  .esito .fine{font-weight:700;font-size:20px}
+  .esempi{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .esempi button{min-height:40px;padding:6px 12px;border-radius:999px;border:1px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=matematica">Matematica</a></p>
+  <h1>Equazioni di secondo grado</h1>
+  <p class="sottotitolo">Mappa concettuale per la verifica</p>
+
+  <div class="schede" role="tablist" aria-label="Sezioni">
+    <button class="scheda" role="tab" id="t1" aria-controls="p1" aria-selected="true">1 · Secondo grado</button>
+    <button class="scheda" role="tab" id="t2" aria-controls="p2" aria-selected="false">2 · Fratte e prodotti notevoli</button>
+    <button class="scheda" role="tab" id="t3" aria-controls="p3" aria-selected="false">Prova tu</button>
+  </div>
+
+  <!-- ================= PAGINA 1 ================= -->
+  <section class="pannello" id="p1" role="tabpanel" aria-labelledby="t1">
+    <div class="blocco">
+      <span class="etic">Forma normale</span>
+      <p class="formula">a x² + b x + c = 0 &nbsp;&nbsp;con a ≠ 0</p>
+      <p class="nota">a = coefficiente di x² · b = coefficiente di x · c = termine noto</p>
+    </div>
+
+    <div class="due">
+      <div class="blocco"><span class="etic">Equazione INCOMPLETA</span>
+        <p style="margin:0">Almeno uno dei coefficienti <b>b</b> oppure <b>c</b> è uguale a <b>0</b>.</p></div>
+      <div class="blocco"><span class="etic">Equazione COMPLETA</span>
+        <p style="margin:0">Tutti i coefficienti sono diversi da 0:<br><b>a ≠ 0, b ≠ 0, c ≠ 0</b></p></div>
+    </div>
+
+    <div class="fascia">Equazioni incomplete</div>
+    <div class="tre">
+      <div class="blocco"><span class="etic">PURA</span>
+        <p style="margin:0"><b>a x² + c = 0</b> &nbsp;(b = 0)</p>
+        <div class="passi"><ol>
+          <li>isolo x²: &nbsp;<b>x² = <span class="fr"><span>−c</span><span>a</span></span></b></li>
+          <li>se <span class="fr"><span>−c</span><span>a</span></span> &gt; 0 → <b>x = ±√<span class="rad"><span class="fr"><span>−c</span><span>a</span></span></span></b></li>
+          <li>se <span class="fr"><span>−c</span><span>a</span></span> &lt; 0 → <b>impossibile</b></li>
+        </ol></div>
+      </div>
+      <div class="blocco"><span class="etic">SPURIA</span>
+        <p style="margin:0"><b>a x² + b x = 0</b> &nbsp;(c = 0)</p>
+        <div class="passi"><ol>
+          <li>raccolgo x: <b>x (a x + b) = 0</b></li>
+          <li>legge di annullamento del prodotto: <br><b>x = 0 &nbsp;∨&nbsp; x = <span class="fr"><span>−b</span><span>a</span></span></b></li>
+        </ol></div>
+      </div>
+      <div class="blocco"><span class="etic">MONOMIA</span>
+        <p style="margin:0"><b>a x² = 0</b> &nbsp;(b = 0, c = 0)</p>
+        <div class="passi"><p style="margin:0">Ha <b>sempre</b> la soluzione doppia:<br><b>x₁ = x₂ = 0</b></p></div>
+      </div>
+    </div>
+
+    <div class="fascia">Equazione completa</div>
+    <div class="due">
+      <div class="blocco"><span class="etic">Discriminante</span>
+        <div class="riquadro-f">Δ = b² − 4ac</div>
+        <p style="margin:0">Il <b>segno di Δ</b> dice quante soluzioni reali ha l'equazione.</p></div>
+      <div class="blocco"><span class="etic">Formula risolutiva</span>
+        <div class="riquadro-f">x<sub>1,2</sub> = <span class="fr"><span>−b ± √<span class="rad">Δ</span></span><span>2a</span></span></div>
+        <p style="margin:0">Prima scrivo i valori di <b>a</b>, <b>b</b>, <b>c</b> con il loro <b>segno</b>.</p></div>
+    </div>
+
+    <p style="margin:22px 0 6px;font-weight:700">Tocca il segno di Δ per vedere che cosa succede:</p>
+    <div class="casi-btn" id="casiBtn">
+      <button type="button" data-caso="v" aria-pressed="false">Δ &gt; 0</button>
+      <button type="button" data-caso="b" aria-pressed="false">Δ = 0</button>
+      <button type="button" data-caso="r" aria-pressed="false">Δ &lt; 0</button>
+    </div>
+    <div class="tre casi" id="casi">
+      <div class="caso v"><span class="tag">Δ &gt; 0</span><h3>Due soluzioni reali distinte</h3>
+        <div class="sol">x₁ = <span class="fr"><span>−b − √<span class="rad">Δ</span></span><span>2a</span></span></div>
+        <div class="sol">x₂ = <span class="fr"><span>−b + √<span class="rad">Δ</span></span><span>2a</span></span></div></div>
+      <div class="caso b"><span class="tag">Δ = 0</span><h3>Due soluzioni reali coincidenti</h3>
+        <div class="sol">x₁ = x₂ = <span class="fr"><span>−b</span><span>2a</span></span></div></div>
+      <div class="caso r"><span class="tag">Δ &lt; 0</span><h3>Nessuna soluzione reale</h3>
+        <div class="sol" style="font-weight:400">√<span class="rad">Δ</span> non esiste in ℝ: l'equazione è <b>impossibile</b>.</div></div>
+    </div>
+  </section>
+
+  <!-- ================= PAGINA 2 ================= -->
+  <section class="pannello" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+    <div class="blocco"><span class="etic">Equazione fratta</span>
+      <p style="margin:0">L'incognita <b>x</b> compare <b>al denominatore</b> di almeno una frazione. Dopo i passaggi si arriva a un'equazione di secondo grado <b>a x² + b x + c = 0</b>.</p></div>
+
+    <div class="fascia">Schema risolutivo passo per passo</div>
+    <p style="margin:0 0 4px;color:var(--tenue)">Mentre risolvi un esercizio, spunta i passi che hai fatto.</p>
+    <div class="barra" aria-hidden="true"><span id="barra"></span></div>
+    <ol class="schema" id="schema">
+      <li><span class="num">1</span><div><div class="t">Condizioni di esistenza (C.E.)</div>Pongo <b>ogni denominatore ≠ 0</b> e trovo i valori di x da escludere.<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">2</span><div><div class="t">Scompongo i denominatori e calcolo il m.c.m.</div>Uso raccoglimenti e prodotti notevoli (vedi tabella sotto).<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">3</span><div><div class="t">Elimino i denominatori</div>Riduco allo stesso denominatore (il m.c.m.) e uguaglio i <b>numeratori</b>.<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">4</span><div><div class="t">Riduco a forma normale</div>Svolgo i calcoli, porto tutto al primo membro: <b>a x² + b x + c = 0</b>.<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">5</span><div><div class="t">Risolvo l'equazione di secondo grado</div>Riconosco il tipo (monomia, pura, spuria, completa) e uso il metodo della scheda 1.<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">6</span><div><div class="t">Controllo le soluzioni con le C.E.</div>Se una soluzione è uguale a un valore escluso → <b>NON accettabile</b>, la scarto.<label><input type="checkbox"> Fatto</label></div></li>
+      <li><span class="num">7</span><div><div class="t">Scrivo l'insieme soluzione</div>S = { … } con le sole soluzioni accettabili. Se le scarto tutte → <b>equazione impossibile</b>: <b>S = ∅</b>.<label><input type="checkbox"> Fatto</label></div></li>
+    </ol>
+    <p style="margin:10px 0 0"><button class="pulsante" type="button" id="azzera">Ricomincia lo schema</button></p>
+
+    <div class="attenzione"><b style="color:var(--r)">⚠ Attenzione</b> &nbsp;Anche se Δ ≥ 0, alla fine l'equazione fratta può avere <b>meno soluzioni</b> o essere <b>impossibile</b>: dipende dal confronto con le C.E. (passo 6).</div>
+
+    <div class="fascia">Prodotti notevoli</div>
+    <div class="casi-btn" id="verso">
+      <button type="button" data-v="sv" aria-pressed="true">Sviluppare → (passo 4)</button>
+      <button type="button" data-v="sc" aria-pressed="false">← Scomporre (passo 2)</button>
+    </div>
+    <div class="tab-scroll">
+      <table class="notevoli">
+        <thead><tr><th>Nome</th><th>Formula</th></tr></thead>
+        <tbody id="notevoli"></tbody>
+      </table>
+    </div>
+    <p style="color:var(--tenue)" id="spiegaVerso"></p>
+  </section>
+
+  <!-- ================= PROVA TU ================= -->
+  <section class="pannello" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+    <div class="blocco">
+      <span class="etic">Prova tu</span>
+      <p style="margin:0 0 12px">Scrivi i coefficienti di <b>a x² + b x + c = 0</b>, con il loro segno. Ti mostro il tipo di equazione e i passaggi.</p>
+      <form class="prova" id="prova">
+        <label for="ca">a <input id="ca" inputmode="decimal" value="1"></label>
+        <label for="cb">b <input id="cb" inputmode="decimal" value="-5"></label>
+        <label for="cc">c <input id="cc" inputmode="decimal" value="6"></label>
+        <button class="pulsante" type="submit" style="min-height:48px">Risolvi</button>
+      </form>
+      <div class="esempi" aria-label="Esempi pronti">
+        <span style="align-self:center;color:var(--tenue);font-size:15px">Esempi:</span>
+        <button type="button" data-e="1,-5,6">completa</button>
+        <button type="button" data-e="1,0,-9">pura</button>
+        <button type="button" data-e="2,-6,0">spuria</button>
+        <button type="button" data-e="3,0,0">monomia</button>
+        <button type="button" data-e="1,2,5">Δ &lt; 0</button>
+        <button type="button" data-e="1,-4,4">Δ = 0</button>
+      </div>
+      <div class="esito" id="esito" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+<footer id="piede"></footer>
+
+<script>
+/* ---------- Schede ---------- */
+var schede = document.querySelectorAll(".scheda");
+schede.forEach(function (s) {
+  s.addEventListener("click", function () {
+    schede.forEach(function (x) {
+      var on = x === s;
+      x.setAttribute("aria-selected", on ? "true" : "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  });
+});
+
+/* ---------- Casi del discriminante ---------- */
+var casi = document.getElementById("casi");
+document.querySelectorAll("#casiBtn button").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var gia = btn.getAttribute("aria-pressed") === "true";
+    document.querySelectorAll("#casiBtn button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    casi.querySelectorAll(".caso").forEach(function (c) { c.classList.remove("attivo"); });
+    if (gia) { casi.classList.remove("filtro"); return; }
+    btn.setAttribute("aria-pressed", "true");
+    casi.classList.add("filtro");
+    casi.querySelector(".caso." + btn.dataset.caso).classList.add("attivo");
+  });
+});
+
+/* ---------- Schema da spuntare ---------- */
+var caselle = document.querySelectorAll("#schema input");
+function aggiornaBarra() {
+  var n = 0;
+  caselle.forEach(function (c) { if (c.checked) n++; c.closest("li").classList.toggle("fatto", c.checked); });
+  document.getElementById("barra").style.width = (n / caselle.length * 100) + "%";
+}
+caselle.forEach(function (c) { c.addEventListener("change", aggiornaBarra); });
+document.getElementById("azzera").addEventListener("click", function () { caselle.forEach(function (c) { c.checked = false; }); aggiornaBarra(); });
+
+/* ---------- Prodotti notevoli nei due versi ---------- */
+var NOTEVOLI = [
+  ["Quadrato di un binomio", "(A ± B)²", "A² ± 2AB + B²"],
+  ["Somma per differenza", "(A + B)(A − B)", "A² − B²"],
+  ["Cubo di un binomio", "(A ± B)³", "A³ ± 3A²B + 3AB² ± B³"],
+];
+function mostraNotevoli(verso) {
+  document.getElementById("notevoli").innerHTML = NOTEVOLI.map(function (r) {
+    var f = verso === "sv" ? r[1] + " = " + r[2] : r[2] + " = " + r[1];
+    return "<tr><td>" + r[0] + '</td><td class="f">' + f + "</td></tr>";
+  }).join("");
+  document.getElementById("spiegaVerso").innerHTML = verso === "sv"
+    ? "Lette da sinistra a destra servono a <b>sviluppare</b> i calcoli (passo 4)."
+    : "Lette da destra a sinistra servono a <b>scomporre</b> i denominatori (passo 2).";
+}
+document.querySelectorAll("#verso button").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    document.querySelectorAll("#verso button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+    mostraNotevoli(btn.dataset.v);
+  });
+});
+mostraNotevoli("sv");
+
+/* ---------- Prova tu ---------- */
+function num(v) { return parseFloat(String(v).replace(",", ".").replace("−", "-")); }
+function arr(x) { var r = Math.round(x * 1000) / 1000; return (Object.is(r, -0) ? 0 : r).toString().replace(".", ",").replace("-", "−"); }
+function mcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a || 1; }
+function intero(x) { return Math.abs(x - Math.round(x)) < 1e-9; }
+/* scrive n/d come frazione ridotta se sono interi, altrimenti come decimale */
+function frazione(n, d) {
+  if (intero(n) && intero(d)) {
+    n = Math.round(n); d = Math.round(d);
+    if (d < 0) { n = -n; d = -d; }
+    var g = mcd(n, d); n /= g; d /= g;
+    if (d === 1) return String(n).replace("-", "−");
+    return (n < 0 ? "−" : "") + '<span class="fr"><span>' + Math.abs(n) + "</span><span>" + d + "</span></span>";
+  }
+  return arr(n / d);
+}
+function seg(x) { return x < 0 ? "(" + arr(x) + ")" : arr(x); }
+function termine(coef, lettera, primo) {
+  if (coef === 0) return "";
+  var s = coef < 0 ? " − " : (primo ? "" : " + ");
+  if (primo && coef < 0) s = "−";
+  var abs = Math.abs(coef);
+  return s + (abs === 1 && lettera ? "" : arr(abs)) + lettera;
+}
+function riga(t) { return '<div class="riga">' + t + "</div>"; }
+
+function risolvi(a, b, c) {
+  var out = "";
+  if ([a, b, c].some(isNaN)) return riga("Scrivi un numero in ogni casella (anche 0).");
+  if (a === 0) return riga("Con <b>a = 0</b> non c'è x²: <b>non è un'equazione di secondo grado</b>.");
+  var eq = termine(a, " x²", true) + termine(b, " x", false) + termine(c, "", false) + " = 0";
+  out += riga("Equazione: <b>" + eq + "</b> &nbsp;→ a = " + arr(a) + ", b = " + arr(b) + ", c = " + arr(c));
+
+  if (b === 0 && c === 0) {
+    out += riga("b = 0 e c = 0 → equazione <b class='n'>MONOMIA</b>.");
+    out += riga('<span class="fine">Soluzione doppia: x₁ = x₂ = 0</span>');
+    return out;
+  }
+  if (b === 0) {
+    out += riga("b = 0 → equazione <b class='n'>PURA</b>.");
+    var q = -c / a;
+    out += riga("1. Isolo x²: &nbsp;x² = " + frazione(-c, a));
+    if (q > 0) {
+      var r = Math.sqrt(q);
+      var rs = intero(r) ? String(Math.round(r)) : (intero(-c) && intero(a) && intero(Math.sqrt(Math.abs(-c))) && intero(Math.sqrt(Math.abs(a)))
+        ? frazione(Math.sqrt(Math.abs(c)), Math.sqrt(Math.abs(a))) : "√" + '<span class="rad">' + frazione(-c, a) + "</span> ≈ " + arr(r));
+      out += riga("2. " + frazione(-c, a) + " &gt; 0 → x = ±√" + '<span class="rad">' + frazione(-c, a) + "</span>");
+      out += riga('<span class="fine">x₁ = −' + rs + " &nbsp;&nbsp; x₂ = " + rs + "</span>");
+    } else {
+      out += riga("3. " + frazione(-c, a) + " &lt; 0 → nessun numero al quadrato è negativo.");
+      out += riga('<span class="fine">Equazione impossibile: S = ∅</span>');
+    }
+    return out;
+  }
+  if (c === 0) {
+    out += riga("c = 0 → equazione <b class='n'>SPURIA</b>.");
+    out += riga("1. Raccolgo x: &nbsp;x (" + termine(a, " x", true) + termine(b, "", false) + ") = 0");
+    out += riga("2. Legge di annullamento del prodotto: x = 0 &nbsp;∨&nbsp; " + termine(a, " x", true) + termine(b, "", false) + " = 0");
+    out += riga('<span class="fine">x₁ = 0 &nbsp;&nbsp; x₂ = ' + frazione(-b, a) + "</span>");
+    return out;
+  }
+  out += riga("a, b, c tutti diversi da 0 → equazione <b class='n'>COMPLETA</b>.");
+  var D = b * b - 4 * a * c;
+  out += riga("1. Discriminante: Δ = b² − 4ac = " + seg(b) + "² − 4 · " + seg(a) + " · " + seg(c) + " = <b>" + arr(D) + "</b>");
+  if (D < 0) {
+    out += riga("2. Δ &lt; 0 → √Δ non esiste in ℝ.");
+    out += riga('<span class="fine">Nessuna soluzione reale: equazione impossibile, S = ∅</span>');
+  } else if (D === 0) {
+    out += riga("2. Δ = 0 → due soluzioni coincidenti: x = −b / 2a = " + frazione(-b, 2 * a));
+    out += riga('<span class="fine">x₁ = x₂ = ' + frazione(-b, 2 * a) + "</span>");
+  } else {
+    var s = Math.sqrt(D);
+    var sTxt = intero(s) ? String(Math.round(s)) : "√" + arr(D);
+    out += riga("2. Δ &gt; 0 → due soluzioni distinte. √Δ = " + (intero(s) ? sTxt : sTxt + " ≈ " + arr(s)));
+    out += riga("3. x<sub>1,2</sub> = " + '<span class="fr"><span>' + arr(-b) + " ± " + sTxt + "</span><span>" + arr(2 * a) + "</span></span>");
+    var x1 = intero(s) ? frazione(-b - Math.round(s), 2 * a) : arr((-b - s) / (2 * a));
+    var x2 = intero(s) ? frazione(-b + Math.round(s), 2 * a) : arr((-b + s) / (2 * a));
+    var u = intero(s) ? " = " : " ≈ ";
+    out += riga('<span class="fine">x₁' + u + x1 + " &nbsp;&nbsp; x₂" + u + x2 + "</span>");
+  }
+  return out;
+}
+function calcola() {
+  document.getElementById("esito").innerHTML = risolvi(num(ca.value), num(cb.value), num(cc.value));
+}
+var ca = document.getElementById("ca"), cb = document.getElementById("cb"), cc = document.getElementById("cc");
+document.getElementById("prova").addEventListener("submit", function (e) { e.preventDefault(); calcola(); });
+document.querySelectorAll(".esempi button").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var v = btn.dataset.e.split(",");
+    ca.value = v[0]; cb.value = v[1]; cc.value = v[2]; calcola();
+  });
+});
+calcola();
+</script>
+</body>
+</html>

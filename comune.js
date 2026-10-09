@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", testataEPiede);
    (es. "Matematica - Equazioni di secondo grado.pdf") compare da solo
    nella pagina di quella materia. Non serve modificare materiali.js.
    ===================================================================== */
-var ESTENSIONI = { pdf: "pdf", png: "mappa", jpg: "mappa", jpeg: "mappa", html: "riassunto", docx: "pdf", pptx: "pdf" };
+var ESTENSIONI = { pdf: "pdf", png: "mappa", jpg: "mappa", jpeg: "mappa", html: "mappa", docx: "pdf", pptx: "pdf" };
 
 function normalizza(s) {
   return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
