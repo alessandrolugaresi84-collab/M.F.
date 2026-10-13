@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passive voice · Inglese</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261009">
+<script src="materiali.js?v=20261009"></script>
+<script src="comune.js?v=20261009"></script>
+<style>
+  :root{--ac:#6B3A7A;--ac-chiaro:#F4ECF7;--ac-bordo:#D4B8DE;--hl:#FFE7A3;--hl-testo:#6B4A00;--ok:#2F6B2F;--ok-chiaro:#EAF4E8;--no:#A3302A;--no-chiaro:#FBEAEA}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ac:#D3A6E3;--ac-chiaro:#2A1F2F;--ac-bordo:#53405C;--hl:#5A4A10;--hl-testo:#FFE7A3;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B}}
+  :root[data-theme="dark"]{--ac:#D3A6E3;--ac-chiaro:#2A1F2F;--ac-bordo:#53405C;--hl:#5A4A10;--hl-testo:#FFE7A3;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B}
+  .indice{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 22px}
+  .indice a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:999px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);text-decoration:none;font-weight:700;font-size:16px}
+  .indice a span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ac);color:var(--carta);font-size:13px}
+  .avviso{display:flex;gap:12px;align-items:center;background:var(--ac-chiaro);border:2px solid var(--ac);border-radius:14px;padding:12px 16px;margin:0 0 20px;font-size:18px}
+  .avviso svg{flex:none;color:var(--ac)}
+  section.cap{background:var(--carta);border:2px solid var(--ac-bordo);border-radius:16px;padding:20px 22px;margin:0 0 22px;scroll-margin-top:12px}
+  section.cap>h2{margin:0 0 6px;color:var(--ac);font-size:clamp(22px,3.4vw,28px);display:flex;align-items:center;gap:10px}
+  section.cap>h2 .n{display:inline-grid;place-items:center;flex:none;width:38px;height:38px;border-radius:10px;background:var(--ac);color:var(--carta);font-size:20px}
+  .perche{color:var(--tenue);margin:0 0 14px;font-size:17px}
+  .ricorda{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:12px;padding:12px 14px;margin:14px 0 0;font-size:18px}
+  .ricorda .tag{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:2px}
+  .formula{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:20px;font-weight:700;margin:8px 0 14px}
+  .formula span{padding:8px 14px;border-radius:10px;background:var(--fondo);border:2px solid var(--bordo)}
+  .formula span.be{background:var(--hl);border-color:#E0B53A;color:var(--hl-testo)}
+  .formula span.pp{background:var(--ac-chiaro);border-color:var(--ac)}
+  .trasforma{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:8px 0}
+  @media (max-width:700px){.trasforma{grid-template-columns:1fr}}
+  .frase{background:var(--fondo);border-radius:12px;padding:12px 14px;font-size:20px}
+  .frase small{display:block;font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--tenue);margin-bottom:2px}
+  .frase .it{display:block;font-size:16px;color:var(--tenue);font-style:italic;margin-top:4px}
+  b.be,mark.be{background:var(--hl);color:var(--hl-testo);border-radius:4px;padding:0 3px}
+  b.pp{color:var(--ac)}
+  .tab{width:100%;border-collapse:collapse;font-size:17px}
+  .tab th{background:var(--ac);color:var(--carta);text-align:left;padding:8px 10px}
+  .tab td{border-top:1px solid var(--bordo);padding:9px 10px;vertical-align:top}
+  .tab td .it{display:block;color:var(--tenue);font-style:italic;font-size:15px}
+  .scorri{overflow-x:auto}
+  .lettura p{font-size:20px;line-height:1.7;margin:0 0 6px}
+  .lettura h3{color:var(--ac);margin:18px 0 4px;font-size:20px}
+  .lettura .trad{display:none;font-size:16px;color:var(--tenue);font-style:italic;background:var(--fondo);border-radius:8px;padding:8px 12px;margin:0 0 10px}
+  .lettura.mostra-trad .trad{display:block}
+  .lettura mark.ps{background:transparent;color:inherit}
+  .lettura.evidenzia mark.ps{background:var(--hl);color:var(--hl-testo);border-radius:4px}
+  .pulsanti{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px}
+  .pulsante[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+  /* parole toccabili */
+  .w{cursor:pointer;border-radius:3px;transition:background .1s}
+  .w:hover{background:var(--ac-chiaro)}
+  .w.attiva{background:var(--ac);color:var(--carta)}
+  /* esercizi */
+  .es{background:var(--fondo);border:1px solid var(--bordo);border-radius:12px;padding:14px 16px;margin:0 0 12px}
+  .es p{margin:0 0 10px;font-size:19px}
+  .opz{display:flex;flex-wrap:wrap;gap:8px}
+  .opz button{min-height:48px;padding:6px 14px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:17px;cursor:pointer}
+  .opz button.giusta{background:var(--ok-chiaro);border-color:var(--ok)}
+  .opz button.sbagliata{background:var(--no-chiaro);border-color:var(--no)}
+  .es input{min-height:48px;font:inherit;font-size:19px;padding:4px 12px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);width:min(280px,100%)}
+  .es input.ok{border-color:var(--ok);background:var(--ok-chiaro)} .es input.no{border-color:var(--no);background:var(--no-chiaro)}
+  .riga-in{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .suggerimento{font-size:14px;font-weight:700;color:var(--tenue);border:1px solid var(--bordo);border-radius:999px;padding:2px 10px}
+  .spiega{margin-top:10px;font-size:16px;border-radius:8px;padding:8px 12px}
+  .spiega.ok{background:var(--ok-chiaro)} .spiega.no{background:var(--no-chiaro)}
+  .punteggio{font-size:20px;font-weight:700;margin:6px 0 0}
+  .verbi{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+  .verbi button{display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:48px;padding:8px 12px;border-radius:10px;border:1px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-size:17px;cursor:pointer;text-align:left}
+  .verbi b{color:var(--ac)}
+  .verbi .it{color:var(--tenue);font-size:14px}
+  /* dizionario */
+  #diz{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(580px,calc(100% - 24px));background:var(--carta);border:2px solid var(--ac);border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.28);z-index:30;padding:14px 16px 12px}
+  #diz[hidden]{display:none}
+  #diz .top{display:flex;align-items:center;gap:10px}
+  #diz .parola{font-size:26px;font-weight:700;color:var(--ac);flex:1;min-width:0;overflow-wrap:anywhere}
+  #diz .ico{min-width:46px;min-height:46px;border-radius:12px;border:1px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);cursor:pointer;display:grid;place-items:center;font-size:22px}
+  #diz .trad{font-size:20px;margin:6px 0 2px}
+  #diz .nota{font-size:15px;color:var(--tenue)}
+  #diz .link{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  #diz .link a{display:inline-flex;align-items:center;min-height:40px;padding:4px 12px;border-radius:999px;border:1px solid var(--bordo);text-decoration:none;color:var(--inchiostro);font-size:15px;font-weight:700}
+  #diz form{display:flex;gap:8px;margin-top:10px}
+  #diz form input{flex:1;min-width:0;min-height:46px;font:inherit;font-size:18px;padding:4px 12px;border-radius:12px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro)}
+  #apriDiz{position:fixed;right:14px;bottom:14px;z-index:29;display:flex;align-items:center;gap:8px;min-height:54px;padding:8px 18px;border-radius:999px;border:0;background:var(--ac);color:var(--carta);font:inherit;font-size:17px;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,.25);cursor:pointer}
+  main{padding-bottom:90px}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=inglese">Inglese</a></p>
+  <h1>Passive voice · la forma passiva</h1>
+  <p class="sottotitolo">Regole, una lettura su Thanksgiving e il Black Friday, ed esercizi con la correzione immediata.</p>
+
+  <div class="avviso">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
+    <span><b>Dizionario sempre attivo:</b> tocca <b>qualsiasi parola inglese</b> della pagina per vedere cosa significa e ascoltarla. Oppure usa il pulsante <b>«Traduci una parola»</b> in basso.</span>
+  </div>
+
+  <nav class="indice" aria-label="Argomenti">
+    <a href="#regola"><span>1</span>La regola</a>
+    <a href="#tempi"><span>2</span>Tutti i tempi</a>
+    <a href="#participi"><span>3</span>Participi irregolari</a>
+    <a href="#lettura"><span>4</span>Lettura</a>
+    <a href="#esercizi"><span>5</span>Esercizi</a>
+  </nav>
+
+  <!-- 1 REGOLA -->
+  <section class="cap" id="regola">
+    <h2><span class="n">1</span>La regola</h2>
+    <p class="perche">Nella frase <b>attiva</b> il soggetto <b>fa</b> l'azione. Nella frase <b>passiva</b> il soggetto <b>subisce</b> l'azione.</p>
+    <div class="formula" aria-label="soggetto più be più participio passato"><span>soggetto</span>+<span class="be">be</span>+<span class="pp">participio passato</span></div>
+    <div class="trasforma">
+      <div class="frase en"><small>ATTIVA</small>People <b>sell</b> clothes online.<span class="it">La gente vende vestiti online.</span></div>
+      <div style="font-size:28px;text-align:center;color:var(--ac)" aria-hidden="true">→</div>
+      <div class="frase en"><small>PASSIVA</small>Clothes <b class="be">are</b> <b class="pp">sold</b> online.<span class="it">I vestiti vengono venduti online.</span></div>
+    </div>
+    <ul style="font-size:18px;padding-left:22px;margin:14px 0 0">
+      <li>Il verbo <b>be</b> cambia secondo il <b>tempo</b> (is, was, has been, will be…).</li>
+      <li>Il verbo principale è sempre il <b>participio passato</b> (3ª colonna: sold, given, made…).</li>
+      <li>Per dire <b>chi</b> fa l'azione si usa <b>by</b> (= da): <span class="en">The parade is watched <b>by</b> millions of people.</span></li>
+      <li>Si usa quando <b>chi fa l'azione</b> non si sa o non è importante.</li>
+    </ul>
+    <div class="ricorda"><span class="tag">RICORDA</span>Passiva = <b>be</b> al tempo giusto + <b>participio passato</b>. Il trucco è guardare il verbo <b>be</b>: ti dice il tempo.</div>
+  </section>
+
+  <!-- 2 TEMPI -->
+  <section class="cap" id="tempi">
+    <h2><span class="n">2</span>Tutti i tempi</h2>
+    <p class="perche">Cambia solo il verbo <b class="be">be</b>. Il participio resta sempre uguale.</p>
+    <div class="scorri">
+      <table class="tab">
+        <tr><th>Tempo</th><th>Forma</th><th>Esempio</th></tr>
+        <tr><td><b>Present simple</b></td><td><b class="be">am / is / are</b> + p.p.</td><td class="en">English <b class="be">is</b> <b class="pp">spoken</b> all over the world.<span class="it">L'inglese è parlato in tutto il mondo.</span></td></tr>
+        <tr><td><b>Past simple</b></td><td><b class="be">was / were</b> + p.p.</td><td class="en">The turkey <b class="be">was</b> <b class="pp">cooked</b> by my grandmother.<span class="it">Il tacchino è stato cucinato da mia nonna.</span></td></tr>
+        <tr><td><b>Present continuous</b></td><td><b class="be">am / is / are being</b> + p.p.</td><td class="en">The house <b class="be">is being</b> <b class="pp">painted</b>.<span class="it">La casa viene dipinta (in questo momento).</span></td></tr>
+        <tr><td><b>Past continuous</b></td><td><b class="be">was / were being</b> + p.p.</td><td class="en">The car <b class="be">was being</b> <b class="pp">repaired</b>.<span class="it">La macchina veniva riparata.</span></td></tr>
+        <tr><td><b>Present perfect</b></td><td><b class="be">has / have been</b> + p.p.</td><td class="en">The windows <b class="be">have been</b> <b class="pp">cleaned</b>.<span class="it">Le finestre sono state pulite.</span></td></tr>
+        <tr><td><b>Will</b></td><td><b class="be">will be</b> + p.p.</td><td class="en">The results <b class="be">will be</b> <b class="pp">published</b> tomorrow.<span class="it">I risultati saranno pubblicati domani.</span></td></tr>
+        <tr><td><b>May / might</b></td><td><b class="be">may / might be</b> + p.p.</td><td class="en">The match <b class="be">might be</b> <b class="pp">cancelled</b>.<span class="it">La partita potrebbe essere annullata.</span></td></tr>
+        <tr><td><b>Be going to</b></td><td><b class="be">am / is / are going to be</b> + p.p.</td><td class="en">A new school <b class="be">is going to be</b> <b class="pp">built</b>.<span class="it">Verrà costruita una nuova scuola.</span></td></tr>
+      </table>
+    </div>
+    <p style="font-size:18px;margin:14px 0 0"><b>Negativa:</b> metti <b>not</b> dopo il primo verbo: <span class="en">The thief <b class="be">has not been</b> <b class="pp">caught</b>.</span> &nbsp;·&nbsp; <b>Domanda:</b> il primo verbo va davanti: <span class="en"><b class="be">Has</b> the thief <b class="be">been</b> <b class="pp">caught</b>?</span></p>
+    <div class="ricorda"><span class="tag">RICORDA</span>Present continuous → <b>being</b> · Present perfect → <b>been</b> · will / may / might → <b>be</b></div>
+  </section>
+
+  <!-- 3 PARTICIPI -->
+  <section class="cap" id="participi">
+    <h2><span class="n">3</span>Participi irregolari da sapere</h2>
+    <p class="perche">I verbi regolari fanno il participio in <b>-ed</b> (cleaned, cooked). Questi invece sono irregolari. Tocca per ascoltare.</p>
+    <div class="verbi" id="verbi"></div>
+  </section>
+
+  <!-- 4 LETTURA -->
+  <section class="cap" id="lettura">
+    <h2><span class="n">4</span>Lettura: what kind of spending is trending?</h2>
+    <p class="perche">Testo semplificato. Tocca le parole che non conosci.</p>
+    <div class="pulsanti">
+      <button class="pulsante" type="button" id="btEvid" aria-pressed="false">Evidenzia i passivi</button>
+      <button class="pulsante" type="button" id="btTrad" aria-pressed="false">Mostra la traduzione</button>
+      <button class="pulsante" type="button" id="btAscolta">Ascolta il testo</button>
+    </div>
+    <div class="lettura" id="testo">
+      <h3 class="en">Thanksgiving</h3>
+      <p class="en">Thanksgiving <mark class="ps">is celebrated</mark> in the USA on the fourth Thursday of November. On that day, families eat together and say thank you for the good things in their lives.</p>
+      <p class="trad">Il Ringraziamento si festeggia negli Stati Uniti il quarto giovedì di novembre. Quel giorno le famiglie mangiano insieme e dicono grazie per le cose belle della loro vita.</p>
+      <h3 class="en">Black Friday</h3>
+      <p class="en">Many Americans don't work on the Friday after Thanksgiving, so they go shopping. Big discounts <mark class="ps">are offered</mark> by the shops. This day <mark class="ps">is called</mark> Black Friday. It <mark class="ps">has been copied</mark> in the UK since about 2010. But there are problems too: the shops are very crowded and some people <mark class="ps">have been injured</mark>.</p>
+      <p class="trad">Molti americani non lavorano il venerdì dopo il Ringraziamento, così vanno a fare shopping. I negozi offrono grandi sconti. Questo giorno si chiama Black Friday. Dal 2010 circa è stato copiato nel Regno Unito. Ma ci sono anche problemi: i negozi sono pieni di gente e alcune persone sono state ferite.</p>
+      <h3 class="en">Cyber Monday</h3>
+      <p class="en">Cyber Monday <mark class="ps">was invented</mark> in 2005. On this day, big discounts <mark class="ps">are offered</mark> by online shops, and millions of products <mark class="ps">are bought</mark> on the internet.</p>
+      <p class="trad">Il Cyber Monday è stato inventato nel 2005. In questo giorno i negozi online offrono grandi sconti e milioni di prodotti vengono comprati su internet.</p>
+      <h3 class="en">Giving Tuesday</h3>
+      <p class="en">Some people think that Thanksgiving <mark class="ps">has been changed</mark> by all this shopping. So the day after Cyber Monday <mark class="ps">is</mark> now <mark class="ps">called</mark> Giving Tuesday. On this day, money <mark class="ps">is given</mark> to charity. Next year, billions of dollars <mark class="ps">will be spent</mark> on Black Friday, but millions <mark class="ps">will</mark> also <mark class="ps">be given</mark> to people who need help.</p>
+      <p class="trad">Alcune persone pensano che il Ringraziamento sia stato cambiato da tutto questo shopping. Così il giorno dopo il Cyber Monday ora si chiama Giving Tuesday. In questo giorno si danno soldi in beneficenza. L'anno prossimo si spenderanno miliardi di dollari per il Black Friday, ma si daranno anche milioni a persone che hanno bisogno di aiuto.</p>
+    </div>
+  </section>
+
+  <!-- 5 ESERCIZI -->
+  <section class="cap" id="esercizi">
+    <h2><span class="n">5</span>Esercizi</h2>
+    <h3 style="margin:6px 0 10px">A. Scegli la forma giusta</h3>
+    <div id="esA"></div>
+    <h3 style="margin:22px 0 10px">B. Completa con il passivo</h3>
+    <p class="perche" style="margin-top:-4px">Scrivi il verbo tra parentesi al passivo. L'etichetta ti dice il tempo da usare.</p>
+    <div id="esB"></div>
+    <h3 style="margin:22px 0 10px">C. Attiva o passiva?</h3>
+    <div id="esC"></div>
+    <div class="punteggio" id="punteggio" aria-live="polite"></div>
+    <p style="margin:10px 0 0"><button class="pulsante" type="button" id="ricomincia">Ricomincia gli esercizi</button></p>
+  </section>
+</main>
+<footer id="piede"></footer>
+
+<button id="apriDiz" type="button" aria-controls="diz">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Traduci una parola</button>
+
+<div id="diz" role="dialog" aria-labelledby="dizParola" hidden>
+  <div class="top">
+    <div class="parola" id="dizParola">Dizionario</div>
+    <button class="ico" type="button" id="dizAscolta" aria-label="Ascolta la pronuncia"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></button>
+    <button class="ico" type="button" id="dizChiudi" aria-label="Chiudi">×</button>
+  </div>
+  <div class="trad" id="dizTrad">Tocca una parola inglese nella pagina, oppure scrivila qui sotto.</div>
+  <div class="nota" id="dizNota"></div>
+  <div class="link" id="dizLink"></div>
+  <form id="dizForm"><label for="dizInput" class="sr" style="position:absolute;left:-9999px">Parola inglese</label><input id="dizInput" placeholder="Scrivi una parola inglese" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="pulsante" type="submit">Cerca</button></form>
+</div>
+
+<script>
+/* ===================== DIZIONARIO ===================== */
+var DIZ = {"a": "un, uno, una", "about": "circa; di, riguardo a", "after": "dopo", "all": "tutto, tutti", "also": "anche", "americans": "gli americani", "and": "e", "be": "essere <i>(nel passivo: is, are, was, were, been, being)</i>", "is": "è <i>(verbo be)</i>", "are": "sono <i>(verbo be)</i>", "am": "sono <i>(io)</i>", "was": "era, fu, è stato <i>(be al passato)</i>", "were": "erano, furono <i>(be al passato)</i>", "been": "stato <i>(participio di be)</i>", "being": "essendo <i>(nel passivo: «viene…» in questo momento)</i>", "association": "associazione", "because": "perché", "because of": "a causa di", "big": "grande", "billions": "miliardi", "billion": "miliardo", "black": "nero", "bought": "comprato <i>(participio di buy)</i>", "bridge": "ponte", "built": "costruito <i>(participio di build)</i>", "build": "costruire", "but": "ma", "buy": "comprare", "by": "da <i>(chi fa l'azione)</i>; entro", "called": "chiamato", "call": "chiamare", "cancelled": "annullato, cancellato", "cancel": "annullare", "car": "macchina, auto", "caught": "preso, catturato <i>(participio di catch)</i>", "catch": "prendere, catturare", "celebrate": "festeggiare, celebrare", "celebrated": "festeggiato, celebrato", "changed": "cambiato", "change": "cambiare", "charity": "beneficenza, ente benefico", "christmas": "Natale", "cleaned": "pulito", "clean": "pulire", "clothes": "vestiti", "cooked": "cucinato", "cook": "cucinare", "copied": "copiato", "copy": "copiare", "crowded": "affollato, pieno di gente", "crowds": "folle", "crowd": "folla", "cut": "tagliare; tagliato", "cyber": "cibernetico, legato a internet", "day": "giorno", "decorated": "decorato", "decorate": "decorare", "discounts": "sconti", "discount": "sconto", "dollars": "dollari", "dollar": "dollaro", "don't": "non <i>(do not)</i>", "do": "fare", "done": "fatto <i>(participio di do)</i>", "donate": "donare, regalare", "eat": "mangiare", "eaten": "mangiato <i>(participio di eat)</i>", "english": "inglese; la lingua inglese", "every": "ogni", "families": "famiglie", "family": "famiglia", "for": "per", "fourth": "quarto", "friday": "venerdì", "getting": "diventando; <i>getting ready</i> = preparandosi", "get": "prendere, ricevere, diventare", "gifts": "regali", "gift": "regalo", "give": "dare", "given": "dato <i>(participio di give)</i>", "giving": "dare, il donare", "go": "andare", "going": "andando; <i>going to</i> = futuro intenzionale", "going to": "stare per, avere intenzione di", "good": "buono, bello", "grandmother": "nonna", "has": "ha <i>(have)</i>", "have": "avere", "help": "aiuto; aiutare", "house": "casa", "in": "in, a, nel", "injure": "ferire", "injured": "ferito", "internet": "internet", "invent": "inventare", "invented": "inventato", "is going to": "sta per, verrà", "it": "esso, essa, lo, la", "know": "sapere, conoscere", "last": "ultimo; scorso (last night = ieri sera)", "lives": "vite", "life": "vita", "made": "fatto <i>(participio di make)</i>", "make": "fare, costruire", "many": "molti, molte", "marketing": "marketing, promozione commerciale", "match": "partita", "might": "potrebbe <i>(possibilità)</i>", "may": "può darsi, potrebbe", "millions": "milioni", "million": "milione", "monday": "lunedì", "money": "soldi, denaro", "more": "più, di più", "my": "mio, mia", "need": "avere bisogno di", "new": "nuovo", "next": "prossimo", "night": "notte, sera", "not": "non", "november": "novembre", "now": "adesso, ora", "of": "di", "offered": "offerto", "offer": "offrire; offerta", "on": "su, sopra; di (on Friday = di venerdì)", "online": "online, su internet", "over": "sopra; oltre; in tutto (all over = dappertutto)", "painted": "dipinto", "paint": "dipingere", "parade": "parata, sfilata", "people": "persone, gente", "presents": "regali", "present": "regalo; presente", "prices": "prezzi", "price": "prezzo", "problems": "problemi", "problem": "problema", "products": "prodotti", "product": "prodotto", "published": "pubblicato", "publish": "pubblicare", "put": "mettere; messo", "rain": "pioggia", "ready": "pronto", "repaired": "riparato", "repair": "riparare", "results": "risultati", "result": "risultato", "right": "giusto; destra (right now = proprio adesso)", "right now": "proprio adesso", "say": "dire", "school": "scuola", "sell": "vendere", "shopping": "fare acquisti, shopping", "shops": "negozi", "shop": "negozio", "since": "da <i>(da un momento preciso: since 2010)</i>", "so": "così, quindi", "sold": "venduto <i>(participio di sell)</i>", "some": "alcuni, alcune; un po' di", "spend": "spendere", "spent": "speso <i>(participio di spend)</i>", "speak": "parlare", "spoken": "parlato <i>(participio di speak)</i>", "stores": "negozi", "store": "negozio", "thank": "ringraziare (thank you = grazie)", "thanksgiving": "Festa del Ringraziamento", "that": "che; quello, quella", "the": "il, lo, la, i, gli, le", "their": "loro (di loro)", "there": "là, lì (there are = ci sono)", "there are": "ci sono", "they": "loro, essi", "thief": "ladro", "things": "cose", "thing": "cosa", "think": "pensare", "this": "questo, questa", "thursday": "giovedì", "tickets": "biglietti", "ticket": "biglietto", "to": "a, verso; per", "together": "insieme", "tomorrow": "domani", "too": "anche; troppo", "tuesday": "martedì", "turkey": "tacchino", "uk": "Regno Unito", "usa": "Stati Uniti", "very": "molto", "watched": "guardato", "watch": "guardare", "we": "noi", "who": "chi; che", "will": "<i>ausiliare del futuro</i> (will be = sarà)", "windows": "finestre; vetrine", "window": "finestra; vetrina", "work": "lavorare; lavoro", "world": "mondo", "year": "anno", "yet": "ancora <i>(nelle negative: not yet = non ancora)</i>", "you": "tu, voi", "sent": "mandato <i>(participio di send)</i>", "send": "mandare", "written": "scritto <i>(participio di write)</i>", "write": "scrivere", "seen": "visto <i>(participio di see)</i>", "see": "vedere", "taken": "preso <i>(participio di take)</i>", "take": "prendere", "begun": "cominciato <i>(participio di begin)</i>", "begin": "cominciare", "found": "trovato", "find": "trovare", "agent": "chi compie l'azione", "passive": "passivo", "active": "attivo", "past": "passato", "participle": "participio", "perfect": "perfetto (present perfect)", "continuous": "progressivo, che continua", "simple": "semplice"};
+var IRREG = {"is":"be","are":"be","am":"be","was":"be","were":"be","been":"be","being":"be","has":"have","had":"have","does":"do","did":"do","done":"do",
+  "sold":"sell","given":"give","gave":"give","made":"make","bought":"buy","spent":"spend","sent":"send","built":"build","eaten":"eat","ate":"eat","written":"write","wrote":"write",
+  "spoken":"speak","spoke":"speak","seen":"see","saw":"see","taken":"take","took":"take","begun":"begin","began":"begin","caught":"catch","children":"child","people":"people","men":"man","women":"woman"};
+function base(w) {
+  w = w.toLowerCase().replace(/[’']s$/, "").replace(/[’]/g, "'");
+  if (DIZ[w]) return w;
+  if (IRREG[w] && DIZ[IRREG[w]]) return IRREG[w];
+  var prove = [];
+  if (/ies$/.test(w)) prove.push(w.slice(0, -3) + "y");
+  if (/es$/.test(w)) prove.push(w.slice(0, -2));
+  if (/s$/.test(w)) prove.push(w.slice(0, -1));
+  if (/ied$/.test(w)) prove.push(w.slice(0, -3) + "y");
+  if (/ed$/.test(w)) { prove.push(w.slice(0, -2)); prove.push(w.slice(0, -1)); prove.push(w.slice(0, -3)); }
+  if (/ing$/.test(w)) { prove.push(w.slice(0, -3)); prove.push(w.slice(0, -3) + "e"); prove.push(w.slice(0, -4)); }
+  for (var i = 0; i < prove.length; i++) if (DIZ[prove[i]]) return prove[i];
+  return null;
+}
+var diz = document.getElementById("diz"), parolaCorrente = "", attiva = null;
+function link(w) {
+  var e = encodeURIComponent(w);
+  document.getElementById("dizLink").innerHTML =
+    '<a href="https://www.wordreference.com/enit/' + e + '" target="_blank" rel="noopener">WordReference ↗</a>' +
+    '<a href="https://translate.google.com/?sl=en&tl=it&text=' + e + '&op=translate" target="_blank" rel="noopener">Google Traduttore ↗</a>';
+}
+function mostra(w) {
+  w = String(w).trim();
+  if (!w) return;
+  parolaCorrente = w;
+  diz.hidden = false;
+  document.getElementById("dizParola").textContent = w;
+  var b = base(w), tr = document.getElementById("dizTrad"), nota = document.getElementById("dizNota");
+  link(w);
+  if (b) {
+    tr.innerHTML = DIZ[b];
+    nota.textContent = b !== w.toLowerCase().replace(/[’']s$/, "") ? "Forma base: " + b : "";
+    return;
+  }
+  tr.textContent = "Cerco la traduzione…"; nota.textContent = "";
+  if (!window.fetch) { tr.textContent = "Usa i link qui sotto per la traduzione."; return; }
+  fetch("https://api.mymemory.translated.net/get?langpair=en|it&q=" + encodeURIComponent(w))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (parolaCorrente !== w) return;
+      var t = d && d.responseData && d.responseData.translatedText;
+      if (t && t.toLowerCase() !== w.toLowerCase()) { tr.textContent = t; nota.textContent = "Traduzione automatica: controlla anche con WordReference."; }
+      else { tr.textContent = "Non trovata qui."; nota.textContent = "Prova con i link qui sotto."; }
+    })
+    .catch(function () { if (parolaCorrente === w) { tr.textContent = "Non trovata qui."; nota.textContent = "Prova con i link qui sotto."; } });
+}
+function parla(t, lang) {
+  if (!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(t); u.lang = lang || "en-GB"; u.rate = .85;
+  var v = speechSynthesis.getVoices().filter(function (x) { return /^en[-_]GB/i.test(x.lang); });
+  if (!v.length) v = speechSynthesis.getVoices().filter(function (x) { return /^en/i.test(x.lang); });
+  if (v.length) u.voice = v[0];
+  speechSynthesis.speak(u);
+}
+document.getElementById("dizAscolta").addEventListener("click", function () { if (parolaCorrente) parla(parolaCorrente); });
+document.getElementById("dizChiudi").addEventListener("click", function () { diz.hidden = true; if (attiva) attiva.classList.remove("attiva"); });
+document.getElementById("apriDiz").addEventListener("click", function () { diz.hidden = false; document.getElementById("dizInput").focus(); });
+document.getElementById("dizForm").addEventListener("submit", function (e) { e.preventDefault(); var v = document.getElementById("dizInput").value.trim().split(/\s+/)[0]; if (v) { mostra(v); } });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") diz.hidden = true; });
+
+/* rende toccabile ogni parola inglese */
+function avvolgi(root) {
+  var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (n) { if (!/[A-Za-z]/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT; if (n.parentNode.closest(".it, .trad, button, input, small")) return NodeFilter.FILTER_REJECT; return NodeFilter.FILTER_ACCEPT; }
+  });
+  var nodi = []; while (walker.nextNode()) nodi.push(walker.currentNode);
+  nodi.forEach(function (n) {
+    var frag = document.createDocumentFragment();
+    n.nodeValue.split(/([A-Za-z]+(?:['’][A-Za-z]+)?)/).forEach(function (pezzo, i) {
+      if (i % 2) { var s = document.createElement("span"); s.className = "w"; s.textContent = pezzo; frag.appendChild(s); }
+      else if (pezzo) frag.appendChild(document.createTextNode(pezzo));
+    });
+    n.parentNode.replaceChild(frag, n);
+  });
+}
+document.addEventListener("click", function (e) {
+  var w = e.target.closest(".w"); if (!w) return;
+  if (attiva) attiva.classList.remove("attiva");
+  attiva = w; w.classList.add("attiva");
+  mostra(w.textContent);
+});
+
+/* ===================== PARTICIPI ===================== */
+var VERBI = [["buy","bought","bought","comprare"],["sell","sold","sold","vendere"],["give","gave","given","dare"],["make","made","made","fare, costruire"],["put","put","put","mettere"],
+  ["spend","spent","spent","spendere"],["send","sent","sent","mandare"],["build","built","built","costruire"],["eat","ate","eaten","mangiare"],["write","wrote","written","scrivere"],
+  ["speak","spoke","spoken","parlare"],["see","saw","seen","vedere"],["take","took","taken","prendere"],["do","did","done","fare"],["cut","cut","cut","tagliare"],["begin","began","begun","cominciare"],["catch","caught","caught","prendere, catturare"],["find","found","found","trovare"]];
+document.getElementById("verbi").innerHTML = VERBI.map(function (v, i) {
+  return '<button type="button" data-i="' + i + '"><span>' + v[0] + " · " + v[1] + " · <b>" + v[2] + '</b></span><span class="it">' + v[3] + "</span></button>";
+}).join("");
+document.getElementById("verbi").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; var v = VERBI[+b.dataset.i]; parla(v[0] + ", " + v[1] + ", " + v[2]); });
+
+/* ===================== LETTURA ===================== */
+var testo = document.getElementById("testo");
+document.getElementById("btEvid").addEventListener("click", function () { var on = this.getAttribute("aria-pressed") !== "true"; this.setAttribute("aria-pressed", on); testo.classList.toggle("evidenzia", on); });
+document.getElementById("btTrad").addEventListener("click", function () { var on = this.getAttribute("aria-pressed") !== "true"; this.setAttribute("aria-pressed", on); testo.classList.toggle("mostra-trad", on); this.textContent = on ? "Nascondi la traduzione" : "Mostra la traduzione"; });
+document.getElementById("btAscolta").addEventListener("click", function () {
+  if ("speechSynthesis" in window && speechSynthesis.speaking) { speechSynthesis.cancel(); return; }
+  parla(Array.prototype.map.call(testo.querySelectorAll(".en"), function (p) { return p.textContent; }).join(". "));
+});
+if (!("speechSynthesis" in window)) document.getElementById("btAscolta").hidden = true;
+
+/* ===================== ESERCIZI ===================== */
+var punti = { A: {}, B: {}, C: {} };
+function aggiornaPunti() {
+  var tot = ES_A.length + ES_B.length + ES_C.length, g = 0, fatte = 0;
+  ["A", "B", "C"].forEach(function (k) { for (var i in punti[k]) { fatte++; if (punti[k][i]) g++; } });
+  document.getElementById("punteggio").innerHTML = fatte ? "Risposte giuste al primo tentativo: <b>" + g + "</b> · esercizi fatti: " + fatte + " su " + tot + (fatte === tot && g === tot ? " · Perfetto!" : "") : "";
+}
+var ES_A = [
+  ["The shops ___ for Christmas right now.", ["are being decorated", "are decorated", "have decorated"], 0, "<b>right now</b> = adesso → present continuous: are <b>being</b> decorated."],
+  ["The turkey ___ last night.", ["was cooked", "is cooking", "has been cooked"], 0, "<b>last night</b> = ieri sera → past simple: was cooked."],
+  ["Many presents ___ online every year.", ["are buying", "are bought", "bought"], 1, "<b>every year</b> = ogni anno → present simple: are bought."],
+  ["The parade ___ by millions of people tomorrow.", ["will watch", "is watched", "will be watched"], 2, "<b>tomorrow</b> = domani → will <b>be</b> watched."],
+  ["The tickets ___ yet.", ["haven't be sold", "haven't been sold", "hasn't sold"], 1, "<b>yet</b> → present perfect: haven't <b>been</b> sold."],
+  ["The match ___ because of the rain. We don't know yet.", ["might be cancelled", "might cancel", "might been cancelled"], 0, "Non è sicuro → might <b>be</b> cancelled."],
+  ["Black Friday ___ in the UK since 2010.", ["is copying", "has copied", "has been copied"], 2, "<b>since 2010</b> → present perfect passivo: has <b>been</b> copied."],
+  ["A new bridge ___ next year.", ["is going to be built", "is going to build", "is going to built"], 0, "Futuro con going to → is going to <b>be</b> built."],
+];
+var ES_B = [
+  ["Thanksgiving", "(celebrate)", "in November.", "present simple", ["is celebrated"]],
+  ["Cyber Monday", "(invent)", "in 2005.", "past simple", ["was invented"]],
+  ["Right now, the products", "(put)", "in the windows.", "present continuous", ["are being put"]],
+  ["Billions of dollars", "(spend)", "next November.", "will", ["will be spent"]],
+  ["Some people", "(injure)", "in the crowds.", "present perfect", ["have been injured"]],
+  ["On Giving Tuesday, money", "(give)", "to charity.", "present simple", ["is given"]],
+  ["The prices", "(cut)", "last Friday.", "past simple", ["were cut"]],
+  ["More gifts", "(buy)", "online next year.", "might", ["might be bought"]],
+];
+var ES_C = [
+  ["Big discounts are offered by the shops.", 1],
+  ["Many Americans go shopping on Friday.", 0],
+  ["The day was invented by a marketing association.", 1],
+  ["People donate money to charity.", 0],
+  ["The parade is watched by millions of people.", 1],
+  ["The stores are getting ready for the big day.", 0],
+];
+function spiega(box, ok, testo) { box.innerHTML = '<div class="spiega ' + (ok ? "ok" : "no") + '"><b>' + (ok ? "Giusto! " : "Non è così. ") + "</b>" + testo + "</div>"; }
+function costruisci() {
+  punti = { A: {}, B: {}, C: {} };
+  document.getElementById("esA").innerHTML = ES_A.map(function (q, i) {
+    return '<div class="es" data-i="' + i + '"><p class="en">' + (i + 1) + ". " + q[0].replace("___", "<b>_____</b>") + '</p><div class="opz">' +
+      q[1].map(function (o, k) { return '<button type="button" data-k="' + k + '">' + o + "</button>"; }).join("") + '</div><div class="box"></div></div>';
+  }).join("");
+  document.getElementById("esB").innerHTML = ES_B.map(function (q, i) {
+    return '<div class="es" data-i="' + i + '"><p class="en">' + (i + 1) + ". " + q[0] + " _____ " + q[1] + " " + q[2] + '</p><div class="riga-in"><label for="b' + i + '" style="position:absolute;left:-9999px">Risposta ' + (i + 1) + '</label><input id="b' + i + '" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="pulsante" type="button">Controlla</button><span class="suggerimento">' + q[3] + '</span></div><div class="box"></div></div>';
+  }).join("");
+  document.getElementById("esC").innerHTML = ES_C.map(function (q, i) {
+    return '<div class="es" data-i="' + i + '"><p class="en">' + (i + 1) + ". " + q[0] + '</p><div class="opz"><button type="button" data-k="0">Attiva</button><button type="button" data-k="1">Passiva</button></div><div class="box"></div></div>';
+  }).join("");
+  document.querySelectorAll("#esercizi .es p.en").forEach(avvolgi);
+  aggiornaPunti();
+}
+document.getElementById("esA").addEventListener("click", function (e) {
+  var b = e.target.closest(".opz button"); if (!b) return;
+  var d = b.closest(".es"), i = +d.dataset.i, q = ES_A[i], ok = +b.dataset.k === q[2];
+  d.querySelectorAll(".opz button").forEach(function (x) { x.classList.remove("giusta", "sbagliata"); });
+  b.classList.add(ok ? "giusta" : "sbagliata");
+  spiega(d.querySelector(".box"), ok, q[3]);
+  if (!(i in punti.A)) punti.A[i] = ok; aggiornaPunti();
+});
+function norm(s) { return s.toLowerCase().replace(/[’]/g, "'").replace(/\s+/g, " ").replace(/[.!?]$/, "").trim(); }
+function controllaB(d) {
+  var i = +d.dataset.i, q = ES_B[i], inp = d.querySelector("input"), v = norm(inp.value);
+  if (!v) return;
+  var ok = q[4].indexOf(v) >= 0;
+  inp.classList.remove("ok", "no"); inp.classList.add(ok ? "ok" : "no");
+  spiega(d.querySelector(".box"), ok, ok ? "<b>" + q[4][0] + "</b>" : "Il tempo è <b>" + q[3] + "</b>. Ricorda: be al tempo giusto + participio passato. Riprova, oppure guarda la soluzione: <b class='sol' style='filter:blur(5px);cursor:pointer' title='Tocca per vedere'>" + q[4][0] + "</b>");
+  if (!(i in punti.B)) punti.B[i] = ok; aggiornaPunti();
+}
+document.getElementById("esB").addEventListener("click", function (e) {
+  var s = e.target.closest(".sol"); if (s) { s.style.filter = "none"; return; }
+  var b = e.target.closest("button.pulsante"); if (b) controllaB(b.closest(".es"));
+});
+document.getElementById("esB").addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.tagName === "INPUT") { e.preventDefault(); controllaB(e.target.closest(".es")); } });
+document.getElementById("esC").addEventListener("click", function (e) {
+  var b = e.target.closest(".opz button"); if (!b) return;
+  var d = b.closest(".es"), i = +d.dataset.i, ok = +b.dataset.k === ES_C[i][1];
+  d.querySelectorAll(".opz button").forEach(function (x) { x.classList.remove("giusta", "sbagliata"); });
+  b.classList.add(ok ? "giusta" : "sbagliata");
+  spiega(d.querySelector(".box"), ok, ES_C[i][1] ? "C'è <b>be + participio passato</b>: il soggetto subisce l'azione." : "Il soggetto <b>fa</b> l'azione: non c'è be + participio passato.");
+  if (!(i in punti.C)) punti.C[i] = ok; aggiornaPunti();
+});
+document.getElementById("ricomincia").addEventListener("click", costruisci);
+
+/* avvio */
+document.querySelectorAll(".en").forEach(function (n) { if (!n.closest("#esercizi")) avvolgi(n); });
+costruisci();
+</script>
+</body>
+</html>
