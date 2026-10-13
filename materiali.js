@@ -26,6 +26,7 @@ const MATERIE = [
   { id: "inglese",    nome: "Inglese",    colore: "#6B3A7A", descrizione: "" },
   { id: "italiano",   nome: "Italiano",   colore: "#9A3B2A", descrizione: "" },
   { id: "storia",     nome: "Storia",     colore: "#5A5F6E", descrizione: "" },
+  { id: "disegno",    nome: "Disegno",    colore: "#1F5F99", descrizione: "" },
 ];
 
 const MATERIALI = [

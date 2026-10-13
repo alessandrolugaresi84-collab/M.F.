@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disegno tecnico: le basi · Disegno</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261009">
+<script src="materiali.js?v=20261009"></script>
+<script src="comune.js?v=20261009"></script>
+<style>
+  :root{--ac:#1F5F99;--ac-chiaro:#EAF2FA;--ac-bordo:#A9C6E3;--linea:#1F2230;--foglio:#FFFFFF;--griglia:#E6E1D6;--ok:#2F6B2F;--ok-chiaro:#EAF4E8}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ac:#8FBDEB;--ac-chiaro:#172433;--ac-bordo:#2E4A66;--linea:#ECEAE4;--foglio:#1E212C;--griglia:#2E3240;--ok:#8FCB86;--ok-chiaro:#1C2A1B}}
+  :root[data-theme="dark"]{--ac:#8FBDEB;--ac-chiaro:#172433;--ac-bordo:#2E4A66;--linea:#ECEAE4;--foglio:#1E212C;--griglia:#2E3240;--ok:#8FCB86;--ok-chiaro:#1C2A1B}
+
+  .indice{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 28px}
+  .indice a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:999px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);text-decoration:none;font-weight:700;font-size:16px}
+  .indice a:hover{border-color:var(--ac)}
+  .indice a span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ac);color:var(--carta);font-size:13px}
+
+  section.cap{background:var(--carta);border:2px solid var(--ac-bordo);border-radius:16px;padding:20px 22px;margin:0 0 22px;scroll-margin-top:12px}
+  section.cap>h2{margin:0 0 4px;color:var(--ac);font-size:clamp(22px,3.4vw,28px);display:flex;align-items:center;gap:10px}
+  section.cap>h2 .n{display:inline-grid;place-items:center;flex:none;width:38px;height:38px;border-radius:10px;background:var(--ac);color:var(--carta);font-size:20px}
+  .perche{color:var(--tenue);margin:0 0 16px;font-size:17px}
+  .ricorda{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:12px;padding:12px 14px;margin:14px 0 0;font-size:18px}
+  .ricorda .tag{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:2px}
+  .due{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+  @media (max-width:820px){.due{grid-template-columns:1fr}}
+  .scelte{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .scelte button{min-height:44px;min-width:52px;padding:6px 14px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .scelte button[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+  .esito{background:var(--ac-chiaro);border-radius:12px;padding:12px 14px;font-size:18px;min-height:56px}
+  .disegno{width:100%;height:auto;display:block;background:var(--foglio);border:1px solid var(--bordo);border-radius:12px}
+  .disegno text{font-family:"Atkinson",system-ui,sans-serif;fill:var(--linea)}
+  .tab{width:100%;border-collapse:collapse;font-size:17px}
+  .tab th{background:var(--ac);color:var(--carta);text-align:left;padding:8px 10px}
+  .tab td{border-top:1px solid var(--bordo);padding:8px 10px;vertical-align:middle}
+  .tab tr.att td{background:var(--ac-chiaro)}
+  .scorri{overflow-x:auto}
+  ol.passi{margin:0;padding-left:24px}
+  ol.passi li{margin:8px 0;font-size:18px}
+  .mina{display:inline-block;min-width:44px;text-align:center;font-weight:700;border-radius:8px;padding:2px 8px;background:var(--ac);color:var(--carta)}
+
+  /* matite */
+  .durezze{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));gap:4px;margin:6px 0 4px}
+  @media (max-width:700px){.durezze{grid-template-columns:repeat(9,minmax(0,1fr))}}
+  .durezze button{min-height:48px;border-radius:8px;border:2px solid transparent;font:inherit;font-weight:700;font-size:15px;cursor:pointer;color:#fff}
+  .durezze button[aria-pressed="true"]{outline:3px solid var(--inchiostro);outline-offset:2px}
+  .leg-dur{display:flex;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--tenue);margin:6px 0 12px}
+  .leg-dur span{display:inline-flex;align-items:center;gap:6px}
+  .leg-dur i{display:inline-block;width:16px;height:16px;border-radius:4px}
+
+  /* linee */
+  .righe-linee button{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;width:100%;text-align:left;min-height:56px;padding:8px 12px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;cursor:pointer;margin:0 0 8px}
+  .righe-linee button[aria-pressed="true"]{border-color:var(--ac);background:var(--ac-chiaro)}
+  .righe-linee svg{width:120px;height:20px}
+  .righe-linee b{display:block}
+  .righe-linee small{color:var(--tenue);font-size:15px}
+  .evid{stroke:#D9480F !important}
+  .attenua{opacity:.18}
+
+  /* checklist */
+  .check{list-style:none;margin:0;padding:0}
+  .check li{margin:0 0 8px}
+  .check label{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--bordo);border-radius:10px;background:var(--fondo);cursor:pointer;font-size:18px;min-height:48px}
+  .check input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:var(--ok)}
+  .check label.fatto{background:var(--ok-chiaro);border-color:var(--ok)}
+  .barra{height:12px;border-radius:99px;background:var(--bordo);overflow:hidden;margin:4px 0 14px}
+  .barra span{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+
+  .calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+  .calc label{display:flex;flex-direction:column;gap:4px;font-weight:700}
+  .calc input,.calc select{min-height:48px;font:inherit;font-size:20px;padding:4px 10px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);width:150px}
+  details.teoria{background:var(--carta);border:2px solid var(--bordo);border-radius:14px;padding:12px 18px;margin:0 0 12px}
+  details.teoria summary{cursor:pointer;font-weight:700;font-size:19px;min-height:36px;display:flex;align-items:center}
+  details.teoria p,details.teoria li{font-size:17px}
+  .tratteggi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  @media (max-width:640px){.tratteggi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .tratteggi figure{margin:0;text-align:center;font-size:15px}
+  .tratteggi svg{width:100%;height:auto;background:var(--foglio);border:1px solid var(--bordo);border-radius:8px}
+  .tratteggi figcaption{margin-top:4px}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=disegno">Disegno</a></p>
+  <h1>Disegno tecnico: le basi</h1>
+  <p class="sottotitolo">Tutto quello che serve per la verifica di disegno. Prima i passaggi pratici, alla fine la teoria. In fondo trovi la <b>checklist</b> da controllare prima di consegnare.</p>
+
+  <p style="margin:0 0 14px"><a class="pulsante" href="mappa-disegno-tecnico-basi.pdf" download style="background:var(--ac);border-color:var(--ac);color:var(--carta)">Scarica la mappa riassuntiva (PDF)</a></p>
+  <nav class="indice" aria-label="Argomenti">
+    <a href="#foglio"><span>1</span>Il foglio</a>
+    <a href="#squadratura"><span>2</span>Squadratura</a>
+    <a href="#matite"><span>3</span>Matite</a>
+    <a href="#linee"><span>4</span>Tipi di linea</a>
+    <a href="#scritte"><span>5</span>Scritte</a>
+    <a href="#scale"><span>6</span>Scale</a>
+    <a href="#tratteggi"><span>7</span>Tratteggi</a>
+    <a href="#strumenti"><span>8</span>Strumenti</a>
+    <a href="#checklist"><span>✓</span>Checklist</a>
+    <a href="#teoria"><span>i</span>Teoria</a>
+    <a href="#mappa"><span>↓</span>Mappa PDF</a>
+  </nav>
+
+  <!-- 1 FOGLIO -->
+  <section class="cap" id="foglio">
+    <h2><span class="n">1</span>Il foglio: formati e carta</h2>
+    <p class="perche">Il disegno tecnico è un <b>linguaggio universale</b>: segue regole uguali in tutto il mondo (norme ISO e UNI). La prima regola riguarda il foglio.</p>
+    <div class="due">
+      <div>
+        <p style="margin:0 0 6px;font-weight:700">Tocca un formato:</p>
+        <div class="scelte" id="sceltaFormato"></div>
+        <svg class="disegno" id="svgFormati" viewBox="-10 -10 1209 861" role="img" aria-label="Formati dei fogli A0, A1, A2, A3, A4"></svg>
+      </div>
+      <div>
+        <div class="esito" id="esitoFormato" aria-live="polite"></div>
+        <ul style="font-size:18px;margin:14px 0 0;padding-left:22px">
+          <li>Ogni formato si ottiene <b>tagliando a metà il lato lungo</b> del formato precedente.</li>
+          <li><b>A0</b> = 841 × 1189 mm, circa 1 m².</li>
+          <li>Il formato di riferimento è l'<b>A4</b>: i fogli più grandi si piegano fino a diventare A4, lasciando visibile il <b>riquadro delle iscrizioni</b>.</li>
+        </ul>
+        <p style="margin:14px 0 4px;font-weight:700">Tipi di carta</p>
+        <ul style="font-size:18px;margin:0;padding-left:22px">
+          <li><b>Quadrettata</b> → disegni a mano libera</li>
+          <li><b>Bianca</b> → disegni con gli strumenti</li>
+          <li><b>Trasparente (lucido)</b> → disegni da copiare</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ricorda"><span class="tag">RICORDA</span>A4 = <b>210 × 297</b> mm · A3 = <b>297 × 420</b> mm</div>
+  </section>
+
+  <!-- 2 SQUADRATURA -->
+  <section class="cap" id="squadratura">
+    <h2><span class="n">2</span>Squadratura e riquadro delle iscrizioni</h2>
+    <p class="perche">Il foglio non ha mai i bordi perfetti. Prima di disegnare si traccia la <b>squadratura</b> con riga e compasso. Segui i passi uno alla volta.</p>
+    <div class="scelte" id="sceltaPasso"></div>
+    <div class="due">
+      <svg class="disegno" id="svgSquadra" viewBox="0 0 330 240" role="img" aria-label="Costruzione della squadratura"></svg>
+      <div class="esito" id="esitoPasso" aria-live="polite" style="font-size:19px"></div>
+    </div>
+    <p style="margin:18px 0 6px;font-weight:700">Il riquadro delle iscrizioni (in basso a destra)</p>
+    <div class="scorri">
+      <table class="tab">
+        <tr><th>Zona principale (obbligatoria)</th><th>Zona aggiuntiva (se serve)</th></tr>
+        <tr><td>Ragione sociale (scuola o ditta) · Titolo del disegno · Numero del disegno · Responsabilità (data e firma) · Quote senza tolleranza · <b>Scala</b> · Simbolo del metodo di proiezione</td>
+            <td>Materiali · Altre informazioni · Modifiche</td></tr>
+      </table>
+    </div>
+    <div class="ricorda"><span class="tag">RICORDA</span>Squadratura interna con <b>linea grossa</b> a <b>10 mm</b> dal bordo (a sinistra si possono lasciare 25 mm per i fori). Riquadro sempre <b>in basso a destra</b>.</div>
+  </section>
+
+  <!-- 3 MATITE -->
+  <section class="cap" id="matite">
+    <h2><span class="n">3</span>Matite: quale mina per cosa</h2>
+    <p class="perche"><b>B</b> = black (nero, tenera) · <b>H</b> = hard (dura) · <b>F</b> = firm (stabile). Tocca una mina:</p>
+    <div class="durezze" id="durezze"></div>
+    <div class="leg-dur"><span><i style="background:#4A3A2A"></i>tenere</span><span><i style="background:#7A5A3A"></i>medie</span><span><i style="background:#3F6E8C"></i>dure</span><span><i style="background:#2C4A66"></i>durissime</span></div>
+    <div class="esito" id="esitoMina" aria-live="polite">Tocca una mina per vedere a cosa serve.</div>
+    <p style="margin:18px 0 6px;font-weight:700">Il metodo in 3 passi</p>
+    <ol class="passi">
+      <li>Disegna <b>tutto</b> con linea sottile e mina dura <span class="mina">2H</span>: si cancella facilmente se sbagli.</li>
+      <li>Ripassa le <b>linee grosse di contorno</b> con mina media <span class="mina">F</span> o <span class="mina">H</span>.</li>
+      <li>Alla fine scritte, frecce e quote con mina tenera <span class="mina">HB</span> o <span class="mina">B</span>.</li>
+    </ol>
+    <ul style="font-size:17px;margin:12px 0 0;padding-left:22px;color:var(--tenue)">
+      <li>Affila spesso la mina a punta conica.</li>
+      <li>Tieni la matita inclinata di 50–60° e <b>ruotala</b> mentre tracci: si consuma in modo uniforme.</li>
+    </ul>
+    <div class="ricorda"><span class="tag">RICORDA</span>Più la mina è <b>dura</b>, più la linea è <b>chiara e sottile</b>. Più è <b>tenera</b>, più è <b>nera</b>.</div>
+  </section>
+
+  <!-- 4 LINEE -->
+  <section class="cap" id="linee">
+    <h2><span class="n">4</span>Tipi di linea (UNI EN ISO 128-2)</h2>
+    <p class="perche">Ogni linea ha un significato. Tocca un tipo di linea: nel disegno a destra si colora dove viene usata.</p>
+    <div class="due">
+      <div class="righe-linee" id="righeLinee"></div>
+      <div>
+        <svg class="disegno" id="svgPezzo" viewBox="0 0 320 250" role="img" aria-label="Pezzo di esempio con i diversi tipi di linea"></svg>
+        <div class="esito" id="esitoLinea" style="margin-top:10px" aria-live="polite">Tocca un tipo di linea.</div>
+      </div>
+    </div>
+    <p style="margin:18px 0 6px;font-weight:700">Spessori</p>
+    <p style="margin:0;font-size:18px">Linea <b>grossa ≈ 0,5 mm</b> · linea <b>fine ≈ 0,25 mm</b> (sempre la <b>metà</b> della grossa).</p>
+    <p style="margin:16px 0 6px;font-weight:700">Se due linee si sovrappongono, vince quella più in alto in questa lista:</p>
+    <ol class="passi">
+      <li>contorni e spigoli in vista (continua grossa)</li>
+      <li>contorni e spigoli nascosti (a tratti)</li>
+      <li>tracce dei piani di sezione (mista grossa)</li>
+      <li>assi di simmetria (mista fine)</li>
+      <li>linee per applicazioni particolari (mista a due punti)</li>
+      <li>linee di riferimento (continua fine)</li>
+    </ol>
+    <div class="ricorda"><span class="tag">RICORDA</span><b>Grossa</b> = quello che vedi · <b>tratteggiata</b> = quello che è nascosto · <b>punto e linea</b> = assi.</div>
+  </section>
+
+  <!-- 5 SCRITTE -->
+  <section class="cap" id="scritte">
+    <h2><span class="n">5</span>Scritte sui disegni (UNI EN 3098)</h2>
+    <p class="perche">Le scritte devono essere <b>leggibili</b>, <b>uniformi</b> (stessa altezza e spessore) e <b>riproducibili</b>.</p>
+    <div class="due">
+      <svg class="disegno" viewBox="0 0 380 170" role="img" aria-label="Proporzioni delle altezze dei caratteri">
+        <g stroke="#9AA0AE" stroke-dasharray="4 3"><line x1="30" y1="64" x2="300" y2="64"/><line x1="30" y1="83" x2="300" y2="83"/><line x1="30" y1="120" x2="300" y2="120"/><line x1="30" y1="139" x2="300" y2="139"/></g>
+        <text id="campione" x="44" y="120" font-size="80" style="font-family:'Atkinson',sans-serif">ABcfg</text>
+        <g stroke="var(--ac)" stroke-width="2.5">
+          <line x1="24" y1="64" x2="24" y2="120"/><line x1="312" y1="83" x2="312" y2="120"/><line x1="312" y1="120" x2="312" y2="139"/>
+        </g>
+        <g style="fill:var(--ac)" font-size="15" font-weight="700">
+          <text x="6" y="97">H</text><text x="320" y="106">2/3 H</text><text x="320" y="135">1/3 H</text>
+        </g>
+      </svg>
+      <ul style="font-size:18px;margin:0;padding-left:22px">
+        <li><b>H</b> = altezza delle maiuscole.</li>
+        <li>Minuscole (a, c…) alte circa <b>2/3 di H</b>.</li>
+        <li>Le «code» (g, p) scendono di <b>1/3 di H</b>.</li>
+        <li>Altezze a mano libera: <b>2,5 – 3,5 mm</b>. Con normografo: 3,5 – 5 – 7 – 10 – 14 – 20 mm.</li>
+        <li>Scrittura dritta oppure inclinata di <b>15°</b> al massimo.</li>
+        <li>Matita <span class="mina">HB</span>, tratto sicuro: <b>mai ripassare</b> due volte la stessa lettera.</li>
+      </ul>
+    </div>
+    <div class="ricorda"><span class="tag">RICORDA</span>Stampatello, lettere tutte della <b>stessa altezza</b>, un po' larghe e vicine tra loro.</div>
+  </section>
+
+  <!-- 6 SCALE -->
+  <section class="cap" id="scale">
+    <h2><span class="n">6</span>Scale di rappresentazione</h2>
+    <p class="perche">Se il pezzo è troppo grande o troppo piccolo per il foglio, lo disegno <b>rimpicciolito</b> o <b>ingrandito</b>. La scala è il rapporto <b>disegno : realtà</b>.</p>
+    <div class="scorri">
+      <table class="tab">
+        <tr><th>Ingrandimento</th><th>Al naturale</th><th>Riduzione</th></tr>
+        <tr><td>2:1 · 5:1 · 10:1 · 20:1 · 50:1</td><td>1:1</td><td>1:2 · 1:5 · 1:10 · 1:20 · 1:50 · 1:100 · 1:200 …</td></tr>
+        <tr><td style="color:var(--tenue)">disegno più <b>grande</b> del pezzo</td><td style="color:var(--tenue)">uguale</td><td style="color:var(--tenue)">disegno più <b>piccolo</b> del pezzo</td></tr>
+      </table>
+    </div>
+    <p style="margin:18px 0 8px;font-weight:700">Calcolatore: quanto lo disegno sul foglio?</p>
+    <div class="calc">
+      <label for="misReale">Misura reale (mm)<input id="misReale" inputmode="decimal" value="120"></label>
+      <label for="scalaSel">Scala<select id="scalaSel"></select></label>
+    </div>
+    <div class="esito" id="esitoScala" style="margin-top:12px" aria-live="polite"></div>
+    <div class="ricorda"><span class="tag">RICORDA</span>Le <b>quote</b> scritte sul disegno sono sempre le misure <b>reali</b> del pezzo, non quelle del disegno. La scala va scritta nel <b>riquadro delle iscrizioni</b>.</div>
+  </section>
+
+  <!-- 7 TRATTEGGI -->
+  <section class="cap" id="tratteggi">
+    <h2><span class="n">7</span>Tratteggi (sezioni)</h2>
+    <p class="perche">Per far vedere l'interno di un pezzo lo si «taglia» con una <b>sezione</b>: la parte tagliata si riempie di tratteggio.</p>
+    <div class="tratteggi" id="tratteggiGen"></div>
+    <ul style="font-size:18px;margin:16px 0 0;padding-left:22px">
+      <li>Tratteggio <b>generico</b>: linee <b>continue fini</b>, parallele, inclinate a <b>45°</b>, alla stessa distanza tra loro.</li>
+      <li><b>Superfici grandi</b>: basta tratteggiare una fascia vicino ai bordi.</li>
+      <li><b>Superfici sottili</b> (lamiere): si riempiono tutte di nero.</li>
+      <li><b>Pezzi diversi uno accanto all'altro</b>: tratteggi con <b>direzione diversa</b> (o distanza diversa).</li>
+      <li><b>Non si tratteggiano</b> viti, bulloni, perni e parti piene cilindriche, anche se tagliate.</li>
+    </ul>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-weight:700;min-height:36px">Tratteggi specifici per materiali solidi</summary>
+      <div class="tratteggi" id="tratteggiSpec" style="margin-top:10px"></div>
+    </details>
+    <div class="ricorda"><span class="tag">RICORDA</span>Tratteggio = linea <b>fine</b>, a <b>45°</b>, tutte <b>parallele</b> e alla <b>stessa distanza</b>.</div>
+  </section>
+
+  <!-- 8 STRUMENTI -->
+  <section class="cap" id="strumenti">
+    <h2><span class="n">8</span>Strumenti</h2>
+    <div class="due">
+      <div>
+        <p style="margin:0 0 4px;font-weight:700">Squadre</p>
+        <svg class="disegno" viewBox="0 0 320 150" role="img" aria-label="Squadra a 45 gradi e squadra a 30 e 60 gradi">
+          <polygon points="20,130 140,130 20,10" fill="none" stroke="var(--ac)" stroke-width="3"/>
+          <text x="26" y="124" font-size="13">90°</text><text x="104" y="124" font-size="13">45°</text><text x="26" y="36" font-size="13">45°</text>
+          <polygon points="170,130 300,130 170,55" fill="none" stroke="var(--ac)" stroke-width="3"/>
+          <text x="176" y="124" font-size="13">90°</text><text x="262" y="124" font-size="13">30°</text><text x="176" y="78" font-size="13">60°</text>
+        </svg>
+        <p style="font-size:17px;margin:6px 0 0">Squadra <b>45°</b> e squadra <b>30°–60°</b>. Usate insieme alla riga servono a tracciare <b>parallele e perpendicolari</b>.</p>
+      </div>
+      <div>
+        <p style="margin:0 0 4px;font-weight:700">Compasso: regole</p>
+        <ul style="font-size:17px;margin:0;padding-left:22px">
+          <li>Mina tenera <span class="mina">HB</span> o <span class="mina">F</span>, affilata a <b>scalpello</b> con la parte inclinata verso l'esterno.</li>
+          <li>Aste sempre <b>perpendicolari</b> al foglio.</li>
+          <li>Ruota il compasso tenendolo leggermente inclinato nel senso della rotazione.</li>
+          <li>Foglio su una superficie morbida, così la punta non scivola.</li>
+        </ul>
+        <p style="margin:12px 0 4px;font-weight:700">Altri strumenti</p>
+        <p style="font-size:17px;margin:0">Goniometro (angoli) · mascherine (cerchi, simboli) · normografo (lettere) · curvilinei (curve) · gomme · affilamine · penne a china (spessori ISO 0,13 – 0,18 – 0,25 – 0,35 – 0,5 – 0,7 – 1 – 1,4 – 2 mm).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="cap" id="checklist" style="border-color:var(--ok)">
+    <h2 style="color:var(--ok)"><span class="n" style="background:var(--ok)">✓</span>Checklist: prima di consegnare</h2>
+    <p class="perche">Durante la verifica, spunta ogni punto quando lo hai controllato sul tuo disegno.</p>
+    <div class="barra" aria-hidden="true"><span id="barraCheck"></span></div>
+    <ul class="check" id="check"></ul>
+    <p style="margin:10px 0 0"><button class="pulsante" type="button" id="azzeraCheck">Ricomincia la checklist</button></p>
+  </section>
+
+  <!-- TEORIA -->
+  <h2 id="teoria" style="scroll-margin-top:12px">Teoria da sapere</h2>
+  <details class="teoria"><summary>Le norme: a cosa servono</summary>
+    <p>Il disegno permette di descrivere un oggetto in modo <b>completo e uguale per tutti</b>: forma esterna e interna, dimensioni, materiale, finitura, come costruirlo. Le parole invece possono essere interpretate in modi diversi.</p>
+    <p>Tre tipi di norme: <b>di rappresentazione</b> (fogli, linee, sezioni…), <b>di quotatura</b> (come si scrivono le misure), <b>di designazione</b> (come si indicano pezzi già in commercio: viti, dadi…).</p>
+    <p>Enti di unificazione: <b>ISO</b> (internazionale), <b>UNI</b> (Italia), DIN (Germania), AFNOR (Francia), BSI (Inghilterra), CEN (Europa), ANSI (USA)…</p>
+  </details>
+  <details class="teoria"><summary>Disegno al computer (CAD)</summary>
+    <p><b>CAD</b> = Computer Aided Design, disegno assistito dal computer. Vantaggi: velocità e precisione, facile da modificare, da archiviare e trasportare, librerie di simboli, collegamento con la produzione (<b>CAM</b>).</p>
+    <p><b>Stazione grafica</b> = hardware (le parti fisiche) + software (i programmi). Il computer ha <b>CPU</b> (elabora), <b>RAM</b> (memoria che si cancella a computer spento), <b>ROM</b> (memoria permanente).</p>
+    <p>Periferiche di <b>input</b> (entrano i dati): tastiera, mouse, scanner, tavoletta grafica. Di <b>output</b> (escono i risultati): monitor, stampante, plotter. Software di sistema: Windows, Linux, macOS.</p>
+  </details>
+  <details class="teoria"><summary>Postazione al computer e sicurezza (D.lgs. 81/2008)</summary>
+    <ul>
+      <li>Monitor a <b>50–80 cm</b> dagli occhi, bordo superiore all'altezza degli occhi.</li>
+      <li>Pausa di <b>15 minuti ogni 2 ore</b> (120 minuti) al videoterminale.</li>
+      <li>Avambracci paralleli al tavolo, mouse vicino, tappetino.</li>
+      <li>Sedia regolabile, piedi appoggiati, ginocchia ad angolo retto.</li>
+    </ul>
+  </details>
+  <details class="teoria"><summary>Unità di misura (Sistema Internazionale)</summary>
+    <p>Grandezze fondamentali: lunghezza (<b>metro, m</b>), massa (<b>kilogrammo, kg</b>), tempo (<b>secondo, s</b>), corrente (ampere, A), temperatura (kelvin, K), quantità di sostanza (mole), intensità luminosa (candela).</p>
+    <p>Derivate: forza (<b>newton, N</b>), pressione (pascal, Pa), lavoro ed energia (<b>joule, J</b>), potenza (<b>watt, W</b>).</p>
+  </details>
+  <details class="teoria"><summary>Numeri normali (serie di Renard)</summary>
+    <p>Per le dimensioni dei pezzi non si scelgono numeri a caso ma valori unificati: serie <b>R5, R10, R20, R40</b>. Si usa prima la R5 (1 – 1,6 – 2,5 – 4 – 6 – 10…). Servono a risparmiare e a rendere i pezzi intercambiabili.</p>
+  </details>
+
+  <section class="cap" id="mappa" style="margin-top:28px">
+    <h2><span class="n">↓</span>Mappa riassuntiva del capitolo</h2>
+    <p class="perche">Tutto il capitolo in 2 pagine, da stampare o tenere sul tablet: la pagina 1 è per disegnare, la pagina 2 è la teoria.</p>
+    <p style="margin:0;display:flex;flex-wrap:wrap;gap:10px">
+      <a class="pulsante" href="mappa-disegno-tecnico-basi.pdf" target="_blank" rel="noopener">Apri la mappa</a>
+      <a class="pulsante" href="mappa-disegno-tecnico-basi.pdf" download style="background:var(--ac);border-color:var(--ac);color:var(--carta)">Scarica il PDF</a>
+    </p>
+  </section>
+</main>
+<footer id="piede"></footer>
+
+<script>
+var NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, txt) {
+  var e = document.createElementNS(NS, tag);
+  for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (txt != null) e.textContent = txt;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function pulsanti(contenitore, etichette, onClick) {
+  var c = document.getElementById(contenitore);
+  c.innerHTML = etichette.map(function (t, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '">' + t + "</button>"; }).join("");
+  c.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    c.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    onClick(+b.dataset.i);
+  });
+  return function (i) { c.querySelectorAll("button")[i].click(); };
+}
+
+/* ========== 1. FORMATI ========== */
+var FORMATI = [["A0", 841, 1189], ["A1", 594, 841], ["A2", 420, 594], ["A3", 297, 420], ["A4", 210, 297]];
+var svgF = document.getElementById("svgFormati");
+// disposizione semplice: ogni formato è la metà del precedente, annidato in basso a sinistra
+var rett = [[0, 0, 1189, 841], [0, 0, 594, 841], [0, 421, 594, 420], [0, 421, 297, 420], [0, 631, 297, 210]];
+rett[4] = [0, 631, 297, 210]; // A4 orizzontale dentro A3
+var rr = rett.map(function (r, i) {
+  var g = el("g", {}, svgF);
+  var rect = el("rect", { x: r[0], y: r[1], width: r[2], height: r[3], fill: "transparent", stroke: "var(--linea)", "stroke-width": 5 }, g);
+  el("text", { x: r[0] + r[2] - 14, y: r[1] + 60, "font-size": 54, "text-anchor": "end", "font-weight": 700 }, g, FORMATI[i][0]);
+  return rect;
+});
+var scegliFormato = pulsanti("sceltaFormato", FORMATI.map(function (f) { return f[0]; }), function (i) {
+  rr.forEach(function (r, k) { r.setAttribute("fill", k === i ? "var(--ac-chiaro)" : "transparent"); r.setAttribute("stroke", k === i ? "var(--ac)" : "var(--linea)"); r.setAttribute("stroke-width", k === i ? 12 : 5); });
+  if (i) rr[i].parentNode.parentNode.appendChild(rr[i].parentNode);
+  var f = FORMATI[i];
+  document.getElementById("esitoFormato").innerHTML = "<b style='font-size:24px'>" + f[0] + "</b> = <b>" + f[1] + " × " + f[2] + " mm</b>" +
+    (i ? "<br>È la metà di " + FORMATI[i - 1][0] + "." : "<br>Il formato più grande: circa 1 metro quadrato.") + (i === 4 ? " È il formato di riferimento." : "");
+});
+scegliFormato(4);
+
+/* ========== 2. SQUADRATURA ========== */
+var sq = document.getElementById("svgSquadra");
+var O = [165, 120];
+var foglio = "M5,8 L90,6 L165,9 L250,6 L325,8 L327,70 L324,170 L325,232 L240,235 L165,231 L80,234 L5,232 L3,160 L6,80 Z";
+el("path", { d: foglio, fill: "var(--foglio)", stroke: "#B9B3A6", "stroke-width": 1.2 }, sq);
+var strati = [];
+for (var s = 0; s < 5; s++) strati.push(el("g", { opacity: 0 }, sq));
+var colAiuto = "#2C7BC0", colArco = "#D9480F";
+function punto(g, p, nome, dx, dy) { el("circle", { cx: p[0], cy: p[1], r: 2.5, fill: colArco }, g); el("text", { x: p[0] + (dx || 5), y: p[1] + (dy || -5), "font-size": 11, "font-weight": 700 }, g, nome); }
+function arco(g, c, r, a1, a2) {
+  var p1 = [c[0] + r * Math.cos(a1), c[1] + r * Math.sin(a1)], p2 = [c[0] + r * Math.cos(a2), c[1] + r * Math.sin(a2)];
+  el("path", { d: "M" + p1 + " A" + r + "," + r + " 0 0,1 " + p2, fill: "none", stroke: colArco, "stroke-width": 1.4 }, g);
+}
+// passo 1: diagonali, centro O, punti A B C D
+var g1 = strati[0];
+el("line", { x1: 5, y1: 8, x2: 325, y2: 232, stroke: colAiuto, "stroke-width": 1 }, g1);
+el("line", { x1: 325, y1: 8, x2: 5, y2: 232, stroke: colAiuto, "stroke-width": 1 }, g1);
+punto(g1, O, "O", 6, 14);
+var R = 50, dirs = [[160, -112], [-160, -112], [-160, 112], [160, 112]];
+var ABCD = dirs.map(function (d) { var l = Math.hypot(d[0], d[1]); return [O[0] + R * d[0] / l, O[1] + R * d[1] / l]; });
+el("circle", { cx: O[0], cy: O[1], r: R, fill: "none", stroke: colArco, "stroke-width": 1, "stroke-dasharray": "3 3" }, g1);
+["B", "C", "D", "A"].forEach(function (n, i) { punto(g1, ABCD[i], n, i === 1 || i === 2 ? -12 : 5); });
+// passo 2: archi da A B C D e assi
+var g2 = strati[1], R1 = 62;
+function incrocio(p, q, sopra) { var mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2, d = Math.hypot(q[0] - p[0], q[1] - p[1]), h = Math.sqrt(R1 * R1 - d * d / 4), ux = -(q[1] - p[1]) / d, uy = (q[0] - p[0]) / d; return sopra ? [mx + ux * h, my + uy * h] : [mx - ux * h, my - uy * h]; }
+var B = ABCD[0], C = ABCD[1], Dp = ABCD[2], A = ABCD[3];
+var F = incrocio(B, C, true), H = incrocio(A, Dp, false), G = incrocio(C, Dp, true), E = incrocio(B, A, false);
+[[B, F], [C, F], [Dp, H], [A, H], [C, G], [Dp, G], [B, E], [A, E]].forEach(function (pq) {
+  var c = pq[0], t = pq[1], a = Math.atan2(t[1] - c[1], t[0] - c[0]); arco(g2, c, R1, a - 0.18, a + 0.18);
+});
+punto(g2, F, "F"); punto(g2, H, "H", 5, 12); punto(g2, G, "G", -12); punto(g2, E, "E");
+el("line", { x1: 165, y1: 6, x2: 165, y2: 234, stroke: colAiuto, "stroke-width": 1.2, "stroke-dasharray": "10 2 2 2" }, g2);
+el("line", { x1: 4, y1: 120, x2: 326, y2: 120, stroke: colAiuto, "stroke-width": 1.2, "stroke-dasharray": "10 2 2 2" }, g2);
+// passo 3: punti L M N P e squadratura esterna (A4 orizzontale 297 x 210)
+var g3 = strati[2];
+var L = [165, 225], M = [313.5, 120], N = [165, 15], P = [16.5, 120];
+punto(g3, N, "N", 5, 12); punto(g3, L, "L", 5, -4); punto(g3, M, "M", -14, -5); punto(g3, P, "P", 4, -5);
+el("rect", { x: 16.5, y: 15, width: 297, height: 210, fill: "none", stroke: "var(--linea)", "stroke-width": 0.8 }, g3);
+el("text", { x: 170, y: 72, "font-size": 10, fill: colAiuto }, g3, "metà altezza");
+el("text", { x: 200, y: 134, "font-size": 10, fill: colAiuto }, g3, "metà base");
+// passo 4: squadratura interna 10 mm
+var g4 = strati[3];
+el("rect", { x: 26.5, y: 25, width: 277, height: 190, fill: "none", stroke: "var(--linea)", "stroke-width": 2.6 }, g4);
+el("line", { x1: 16.5, y1: 40, x2: 26.5, y2: 40, stroke: colArco, "stroke-width": 1 }, g4);
+el("text", { x: 30, y: 43, "font-size": 10, fill: colArco }, g4, "10 mm");
+// passo 5: riquadro iscrizioni
+var g5 = strati[4];
+el("rect", { x: 183.5, y: 185, width: 120, height: 30, fill: "var(--ac-chiaro)", stroke: "var(--linea)", "stroke-width": 1.6 }, g5);
+el("line", { x1: 183.5, y1: 200, x2: 303.5, y2: 200, stroke: "var(--linea)", "stroke-width": .8 }, g5);
+el("line", { x1: 243.5, y1: 185, x2: 243.5, y2: 200, stroke: "var(--linea)", "stroke-width": .8 }, g5);
+el("text", { x: 243.5, y: 211, "font-size": 9, "text-anchor": "middle" }, g5, "Titolo del disegno");
+el("text", { x: 213.5, y: 196, "font-size": 8, "text-anchor": "middle" }, g5, "Nome · data");
+el("text", { x: 273.5, y: 196, "font-size": 8, "text-anchor": "middle" }, g5, "Scala 1:1");
+var PASSI = [
+  "<b>1. Trova il centro.</b> Traccia le due <b>diagonali</b> del foglio: si incrociano nel centro <b>O</b>. Punta il compasso in O e, con un'apertura a piacere, segna 4 archi sulle diagonali: punti <b>A, B, C, D</b>.",
+  "<b>2. Traccia gli assi.</b> Punta il compasso in A, B, C e D e, con una nuova apertura, traccia 8 archi. Si incrociano nei punti <b>E, F, G, H</b>. Uniscili: ottieni l'asse <b>verticale</b> e l'asse <b>orizzontale</b>.",
+  "<b>3. Squadratura esterna.</b> Dal centro riporta sugli assi <b>metà altezza</b> e <b>metà base</b> del formato (per un A4 orizzontale: 105 mm e 148,5 mm): punti <b>L, M, N, P</b>. Traccia il rettangolo con <b>linea fine</b>: è il bordo del formato.",
+  "<b>4. Squadratura interna.</b> Dentro traccia un secondo rettangolo con <b>linea continua grossa</b>, a <b>10 mm</b> dal bordo (a sinistra si possono lasciare 25 mm per i fori).",
+  "<b>5. Riquadro delle iscrizioni.</b> Disegnalo <b>in basso a destra</b>. Dentro scrivi titolo, nome, data, <b>scala</b>.",
+];
+var scegliPasso = pulsanti("sceltaPasso", ["Passo 1", "Passo 2", "Passo 3", "Passo 4", "Passo 5"], function (i) {
+  strati.forEach(function (g, k) { g.setAttribute("opacity", k <= i ? (k < i && k < 2 ? .45 : 1) : 0); });
+  document.getElementById("esitoPasso").innerHTML = PASSI[i];
+});
+scegliPasso(0);
+
+/* ========== 3. MATITE ========== */
+var MINE = ["6B", "5B", "4B", "3B", "2B", "B", "HB", "F", "H", "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H"];
+function infoMina(i) {
+  var gruppo = i <= 4 ? ["tenere", "#4A3A2A"] : i <= 7 ? ["medie", "#7A5A3A"] : i <= 12 ? ["dure", "#3F6E8C"] : ["durissime", "#2C4A66"];
+  var campo = i <= 3 ? "disegno artistico" : i <= 7 ? "disegno a mano libera" : i <= 11 ? "disegno con righe e squadre" : "usi speciali";
+  var uso = { "2H": "<b>Prima costruzione</b> del disegno con linea sottile; linee fini, quote, tratteggi, assi.", "H": "Linee fini di quotatura, tratteggi, assi; anche per <b>ripassare i contorni</b>.", "F": "<b>Ripassare le linee grosse</b> di contorno. Va bene anche nel compasso.", "HB": "<b>Scritte</b>, frecce e quote. Va bene anche nel compasso.", "B": "Scritte, frecce e quote." }[MINE[i]];
+  return [gruppo, campo, uso];
+}
+var dz = document.getElementById("durezze");
+dz.innerHTML = MINE.map(function (m, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '" style="background:' + infoMina(i)[0][1] + '">' + m + "</button>"; }).join("");
+dz.addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b) return; var i = +b.dataset.i, inf = infoMina(i);
+  dz.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+  document.getElementById("esitoMina").innerHTML = "<b style='font-size:22px'>" + MINE[i] + "</b> · mina <b>" + inf[0][0] + "</b> · " + inf[1] + (inf[2] ? "<br>" + inf[2] : "");
+});
+
+/* ========== 4. LINEE ========== */
+var LINEE = [
+  { id: "grossa", nome: "Continua grossa", cod: "01.2", w: 3, dash: "", uso: "Spigoli e contorni <b>in vista</b>: quello che si vede del pezzo." },
+  { id: "fine", nome: "Continua fine", cod: "01.1", w: 1.2, dash: "", uso: "Linee di <b>misura</b> e di <b>riferimento</b> (quote), <b>tratteggi</b>, assi brevi, linee di richiamo." },
+  { id: "tratti", nome: "A tratti fine", cod: "02.1", w: 1.2, dash: "6 3", uso: "Spigoli e contorni <b>nascosti</b>: quello che c'è ma non si vede. Tratti di circa 3 mm." },
+  { id: "asse", nome: "Mista fine punto-linea", cod: "04.1", w: 1.2, dash: "16 3 2 3", uso: "<b>Assi di simmetria</b> e centri di fori e cerchi." },
+  { id: "taglio", nome: "Mista grossa punto-linea", cod: "04.2", w: 3, dash: "16 3 2 3", uso: "Posizione dei <b>piani di taglio</b> (dove si fa la sezione)." },
+  { id: "duepunti", nome: "Mista fine a due punti", cod: "05.1", w: 1.2, dash: "16 3 2 3 2 3", uso: "Contorni di <b>pezzi vicini</b>, posizioni estreme di parti mobili." },
+  { id: "zigzag", nome: "Continua fine a zig-zag / irregolare", cod: "01.1", w: 1.2, dash: "", zig: true, uso: "Dove una vista o una sezione è <b>interrotta</b>." },
+];
+var rl = document.getElementById("righeLinee");
+rl.innerHTML = LINEE.map(function (l, i) {
+  var linea = l.zig ? '<polyline points="2,10 50,10 56,3 64,17 70,10 118,10" fill="none" stroke="currentColor" stroke-width="' + l.w + '"/>' :
+    '<line x1="2" y1="10" x2="118" y2="10" stroke="currentColor" stroke-width="' + l.w + '"' + (l.dash ? ' stroke-dasharray="' + l.dash + '"' : "") + "/>";
+  return '<button type="button" aria-pressed="false" data-i="' + i + '"><svg viewBox="0 0 120 20" aria-hidden="true">' + linea + "</svg><span><b>" + l.nome + "</b><small>tipo " + l.cod + "</small></span></button>";
+}).join("");
+// pezzo di esempio: piastra con foro, vista frontale con sezione a metà
+var sp = document.getElementById("svgPezzo");
+function L_(tipo, attrs, tag) {
+  var l = LINEE.filter(function (x) { return x.id === tipo; })[0];
+  attrs.stroke = "var(--linea)"; attrs["stroke-width"] = l.w; attrs.fill = attrs.fill || "none"; if (l.dash) attrs["stroke-dasharray"] = l.dash;
+  attrs["data-tipo"] = tipo; attrs["class"] = "ln";
+  return el(tag || "line", attrs, sp);
+}
+var clip = el("clipPath", { id: "clipSez" }, el("defs", {}, sp));
+el("path", { d: "M40,60 H120 V130 H40 Z M100,60 V130 H120 V60 Z" }, clip);
+el("rect", { x: 40, y: 60, width: 60, height: 70 }, clip);
+var gT = el("g", { "clip-path": "url(#clipSez)" }, sp);
+for (var k = -80; k < 140; k += 10) {
+  var lt = el("line", { x1: 40 + k, y1: 130, x2: 40 + k + 70, y2: 60, stroke: "var(--linea)", "stroke-width": 1.2, "data-tipo": "fine", "class": "ln" }, gT);
+}
+// contorni in vista
+L_("grossa", { points: "40,60 220,60 220,130 40,130 40,60", }, "polyline");
+L_("grossa", { x1: 100, y1: 60, x2: 100, y2: 130 });
+L_("grossa", { x1: 120, y1: 60, x2: 120, y2: 130 });
+// foro nascosto a destra
+L_("tratti", { x1: 160, y1: 60, x2: 160, y2: 130 });
+L_("tratti", { x1: 180, y1: 60, x2: 180, y2: 130 });
+// assi
+L_("asse", { x1: 110, y1: 48, x2: 110, y2: 142 });
+L_("asse", { x1: 170, y1: 48, x2: 170, y2: 142 });
+L_("asse", { x1: 28, y1: 95, x2: 232, y2: 95 });
+// quota
+L_("fine", { x1: 40, y1: 132, x2: 40, y2: 168 });
+L_("fine", { x1: 220, y1: 132, x2: 220, y2: 168 });
+L_("fine", { x1: 40, y1: 162, x2: 220, y2: 162 });
+el("path", { d: "M40,162 l8,-3 v6 z M220,162 l-8,-3 v6 z", fill: "var(--linea)" }, sp);
+el("text", { x: 130, y: 157, "font-size": 12, "text-anchor": "middle" }, sp, "90");
+// piano di taglio
+L_("taglio", { x1: 110, y1: 182, x2: 110, y2: 196 });
+L_("taglio", { x1: 110, y1: 18, x2: 110, y2: 32 });
+el("text", { x: 116, y: 30, "font-size": 12, "font-weight": 700 }, sp, "A");
+// pezzo vicino
+L_("duepunti", { points: "220,75 290,75 290,115 220,115", }, "polyline");
+// interruzione
+L_("zigzag", { points: "290,140 290,160 284,166 296,172 290,178 290,200" }, "polyline");
+el("text", { x: 20, y: 236, "font-size": 11, fill: "var(--tenue)" }, sp, "Pezzo di esempio: a sinistra tagliato in sezione");
+var ln = sp.querySelectorAll(".ln");
+rl.addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b) return; var l = LINEE[+b.dataset.i];
+  rl.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+  ln.forEach(function (n) { var on = n.dataset.tipo === l.id; n.classList.toggle("evid", on); n.classList.toggle("attenua", !on); if (on) n.setAttribute("stroke-width", Math.max(l.w, 2.4)); else n.setAttribute("stroke-width", LINEE.filter(function (x) { return x.id === n.dataset.tipo; })[0].w); });
+  document.getElementById("esitoLinea").innerHTML = "<b>" + l.nome + "</b> (" + l.cod + ")<br>" + l.uso;
+});
+
+/* ========== 6. SCALE ========== */
+var SCALE = [[50, 1], [20, 1], [10, 1], [5, 1], [2, 1], [1, 1], [1, 2], [1, 5], [1, 10], [1, 20], [1, 50], [1, 100]];
+var sel = document.getElementById("scalaSel");
+sel.innerHTML = SCALE.map(function (s, i) { return '<option value="' + i + '"' + (i === 7 ? " selected" : "") + ">" + s[0] + " : " + s[1] + "</option>"; }).join("");
+function calcolaScala() {
+  var m = parseFloat(String(document.getElementById("misReale").value).replace(",", "."));
+  var s = SCALE[+sel.value], out = document.getElementById("esitoScala");
+  if (isNaN(m)) { out.textContent = "Scrivi una misura in millimetri."; return; }
+  var d = m * s[0] / s[1], ris = (Math.round(d * 100) / 100).toString().replace(".", ",");
+  var come = s[0] === 1 && s[1] === 1 ? "Scala al naturale: la misura <b>resta uguale</b>." :
+    s[0] === 1 ? "Riduzione: <b>divido per " + s[1] + "</b> → " + String(m).replace(".", ",") + " : " + s[1] :
+    "Ingrandimento: <b>moltiplico per " + s[0] + "</b> → " + String(m).replace(".", ",") + " × " + s[0];
+  out.innerHTML = come + " = <b style='font-size:22px'>" + ris + " mm</b> sul foglio.<br><span style='color:var(--tenue)'>Ma sulla quota scrivo sempre <b>" + String(m).replace(".", ",") + "</b> (la misura reale).</span>";
+}
+document.getElementById("misReale").addEventListener("input", calcolaScala);
+sel.addEventListener("change", calcolaScala);
+calcolaScala();
+
+/* ========== 7. TRATTEGGI ========== */
+function riquadroTr(contenitore, nome, disegna) {
+  var fig = document.createElement("figure");
+  var s = el("svg", { viewBox: "0 0 100 64", role: "img", "aria-label": nome });
+  var cp = el("clipPath", { id: "c" + Math.random().toString(36).slice(2) }, el("defs", {}, s));
+  el("rect", { x: 4, y: 4, width: 92, height: 56 }, cp);
+  var g = el("g", { "clip-path": "url(#" + cp.id + ")", stroke: "var(--linea)", "stroke-width": 1, fill: "none" }, s);
+  disegna(g);
+  el("rect", { x: 4, y: 4, width: 92, height: 56, fill: "none", stroke: "var(--linea)", "stroke-width": 2 }, s);
+  fig.appendChild(s);
+  var cap = document.createElement("figcaption"); cap.innerHTML = nome; fig.appendChild(cap);
+  document.getElementById(contenitore).appendChild(fig);
+}
+function diag(g, passo, verso, spess) { for (var k = -70; k < 110; k += passo) el("line", verso > 0 ? { x1: k, y1: 64, x2: k + 64, y2: 0, "stroke-width": spess || 1 } : { x1: k, y1: 0, x2: k + 64, y2: 64, "stroke-width": spess || 1 }, g); }
+riquadroTr("tratteggiGen", "<b>Generico</b> (45°)", function (g) { diag(g, 8, 1); });
+riquadroTr("tratteggiGen", "Aeriformi (gas)", function (g) { for (var x = 8; x < 96; x += 7) for (var y = 8; y < 60; y += 7) el("circle", { cx: x + (y % 14 ? 3 : 0), cy: y, r: .9, fill: "var(--linea)", stroke: "none" }, g); });
+riquadroTr("tratteggiGen", "Fluidi (liquidi)", function (g) { [18, 30, 42, 54].forEach(function (y, i) { el("line", { x1: 10 + i * 6, y1: y, x2: 60 + i * 6, y2: y }, g); }); el("path", { d: "M44,10 l6,0 l-3,5 z" }, g); });
+riquadroTr("tratteggiGen", "Solidi (come il generico)", function (g) { diag(g, 8, 1); });
+riquadroTr("tratteggiGen", "Terreno", function (g) { diag(g, 12, 1); for (var k = -40; k < 100; k += 24) el("line", { x1: k, y1: 0, x2: k + 30, y2: 64 }, g); });
+riquadroTr("tratteggiSpec", "Materiale principale", function (g) { diag(g, 8, 1); });
+riquadroTr("tratteggiSpec", "Materiale da evidenziare", function (g) { diag(g, 8, 1); diag(g, 8, -1); });
+riquadroTr("tratteggiSpec", "Materiali ausiliari", function (g) { for (var k = -40; k < 100; k += 22) { el("line", { x1: k, y1: 64, x2: k + 64, y2: 0 }, g); el("line", { x1: k + 4, y1: 64, x2: k + 68, y2: 0 }, g); } });
+riquadroTr("tratteggiSpec", "Legno", function (g) { for (var k = -40; k < 110; k += 6) el("path", { d: "M" + k + ",64 q20,-20 32,-32 t32,-32" }, g); });
+riquadroTr("tratteggiSpec", "Avvolgimenti elettrici", function (g) { for (var x = 4; x < 100; x += 8) el("line", { x1: x, y1: 0, x2: x, y2: 64 }, g); for (var y = 4; y < 64; y += 8) el("line", { x1: 0, y1: y, x2: 100, y2: y }, g); });
+riquadroTr("tratteggiSpec", "Isolanti", function (g) { for (var y = 4; y < 64; y += 8) el("line", { x1: 0, y1: y, x2: 100, y2: y }, g); diag(g, 16, 1); });
+riquadroTr("tratteggiSpec", "Materiali trasparenti", function (g) { [[10, 50], [40, 50], [70, 50], [10, 28], [40, 28], [70, 28]].forEach(function (p) { for (var j = 0; j < 3; j++) el("line", { x1: p[0] + j * 5, y1: p[1], x2: p[0] + j * 5 + 10, y2: p[1] - 14 }, g); }); });
+riquadroTr("tratteggiSpec", "Conglomerato cementizio", function (g) { [[14, 16], [40, 12], [70, 20], [24, 40], [56, 44], [82, 46], [12, 54]].forEach(function (p) { el("ellipse", { cx: p[0], cy: p[1], rx: 5, ry: 3 }, g); }); for (var x = 8; x < 96; x += 9) el("circle", { cx: x, cy: 30 + (x % 18), r: .8, fill: "var(--linea)" }, g); });
+
+/* ========== CHECKLIST ========== */
+var CHECK = [
+  "Foglio <b>squadrato</b>: cornice con linea grossa a 10 mm dal bordo.",
+  "<b>Riquadro delle iscrizioni</b> in basso a destra, compilato (titolo, nome, data, <b>scala</b>).",
+  "Costruzione fatta prima con <b>linea sottile</b> (mina 2H).",
+  "<b>Contorni in vista</b> ripassati con <b>linea continua grossa</b> (mina F o H).",
+  "Spigoli <b>nascosti</b> a <b>tratti</b>.",
+  "<b>Assi di simmetria</b> e centri dei cerchi con linea <b>punto-linea</b> fine.",
+  "<b>Tratteggi</b> con linea fine a <b>45°</b>, paralleli e alla stessa distanza.",
+  "<b>Quote</b> con le misure <b>reali</b> del pezzo, linee di misura fini e frecce.",
+  "Scritte in <b>stampatello</b>, tutte della <b>stessa altezza</b> (mina HB).",
+  "Il disegno è <b>al centro</b> del foglio e <b>pulito</b> (linee di costruzione in più cancellate).",
+];
+var ck = document.getElementById("check");
+ck.innerHTML = CHECK.map(function (c, i) { return '<li><label for="c' + i + '"><input type="checkbox" id="c' + i + '"><span>' + c + "</span></label></li>"; }).join("");
+function aggiornaCheck() {
+  var n = 0;
+  ck.querySelectorAll("input").forEach(function (x) { if (x.checked) n++; x.closest("label").classList.toggle("fatto", x.checked); });
+  document.getElementById("barraCheck").style.width = (n / CHECK.length * 100) + "%";
+}
+ck.addEventListener("change", aggiornaCheck);
+document.getElementById("azzeraCheck").addEventListener("click", function () { ck.querySelectorAll("input").forEach(function (x) { x.checked = false; }); aggiornaCheck(); });
+</script>
+</body>
+</html>
