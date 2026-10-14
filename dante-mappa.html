@@ -3,49 +3,349 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mappa · Introduzione alla Divina Commedia</title>
+<title>La Divina Commedia · Mappe</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="stile.css?v=20261009">
-<script src="materiali.js?v=20261009"></script>
-<script src="comune.js?v=20261009"></script>
+<link rel="stylesheet" href="stile.css?v=20261014">
+<script src="materiali.js?v=20261014"></script>
+<script src="comune.js?v=20261014"></script>
+<style>
+:root{--c5:#7A4E8F;--oro:#B7791F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c5:#C7A2E0;--oro:#E0B25A}}
+:root[data-theme="dark"]{--c5:#C7A2E0;--oro:#E0B25A}
+
+.schede-parti{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 20px}
+.parte-btn{display:flex;align-items:center;gap:14px;text-align:left;min-height:64px;padding:12px 16px;border-radius:14px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;cursor:pointer}
+.parte-btn .n{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:22px;background:var(--fondo);border:2px solid var(--bordo)}
+.parte-btn b{display:block;font-size:18px;line-height:1.25}
+.parte-btn small{display:block;color:var(--tenue);font-size:14px;line-height:1.3}
+.parte-btn[aria-selected="true"]{border-color:var(--inchiostro);background:var(--inchiostro);color:var(--fondo)}
+.parte-btn[aria-selected="true"] small{color:inherit;opacity:.85}
+.parte-btn[aria-selected="true"] .n{background:var(--fondo);color:var(--inchiostro);border-color:var(--fondo)}
+@media (max-width:560px){.schede-parti{grid-template-columns:1fr}}
+.parte[hidden]{display:none}
+
+.colonne.cinque{display:flex;flex-wrap:wrap;justify-content:center;gap:28px 24px}
+.colonne.cinque .colonna{flex:0 1 calc((100% - 48px)/3)}
+@media (max-width:1100px){.colonne.cinque .colonna{flex-basis:calc((100% - 24px)/2)}}
+@media (max-width:640px){.colonne.cinque .colonna{flex-basis:100%}}
+
+.semplice .ascolta{float:right;margin:-4px -6px 4px 8px;width:36px;height:36px;border-radius:50%;border:1px solid var(--semplice-bordo);background:var(--carta);color:var(--semplice-testo);display:grid;place-items:center;cursor:pointer}
+.semplice .ascolta.attivo{background:var(--semplice-testo);color:var(--carta)}
+.ponte{margin-top:10px;display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 12px;border-radius:10px;border:2px dashed var(--giallo-bordo);background:var(--giallo);color:var(--giallo-testo);font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+
+/* parole difficili */
+.g{border-bottom:2px dotted currentColor;cursor:help;font-weight:700}
+#fumetto{position:absolute;z-index:50;max-width:300px;padding:12px 14px;border-radius:12px;background:var(--scuro);color:var(--su-scuro);font-size:16px;line-height:1.45;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+#fumetto b{display:block;font-size:17px;margin-bottom:2px}
+#fumetto[hidden]{display:none}
+
+/* strumenti */
+.strumenti{margin-top:56px}
+.strumenti>h2{font-family:"Cinzel",Georgia,serif;font-size:clamp(22px,3.4vw,28px);margin:0 0 4px}
+.strumenti>p.sotto{color:var(--tenue);margin:0 0 20px}
+.griglia-str{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:860px){.griglia-str{grid-template-columns:1fr}}
+.str{background:var(--carta);border:1px solid var(--bordo);border-radius:16px;padding:18px 20px;box-shadow:var(--ombra)}
+.str.largo{grid-column:1/-1}
+.str h3{margin:0 0 4px;font-size:20px;display:flex;align-items:center;gap:10px}
+.str h3 .num{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--inchiostro);color:var(--fondo);font-size:16px;flex:none}
+.str .aiuto{color:var(--tenue);font-size:16px;margin:0 0 14px}
+
+.terzine{max-width:560px;font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.7}
+.terzine .strofa{margin:0 0 12px;padding-left:12px;border-left:3px solid var(--bordo)}
+.terzine .v{display:flex;justify-content:space-between;gap:12px}
+.terzine .r{font-weight:700;padding:0 3px;border-radius:4px}
+.terzine .let{font-family:"Atkinson",sans-serif;font-weight:700;font-size:15px;min-width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:#fff;flex:none}
+.rA{background:#1E6A73}.rB{background:#9A3B2A}.rC{background:#4E6A2C}.rD{background:#7A4E8F}
+.tA{color:#1E6A73;background:rgba(30,106,115,.12)}.tB{color:#B0442F;background:rgba(154,59,42,.12)}.tC{color:#4E6A2C;background:rgba(78,106,44,.14)}.tD{color:#7A4E8F;background:rgba(122,78,143,.14)}
+:root[data-theme="dark"] .tA{color:#5FB3BC}:root[data-theme="dark"] .tB{color:#E08A74}:root[data-theme="dark"] .tC{color:#A2C26E}:root[data-theme="dark"] .tD{color:#C7A2E0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tA{color:#5FB3BC}:root:not([data-theme="light"]) .tB{color:#E08A74}:root:not([data-theme="light"]) .tC{color:#A2C26E}:root:not([data-theme="light"]) .tD{color:#C7A2E0}}
+.catena{max-width:560px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:700;font-size:18px;margin-top:6px}
+.catena .gr{display:inline-flex;gap:2px;padding:4px 6px;border:2px solid var(--bordo);border-radius:8px}
+.catena .gr span{width:24px;height:24px;border-radius:5px;display:grid;place-items:center;color:#fff;font-size:14px}
+
+.scala{display:flex;align-items:flex-end;gap:10px}
+.gradino{flex:1;border-radius:12px 12px 4px 4px;padding:12px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
+.gradino b{font-size:18px}.gradino span{font-size:15px;line-height:1.35}
+.gradino.i{background:#9A3B2A;height:120px}.gradino.p{background:#1E6A73;height:170px}.gradino.d{background:#B7791F;height:220px}
+.nota{margin:12px 0 0;font-size:16px;background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:10px;padding:8px 12px;color:var(--inchiostro)}
+
+.due-dante{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.due-dante>div{border-radius:12px;padding:12px 14px;border:2px solid var(--c1)}
+.due-dante>div:last-child{border-color:var(--c5)}
+.due-dante h4{margin:0 0 6px;font-size:18px}
+.due-dante ul{margin:0;padding-left:20px;font-size:16px}
+@media (max-width:480px){.due-dante{grid-template-columns:1fr}}
+
+.universo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:760px){.universo{grid-template-columns:1fr}}
+.universo svg{width:100%;height:auto;max-width:440px;display:block;margin:0 auto}
+.universo svg .zona{cursor:pointer}
+.universo svg .zona.on{filter:drop-shadow(0 0 6px #F2C14E)}
+.bottoni-u{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.bottoni-u button{min-height:40px;padding:6px 12px;border-radius:999px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.bottoni-u button[aria-pressed="true"]{background:var(--inchiostro);color:var(--fondo);border-color:var(--inchiostro)}
+.spiega-u{border-radius:12px;padding:12px 14px;background:var(--semplice);border:1px solid var(--semplice-bordo);min-height:110px}
+.spiega-u .tit{display:block;font-size:18px;font-weight:700}
+
+.cento{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;margin:10px 0}
+.cento i{aspect-ratio:1;border-radius:3px;display:block}
+.leg-num{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px}
+.leg-num span{display:inline-flex;align-items:center;gap:6px}
+.leg-num i{width:14px;height:14px;border-radius:3px;display:inline-block}
+.conti{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+@media (max-width:560px){.conti{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.conti div{border:2px solid var(--bordo);border-radius:10px;padding:8px;text-align:center;font-size:15px;line-height:1.3}
+.conti b{display:block;font-family:"Cinzel",Georgia,serif;font-size:28px;color:var(--oro)}
+
+.giorni{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.giorni div{border:2px solid var(--bordo);border-radius:10px;padding:8px 4px;text-align:center;font-size:14px;line-height:1.25}
+.giorni b{display:block;font-size:22px}
+.giorni .santa{border-color:var(--c5);background:rgba(122,78,143,.12)}
+.giorni .notte{background:linear-gradient(180deg,rgba(31,34,48,.25),transparent)}
+.dida{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px;margin-top:8px;color:var(--tenue)}
+
+.glossario{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.glossario li{border:1px solid var(--bordo);border-radius:10px;padding:10px 12px;font-size:16px;line-height:1.4}
+.glossario li b{display:block;font-size:17px}
+
+.ripasso{display:grid;gap:10px}
+.domanda{border:1px solid var(--bordo);border-radius:12px;padding:12px 14px}
+.domanda p{margin:0 0 8px;font-weight:700}
+.domanda button{min-height:40px;padding:6px 14px;border-radius:10px;border:1px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.domanda .risp{margin-top:8px;padding:8px 12px;border-radius:10px;background:var(--semplice);border:1px solid var(--semplice-bordo)}
+.domanda .risp[hidden]{display:none}
+
+details.originale{margin-top:20px;background:var(--carta);border:1px solid var(--bordo);border-radius:16px;padding:14px 20px}
+details.originale summary{font-weight:700;font-size:18px;cursor:pointer;min-height:32px}
+details.originale h4{margin:18px 0 4px;font-size:18px}
+details.originale p{margin:0 0 10px;font-size:17px}
+</style>
 </head>
 <body>
 <header id="testata"></header>
-<main class="contenitore">
+<main class="contenitore" id="pagina">
   <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=italiano">Italiano</a> › Dante e la Divina Commedia</p>
-  <h1>Introduzione alla Divina Commedia</h1>
-  <p class="sottotitolo">Leggi una colonna alla volta, dall'alto in basso. Le parole sulle frecce spiegano come si passa da un concetto all'altro.</p>
+  <h1>La Divina Commedia</h1>
+  <p class="sottotitolo">Due mappe in due parti. Scegli quale aprire. Leggi una colonna alla volta, dall'alto in basso: le parole sulle frecce spiegano come si passa da un concetto all'altro.</p>
+
+  <div class="schede-parti" role="tablist" aria-label="Parti">
+    <button class="parte-btn" role="tab" id="tab1" aria-controls="parte1" aria-selected="true" type="button" data-parte="1">
+      <span class="n">1</span><span><b>Introduzione</b><small>Perché è importante, che cosa racconta, come si legge</small></span>
+    </button>
+    <button class="parte-btn" role="tab" id="tab2" aria-controls="parte2" aria-selected="false" type="button" data-parte="2">
+      <span class="n">2</span><span><b>Il capolavoro dantesco</b><small>Chi racconta, forma, lingua, fonti, viaggio e universo</small></span>
+    </button>
+  </div>
 
   <div class="pulsanti">
     <button class="pulsante" type="button" id="modo" aria-pressed="false">Solo parole semplici</button>
-    <a class="pulsante" href="Mappa_Dante.pdf" download>Scarica in PDF</a>
-    <a class="pulsante" href="Mappa_Dante.png" download>Scarica come immagine</a>
+    <a class="pulsante" id="scarica-pdf" href="Mappa_Dante.pdf" download>Scarica in PDF</a>
+    <a class="pulsante" id="scarica-png" href="Mappa_Dante.png" download>Scarica come immagine</a>
   </div>
 
   <div class="legenda">
     <span><span class="campione"></span>Il concetto</span>
     <span><span class="campione semplice"></span><b>In parole semplici</b></span>
+    <span><span class="g" style="cursor:default">parola</span>&nbsp;= tocca per la spiegazione</span>
   </div>
 
-  <div id="mappa">
-    <div class="mappa-centro">
-      <div class="nome">DIVINA COMMEDIA</div>
-      <div class="info">di Dante Alighieri</div>
+  <!-- ================= PARTE 1 ================= -->
+  <section class="parte" id="parte1" role="tabpanel" aria-labelledby="tab1">
+    <div class="mappa" id="mappa">
+      <div class="mappa-centro">
+        <div class="nome">DIVINA COMMEDIA</div>
+        <div class="info">Parte 1 · Introduzione</div>
+      </div>
+      <div class="diramazione"></div>
+      <div class="colonne" id="colonne1"></div>
+      <div class="sintesi">
+        <div class="nome">Persone vere + significato spirituale</div>
+        Le anime sono già state giudicate da Dio e restano per sempre nel luogo che hanno meritato. Sono persone concrete, con passioni ed errori, e insieme hanno un significato spirituale. Questa doppia natura rende la Commedia complessa e ancora viva.
+        <div class="semplice-scuro"><b>In parole semplici:</b> nella Commedia ogni personaggio è una persona vera e, insieme, un insegnamento.</div>
+      </div>
     </div>
-    <div class="diramazione"></div>
-    <div class="colonne" id="colonne"></div>
-    <div class="sintesi">
-      <div class="nome">Persone vere + significato spirituale</div>
-      Le anime sono già state giudicate da Dio e restano per sempre nel luogo che hanno meritato. Sono persone concrete, con passioni ed errori, e insieme hanno un significato spirituale. Questa doppia natura rende la Commedia complessa e ancora viva.
-      <div class="semplice-scuro"><b>In parole semplici:</b> nella Commedia ogni personaggio è una persona vera e, insieme, un insegnamento.</div>
+  </section>
+
+  <!-- ================= PARTE 2 ================= -->
+  <section class="parte" id="parte2" role="tabpanel" aria-labelledby="tab2" hidden>
+    <div class="mappa" id="mappa2">
+      <div class="mappa-centro">
+        <div class="nome">IL CAPOLAVORO DANTESCO</div>
+        <div class="info">Parte 2 · Che cosa rende nuova la Commedia</div>
+      </div>
+      <div class="diramazione"></div>
+      <div class="colonne cinque" id="colonne2"></div>
+      <div class="sintesi">
+        <div class="nome">Un poema nuovo, scritto per tutti</div>
+        Dante sperimenta in ogni cosa: inventa la terzina, racconta in prima persona, scrive in volgare usando tutti gli stili e tutte le lingue, dà ai tre regni un posto preciso nell'universo e dà un significato perfino ai numeri. Tutto serve a un solo scopo: mostrare a ogni uomo la strada verso Dio.
+        <div class="semplice-scuro"><b>In parole semplici:</b> Dante inventa tante cose nuove per farsi capire da tutti e indicare a tutti la strada giusta.</div>
+      </div>
     </div>
-  </div>
+
+    <div class="strumenti" id="strumenti">
+      <h2>Strumenti per capire</h2>
+      <p class="sotto">Schemi da guardare quando non ricordi. Puoi usarli anche per ripassare prima di una verifica.</p>
+
+      <div class="griglia-str">
+
+        <div class="str largo" id="s-terzina">
+          <h3><span class="num">A</span>Come funziona la terzina</h3>
+          <p class="aiuto">L'inizio dell'Inferno. Ogni strofa ha 3 versi. Guarda i colori: la rima <b>di mezzo</b> di una strofa diventa la rima <b>esterna</b> della strofa dopo. Così le strofe restano agganciate.</p>
+          <div class="terzine">
+            <div class="strofa">
+              <div class="v"><span>Nel mezzo del cammin di nostra <span class="r tA">vita</span></span><span class="let rA">A</span></div>
+              <div class="v"><span>mi ritrovai per una selva <span class="r tB">oscura</span>,</span><span class="let rB">B</span></div>
+              <div class="v"><span>ché la diritta via era <span class="r tA">smarrita</span>.</span><span class="let rA">A</span></div>
+            </div>
+            <div class="strofa">
+              <div class="v"><span>Ahi quanto a dir qual era è cosa <span class="r tB">dura</span></span><span class="let rB">B</span></div>
+              <div class="v"><span>esta selva selvaggia e aspra e <span class="r tC">forte</span></span><span class="let rC">C</span></div>
+              <div class="v"><span>che nel pensier rinova la <span class="r tB">paura</span>!</span><span class="let rB">B</span></div>
+            </div>
+            <div class="strofa">
+              <div class="v"><span>Tant'è amara che poco è più <span class="r tC">morte</span>;</span><span class="let rC">C</span></div>
+              <div class="v"><span>ma per trattar del ben ch'i' vi <span class="r tD">trovai</span>,</span><span class="let rD">D</span></div>
+              <div class="v"><span>dirò de l'altre cose ch'i' v'ho <span class="r tC">scorte</span>.</span><span class="let rC">C</span></div>
+            </div>
+          </div>
+          <div class="catena" aria-label="Schema ABA BCB CDC">
+            <span class="gr"><span class="rA">A</span><span class="rB">B</span><span class="rA">A</span></span> →
+            <span class="gr"><span class="rB">B</span><span class="rC">C</span><span class="rB">B</span></span> →
+            <span class="gr"><span class="rC">C</span><span class="rD">D</span><span class="rC">C</span></span> → … all'infinito
+          </div>
+          <p class="nota"><b>Ricorda:</b> 3 versi = la <b>Trinità</b>. La rima incatenata = il racconto <b>non si ferma mai</b>.</p>
+          <div class="pulsanti" style="margin:12px 0 0"><button class="pulsante" type="button" id="leggi-terzine">Ascolta i versi</button></div>
+        </div>
+
+        <div class="str" id="s-dante">
+          <h3><span class="num">B</span>I due Dante</h3>
+          <p class="aiuto">È la stessa persona, in due momenti diversi.</p>
+          <div class="due-dante">
+            <div>
+              <h4>Dante personaggio<br><i>agens</i> = «colui che agisce»</h4>
+              <ul>
+                <li><b>fa</b> il viaggio</li>
+                <li>è <b>dentro</b> la storia</li>
+                <li>guarda tutto con <b>stupore</b></li>
+                <li>non sa come andrà a finire</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Dante narratore<br><i>auctor</i> = «l'autore»</h4>
+              <ul>
+                <li><b>racconta</b> dopo il viaggio</li>
+                <li><b>spiega</b> e <b>giudica</b></li>
+                <li>parla al <b>lettore</b></li>
+                <li>sa il finale ma <b>non lo dice</b></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="str" id="s-stile">
+          <h3><span class="num">C</span>Lo stile sale con il viaggio</h3>
+          <p class="aiuto">Più Dante si avvicina a Dio, più lo stile diventa alto.</p>
+          <div class="scala">
+            <div class="gradino i"><b>Inferno</b><span>stile <b>basso</b><br>anche parole volgari</span></div>
+            <div class="gradino p"><b>Purgatorio</b><span>stile <b>medio</b><br>dolce, malinconico</span></div>
+            <div class="gradino d"><b>Paradiso</b><span>stile <b>alto</b><br>angeli, beati, Dio</span></div>
+          </div>
+          <p class="nota"><b>Attenzione:</b> gli stili si mescolano anche dentro ogni cantica. Questo è il <b>pluristilismo</b>.</p>
+        </div>
+
+        <div class="str largo" id="s-universo">
+          <h3><span class="num">D</span>L'universo di Dante</h3>
+          <p class="aiuto">Tocca un pulsante o una parte del disegno per sapere che cos'è.</p>
+          <div class="universo">
+            <svg id="svg-universo" viewBox="0 0 440 440" role="img" aria-label="Schema dell'universo medievale"></svg>
+            <div>
+              <div class="bottoni-u" id="bottoni-u"></div>
+              <div class="spiega-u" id="spiega-u" aria-live="polite"><span class="tit">Scegli una parte</span>Il disegno è uno schema, non è in scala.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="str" id="s-numeri">
+          <h3><span class="num">E</span>I numeri della Commedia</h3>
+          <p class="aiuto">Ogni quadratino è un canto. In tutto sono 100.</p>
+          <div class="cento" id="cento"></div>
+          <div class="leg-num">
+            <span><i style="background:var(--oro)"></i>1 canto di introduzione</span>
+            <span><i style="background:#9A3B2A"></i>Inferno 33</span>
+            <span><i style="background:#1E6A73"></i>Purgatorio 33</span>
+            <span><i style="background:#3A4A8F"></i>Paradiso 33</span>
+          </div>
+          <div class="conti">
+            <div><b>3</b>la Trinità</div>
+            <div><b>9</b>3 × 3</div>
+            <div><b>10</b>3 × 3 + 1<br>numero perfetto</div>
+            <div><b>100</b>1 + 33 + 33 + 33</div>
+          </div>
+          <p class="nota"><b>1</b> = il numero dell'unicità di Dio.</p>
+        </div>
+
+        <div class="str" id="s-giorni">
+          <h3><span class="num">F</span>Quando avviene il viaggio</h3>
+          <p class="aiuto">Aprile <b>1300</b>: l'anno del primo Giubileo.</p>
+          <div class="giorni">
+            <div class="notte"><b>7</b>notte: inizia</div>
+            <div class="santa"><b>8</b>aprile</div>
+            <div class="santa"><b>9</b>aprile</div>
+            <div class="santa"><b>10</b>aprile</div>
+            <div><b>11</b>aprile</div>
+            <div><b>12</b>aprile</div>
+            <div><b>13</b>fine</div>
+          </div>
+          <div class="dida"><span><i style="display:inline-block;width:14px;height:14px;border-radius:3px;border:2px solid var(--c5);background:rgba(122,78,143,.12);vertical-align:-2px"></i> i primi tre giorni = Settimana Santa (passione, morte e resurrezione di Cristo)</span></div>
+          <p class="nota">Settimana Santa + Giubileo = un viaggio per <b>purificarsi</b> e ottenere il <b>perdono</b>.</p>
+        </div>
+
+        <div class="str largo" id="s-glossario">
+          <h3><span class="num">G</span>Parole difficili</h3>
+          <p class="aiuto">Le stesse parole sono sottolineate a puntini nella mappa: toccale per leggere la spiegazione.</p>
+          <ul class="glossario" id="glossario"></ul>
+        </div>
+
+        <div class="str largo" id="s-ripasso">
+          <h3><span class="num">H</span>Ripasso: prova a rispondere</h3>
+          <p class="aiuto">Pensa prima alla risposta, poi tocca «Mostra la risposta».</p>
+          <div class="ripasso" id="ripasso"></div>
+        </div>
+
+      </div>
+
+      <details class="originale">
+        <summary>Leggi il testo originale completo</summary>
+        <h4>Il capolavoro dantesco</h4>
+        <p>Dante, nella Divina Commedia, sperimenta in continuazione: fa riferimento ai modelli del passato per rinnovarli nella lingua, nei contenuti e nello stile. Per prima cosa inventa una forma metrica nuova, la terzina, che prima nessuno aveva mai usato. Forse la ricava dal sirventese, un componimento di origine provenzale formato da tre endecasillabi e un quinario, che Dante sopprime, oppure dalla parte conclusiva del sonetto. Il ripetersi della terzina ha un duplice scopo: riferirsi simbolicamente alla Trinità, in quanto la terzina è composta da tre endecasillabi, e dare continuità alla narrazione attraverso la rima incatenata, che collega una strofa all'altra all'infinito. Con questa scelta senza precedenti, Dante realizza una struttura metrica e narrativa adatta a rappresentazioni e dialoghi.</p>
+        <h4>La narrazione in prima persona</h4>
+        <p>Un'altra grande novità che distingue la Commedia da tutte le precedenti opere è la narrazione in prima persona. È il protagonista stesso che riferisce la propria esperienza, non una voce narrante esterna. Quindi noi possiamo identificare un Dante personaggio, agens, che agisce e che, quindi, guarda la realtà in cui si trova con lo stupore di una persona viva, e un Dante narratore, auctor, che racconta il viaggio dopo la sua conclusione. Non racconta semplicemente, ma giudica e spiega i fatti a cui assiste. Si rivolge al lettore e talvolta giudica la propria memoria e il proprio linguaggio insufficienti per descrivere l'esperienza vissuta. Anche se conosce gli eventi e i particolari del viaggio, strategicamente non anticipa al lettore l'esito dei fatti, ma lascia che questo si identifichi nel Dante personaggio. Ci sono poi narratori di secondo grado, cioè personaggi che parlano con il Dante personaggio ed espongono le loro storie e le ragioni per le quali si trovano in quella situazione. A volte Dante stesso, come personaggio, prende la parola e si rivolge alle anime. Il Dante personaggio non è un eroe dalle virtù eccezionali: è un uomo simile agli altri, con le debolezze e le inclinazioni al peccato di tutti gli altri. Ha una biografia precisa: ci racconta della sua età, della sua patria, dei suoi amici e conoscenti, dei maestri e dei nemici. Sono descritti i suoi sogni e i suoi ricordi. Il lettore apprende da lui stesso la sua realtà di uomo. Questa forte soggettività è unita anche al bisogno di una forte universalità. Dante personaggio non è soltanto Dante Alighieri, effettivamente vissuto nel Trecento, ma rappresenta l'intero genere umano. Il suo viaggio dall'Inferno al Paradiso è un percorso che serve, per esempio, a ogni uomo che vuole salvarsi. Dio ha incaricato Dante, in quanto poeta, di rivelare a tutta l'umanità ciò che vede nell'oltretomba. In questo senso la Commedia è divina perché è presentata come una profezia di redenzione. Divulgare, far conoscere il sistema di premi e punizioni voluto da Dio e dalla giustizia divina deve servire agli altri uomini come ammonimento, per abbandonare il peccato e imboccare la giusta via che conduce a Dio.</p>
+        <h4>La lingua e lo stile</h4>
+        <p>La più innovativa delle scelte operate da Dante è quella della lingua volgare, che risulta ai suoi tempi addirittura rivoluzionaria per un'opera con un tema così elevato. Dante lo afferma più volte: il suo è un poema che annuncia la verità della fede non per mezzo di concetti comprensibili solo alle persone colte, ma attraverso la descrizione realistica di tutti i livelli della condizione umana. Per questo deve essere scritto in una lingua che conoscono tutti, che si addice alla rappresentazione della realtà. Dante, però, usa il volgare attraverso tutti i livelli stilistici, adattandolo al contenuto. Usa uno stile basso e umile nell'Inferno, dove troviamo anche termini scurrili; medio nel Purgatorio, dove prevalgono toni dolci e malinconici; decisamente più alto e nobile nel Paradiso, dove i temi sono elevati, come il discorso sugli angeli, sui beati e su Dio. Questa volontà di aderire stilisticamente all'oggetto di cui si parla si realizza anche all'interno delle singole cantiche. Così, nell'Inferno, ci sono punti di maggiore commozione oppure, quando parlano personaggi illustri, si possono trovare espressioni di livello alto, mentre nel Paradiso, accanto a parole solenni, è possibile trovare termini quotidiani. Secondo lo studioso Gianfranco Contini, per definire questa alternanza di livelli stilistici e questa mescolanza di tono comico e tragico si è parlato di pluristilismo e si può parlare di plurilinguismo quando Dante utilizza tutte le lingue possibili: non soltanto il volgare fiorentino, che è la lingua di base, ma anche il latino, il provenzale, il siciliano, il francese e i diversi volgari dialettali d'Italia. A questi si aggiungono le lingue speciali, cioè quelle specifiche dell'astronomia, della geometria, della medicina e di altri ambiti. Quando lo ritiene necessario, Dante inventa parole nuove. Dante viene chiamato padre della lingua letteraria italiana proprio per questa volontà di sperimentare.</p>
+        <h4>I generi letterari della Commedia</h4>
+        <p>La Commedia non può essere definita con un solo genere. Ha una forma poetica perché è scritta in versi, ma è anche un'opera narrativa perché contiene narrazioni, descrizioni e dialoghi. È una poesia d'amore, ma è anche filosofica; è una tragedia perché mette in scena personaggi e vicende infelici, ma è anche una commedia perché vi si trovano personaggi comuni e storie dall'esito felice. È una satira che accusa il potere dell'epoca. Il titolo con cui il testo è stato tramandato, al quale solo nel Cinquecento è stato aggiunto l'aggettivo divina, è oggetto di dibattito tra gli studiosi. Dante, nell'Epistola a Cangrande della Scala, dichiara che il titolo Commedia si addice alla sua opera perché ha un inizio infelice e un finale lieto, e perché è scritta in volgare. Ma questa definizione non è sufficiente a rappresentare tutti gli stili del poema. Dante stesso, nella terza cantica, si riferisce alla propria opera con espressioni più alte: la chiama «sacrato poema» e «poema sacro». Il suo poema è una commedia perché non è confinato nei limiti della tragedia, ma tratta ogni contenuto, dal più basso al più alto, usando ogni stile.</p>
+        <h4>Le fonti e i modelli culturali</h4>
+        <p>Non abbiamo notizie precise sulle letture compiute da Dante. Sappiamo che non conosceva la lingua greca, ma che consultava le opere classiche letterarie e filosofiche e che usava in maniera spregiudicata i modelli della mitologia classica, soprattutto le opere di Virgilio e di Ovidio. La cultura filosofica di Dante è costituita da molte suggestioni, ma soprattutto dalle letture delle opere di Aristotele, il filosofo greco vissuto tra il 384 e il 322 a.C., ritenuto nel Medioevo la più alta autorità. Dante lo definisce nell'Inferno «il maestro di color che sanno». Aristotele è considerato il fondatore di molte dottrine filosofiche ed etiche del Medioevo. La conoscenza di Aristotele da parte di Dante, che non conosceva il greco, passa attraverso le parafrasi e i commenti degli studiosi cristiani, tra cui il domenicano tedesco Alberto Magno, vissuto nel XIII secolo, e il filosofo cristiano Tommaso d'Aquino, vissuto nel XIII secolo. Da Alberto Magno Dante prende l'idea che l'essere umano, attraverso la scienza e la filosofia, possa raggiungere una felicità intellettuale che lo possa portare vicino a Dio. Da Tommaso d'Aquino, invece, ricava le idee filosofiche della Commedia, soprattutto l'uso della ragione, la capacità di distinguere ed esercitare l'arte del pensare prima di dare un'opinione su argomenti difficili. Sempre da Tommaso d'Aquino Dante recupera la concezione dell'origine e della struttura dell'universo. Una forte suggestione intellettuale deriva anche da Agostino. Sant'Agostino visse tra il 354 e il 430 d.C. e scrisse un'opera intitolata Le confessioni, nella quale aveva descritto il viaggio difficile che la propria anima aveva compiuto dal peccato fino a elevarsi a Dio. È proprio questa autobiografia spirituale alla base della Divina Commedia. La formazione giuridico-politica di Dante si fonda invece sul Corpus iuris civilis di Giustiniano.</p>
+        <h4>Gli antecedenti letterari</h4>
+        <p>Gli antecedenti letterari noti a Dante di viaggi e visioni nell'oltretomba sono soprattutto quelli derivati dalla Bibbia e da Virgilio, nell'Eneide. Non contengono però una descrizione compiuta dell'aldilà, soprattutto quelli della Bibbia. L'opera di Virgilio è dichiaratamente un modello letterario per Dante.</p>
+        <h4>La composizione e la diffusione della Commedia</h4>
+        <p>Non abbiamo certezze su dove e quando sia stata scritta la Commedia, anche perché abbiamo perso tutti gli autografi, cioè le copie scritte dall'autore. Da riferimenti interni al testo sappiamo che è stata composta durante l'esilio, tra Verona e Ravenna. È stata letta, copiata e recitata a memoria da lettori di ogni classe sociale, come aveva voluto Dante. L'inizio del poema è da collocarsi tra il 1304 e il 1306 e Dante vi lavora fino alla morte, nel 1321. Si diffonde però prima della morte dell'autore: l'Inferno e il Purgatorio circolano già prima del 1321, mentre il Paradiso è completato soltanto qualche mese prima della morte dell'autore. I manoscritti sono perlopiù in pergamena e di grandi dimensioni, quindi costituiscono edizioni di prestigio, perché il grande formato era destinato alla lettura in biblioteca. La Commedia viene letta anche come un libro scolastico, fatto inusuale per un'opera in volgare. È disposta su due colonne ed è spesso accompagnata da glosse, cioè annotazioni a margine, e commenti. Le copie delle tre cantiche che circolavano già a metà del Trecento erano tratte da manoscritti diversi o trascritte sotto dettatura. Si diffondono così versioni differenti e questa alterazione dell'opera ha reso necessario un lavoro filologico di restauro, per cercare di avvicinarsi il più possibile al testo originario di Dante.</p>
+        <h4>Il viaggio di Dante e la concezione medievale dell'universo</h4>
+        <p>Il cammino di Dante si svolge dalla notte tra il 7 e l'8 aprile al 13 aprile del 1300. Il periodo allude simbolicamente a un percorso di purificazione: i primi tre giorni coincidono infatti con la Settimana Santa, che celebra la passione, la morte e la resurrezione di Cristo. Anche l'anno è significativo: nel 1300 ricorre il primo Giubileo, l'Anno Santo durante il quale i fedeli compiono i riti che garantiscono il perdono dei peccati. Tutta la Commedia è percorsa da simbolismi che alludono alla dimensione divina, che si disegna dietro le vicende terrene. La storia umana non è che un riflesso della volontà di Dio, eterna e immobile. Dante è stato il primo a dare ai tre regni dell'aldilà una collocazione precisa sulla carta terrestre. Per comprendere il suo percorso occorre tenere presente la concezione medievale dell'universo, elaborata dal pensiero di Aristotele e del matematico Tolomeo, astronomo di Alessandria d'Egitto. Due sono soprattutto le idee che lo allontanano dal nostro modo di concepire il cosmo. Da un lato, la teoria geocentrica immaginava la Terra immobile al centro del sistema planetario; dall'altro, si credeva nell'esistenza materiale di luoghi fisici destinati alle anime: l'Inferno nel cuore della Terra, il Purgatorio nell'emisfero delle acque e il Paradiso in corrispondenza dei cieli. Dio ha collocato l'essere umano sulla Terra e ha stabilito che ne uscisse attraverso un percorso verticale: verso il basso, se dannato all'Inferno; verso l'alto, se assunto in cielo tra i beati. Una zona intermedia, posta sulla superficie della Terra e con la forma di una montagna, è il Purgatorio, dove le anime scontano le proprie colpe e raggiungono infine i beati in Paradiso. La Terra è concepita come un corpo sferico diviso in due parti: l'emisfero delle acque e quello delle terre emerse, dove vivono gli uomini. Al centro dell'emisfero delle terre emerse si trova la città di Gerusalemme, sotto la quale sta l'Inferno. L'Inferno si trova sottoterra, il Purgatorio sulla superficie terrestre e il Paradiso in cielo, oltre i nove cieli che si muovono con moto circolare e concentrico. La dottrina cattolica ne aggiunge uno immobile ed eterno, che comprende l'universo intero, chiamato Empireo. È qui che risiedono Dio, gli angeli e i beati. L'unico dei tre regni ultraterreni in cui esiste il tempo, cioè in cui le anime non restano per sempre ma per un periodo determinato dalla necessità di espiare i propri peccati, è il Purgatorio. L'Inferno e il Paradiso sono invece i luoghi dell'eternità, in cui la dannazione e la beatitudine sono definitive. Il luogo a cui le anime sono destinate dopo la morte dipende dall'inappellabile giudizio divino, che deriva a sua volta dalle scelte compiute dall'individuo sulla Terra. È dunque l'uomo a decidere il proprio destino, di cui è l'unico responsabile, perché Dio non esclude la libertà umana. L'infinita bontà di Dio abbraccia e accoglie soltanto coloro che vogliono essere accolti.</p>
+        <h4>Il simbolismo dei numeri</h4>
+        <p>Nella Commedia tutto ha significato: non soltanto la caratterizzazione dei personaggi e le ipotesi filosofiche e politiche, ma anche la struttura attraverso la quale questi elementi vengono esposti. Per esempio, l'architettura compositiva del poema è fondata sul principio dell'asimmetria e sul valore simbolico dei numeri. Il numero 3 è il numero della Trinità, così come il numero 9, che è il suo multiplo. Il 10 è il numero perfetto perché deriva dal numero 3 moltiplicato per se stesso, più 1, che è il numero di Dio, il multiplo e soprattutto l'uno, che è il numero dell'unicità di Dio. Il poema è composto da tre cantiche, ciascuna composta da 33 canti. I versi sono riuniti a tre a tre nella forma della terzina. Ai 99 canti si aggiunge il primo, nella prima cantica, che serve da introduzione, per un totale di 100. Questi riferimenti Dante li lascia all'intelligenza del lettore, che all'epoca era abituato a ricercare questi significati occulti, mentre oggi questa operazione risulta più difficile.</p>
+      </details>
+    </div>
+  </section>
 </main>
 <footer id="piede"></footer>
+<div id="fumetto" role="dialog" hidden></div>
 
 <script>
-/* Ogni nodo: t = titolo, c = concetto, s = in parole semplici, via = parola sulla freccia che porta al nodo */
-var COLONNE = [
+/* Ogni nodo: t = titolo, c = concetto, s = in parole semplici, via = parola sulla freccia che porta al nodo,
+   ponte = collegamento all'altra parte (testo), vai = numero della parte da aprire */
+var COLONNE1 = [
   { titolo: "1 · Perché è importante?", colore: "var(--c1)", nodi: [
     { t: "Un'opera-mondo",
       c: "La Commedia racconta una storia, ma dentro c'è un mondo intero: la vita umana e il suo significato. Per questo i critici la chiamano <b>opera-mondo</b>, come i poemi di Omero, l'Amleto di Shakespeare o il Faust di Goethe. Esistono opere-mondo anche nella pittura (la Cappella Sistina) e nella musica (la Nona di Beethoven).",
@@ -107,27 +407,348 @@ var COLONNE = [
   ]},
 ];
 
+var COLONNE2 = [
+  { titolo: "1 · Chi racconta?", colore: "var(--c1)", nodi: [
+    { t: "Racconta in prima persona",
+      c: "È una grande novità rispetto alle opere precedenti: a raccontare non è una voce esterna, ma il protagonista stesso, che riferisce la propria esperienza.",
+      s: "Dante dice <b>«io»</b>: racconta quello che è successo <b>a lui</b>." },
+    { via: "per questo ci sono", t: "Due Dante",
+      c: "Il <b>Dante personaggio</b> (<span class=\"g\">agens</span>) agisce e guarda l'aldilà con lo stupore di una persona viva. Il <b>Dante narratore</b> (<span class=\"g\">auctor</span>) racconta dopo la fine del viaggio: spiega, giudica, parla al lettore e a volte dice che memoria e parole non bastano. Conosce già il finale ma non lo anticipa, così il lettore vive il viaggio insieme al personaggio.",
+      s: "<b>Dante personaggio</b> = quello che <b>fa</b> il viaggio.<br><b>Dante narratore</b> = quello che lo <b>racconta</b> dopo. Guarda lo schema B ↓",
+      ponte: "Nella Parte 1: «Un viaggio nell'aldilà»", vai: 1 },
+    { via: "e inoltre", t: "Narratori di secondo grado",
+      c: "Le anime che Dante incontra raccontano la loro storia e spiegano perché si trovano in quel luogo. A volte è Dante personaggio a prendere la parola e a parlare con loro.",
+      s: "Anche le <b>anime raccontano</b>: ognuna dice la sua storia." },
+    { via: "ma", t: "Un uomo come gli altri",
+      c: "Dante personaggio non è un eroe con virtù eccezionali: ha debolezze e la tendenza a peccare come tutti. Ha una vita precisa: parla della sua età, della sua città, di amici, maestri e nemici, dei suoi sogni e ricordi.",
+      s: "Dante non è un supereroe: è <b>una persona normale</b>, con i suoi difetti." },
+    { via: "proprio per questo", t: "Rappresenta tutti",
+      c: "Dante non è solo l'uomo vissuto nel Trecento: rappresenta l'intero genere umano. Il suo viaggio dall'Inferno al Paradiso è la strada che può fare ogni uomo che vuole salvarsi.",
+      s: "Dante = <b>ognuno di noi</b>. Il suo viaggio vale per tutti." },
+    { via: "quindi", t: "Una profezia di salvezza",
+      c: "Dio ha scelto Dante, in quanto poeta, per rivelare a tutti ciò che vede nell'aldilà. Per questo la Commedia è <b>divina</b>: è una profezia di <span class=\"g\">redenzione</span>. Far conoscere premi e punizioni serve da avvertimento: abbandonare il peccato e prendere la strada giusta verso Dio.",
+      s: "Dante fa da <b>messaggero</b>: racconta premi e punizioni per <b>avvertirci</b> di cambiare strada." },
+  ]},
+  { titolo: "2 · Com'è fatta?", colore: "var(--c2)", nodi: [
+    { t: "Una forma nuova: la terzina",
+      c: "Dante inventa una forma metrica che nessuno aveva mai usato: la <span class=\"g\">terzina</span>, tre <span class=\"g\">endecasillabi</span>. Forse la ricava dal <span class=\"g\">sirventese</span> provenzale (togliendo il verso più corto) oppure dalla parte finale del sonetto.",
+      s: "<b>Terzina</b> = strofa di <b>3 versi</b>. L'ha inventata Dante." },
+    { via: "con due scopi", t: "Trinità e rima incatenata",
+      c: "1) Tre versi ricordano la <span class=\"g\">Trinità</span>. 2) La <span class=\"g\">rima incatenata</span> (ABA BCB CDC…) lega ogni strofa alla successiva, all'infinito: il racconto scorre senza interruzioni. È una forma adatta a descrizioni e dialoghi.",
+      s: "Le rime si <b>agganciano</b> come gli anelli di una catena. Guarda lo schema A ↓" },
+    { via: "anche la struttura ha un senso", t: "I numeri simbolici",
+      c: "Nella Commedia tutto ha significato, anche i numeri. <b>3</b> = Trinità; <b>9</b> = 3×3; <b>10</b> = 3×3+1, il numero perfetto (1 = l'unicità di Dio). 3 cantiche da 33 canti = 99, più 1 canto di introduzione = <b>100</b>. Dante lascia al lettore il compito di scoprirlo.",
+      s: "<b>3 · 9 · 10 · 100</b>: sono numeri che parlano di <b>Dio</b>. Guarda lo schema E ↓" },
+    { via: "e il contenuto?", t: "Tanti generi insieme",
+      c: "Non ha un solo genere: è poesia (in versi) e racconto (con descrizioni e dialoghi); poesia d'amore e filosofia; tragedia (vicende infelici) e commedia (persone comuni, finali felici); <span class=\"g\">satira</span> contro il potere del tempo.",
+      s: "È <b>tante cose insieme</b>: racconto, poesia, filosofia, critica ai potenti." },
+    { via: "da qui il", t: "Titolo «Commedia»",
+      c: "Nell'Epistola a Cangrande della Scala Dante spiega: si chiama Commedia perché inizia male e finisce bene, ed è scritta in volgare. Ma non basta: nel Paradiso la chiama «poema sacro». È commedia perché tratta ogni contenuto, dal più basso al più alto, con ogni stile. L'aggettivo <b>«Divina»</b> è stato aggiunto solo nel Cinquecento.",
+      s: "<b>Commedia</b> = inizia <b>male</b> e finisce <b>bene</b>. <b>«Divina»</b> l'hanno aggiunto <b>molto dopo</b>, nel 1500." },
+  ]},
+  { titolo: "3 · Come parla?", colore: "var(--c3)", nodi: [
+    { t: "Il volgare",
+      c: "La scelta più nuova: scrivere in <span class=\"g\">volgare</span> un'opera su un tema così alto. Per quel tempo è rivoluzionario. Dante vuole annunciare la fede a tutti, non solo alle persone colte, descrivendo la realtà umana a tutti i livelli: serve una lingua che conoscono tutti.",
+      s: "Dante scrive nella <b>lingua che parla la gente</b>, non in latino, così <b>tutti</b> possono capire." },
+    { via: "ma", t: "Lo stile cambia",
+      c: "Dante adatta lo stile a ciò che racconta: <b>basso</b> nell'Inferno (anche parole volgari), <b>medio</b> nel Purgatorio (toni dolci e malinconici), <b>alto</b> nel Paradiso (angeli, beati, Dio). E gli stili si mescolano anche dentro ogni cantica.",
+      s: "Parla <b>come serve</b>: rozzo all'Inferno, dolce nel Purgatorio, solenne in Paradiso. Guarda lo schema C ↓" },
+    { via: "lo studioso Contini lo chiama", t: "Pluristilismo e plurilinguismo",
+      c: "<b><span class=\"g\">Pluristilismo</span></b>: tanti stili, comico e tragico mescolati. <b><span class=\"g\">Plurilinguismo</span></b>: tante lingue. La base è il fiorentino, ma ci sono latino, provenzale, siciliano, francese, dialetti d'Italia e le lingue speciali di astronomia, geometria e medicina. Quando serve, Dante inventa parole nuove.",
+      s: "<b>Pluri</b> = tanti. Tanti <b>stili</b> e tante <b>lingue</b>, perfino parole <b>inventate</b>." },
+    { via: "per questo è il", t: "Padre della lingua",
+      c: "Per questa voglia di sperimentare, Dante è chiamato padre della lingua letteraria italiana.",
+      s: "Grazie a Dante l'italiano diventa una <b>lingua per scrivere opere importanti</b>." },
+  ]},
+  { titolo: "4 · Da dove nasce?", colore: "var(--c4)", nodi: [
+    { t: "Poeti antichi",
+      c: "Non sappiamo con precisione che cosa lesse Dante. Non conosceva il greco, ma consultava le opere classiche di letteratura e filosofia e usava liberamente la mitologia, soprattutto da <b>Virgilio</b> e <b>Ovidio</b>.",
+      s: "Dante prende storie e idee dai <b>poeti antichi</b>, soprattutto Virgilio." },
+    { via: "per la filosofia", t: "Aristotele",
+      c: "Il filosofo greco (384–322 a.C.), la massima autorità del Medioevo: Dante lo chiama «il maestro di color che sanno». Lo conosce attraverso i commenti di studiosi cristiani del Duecento: <b>Alberto Magno</b> (con scienza e filosofia l'uomo si avvicina a Dio) e <b>Tommaso d'Aquino</b> (usare la ragione, pensare bene prima di giudicare; e come è fatto l'universo).",
+      s: "Dante non legge Aristotele in greco: lo conosce <b>spiegato</b> da Alberto Magno e Tommaso d'Aquino." },
+    { via: "per il viaggio dell'anima", t: "Agostino (e Giustiniano)",
+      c: "Nelle <i>Confessioni</i> <b>sant'Agostino</b> (354–430) racconta il viaggio difficile della sua anima dal peccato fino a Dio: questa autobiografia spirituale è alla base della Commedia. Per le idee su leggi e politica, Dante si basa sul <i>Corpus iuris civilis</i> di <b>Giustiniano</b>.",
+      s: "Agostino aveva già raccontato il suo viaggio <b>dal peccato a Dio</b>: Dante parte da lì." },
+    { via: "altri viaggi nell'aldilà", t: "Bibbia ed Eneide",
+      c: "Prima di Dante, viaggi e visioni nell'oltretomba si trovano soprattutto nella Bibbia e nell'<i>Eneide</i> di Virgilio, ma nessuno dei due descrive l'aldilà in modo completo. Virgilio è il modello dichiarato.",
+      s: "Altri avevano parlato dell'aldilà, ma <b>non per intero</b> come fa Dante." },
+    { via: "così nasce l'opera", t: "Scritta in esilio",
+      c: "Iniziata tra il 1304 e il 1306, durante l'esilio tra Verona e Ravenna; Dante ci lavora fino alla morte, nel 1321. Inferno e Purgatorio circolano già prima; il Paradiso è finito pochi mesi prima della morte. Persone di ogni classe sociale la leggono, la copiano e la imparano a memoria.",
+      s: "Dante la scrive <b>lontano da Firenze</b>, per <b>tutto il resto della vita</b>." },
+    { via: "ma", t: "Copie diverse",
+      c: "Non abbiamo gli <span class=\"g\">autografi</span>. Restano manoscritti grandi, su pergamena, a due colonne, con <span class=\"g\">glosse</span> e commenti; era letta anche a scuola. Le copie venivano da manoscritti diversi o da dettatura: per questo circolano versioni differenti, e serve il lavoro della <span class=\"g\">filologia</span> per avvicinarsi al testo di Dante.",
+      s: "Ogni copia è un po' <b>diversa</b>: gli studiosi cercano di ricostruire le <b>parole vere</b> di Dante.",
+      ponte: "Nella Parte 1: «Non abbiamo l'originale»", vai: 1 },
+  ]},
+  { titolo: "5 · Dove e quando?", colore: "var(--c5)", nodi: [
+    { t: "Le date del viaggio",
+      c: "Dalla notte tra il 7 e l'8 aprile al 13 aprile <b>1300</b>. I primi tre giorni coincidono con la <b>Settimana Santa</b> (passione, morte e resurrezione di Cristo). Il 1300 è l'anno del primo <span class=\"g\">Giubileo</span>, quando i fedeli ottengono il perdono dei peccati.",
+      s: "Il viaggio dura <b>una settimana</b>, nei giorni di <b>Pasqua</b> del 1300: è un viaggio per <b>purificarsi</b>. Guarda lo schema F ↓" },
+    { via: "perché", t: "Tutto è simbolo",
+      c: "Dietro le vicende terrene si vede il disegno di Dio: la storia umana è un riflesso della sua volontà, eterna e immobile.",
+      s: "Ogni cosa che succede ha un <b>significato nascosto</b> che porta a Dio.",
+      ponte: "Nella Parte 1: «Il sovrassenso»", vai: 1 },
+    { via: "per capire il percorso serve", t: "L'universo medievale",
+      c: "Viene da Aristotele e dall'astronomo Tolomeo. Due idee diverse dalle nostre: 1) la Terra è <b>immobile al centro</b> (<span class=\"g\">geocentrismo</span>); 2) i luoghi delle anime esistono davvero, come luoghi fisici.",
+      s: "Nel Medioevo si pensava: la <b>Terra sta ferma al centro</b> e tutto le gira intorno." },
+    { via: "Dante li mette sulla carta", t: "I tre regni",
+      c: "Dante è il primo a dare ai tre regni un posto preciso. La Terra ha l'emisfero delle terre (con Gerusalemme al centro) e l'emisfero delle acque. <b>Inferno</b>: sottoterra, sotto Gerusalemme. <b>Purgatorio</b>: una montagna nell'emisfero delle acque. <b>Paradiso</b>: in cielo, oltre i nove cieli che girano, nell'<span class=\"g\">Empireo</span> immobile, dove stanno Dio, gli angeli e i beati.",
+      s: "<b>Sotto</b> = Inferno · <b>sulla montagna</b> = Purgatorio · <b>in cielo</b> = Paradiso. Guarda lo schema D ↓" },
+    { via: "differenza importante", t: "Per sempre o per un po'",
+      c: "Solo nel Purgatorio esiste il tempo: le anime restano finché hanno <span class=\"g\">espiato</span> i peccati, poi salgono in Paradiso. Inferno e Paradiso sono eterni: dannazione e beatitudine sono definitive.",
+      s: "Inferno e Paradiso = <b>per sempre</b>. Purgatorio = <b>per un po'</b>." },
+    { via: "chi decide?", t: "L'uomo sceglie il suo destino",
+      c: "Il luogo dopo la morte dipende dal giudizio di Dio, che si basa sulle scelte fatte in vita. Dio non toglie la libertà: l'uomo è l'unico responsabile del suo destino. Dio accoglie solo chi vuole essere accolto.",
+      s: "Dove vai dipende da <b>come vivi</b>. La scelta è <b>tua</b>.",
+      ponte: "Nella Parte 1: «Il libero arbitrio»", vai: 1 },
+  ]},
+];
+
+var GLOSSARIO = {
+  "agens": ["agens", "Parola latina: «colui che agisce». È Dante come personaggio, mentre fa il viaggio."],
+  "auctor": ["auctor", "Parola latina: «l'autore». È Dante come narratore, che racconta il viaggio dopo averlo fatto."],
+  "redenzione": ["redenzione", "Liberazione dal peccato: la salvezza dell'anima."],
+  "terzina": ["terzina", "Strofa di tre versi. Nella Commedia i versi sono endecasillabi."],
+  "endecasillabi": ["endecasillabo", "Verso di 11 sillabe. È il verso della Commedia."],
+  "sirventese": ["sirventese", "Componimento poetico nato in Provenza (sud della Francia)."],
+  "trinità": ["Trinità", "Per i cristiani Dio è uno solo in tre persone: Padre, Figlio e Spirito Santo."],
+  "rima incatenata": ["rima incatenata", "Schema ABA BCB CDC…: la rima centrale di una strofa diventa la rima esterna della strofa dopo."],
+  "satira": ["satira", "Testo che critica e prende in giro i difetti delle persone o dei potenti."],
+  "volgare": ["volgare", "La lingua parlata dal popolo (vulgus), nata dal latino. Ai tempi di Dante i libri importanti si scrivevano in latino."],
+  "pluristilismo": ["pluristilismo", "Usare tanti stili diversi: alto, medio, basso, comico, tragico."],
+  "plurilinguismo": ["plurilinguismo", "Usare tante lingue diverse nello stesso testo."],
+  "autografi": ["autografo", "Testo scritto a mano dall'autore stesso. Della Commedia non ne è rimasto nessuno."],
+  "glosse": ["glossa", "Nota scritta a margine della pagina per spiegare il testo."],
+  "filologia": ["filologia", "Lo studio che confronta le copie di un testo per ricostruire le parole scritte davvero dall'autore."],
+  "giubileo": ["Giubileo", "Anno Santo in cui i fedeli possono ottenere il perdono dei peccati. Il primo fu nel 1300."],
+  "geocentrismo": ["geocentrismo", "Idea che la Terra stia ferma al centro dell'universo (geo = Terra)."],
+  "empireo": ["Empireo", "Il cielo più alto, immobile ed eterno, che contiene tutto l'universo. Lì stanno Dio, gli angeli e i beati."],
+  "espiato": ["espiare", "Pagare per le proprie colpe, scontare una pena per purificarsi."],
+};
+
 var FRECCIA = '<svg width="14" height="40" viewBox="0 0 14 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 1V37"/><path d="M1 30l6 8 6-8"/></svg>';
 var LAMPADINA = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></svg>';
+var ALTOPARLANTE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
+var LINK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-4 4 4 4"/><path d="M5 18h10a6 6 0 0 0 0-12H9"/></svg>';
 
-document.getElementById("colonne").innerHTML = COLONNE.map(function (col) {
-  var h = '<section class="colonna" style="--colore:' + col.colore + '"><h2 class="testa" style="margin:0">' + col.titolo + "</h2>";
-  h += '<div class="freccia">' + FRECCIA + "</div>";
-  col.nodi.forEach(function (n, i) {
-    if (i > 0) h += '<div class="freccia">' + FRECCIA + "<span>" + n.via + "</span></div>";
-    h += '<div class="nodo"><b class="t">' + n.t + '</b><p class="concetto">' + n.c + "</p>" +
-         '<div class="semplice"><span class="tag">' + LAMPADINA + "IN PAROLE SEMPLICI</span>" + n.s + "</div></div>";
+function disegnaMappa(id, colonne) {
+  document.getElementById(id).innerHTML = colonne.map(function (col) {
+    var h = '<section class="colonna" style="--colore:' + col.colore + '"><h2 class="testa" style="margin:0">' + col.titolo + "</h2>";
+    h += '<div class="freccia">' + FRECCIA + "</div>";
+    col.nodi.forEach(function (n, i) {
+      if (i > 0) h += '<div class="freccia">' + FRECCIA + "<span>" + n.via + "</span></div>";
+      h += '<div class="nodo"><b class="t">' + n.t + '</b><p class="concetto">' + n.c + "</p>" +
+           '<div class="semplice"><button class="ascolta" type="button" aria-label="Ascolta">' + ALTOPARLANTE + '</button><span class="tag">' + LAMPADINA + "IN PAROLE SEMPLICI</span>" + n.s.replace(/Guarda lo schema ([A-H]) ↓/, '<a href="#" class="vai-schema" data-s="$1">Guarda lo schema $1 ↓</a>') + "</div>" +
+           (n.ponte ? '<button class="ponte" type="button" data-vai="' + n.vai + '">' + LINK + n.ponte + "</button>" : "") +
+           "</div>";
+    });
+    return h + "</section>";
+  }).join("");
+}
+disegnaMappa("colonne1", COLONNE1);
+disegnaMappa("colonne2", COLONNE2);
+
+/* ---- Parti 1 / 2 ---- */
+function mostraParte(n, scorri) {
+  [1, 2].forEach(function (k) {
+    document.getElementById("parte" + k).hidden = (k !== n);
+    document.getElementById("tab" + k).setAttribute("aria-selected", k === n ? "true" : "false");
   });
-  return h + "</section>";
-}).join("");
+  document.getElementById("scarica-pdf").href = n === 1 ? "Mappa_Dante.pdf" : "Mappa_Dante_2.pdf";
+  document.getElementById("scarica-png").href = n === 1 ? "Mappa_Dante.png" : "Mappa_Dante_2.png";
+  if (history.replaceState) history.replaceState(null, "", n === 2 ? "#parte2" : "#parte1");
+  if (scorri) document.querySelector(".schede-parti").scrollIntoView({ behavior: "smooth" });
+  chiudiFumetto();
+}
+document.querySelectorAll(".parte-btn").forEach(function (b) {
+  b.addEventListener("click", function () { mostraParte(+b.dataset.parte, false); });
+});
+document.addEventListener("click", function (e) {
+  var p = e.target.closest(".ponte");
+  if (p) mostraParte(+p.dataset.vai, true);
+});
+mostraParte(location.hash === "#parte2" ? 2 : 1, false);
+var SCHEMI = { A: "s-terzina", B: "s-dante", C: "s-stile", D: "s-universo", E: "s-numeri", F: "s-giorni" };
+document.addEventListener("click", function (e) {
+  var a = e.target.closest(".vai-schema"); if (!a) return;
+  e.preventDefault();
+  document.getElementById(SCHEMI[a.dataset.s]).scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
+/* ---- Solo parole semplici ---- */
 var bottone = document.getElementById("modo");
 bottone.addEventListener("click", function () {
   var attivo = bottone.getAttribute("aria-pressed") !== "true";
   bottone.setAttribute("aria-pressed", attivo ? "true" : "false");
   bottone.textContent = attivo ? "Mostra tutto" : "Solo parole semplici";
-  document.getElementById("mappa").classList.toggle("solo-semplice", attivo);
+  document.getElementById("pagina").classList.toggle("solo-semplice", attivo);
 });
+
+/* ---- Lettura ad alta voce ---- */
+var voceIt = null;
+function trovaVoce() {
+  if (!("speechSynthesis" in window)) return;
+  var v = speechSynthesis.getVoices().filter(function (x) { return /^it/i.test(x.lang); });
+  voceIt = v[0] || null;
+}
+if ("speechSynthesis" in window) { trovaVoce(); speechSynthesis.onvoiceschanged = trovaVoce; }
+var inLettura = null;
+function leggi(testo, btn) {
+  if (!("speechSynthesis" in window)) { alert("Questo browser non può leggere ad alta voce."); return; }
+  speechSynthesis.cancel();
+  if (inLettura) inLettura.classList.remove("attivo");
+  if (inLettura === btn) { inLettura = null; return; }
+  var u = new SpeechSynthesisUtterance(testo);
+  u.lang = "it-IT"; if (voceIt) u.voice = voceIt; u.rate = 0.9;
+  inLettura = btn; if (btn) btn.classList.add("attivo");
+  u.onend = function () { if (btn) btn.classList.remove("attivo"); inLettura = null; };
+  speechSynthesis.speak(u);
+}
+document.addEventListener("click", function (e) {
+  var b = e.target.closest(".ascolta");
+  if (!b) return;
+  var box = b.parentNode.cloneNode(true);
+  box.querySelectorAll("button,.tag").forEach(function (x) { x.remove(); });
+  var t = box.textContent.replace(/Guarda lo schema . ↓/, "").replace(/=/g, ", cioè ").replace(/·/g, ",");
+  leggi(t, b);
+});
+document.getElementById("leggi-terzine").addEventListener("click", function () {
+  var versi = [].map.call(document.querySelectorAll(".terzine .v > span:first-child"), function (s) { return s.textContent; });
+  leggi(versi.join("\n"), this);
+});
+
+/* ---- Parole difficili (fumetto) ---- */
+var fumetto = document.getElementById("fumetto");
+function chiudiFumetto() { document.getElementById("fumetto").hidden = true; }
+function chiaveDi(testo) {
+  var k = testo.toLowerCase().trim();
+  if (GLOSSARIO[k]) return k;
+  for (var c in GLOSSARIO) if (k.indexOf(c) === 0 || c.indexOf(k) === 0) return c;
+  return null;
+}
+document.addEventListener("click", function (e) {
+  var g = e.target.closest(".g");
+  if (!g || !g.closest(".parte")) { if (!e.target.closest("#fumetto")) chiudiFumetto(); return; }
+  var k = chiaveDi(g.textContent);
+  if (!k) return;
+  fumetto.innerHTML = "<b>" + GLOSSARIO[k][0] + "</b>" + GLOSSARIO[k][1];
+  fumetto.hidden = false;
+  var r = g.getBoundingClientRect();
+  var w = Math.min(300, window.innerWidth - 32);
+  var x = Math.max(16, Math.min(r.left + window.scrollX, window.scrollX + window.innerWidth - w - 16));
+  fumetto.style.left = x + "px";
+  fumetto.style.top = (r.bottom + window.scrollY + 8) + "px";
+  e.stopPropagation();
+});
+document.getElementById("glossario").innerHTML = Object.keys(GLOSSARIO).map(function (k) {
+  return "<li><b>" + GLOSSARIO[k][0] + "</b>" + GLOSSARIO[k][1] + "</li>";
+}).join("");
+
+/* ---- Numeri: 100 quadratini ---- */
+(function () {
+  var h = "";
+  for (var i = 0; i < 100; i++) {
+    var c = i === 0 ? "var(--oro)" : i <= 33 ? "#9A3B2A" : i <= 66 ? "#1E6A73" : "#3A4A8F";
+    h += '<i style="background:' + c + '"></i>';
+  }
+  document.getElementById("cento").innerHTML = h;
+})();
+
+/* ---- Universo ---- */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("svg-universo");
+  function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; }
+  var cx = 220, cy = 220;
+  var ZONE = {
+    empireo: ["Empireo", "Il cielo più esterno, <b>immobile</b> ed eterno. Contiene tutto l'universo. Qui stanno <b>Dio, gli angeli e i beati</b>: è il Paradiso vero e proprio."],
+    cieli: ["I nove cieli", "Nove sfere che <b>girano</b> intorno alla Terra, una dentro l'altra (moto circolare e concentrico). Dante sale attraverso di loro nel Paradiso."],
+    terra: ["La Terra", "Una sfera <b>ferma al centro</b> dell'universo (geocentrismo). È divisa in due metà: l'emisfero delle <b>terre emerse</b>, dove vivono gli uomini, e l'emisfero delle <b>acque</b>."],
+    gerusalemme: ["Gerusalemme", "Sta al <b>centro dell'emisfero delle terre emerse</b>. Proprio sotto Gerusalemme si apre l'Inferno."],
+    inferno: ["Inferno", "<b>Sottoterra</b>, nel cuore della Terra, sotto Gerusalemme. Chi è dannato va <b>verso il basso</b>. È <b>eterno</b>: si resta per sempre."],
+    purgatorio: ["Purgatorio", "Una <b>montagna</b> sulla superficie della Terra, nell'emisfero delle <b>acque</b>. Le anime scontano le colpe per un <b>tempo limitato</b>, poi salgono in Paradiso."],
+  };
+  var gruppi = {};
+  function zona(k) { var g = el("g", { "class": "zona", "data-z": k, tabindex: "0", role: "button", "aria-label": ZONE[k][0] }); gruppi[k] = g; return g; }
+
+  var gE = zona("empireo");
+  el("circle", { cx: cx, cy: cy, r: 214, fill: "#F6E7B8", stroke: "#B7791F", "stroke-width": 2 }, gE);
+  el("text", { x: cx, y: 24, "text-anchor": "middle", "font-size": 15, "font-weight": 700, fill: "#7A4E0C" }, gE).textContent = "EMPIREO";
+  var gC = zona("cieli");
+  for (var i = 0; i < 9; i++) {
+    var r = 196 - i * 10;
+    el("circle", { cx: cx, cy: cy, r: r, fill: i === 0 ? "#DCE6F6" : "none", stroke: "#3A4A8F", "stroke-width": 1.3, opacity: 0.85 }, gC);
+  }
+  el("circle", { cx: cx, cy: cy, r: 106, fill: "#EEF3FB", stroke: "none" }, gC);
+  el("text", { x: cx + 132, y: cy - 132, "text-anchor": "middle", "font-size": 13, "font-weight": 700, fill: "#3A4A8F", transform: "rotate(45 " + (cx + 132) + " " + (cy - 132) + ")" }, gC).textContent = "9 CIELI";
+
+  var R = 78;
+  var gT = zona("terra");
+  el("path", { d: "M" + (cx - R) + " " + cy + " A" + R + " " + R + " 0 0 1 " + (cx + R) + " " + cy + " Z", fill: "#C9B27A", stroke: "#7A5B1E", "stroke-width": 1.5 }, gT);
+  el("path", { d: "M" + (cx - R) + " " + cy + " A" + R + " " + R + " 0 0 0 " + (cx + R) + " " + cy + " Z", fill: "#8EC0DE", stroke: "#2E6B8F", "stroke-width": 1.5 }, gT);
+  el("text", { x: cx - 66, y: cy - 10, "font-size": 12, fill: "#4A3A10", "font-weight": 700 }, gT).textContent = "terre";
+  el("text", { x: cx - 30, y: cy + 34, "font-size": 12, fill: "#13405A", "font-weight": 700 }, gT).textContent = "acque";
+
+  var gI = zona("inferno");
+  el("path", { d: "M" + (cx - 34) + " " + (cy - R + 2) + " L" + (cx + 34) + " " + (cy - R + 2) + " L" + cx + " " + cy + " Z", fill: "#B0442F", stroke: "#6E2414", "stroke-width": 1.5 }, gI);
+  el("text", { x: cx, y: cy - 44, "font-size": 12, fill: "#fff", "font-weight": 700, "text-anchor": "middle" }, gI).textContent = "Inferno";
+
+  var gP = zona("purgatorio");
+  el("path", { d: "M" + (cx - 20) + " " + (cy + R - 2) + " L" + (cx + 20) + " " + (cy + R - 2) + " L" + cx + " " + (cy + R + 28) + " Z", fill: "#3F8A5A", stroke: "#1F4F30", "stroke-width": 1.5 }, gP);
+  el("rect", { x: cx + 24, y: cy + R + 8, width: 82, height: 20, rx: 4, fill: "#fff", opacity: 0.9 }, gP);
+  el("text", { x: cx + 28, y: cy + R + 23, "font-size": 14, fill: "#1F4F30", "font-weight": 700 }, gP).textContent = "Purgatorio";
+
+  var gG = zona("gerusalemme");
+  el("circle", { cx: cx, cy: cy - R, r: 6, fill: "#1F2230", stroke: "#fff", "stroke-width": 2 }, gG);
+  el("rect", { x: cx + 10, y: cy - R - 26, width: 98, height: 20, rx: 4, fill: "#fff", opacity: 0.9 }, gG);
+  el("text", { x: cx + 14, y: cy - R - 11, "font-size": 14, fill: "#1F2230", "font-weight": 700 }, gG).textContent = "Gerusalemme";
+
+  var defs = el("defs", {}); var m = el("marker", { id: "fr", viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto" }, defs);
+  el("path", { d: "M0 0L10 5L0 10z", fill: "#B7791F" }, m);
+  el("path", { d: "M" + (cx - 120) + " " + (cy - 20) + " L" + (cx - 120) + " " + (cy - 160), stroke: "#B7791F", "stroke-width": 3, fill: "none", "marker-end": "url(#fr)" });
+  el("rect", { x: cx - 196, y: cy - 4, width: 152, height: 22, rx: 4, fill: "#fff", opacity: 0.92 });
+  el("text", { x: cx - 120, y: cy + 12, "font-size": 13, fill: "#7A4E0C", "font-weight": 700, "text-anchor": "middle" }).textContent = "beati: verso l'alto";
+
+  var bott = document.getElementById("bottoni-u"), spiega = document.getElementById("spiega-u");
+  var ordine = ["terra", "gerusalemme", "inferno", "purgatorio", "cieli", "empireo"];
+  bott.innerHTML = ordine.map(function (k) { return '<button type="button" aria-pressed="false" data-z="' + k + '">' + ZONE[k][0] + "</button>"; }).join("");
+  function scegli(k) {
+    ordine.forEach(function (z) {
+      gruppi[z].classList.toggle("on", z === k);
+      bott.querySelector('[data-z="' + z + '"]').setAttribute("aria-pressed", z === k ? "true" : "false");
+    });
+    spiega.innerHTML = '<span class="tit">' + ZONE[k][0] + "</span>" + ZONE[k][1];
+  }
+  bott.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) scegli(b.dataset.z); });
+  svg.addEventListener("click", function (e) { var g = e.target.closest(".zona"); if (g) scegli(g.dataset.z); });
+  svg.addEventListener("keydown", function (e) { var g = e.target.closest(".zona"); if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); scegli(g.dataset.z); } });
+})();
+
+/* ---- Ripasso ---- */
+(function () {
+  var D = [
+    ["Che cos'è la terzina e chi l'ha inventata?", "Una strofa di tre endecasillabi. L'ha inventata Dante: prima nessuno l'aveva usata."],
+    ["A che cosa serve la rima incatenata?", "Lega ogni strofa a quella dopo (ABA BCB CDC…): il racconto scorre senza fermarsi."],
+    ["Qual è la differenza tra Dante personaggio e Dante narratore?", "Il personaggio (agens) fa il viaggio e si stupisce; il narratore (auctor) lo racconta dopo, spiega e giudica."],
+    ["Perché la Commedia è «divina» secondo il testo?", "Perché è presentata come una profezia: Dio incarica Dante di rivelare a tutti ciò che ha visto, per salvare gli uomini."],
+    ["Perché Dante scrive in volgare?", "Per farsi capire da tutti, non solo dalle persone colte."],
+    ["Che cosa vogliono dire pluristilismo e plurilinguismo?", "Pluristilismo: tanti stili mescolati. Plurilinguismo: tante lingue (fiorentino, latino, provenzale, siciliano, francese, dialetti, lingue speciali)."],
+    ["Perché si chiama «Commedia»?", "Perché inizia male e finisce bene, ed è scritta in volgare. «Divina» è stato aggiunto nel Cinquecento."],
+    ["Dove si trovano Inferno, Purgatorio e Paradiso?", "Inferno: sottoterra, sotto Gerusalemme. Purgatorio: montagna nell'emisfero delle acque. Paradiso: in cielo, nell'Empireo oltre i nove cieli."],
+    ["Quando avviene il viaggio e perché quelle date sono importanti?", "Dal 7/8 al 13 aprile 1300: Settimana Santa e anno del primo Giubileo, quindi un viaggio di purificazione."],
+    ["Come si arriva a 100 canti?", "3 cantiche × 33 canti = 99, più 1 canto di introduzione = 100."],
+  ];
+  document.getElementById("ripasso").innerHTML = D.map(function (d, i) {
+    return '<div class="domanda"><p>' + (i + 1) + ". " + d[0] + '</p><button type="button" aria-expanded="false">Mostra la risposta</button><div class="risp" hidden>' + d[1] + "</div></div>";
+  }).join("");
+  document.getElementById("ripasso").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var r = b.nextElementSibling, apri = r.hidden;
+    r.hidden = !apri; b.setAttribute("aria-expanded", apri ? "true" : "false");
+    b.textContent = apri ? "Nascondi" : "Mostra la risposta";
+  });
+})();
 </script>
 </body>
 </html>

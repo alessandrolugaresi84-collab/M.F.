@@ -33,11 +33,11 @@ const MATERIALI = [
   {
     materia: "italiano",
     unita: "Dante e la Divina Commedia",
-    titolo: "Mappa: introduzione alla Divina Commedia",
+    titolo: "La Divina Commedia: mappe (1 Introduzione · 2 Il capolavoro dantesco)",
     tipo: "mappa",
     file: "dante-mappa.html",
-    descrizione: "Concetti chiari collegati da frecce, ognuno con una spiegazione in parole semplici.",
-    data: "2026-10-06",
+    descrizione: "Due mappe con frecce e spiegazioni in parole semplici. Nella parte 2: terzina, due Dante, lingua, fonti, universo di Dante, numeri, parole difficili e ripasso.",
+    data: "2026-10-14",
   },
   {
     materia: "meccanica",
