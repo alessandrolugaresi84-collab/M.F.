@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disequazioni di secondo grado</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261014">
+<script src="materiali.js?v=20261014"></script>
+<script src="comune.js?v=20261014"></script>
+<style>
+  :root{--ar:#A84A12;--ar-chiaro:#FDF1E8;--ar-bordo:#E9B58F;
+        --v:#2F6B2F;--v-chiaro:#EAF4E8;--b:#2C5A99;--b-chiaro:#E8F0FA;--r:#A3302A;--r-chiaro:#FBEAEA;--asse:#1F2230;--curva:#2C5A99}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ar:#F0A36E;--ar-chiaro:#2E2219;--ar-bordo:#6B4527;
+        --v:#8FCB86;--v-chiaro:#1C2A1B;--b:#93B8EE;--b-chiaro:#1A2433;--r:#EE9A94;--r-chiaro:#331C1B;--asse:#ECEAE4;--curva:#93B8EE}}
+  :root[data-theme="dark"]{--ar:#F0A36E;--ar-chiaro:#2E2219;--ar-bordo:#6B4527;
+        --v:#8FCB86;--v-chiaro:#1C2A1B;--b:#93B8EE;--b-chiaro:#1A2433;--r:#EE9A94;--r-chiaro:#331C1B;--asse:#ECEAE4;--curva:#93B8EE}
+
+  .schede{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+  .scheda{min-height:48px;padding:8px 14px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  .scheda[aria-selected="true"]{background:var(--ar);border-color:var(--ar);color:var(--carta)}
+  .pannello[hidden]{display:none}
+  .barra-simboli{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px}
+  #simboli{background:var(--carta);border:2px solid var(--b);border-radius:14px;padding:12px 16px;margin:-10px 0 22px}
+  #simboli[hidden]{display:none}
+  #simboli dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:17px}
+  #simboli dt{font-weight:700;font-size:20px;text-align:center;min-width:56px;color:var(--b)}
+  #simboli dd{margin:0}
+  @media (min-width:760px){#simboli dl{grid-template-columns:auto 1fr auto 1fr}}
+
+  h2.tit{font-size:clamp(24px,4vw,30px);margin:0 0 6px;color:var(--ar)}
+  .intro{max-width:44em;font-size:19px;line-height:1.65}
+  .blocco{background:var(--carta);border:2px solid var(--ar-bordo);border-radius:14px;padding:16px 18px;margin:0 0 18px}
+  .etic{display:inline-block;background:var(--ar);color:var(--carta);font-weight:700;font-size:15px;padding:4px 12px;border-radius:8px;margin:0 0 10px}
+  .fascia{background:var(--ar);color:var(--carta);border-radius:12px;padding:10px 18px;font-weight:700;font-size:20px;margin:28px 0 14px}
+  .due{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .tre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  @media (max-width:760px){.due,.tre{grid-template-columns:1fr}}
+  .due .blocco,.tre .blocco{margin:0}
+  .semplice{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:12px;padding:12px 16px;margin:18px 0;font-size:19px;line-height:1.5;max-width:44em}
+  .semplice .tag{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:4px}
+  .attenzione{border:2px solid var(--r);background:var(--r-chiaro);border-radius:12px;padding:12px 16px;margin:16px 0;max-width:44em;font-size:18px}
+  .attenzione b.t{color:var(--r)}
+  .regola{border:2px solid var(--v);background:var(--v-chiaro);border-radius:12px;padding:12px 16px;margin:16px 0;max-width:44em;font-size:18px}
+  .fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.15;margin:0 2px;font-size:.9em}
+  .fr>span:first-child{border-bottom:2px solid currentColor;padding:0 3px}
+  .fr>span:last-child{padding:0 3px}
+  .dis{font-weight:700;font-size:22px;white-space:nowrap}
+  .graffa{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+  .graffa .gr{font-size:2.6em;font-weight:300;line-height:1}
+  .graffa .righe{display:flex;flex-direction:column;gap:4px}
+
+  /* glossario */
+  button.g{font:inherit;color:inherit;background:none;border:0;padding:0 1px;cursor:pointer;font-weight:700;text-decoration:underline dotted var(--ar) 2px;text-underline-offset:4px}
+  #glossa{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(560px,calc(100% - 32px));background:var(--carta);border:2px solid var(--ar);border-radius:16px;padding:16px 18px 14px;box-shadow:0 10px 40px rgba(0,0,0,.25);z-index:20}
+  #glossa[hidden]{display:none}
+  #glossa h3{margin:0 0 4px;color:var(--ar);font-size:22px;padding-right:44px}
+  #glossa p{margin:0;font-size:18px;line-height:1.55}
+  #glossa .chiudi{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:10px;border:1px solid var(--bordo);background:var(--carta);color:var(--inchiostro);cursor:pointer;font-size:22px}
+
+  /* scelte */
+  .scelte{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+  .scelte button{min-height:46px;padding:6px 14px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;font-size:17px;cursor:pointer}
+  .scelte button[aria-pressed="true"]{border-color:var(--ar);background:var(--ar);color:var(--carta)}
+  .scelte .lab{align-self:center;font-weight:700;color:var(--tenue);font-size:15px;min-width:70px}
+
+  /* grafico */
+  .grafico-box{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+  @media (max-width:760px){.grafico-box{grid-template-columns:1fr}}
+  svg.par{width:100%;max-width:460px;height:auto;background:var(--carta);border:1px solid var(--bordo);border-radius:14px;display:block}
+  svg.par text{font:700 16px "Atkinson",system-ui,sans-serif;fill:var(--inchiostro)}
+  .risposta{border-radius:12px;padding:12px 16px;background:var(--carta);border:2px solid var(--v);font-size:18px}
+  .risposta .big{display:block;font-size:24px;font-weight:700;color:var(--v);margin:4px 0}
+  .risposta.vuota{border-color:var(--r)} .risposta.vuota .big{color:var(--r)}
+
+  /* procedura a spunte */
+  .schema{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:8px;max-width:44em}
+  .schema li{display:flex;gap:12px;align-items:flex-start;background:var(--carta);border:2px solid var(--ar-bordo);border-radius:12px;padding:10px 14px;font-size:18px}
+  .schema .num{flex:none;width:36px;height:36px;border-radius:10px;background:var(--ar);color:var(--carta);display:grid;place-items:center;font-weight:700;font-size:19px}
+  .schema .t{font-weight:700;color:var(--ar)}
+
+  /* esempi a passi */
+  .esempio{background:var(--carta);border:2px solid var(--ar-bordo);border-radius:14px;padding:16px 18px;margin:0 0 18px}
+  .esempio .testa-es{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:10px}
+  .esempio .testa-es .tipo{font-size:14px;font-weight:700;color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}
+  .passo{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,auto);gap:10px 14px;align-items:center;padding:10px 0;border-top:1px dashed var(--bordo);font-size:19px}
+  .passo .n{width:30px;height:30px;border-radius:50%;background:var(--ar);color:var(--carta);display:grid;place-items:center;font-weight:700;font-size:15px}
+  .passo .nota{color:var(--tenue);font-size:15px;font-style:italic}
+  @media (max-width:560px){.passo{grid-template-columns:auto 1fr}.passo .nota{grid-column:2}}
+  .passo[hidden],.finale[hidden]{display:none}
+  .finale{border-top:1px dashed var(--bordo);padding-top:12px;margin-top:4px}
+  .soluz{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:10px;background:var(--v-chiaro);border:2px solid var(--v);font-size:20px;font-weight:700}
+  .soluz small{font-weight:400;color:var(--tenue);font-size:16px;margin-left:8px}
+  .comandi{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+  /* tabella dei segni */
+  .tab-scroll{overflow-x:auto;max-width:100%}
+  table.segni{border-collapse:collapse;margin:6px 0;font-size:18px;background:var(--carta)}
+  .segni th,.segni td{border:1px solid var(--bordo);padding:6px 8px;text-align:center;min-width:44px}
+  .segni th{background:var(--ar-chiaro);font-weight:700}
+  .segni td.et{text-align:left;font-weight:700;white-space:nowrap}
+  .segni td.p{background:var(--v-chiaro);color:var(--v);font-weight:700}
+  .segni td.m{background:var(--r-chiaro);color:var(--r);font-weight:700}
+  .segni td.pt{font-weight:700;min-width:30px;padding:6px 4px}
+  .segni tr.ris td{border-top:3px solid var(--inchiostro)}
+  .segni tr.sol td.si{background:var(--v);color:#fff;font-weight:700}
+  .segni tr.sol td.no{background:transparent;color:var(--tenue)}
+
+  /* biscioline */
+  svg.bisc{width:100%;max-width:560px;height:auto;background:var(--carta);border:1px solid var(--bordo);border-radius:14px;display:block}
+  svg.bisc text{font:700 16px "Atkinson",system-ui,sans-serif;fill:var(--inchiostro)}
+
+  /* albero decisione */
+  .albero{display:grid;gap:10px;max-width:44em}
+  .nodo-a{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--carta);border:2px solid var(--bordo);border-radius:12px;padding:10px 14px;font-size:19px}
+  .nodo-a.attivo{border-color:var(--ar);box-shadow:0 0 0 3px var(--ar-chiaro)}
+  .nodo-a.fatto{opacity:.75}
+  .nodo-a .q{font-weight:700;flex:1;min-width:200px}
+  .nodo-a button{min-width:70px;min-height:44px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .nodo-a button.scelto{background:var(--ar);color:var(--carta);border-color:var(--ar)}
+  .nodo-a button:disabled{cursor:default}
+  .metodo-card{border-radius:14px;padding:14px 16px;border:3px solid var(--v);background:var(--v-chiaro);font-size:18px}
+  .metodo-card b.t{display:block;font-size:22px;color:var(--v)}
+  .avviso{font-size:17px;border-radius:10px;padding:8px 12px;background:var(--r-chiaro);border:1px solid var(--r)}
+
+  /* quiz */
+  .domanda{background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:14px 16px;margin:0 0 12px;max-width:44em}
+  .domanda .q{margin:0 0 10px;font-size:19px}
+  .opz{display:flex;gap:8px;flex-wrap:wrap}
+  .opz button{min-height:48px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;font-size:18px;cursor:pointer;padding:6px 14px}
+  .opz button.giusta{background:var(--v-chiaro);border-color:var(--v)}
+  .opz button.sbagliata{background:var(--r-chiaro);border-color:var(--r)}
+  .spiega{margin-top:10px;font-size:17px;border-radius:8px;padding:8px 12px}
+  .spiega.ok{background:var(--v-chiaro)} .spiega.no{background:var(--r-chiaro)}
+  .come{margin-top:8px}
+  .come summary{cursor:pointer;font-weight:700;color:var(--ar);min-height:32px}
+  .come ol{margin:6px 0 0;padding-left:22px;font-size:17px}
+  .punteggio{font-size:21px;font-weight:700;margin:14px 0}
+  .controllo{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-width:44em}
+  .controllo label{display:flex;gap:12px;align-items:flex-start;background:var(--carta);border:2px solid var(--bordo);border-radius:12px;padding:10px 14px;font-size:18px;cursor:pointer}
+  .controllo input{width:24px;height:24px;flex:none;accent-color:var(--v);margin-top:2px}
+  .controllo label:has(input:checked){border-color:var(--v);background:var(--v-chiaro)}
+
+  /* risolutore */
+  form.prova{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:6px 0 10px}
+  form.prova label{display:flex;flex-direction:column;font-weight:700;font-size:16px;gap:4px}
+  form.prova input{width:90px;min-height:48px;font:inherit;font-size:20px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);padding:4px 10px}
+  .anteprima{font-size:24px;font-weight:700;margin:6px 0 12px}
+  .esito .passo{grid-template-columns:auto minmax(0,1fr)}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=matematica">Matematica</a></p>
+  <h1>Disequazioni di secondo grado</h1>
+  <p class="sottotitolo">Metodo della parabola, fratte e sistemi. Vai in ordine, una scheda alla volta. Le parole <b style="text-decoration:underline dotted var(--ar) 2px;text-underline-offset:4px">sottolineate</b> si possono toccare.</p>
+
+  <div class="schede" role="tablist" aria-label="Argomenti">
+    <button class="scheda" role="tab" aria-selected="true" data-p="1">1 · La parabola</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="2">2 · Il metodo</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="3">3 · Casi speciali</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="4">4 · Fratte e prodotti</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="5">5 · Sistemi</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="6">6 · Quale metodo?</button>
+    <button class="scheda" role="tab" aria-selected="false" data-p="7">7 · Prova tu</button>
+  </div>
+  <div class="barra-simboli"><button class="pulsante" type="button" id="apri-simboli" aria-expanded="false">Che cosa vogliono dire i simboli?</button></div>
+  <div id="simboli" hidden>
+    <dl>
+      <dt>&gt;</dt><dd>maggiore di</dd>
+      <dt>&lt;</dt><dd>minore di</dd>
+      <dt>≥</dt><dd>maggiore <b>o uguale</b></dd>
+      <dt>≤</dt><dd>minore <b>o uguale</b></dd>
+      <dt>∨</dt><dd><b>oppure</b> (vanno bene tutte e due le parti)</dd>
+      <dt>≠</dt><dd>diverso da</dd>
+      <dt>∀x ∈ ℝ</dt><dd><b>tutti i numeri</b> vanno bene</dd>
+      <dt>∅</dt><dd><b>nessuna</b> soluzione (impossibile)</dd>
+      <dt>∄</dt><dd>non esiste (la frazione non si può calcolare)</dd>
+      <dt>Δ</dt><dd>delta, il <b>discriminante</b>: Δ = b² − 4ac</dd>
+      <dt>( )</dt><dd>parentesi tonda: il numero è <b>escluso</b></dd>
+      <dt>[ ]</dt><dd>parentesi quadra: il numero è <b>incluso</b></dd>
+      <dt>∞</dt><dd>infinito</dd>
+      <dt>C.E.</dt><dd>condizioni di esistenza</dd>
+    </dl>
+  </div>
+
+  <!-- ================= 1 · LA PARABOLA ================= -->
+  <section class="pannello" id="p1" role="tabpanel">
+    <h2 class="tit">1 · La parabola</h2>
+    <p class="intro">Il disegno di <b>y = ax² + bx + c</b> è una curva che si chiama <b>parabola</b>. Per risolvere le disequazioni ci servono <b>solo due informazioni</b>.</p>
+    <div class="due">
+      <div class="blocco"><span class="etic">1 · il segno di a</span><p style="margin:0;font-size:18px">dice la <button class="g" data-g="concavita">concavità</button>:<br><b>a &gt; 0</b> → verso l'alto ∪<br><b>a &lt; 0</b> → verso il basso ∩</p></div>
+      <div class="blocco"><span class="etic">2 · il segno di Δ</span><p style="margin:0;font-size:18px">dice quante volte tocca l'asse x:<br><b>Δ &gt; 0</b> → lo taglia in <b>2 punti</b><br><b>Δ = 0</b> → lo tocca in <b>1 punto</b><br><b>Δ &lt; 0</b> → <b>non lo tocca</b></p></div>
+    </div>
+    <h3>Prova: scegli e guarda la parabola</h3>
+    <div class="scelte" id="es1-a"><span class="lab">segno di a</span><button type="button" aria-pressed="true" data-v="1">a &gt; 0 ∪</button><button type="button" aria-pressed="false" data-v="-1">a &lt; 0 ∩</button></div>
+    <div class="scelte" id="es1-d"><span class="lab">Δ</span><button type="button" aria-pressed="true" data-v="2">Δ &gt; 0</button><button type="button" aria-pressed="false" data-v="1">Δ = 0</button><button type="button" aria-pressed="false" data-v="0">Δ &lt; 0</button></div>
+    <div class="grafico-box">
+      <svg class="par" id="g1" viewBox="0 0 400 230" role="img" aria-label="Parabola"></svg>
+      <div class="risposta" id="r1"></div>
+    </div>
+    <div class="fascia">Il collegamento con la disequazione</div>
+    <div class="due">
+      <div class="regola"><b>Parabola SOPRA l'asse x</b> → il trinomio è <b>positivo</b> (&gt; 0)</div>
+      <div class="attenzione" style="margin:16px 0"><b>Parabola SOTTO l'asse x</b> → il trinomio è <b>negativo</b> (&lt; 0)</div>
+    </div>
+    <p class="intro">Dove la parabola <b>tocca</b> l'asse, il trinomio vale <b>0</b>: sono le <button class="g" data-g="radici">radici</button>.</p>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Risolvere <b>ax² + bx + c &gt; 0</b> vuol dire cercare <b>dove la parabola sta sopra l'asse</b>. Con <b>&lt; 0</b> cerco dove sta <b>sotto</b>.</div>
+  </section>
+
+  <!-- ================= 2 · IL METODO ================= -->
+  <section class="pannello" id="p2" role="tabpanel" hidden>
+    <h2 class="tit">2 · Il metodo della parabola</h2>
+    <p class="intro">Si fa sempre in <b>5 passi</b>, sempre nello stesso ordine.</p>
+    <ol class="schema">
+      <li><span class="num">1</span><span><span class="t">Forma normale.</span> Porto tutto a sinistra: ax² + bx + c ▢ 0 (con 0 a destra).</span></li>
+      <li><span class="num">2</span><span><span class="t">Se a &lt; 0:</span> moltiplico per −1, <b>cambio tutti i segni</b> e <b>cambio il verso</b>. Così la parabola è sempre ∪.</span></li>
+      <li><span class="num">3</span><span><span class="t">Equazione associata.</span> Risolvo ax² + bx + c <b>= 0</b>: calcolo Δ e le radici.</span></li>
+      <li><span class="num">4</span><span><span class="t">Disegno</span> una parabola ∪ che passa per le radici. Non serve altro.</span></li>
+      <li><span class="num">5</span><span><span class="t">Leggo la soluzione.</span> &gt; 0 → dove è <b>sopra</b>; &lt; 0 → dove è <b>sotto</b>. Con ≥ e ≤ le radici sono <b>incluse</b>.</span></li>
+    </ol>
+    <div class="attenzione"><b class="t">Il verso serve solo alla fine!</b> Per trovare le radici uso sempre l'equazione (= 0). Il simbolo &gt; &lt; ≥ ≤ serve solo al passo 5.</div>
+
+    <div class="fascia">Leggo la soluzione con Δ &gt; 0</div>
+    <p class="intro">Scegli il verso e guarda quale parte di parabola si colora.</p>
+    <div class="scelte" id="es2-v"><span class="lab">verso</span><button type="button" aria-pressed="true" data-v=">">&gt; 0</button><button type="button" aria-pressed="false" data-v=">=">≥ 0</button><button type="button" aria-pressed="false" data-v="<">&lt; 0</button><button type="button" aria-pressed="false" data-v="<=">≤ 0</button></div>
+    <div class="grafico-box">
+      <svg class="par" id="g2" viewBox="0 0 400 230" role="img" aria-label="Parabola con la soluzione colorata"></svg>
+      <div class="risposta" id="r2"></div>
+    </div>
+    <div class="regola"><b>Trucco per ricordare</b> (con a &gt; 0 e Δ &gt; 0):<br>verso <b>&gt;</b> → valori <button class="g" data-g="esterni">esterni</button> alle radici &nbsp;·&nbsp; verso <b>&lt;</b> → valori <button class="g" data-g="interni">interni</button>.<br>Ma più della regola conta il <b>disegno</b>.</div>
+
+    <div class="fascia">Esempi svolti, passo per passo</div>
+    <p class="aiuto" style="color:var(--tenue)">Scegli un esempio e tocca «Passo successivo».</p>
+    <div class="scelte" id="sc-es2"></div>
+    <div id="box-es2"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Trovo le radici con l'equazione, disegno la parabola ∪ e guardo: <b>&gt;</b> sopra, <b>&lt;</b> sotto.</div>
+  </section>
+
+  <!-- ================= 3 · CASI SPECIALI ================= -->
+  <section class="pannello" id="p3" role="tabpanel" hidden>
+    <h2 class="tit">3 · Casi speciali: Δ = 0, Δ &lt; 0, a &lt; 0</h2>
+    <div class="fascia">La tabella riassuntiva (con a &gt; 0)</div>
+    <p class="intro">Tocca una casella: il disegno ti mostra perché.</p>
+    <div class="tab-scroll"><table class="segni" id="tab-riass"></table></div>
+    <div class="grafico-box" style="margin-top:12px">
+      <svg class="par" id="g3" viewBox="0 0 400 230" role="img" aria-label="Disegno della casella scelta"></svg>
+      <div class="risposta" id="r3"><b>Tocca una casella della tabella.</b></div>
+    </div>
+    <div class="due" style="margin-top:18px">
+      <div class="blocco"><span class="etic">Δ = 0</span><p style="margin:0;font-size:18px">Il trinomio è un <b>quadrato</b>, per esempio x² − 6x + 9 = (x − 3)². Un quadrato <b>non è mai negativo</b>: vale 0 solo nella radice.</p></div>
+      <div class="blocco"><span class="etic">Δ &lt; 0</span><p style="margin:0;font-size:18px">La parabola sta <b>sempre sopra</b> l'asse: il trinomio è <b>sempre positivo</b>.<br><b>Scorciatoia:</b> x² + 9 &gt; 0 è sempre vera, x² + 9 &lt; 0 è impossibile.</p></div>
+    </div>
+    <div class="fascia">Il caso a &lt; 0: prima cambio segno</div>
+    <div class="regola" style="font-size:20px">Moltiplico tutto per <b>−1</b>:<br>① cambio <b>tutti i segni</b> &nbsp; ② cambio il <b>verso</b>: &gt; diventa &lt;, ≥ diventa ≤.<br>Così la parabola torna ∪ e uso le stesse regole.</div>
+    <div class="fascia">Esempi svolti</div>
+    <div class="scelte" id="sc-es3"></div>
+    <div id="box-es3"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Se Δ = 0 o Δ &lt; 0 <b>non invento radici</b>: guardo la tabella. Se a è negativo, cambio i segni e il verso, poi faccio come sempre.</div>
+  </section>
+
+  <!-- ================= 4 · FRATTE E PRODOTTI ================= -->
+  <section class="pannello" id="p4" role="tabpanel" hidden>
+    <h2 class="tit">4 · Fratte e prodotti: la tabella dei segni</h2>
+    <p class="intro">È la stessa <button class="g" data-g="tabella">tabella dei segni</button> delle disequazioni di primo grado. La novità: una riga può essere di <b>secondo grado</b>. Il suo segno lo leggo con la <b>parabola</b>.</p>
+    <ol class="schema">
+      <li><span class="num">1</span><span><span class="t">Forma normale</span> <span class="fr"><span>N</span><span>D</span></span> ▢ 0. <b>Non</b> moltiplico per il denominatore!</span></li>
+      <li><span class="num">2</span><span><span class="t">C.E.:</span> D ≠ 0 (il denominatore non può essere zero).</span></li>
+      <li><span class="num">3</span><span><span class="t">Studio N &gt; 0 e D &gt; 0.</span> Primo grado: come sempre. Secondo grado: con la parabola.</span></li>
+      <li><span class="num">4</span><span><span class="t">Tabella dei segni:</span> una riga per N, una per D, poi il segno del risultato.</span></li>
+      <li><span class="num">5</span><span><span class="t">Scelgo le colonne</span> con il segno giusto. Gli zeri del denominatore sono <b>sempre esclusi</b> (∄).</span></li>
+    </ol>
+    <div class="attenzione"><b class="t">Mai moltiplicare per il denominatore!</b> Non so se è positivo o negativo, quindi non so se il verso cambia.</div>
+    <div class="regola"><b>Regola dei segni:</b> + per + = + &nbsp;·&nbsp; − per − = + &nbsp;·&nbsp; + per − = −</div>
+    <div class="fascia">Esempi svolti: la tabella si costruisce una riga alla volta</div>
+    <div class="scelte" id="sc-es4"></div>
+    <div id="box-es4"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Studio ogni pezzo da solo, metto i segni nella tabella e li moltiplico. I numeri che azzerano il denominatore <b>non vanno mai</b>.</div>
+  </section>
+
+  <!-- ================= 5 · SISTEMI ================= -->
+  <section class="pannello" id="p5" role="tabpanel" hidden>
+    <h2 class="tit">5 · Sistemi: parabola + biscioline</h2>
+    <p class="intro">Un <b>sistema</b> si riconosce dalla <b>parentesi graffa {</b>. Le disequazioni devono essere vere <b>tutte insieme</b>.</p>
+    <ol class="schema">
+      <li><span class="num">1</span><span><span class="t">Risolvo ogni disequazione</span> con il suo metodo: primo grado, parabola o tabella dei segni.</span></li>
+      <li><span class="num">2</span><span><span class="t">Disegno una</span> <button class="g" data-g="biscioline">bisciolina</button> per ogni disequazione, una sotto l'altra.</span></li>
+      <li><span class="num">3</span><span><span class="t">Soluzione</span> = dove ci sono <b>tutte</b> le biscioline insieme.</span></li>
+    </ol>
+    <div class="attenzione"><b class="t">Attenzione:</b> se una disequazione è <b>impossibile</b>, tutto il sistema è impossibile.<br>Se una è <b>sempre vera</b> (∀x ∈ ℝ), non toglie nessun valore.</div>
+    <div class="fascia">Esempi svolti</div>
+    <div class="scelte" id="sc-es5"></div>
+    <div id="box-es5"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Risolvo una disequazione alla volta. Poi cerco la zona dove <b>tutte</b> le soluzioni sono vere insieme.</div>
+  </section>
+
+  <!-- ================= 6 · QUALE METODO ================= -->
+  <section class="pannello" id="p6" role="tabpanel" hidden>
+    <h2 class="tit">6 · Quale metodo uso?</h2>
+    <p class="intro">Prima di cominciare, faccio <b>3 domande</b>, in quest'ordine. Scegli una disequazione e rispondi.</p>
+    <div class="scelte" id="sc-albero"></div>
+    <div class="anteprima" id="albero-dis"></div>
+    <div class="albero" id="albero"></div>
+    <div class="fascia">Tabella per decidere</div>
+    <div class="tab-scroll"><table class="segni" style="font-size:17px">
+      <tr><th>Ho davanti…</th><th>Uso…</th></tr>
+      <tr><td class="et">un solo trinomio ax² + bx + c ▢ 0</td><td style="text-align:left">metodo della <b>parabola</b></td></tr>
+      <tr><td class="et">un prodotto di più fattori</td><td style="text-align:left"><b>tabella dei segni</b> (righe di 2° grado con la parabola)</td></tr>
+      <tr><td class="et">una frazione N/D</td><td style="text-align:left"><b>tabella dei segni</b> con C.E.; zeri di D esclusi</td></tr>
+      <tr><td class="et">un sistema (graffa {)</td><td style="text-align:left">ognuna col suo metodo, poi <b>biscioline</b></td></tr>
+    </table></div>
+    <div class="regola"><b>Lo sapevi?</b> x² − 5x + 6 &gt; 0 si può fare anche scomponendo: (x − 2)(x − 3) &gt; 0 con la tabella dei segni. Il risultato è lo stesso! Ma con un trinomio la parabola è più veloce, e funziona anche quando non si scompone (Δ &lt; 0).</div>
+    <div class="fascia">Prima di consegnare: controlla!</div>
+    <p class="aiuto" style="color:var(--tenue)">Spunta ogni punto mentre ricontrolli il compito.</p>
+    <ul class="controllo" id="controllo"></ul>
+  </section>
+
+  <!-- ================= 7 · PROVA TU ================= -->
+  <section class="pannello" id="p7" role="tabpanel" hidden>
+    <h2 class="tit">7 · Prova tu</h2>
+    <div class="fascia">Il risolutore: scrivi a, b, c e guarda tutti i passaggi</div>
+    <form class="prova" id="prova" onsubmit="return false">
+      <label>a <input id="ca" inputmode="decimal" value="1"></label>
+      <label>b <input id="cb" inputmode="decimal" value="-5"></label>
+      <label>c <input id="cc" inputmode="decimal" value="6"></label>
+    </form>
+    <div class="scelte" id="pv"><span class="lab">verso</span><button type="button" aria-pressed="false" data-v=">">&gt; 0</button><button type="button" aria-pressed="false" data-v=">=">≥ 0</button><button type="button" aria-pressed="true" data-v="<">&lt; 0</button><button type="button" aria-pressed="false" data-v="<=">≤ 0</button></div>
+    <div class="anteprima" id="anteprima"></div>
+    <div class="esito" id="esito" aria-live="polite"></div>
+
+    <div class="fascia">Mettiti alla prova: scegli la soluzione giusta</div>
+    <p class="aiuto" style="color:var(--tenue)">Prima prova da solo sul quaderno. Se ti blocchi, apri «Come si fa».</p>
+    <div id="quiz"></div>
+    <div class="punteggio" id="punteggio" aria-live="polite"></div>
+  </section>
+
+  <details class="originale" style="margin-top:40px;background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:12px 16px">
+    <summary style="cursor:pointer;font-weight:700">Obiettivi e prerequisiti dell'unità</summary>
+    <p><b>Conoscenze:</b> la funzione y = ax² + bx + c e la sua rappresentazione grafica; disequazioni di secondo grado; sistemi di disequazioni contenenti disequazioni di secondo grado.</p>
+    <p><b>Abilità:</b> risolvere disequazioni di secondo grado con il metodo della parabola; risolvere disequazioni fratte e sistemi di disequazioni.</p>
+    <p><b>Prerequisiti:</b> equazioni di secondo grado e discriminante Δ = b² − 4ac; scomposizione del trinomio di secondo grado; disequazioni di primo grado, tabella dei segni e metodo delle biscioline.</p>
+    <p><b>Libro di testo:</b> Matematica a colori – Edizione blu, vol. 2, Unità 6 «Disequazioni di secondo grado e di grado superiore».</p>
+  </details>
+</main>
+<footer id="piede"></footer>
+
+<div id="glossa" role="dialog" aria-modal="false" aria-labelledby="glossa-titolo" hidden>
+  <button class="chiudi" type="button" aria-label="Chiudi">×</button>
+  <h3 id="glossa-titolo"></h3>
+  <p id="glossa-testo"></p>
+</div>
+
+<script>
+/* ===================== UTILITÀ ===================== */
+var M = "−";
+function fr(n, d) { return '<span class="fr"><span>' + n + "</span><span>" + d + "</span></span>"; }
+function meno(s) { return String(s).replace(/-/g, M); }
+var VERSO = { ">": "&gt;", ">=": "≥", "<": "&lt;", "<=": "≤" };
+var OPPOSTO = { ">": "<", ">=": "<=", "<": ">", "<=": ">=" };
+var NS = "http://www.w3.org/2000/svg";
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function premi(box, btn) { box.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); }); }
+
+/* soluzione dalla tabella riassuntiva (a > 0). r = [x1, x2] oppure [x0] (html) */
+function soluzione(caso, v, r) {
+  var x1 = r[0], x2 = r[1];
+  if (caso === 2) return {
+    ">": ["x &lt; " + x1 + " ∨ x &gt; " + x2, "(" + M + "∞, " + x1 + ") ∪ (" + x2 + ", +∞)", "valori esterni, radici escluse"],
+    ">=": ["x ≤ " + x1 + " ∨ x ≥ " + x2, "(" + M + "∞, " + x1 + "] ∪ [" + x2 + ", +∞)", "valori esterni, radici incluse"],
+    "<": [x1 + " &lt; x &lt; " + x2, "(" + x1 + ", " + x2 + ")", "valori interni, radici escluse"],
+    "<=": [x1 + " ≤ x ≤ " + x2, "[" + x1 + ", " + x2 + "]", "valori interni, radici incluse"] }[v];
+  if (caso === 1) return {
+    ">": ["∀x ≠ " + x1, "tutti i numeri tranne " + x1, "la parabola è sopra l'asse dappertutto, tranne dove lo tocca"],
+    ">=": ["∀x ∈ ℝ", "tutti i numeri", "la parabola è sopra l'asse o lo tocca: va sempre bene"],
+    "<": ["impossibile", "S = ∅", "la parabola non va mai sotto l'asse"],
+    "<=": ["x = " + x1, "solo il numero " + x1, "vale solo dove la parabola tocca l'asse"] }[v];
+  return {
+    ">": ["∀x ∈ ℝ", "tutti i numeri", "la parabola è sempre sopra l'asse"],
+    ">=": ["∀x ∈ ℝ", "tutti i numeri", "la parabola è sempre sopra l'asse"],
+    "<": ["impossibile", "S = ∅", "la parabola non va mai sotto l'asse"],
+    "<=": ["impossibile", "S = ∅", "la parabola non va mai sotto l'asse né lo tocca"] }[v];
+}
+
+/* ===================== DISEGNO DELLA PARABOLA ===================== */
+/* o = {a:1|-1, caso:2|1|0, et:["2","3"], verso:null|">"|...} */
+function disegnaParabola(svg, o) {
+  svg.innerHTML = "";
+  var W = 400, H = 230, a = o.a || 1;
+  var asse = a > 0 ? 160 : 70;
+  var X1 = 130, X2 = 270, X0 = 200, k = 1 / 90;
+  function f(x) {
+    if (o.caso === 2) return k * (x - X1) * (x - X2);
+    if (o.caso === 1) return k * 0.9 * (x - X0) * (x - X0);
+    return k * 0.9 * (x - X0) * (x - X0) + 40;
+  }
+  function yv(x) { return asse - a * f(x); }
+  var colori = { si: "var(--v)", curva: "var(--curva)" };
+  // asse
+  el("line", { x1: 10, y1: asse, x2: W - 14, y2: asse, stroke: "var(--asse)", "stroke-width": 2 }, svg);
+  el("path", { d: "M" + (W - 14) + " " + (asse - 6) + " L" + (W - 4) + " " + asse + " L" + (W - 14) + " " + (asse + 6) + "z", fill: "var(--asse)" }, svg);
+  el("text", { x: W - 18, y: asse + (a > 0 ? 24 : -12), "text-anchor": "end", "font-style": "italic" }, svg).textContent = "x";
+  // condizione
+  function vale(x) {
+    if (!o.verso) return false;
+    var s = a * f(x), eps = 0.6;
+    if (o.verso === ">") return s > eps;
+    if (o.verso === ">=") return s > -eps;
+    if (o.verso === "<") return s < -eps;
+    return s < eps;
+  }
+  // curva a pezzi
+  var pts = [];
+  for (var x = 4; x <= W - 4; x += 2) { var y = yv(x); if (y >= 6 && y <= H - 6) pts.push([x, y, vale(x)]); }
+  var pezzi = [], cur = null;
+  pts.forEach(function (p, i) {
+    if (!cur || cur.on !== p[2]) { var prec = cur ? cur.pts[cur.pts.length - 1] : null; cur = { on: p[2], pts: prec ? [prec] : [] }; pezzi.push(cur); }
+    cur.pts.push(p);
+  });
+  pezzi.forEach(function (p) {
+    if (p.pts.length < 2) return;
+    el("path", { d: "M" + p.pts.map(function (q) { return q[0] + " " + q[1].toFixed(1); }).join(" L"), fill: "none", stroke: p.on ? colori.si : colori.curva, "stroke-width": p.on ? 6 : 3, "stroke-linecap": "round" }, svg);
+  });
+  // tratti sull'asse
+  if (o.verso) {
+    var inizio = null;
+    for (var x2 = 10; x2 <= W - 14; x2 += 1) {
+      var v = vale(x2);
+      if (v && inizio === null) inizio = x2;
+      if ((!v || x2 >= W - 15) && inizio !== null) {
+        var fine = v ? x2 : x2 - 1;
+        if (fine - inizio > 20) el("line", { x1: inizio, y1: asse, x2: fine, y2: asse, stroke: colori.si, "stroke-width": 8, "stroke-linecap": "round", opacity: .85 }, svg);
+        inizio = null;
+      }
+    }
+  }
+  // radici
+  var radici = o.caso === 2 ? [X1, X2] : o.caso === 1 ? [X0] : [];
+  radici.forEach(function (rx, i) {
+    var incl = o.verso && /=/.test(o.verso), usata = o.verso && (incl || o.caso === 2 || o.verso === ">");
+    var piena = o.verso ? incl : true;
+    var nel = o.verso && vale(rx);
+    el("circle", { cx: rx, cy: asse, r: 7, fill: piena ? (nel ? colori.si : "var(--asse)") : "var(--carta)", stroke: (o.verso && (o.caso === 2 || nel || o.verso === ">")) ? colori.si : "var(--asse)", "stroke-width": 3 }, svg);
+    var et = o.et ? o.et[i] : (o.caso === 2 ? ["x₁", "x₂"][i] : "x₀");
+    el("text", { x: rx, y: asse + (a > 0 ? 30 : -16), "text-anchor": "middle" }, svg).textContent = meno(et);
+  });
+  if (o.verso && o.caso !== 2 && !radici.some(function (r) { return vale(r); }) && !vale(10) && !vale(W / 2)) {
+    el("text", { x: W / 2, y: 30, "text-anchor": "middle", fill: "var(--r)", style: "fill:var(--r)" }, svg).textContent = "∅ nessuna soluzione";
+  }
+}
+
+/* ===================== TABELLA DEI SEGNI ===================== */
+/* o = {pts:["−2","2","3"], righe:[{lab, s:"+-++", z:{0:"0",1:"0"}, den:true}], verso:"<"} */
+function tabellaSegni(o, quante) {
+  var n = o.pts.length, nr = quante === undefined ? o.righe.length + 2 : quante;
+  var h = '<div class="tab-scroll"><table class="segni"><tr><th>valori di x</th>';
+  for (var i = 0; i <= n; i++) { h += "<th></th>"; if (i < n) h += '<th class="pt">' + o.pts[i] + "</th>"; }
+  h += "</tr>";
+  o.righe.forEach(function (r, ri) {
+    if (ri >= nr) return;
+    h += '<tr><td class="et">' + r.lab + "</td>";
+    for (var i = 0; i <= n; i++) {
+      h += '<td class="' + (r.s[i] === "+" ? "p" : "m") + '">' + (r.s[i] === "+" ? "+" : M) + "</td>";
+      if (i < n) h += '<td class="pt">' + (r.z && r.z[i] ? (r.den ? "0" : "0") : "") + "</td>";
+    }
+    h += "</tr>";
+  });
+  if (nr > o.righe.length) {
+    h += '<tr class="ris"><td class="et">segno del risultato</td>';
+    for (var i = 0; i <= n; i++) {
+      var neg = o.righe.filter(function (r) { return r.s[i] === "-"; }).length % 2;
+      h += '<td class="' + (neg ? "m" : "p") + '">' + (neg ? M : "+") + "</td>";
+      if (i < n) {
+        var esiste = !o.righe.some(function (r) { return r.den && r.z && r.z[i]; });
+        var zero = o.righe.some(function (r) { return !r.den && r.z && r.z[i]; });
+        h += '<td class="pt">' + (!esiste ? "∄" : zero ? "0" : "") + "</td>";
+      }
+    }
+    h += "</tr>";
+  }
+  if (nr > o.righe.length + 1) {
+    h += '<tr class="sol"><td class="et">soluzioni (' + VERSO[o.verso] + " 0)</td>";
+    var vuole = /</.test(o.verso) ? "-" : "+", incl = /=/.test(o.verso);
+    for (var i = 0; i <= n; i++) {
+      var neg = o.righe.filter(function (r) { return r.s[i] === "-"; }).length % 2;
+      var ok = (neg ? "-" : "+") === vuole;
+      h += '<td class="' + (ok ? "si" : "no") + '">' + (ok ? "✓" : "") + "</td>";
+      if (i < n) {
+        var esiste = !o.righe.some(function (r) { return r.den && r.z && r.z[i]; });
+        var zero = o.righe.some(function (r) { return !r.den && r.z && r.z[i]; });
+        var okp = esiste && zero && incl;
+        h += '<td class="pt ' + (okp ? "si" : "no") + '">' + (okp ? "●" : esiste ? (zero ? "○" : "") : "∄") + "</td>";
+      }
+    }
+    h += "</tr>";
+  }
+  return h + "</table></div>";
+}
+
+/* ===================== BISCIOLINE ===================== */
+/* o = {pts:[{v,l}], righe:[{lab, iv:[[lo,hi,li,hi_]]}], sol:[...]}  lo/hi: valori o null (infinito) */
+function biscioline(o, quante) {
+  var W = 560, pts = o.pts.slice().sort(function (a, b) { return a.v - b.v; });
+  var nr = quante === undefined ? o.righe.length + 1 : quante;
+  var H = 40 + 46 * (Math.min(nr, o.righe.length) + (nr > o.righe.length ? 1 : 0)) + 34;
+  var X = {}, x0 = 150, x1 = W - 40;
+  pts.forEach(function (p, i) { X[p.v] = pts.length === 1 ? (x0 + x1) / 2 : x0 + (x1 - x0) * (i + .5) / pts.length; });
+  function px(v, lato) { return v === null ? (lato < 0 ? x0 - 30 : W - 12) : X[v]; }
+  var s = '<svg class="bisc" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Biscioline">';
+  pts.forEach(function (p) { s += '<line x1="' + X[p.v] + '" y1="14" x2="' + X[p.v] + '" y2="' + (H - 34) + '" stroke="var(--tenue)" stroke-dasharray="4 5" stroke-width="1.5"/>'; });
+  var righe = o.righe.slice(0, nr);
+  if (nr > o.righe.length) righe.push({ lab: "soluzioni", iv: o.sol, sol: true });
+  righe.forEach(function (r, i) {
+    var y = 40 + i * 46;
+    s += '<text x="8" y="' + (y + 5) + '" style="font-size:15px' + (r.sol ? ";fill:var(--v)" : "") + '">' + r.lab + "</text>";
+    if (!r.iv.length) s += '<text x="' + ((x0 + x1) / 2) + '" y="' + (y + 5) + '" text-anchor="middle" style="fill:var(--r)">∅ nessuna</text>';
+    r.iv.forEach(function (q) {
+      var a = px(q[0], -1), b = px(q[1], 1), col = r.sol ? "var(--v)" : "var(--b)";
+      s += '<path d="M' + a + " " + y + " C" + (a + 12) + " " + (y - 16) + " " + (b - 12) + " " + (y - 16) + " " + b + " " + y + '" fill="none" stroke="' + col + '" stroke-width="' + (r.sol ? 6 : 4) + '" stroke-linecap="round"/>';
+      if (r.sol) s += '<line x1="' + a + '" y1="' + (y + 4) + '" x2="' + b + '" y2="' + (y + 4) + '" stroke="var(--v)" stroke-width="10" opacity=".25"/>';
+      [[q[0], q[2], a], [q[1], q[3], b]].forEach(function (e) {
+        if (e[0] === null) return;
+        s += '<circle cx="' + e[2] + '" cy="' + y + '" r="6" fill="' + (e[1] ? col : "var(--carta)") + '" stroke="' + col + '" stroke-width="3"/>';
+      });
+      if (q[0] !== null && q[1] !== null && q[0] === q[1]) s += '<circle cx="' + a + '" cy="' + y + '" r="7" fill="' + col + '"/>';
+    });
+  });
+  var ya = H - 22;
+  s += '<line x1="' + (x0 - 40) + '" y1="' + ya + '" x2="' + (W - 14) + '" y2="' + ya + '" stroke="var(--asse)" stroke-width="2"/><path d="M' + (W - 14) + " " + (ya - 5) + " L" + (W - 4) + " " + ya + " L" + (W - 14) + " " + (ya + 5) + 'z" fill="var(--asse)"/>';
+  pts.forEach(function (p) { s += '<text x="' + X[p.v] + '" y="' + (ya + 19) + '" text-anchor="middle" style="font-size:15px">' + meno(p.l) + "</text>"; });
+  return s + "</svg>";
+}
+
+/* ===================== ESEMPI A PASSI ===================== */
+function svgPar(o) { var s = document.createElementNS(NS, "svg"); s.setAttribute("class", "par"); s.setAttribute("viewBox", "0 0 400 230"); disegnaParabola(s, o); return s.outerHTML; }
+function esempio(box, e) {
+  var h = '<div class="esempio"><div class="testa-es"><span class="tipo">' + e.tipo + '</span><span class="dis">' + e.dis + "</span></div>";
+  e.passi.forEach(function (p, i) { h += '<div class="passo" data-i="' + i + '"' + (i ? " hidden" : "") + '><span class="n">' + (i + 1) + "</span><span>" + p[0] + '</span><span class="nota">' + (p[1] || "") + "</span></div>"; });
+  h += '<div class="finale" hidden><div class="disegno"></div>' + (e.lettura ? '<p style="font-size:18px;margin:10px 0 0">' + e.lettura + "</p>" : "") + '<div class="soluz">Soluzione: ' + e.sol + (e.int ? "<small>" + e.int + "</small>" : "") + "</div>" + (e.dopo || "") + "</div>";
+  h += '<div class="comandi"><button class="pulsante" type="button" data-a="avanti">Passo successivo ↓</button><button class="pulsante" type="button" data-a="tutto">Mostra tutto</button></div></div>';
+  box.innerHTML = h;
+  var visti = 1, tot = e.passi.length + 1;
+  var disegno = box.querySelector(".disegno"), fasiDis = e.fasi || 0, fase = 0;
+  function aggiorna() {
+    box.querySelectorAll(".passo").forEach(function (p) { p.hidden = +p.dataset.i >= visti; });
+    var fin = box.querySelector(".finale"); fin.hidden = visti < tot;
+    if (visti >= tot) disegno.innerHTML = e.disegno(fase);
+    var av = box.querySelector('[data-a="avanti"]');
+    var finito = visti >= tot && fase >= fasiDis;
+    av.textContent = finito ? "Ricomincia ↺" : (visti >= tot && fasiDis ? "Riga successiva ↓" : "Passo successivo ↓");
+    box.querySelector('[data-a="tutto"]').hidden = finito;
+  }
+  box.querySelector('[data-a="avanti"]').addEventListener("click", function () {
+    if (visti >= tot && fase >= fasiDis) { visti = 1; fase = 0; }
+    else if (visti >= tot) fase++;
+    else visti++;
+    aggiorna();
+  });
+  box.querySelector('[data-a="tutto"]').addEventListener("click", function () { visti = tot; fase = fasiDis; aggiorna(); });
+  aggiorna();
+}
+function gruppoEsempi(scId, boxId, lista) {
+  var sc = document.getElementById(scId), box = document.getElementById(boxId);
+  sc.innerHTML = lista.map(function (e, i) { return '<button type="button" aria-pressed="' + (i ? "false" : "true") + '" data-i="' + i + '">' + e.nome + "</button>"; }).join("");
+  sc.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return; premi(sc, b); esempio(box, lista[+b.dataset.i]); });
+  esempio(box, lista[0]);
+}
+
+/* ===================== 1 · LA PARABOLA ===================== */
+(function () {
+  var a = 1, d = 2;
+  function vai() {
+    disegnaParabola(document.getElementById("g1"), { a: a, caso: d });
+    var t = { 2: "taglia l'asse in <b>2 punti</b>: le radici x₁ e x₂", 1: "tocca l'asse in <b>1 punto</b>: la radice doppia x₀", 0: "<b>non tocca</b> l'asse: non ci sono radici" }[d];
+    var dove = a > 0 ? (d === 0 ? "Sta sempre <b>sopra</b> l'asse: il trinomio è sempre positivo." : "") : (d === 0 ? "Sta sempre <b>sotto</b> l'asse: il trinomio è sempre negativo." : "");
+    document.getElementById("r1").innerHTML = "<b>" + (a > 0 ? "a &gt; 0 → verso l'alto ∪" : "a &lt; 0 → verso il basso ∩") + "</b><br>" + (d === 2 ? "Δ &gt; 0" : d === 1 ? "Δ = 0" : "Δ &lt; 0") + ": la parabola " + t + ".<br>" + dove;
+  }
+  document.getElementById("es1-a").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; premi(this, b); a = +b.dataset.v; vai(); });
+  document.getElementById("es1-d").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; premi(this, b); d = +b.dataset.v; vai(); });
+  vai();
+})();
+
+/* ===================== 2 · IL METODO ===================== */
+(function () {
+  var v = ">";
+  function vai() {
+    disegnaParabola(document.getElementById("g2"), { a: 1, caso: 2, verso: v });
+    var s = soluzione(2, v, ["x₁", "x₂"]);
+    var dove = /</.test(v) ? "<b>sotto</b> l'asse" : "<b>sopra</b> l'asse";
+    document.getElementById("r2").innerHTML = "Verso " + VERSO[v] + " 0 → cerco dove la parabola è " + dove + (/=/.test(v) ? " <b>o lo tocca</b>" : "") + ".<span class='big'>" + s[0] + "</span>" + s[2] + ".";
+  }
+  document.getElementById("es2-v").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; premi(this, b); v = b.dataset.v; vai(); });
+  vai();
+})();
+gruppoEsempi("sc-es2", "box-es2", [
+  { nome: "Esempio 1", tipo: "esterni", dis: "x² " + M + " 5x + 6 &gt; 0",
+    passi: [["a = 1 &gt; 0: la parabola è già ∪", "passo 1-2"], ["x² " + M + " 5x + 6 = 0", "equazione associata"], ["Δ = 25 " + M + " 24 = 1 &gt; 0", "due radici"], ["x = " + fr("5 ± 1", "2") + " → x₁ = 2, x₂ = 3", "formula risolutiva"]],
+    disegno: function () { return svgPar({ caso: 2, et: ["2", "3"], verso: ">" }); }, lettura: "Verso &gt; → prendo dove la parabola è <b>sopra</b> l'asse (in verde). Radici escluse.",
+    sol: "x &lt; 2 ∨ x &gt; 3", int: "S = (" + M + "∞, 2) ∪ (3, +∞)" },
+  { nome: "Esempio 2", tipo: "interno, radici incluse", dis: "x² " + M + " 5x + 6 ≤ 0",
+    passi: [["Stesse radici dell'esempio 1: x₁ = 2, x₂ = 3", "l'equazione è la stessa"]],
+    disegno: function () { return svgPar({ caso: 2, et: ["2", "3"], verso: "<=" }); }, lettura: "Verso ≤ → prendo dove la parabola è <b>sotto</b> l'asse o lo tocca: radici <b>incluse</b>.",
+    sol: "2 ≤ x ≤ 3", int: "S = [2, 3]" },
+  { nome: "Esempio 3", tipo: "radici frazionarie", dis: "2x² + x " + M + " 3 &lt; 0",
+    passi: [["a = 2, b = 1, c = " + M + "3", "leggo i coefficienti"], ["Δ = 1 + 24 = 25", "attenzione: " + M + "4·2·(" + M + "3) = +24"], ["x = " + fr(M + "1 ± 5", "4") + " → x₁ = " + M + fr("3", "2") + ", x₂ = 1", "x₁ è la più piccola"]],
+    disegno: function () { return svgPar({ caso: 2, et: ["-3/2", "1"], verso: "<" }); }, lettura: "Verso &lt; → dove è <b>sotto</b> l'asse: valori interni.",
+    sol: M + fr("3", "2") + " &lt; x &lt; 1", int: "S = (" + M + "3/2, 1)" },
+  { nome: "Esempio 4 (spuria)", tipo: "c = 0: raccolgo la x", dis: "x² " + M + " 4x ≥ 0",
+    passi: [["x(x " + M + " 4) = 0", "raccolgo x: non serve il Δ"], ["x₁ = 0, x₂ = 4", "un prodotto è 0 se un fattore è 0"]],
+    disegno: function () { return svgPar({ caso: 2, et: ["0", "4"], verso: ">=" }); }, lettura: "Verso ≥ → <b>sopra</b> l'asse, radici <b>incluse</b>.",
+    sol: "x ≤ 0 ∨ x ≥ 4", int: "S = (" + M + "∞, 0] ∪ [4, +∞)" },
+  { nome: "Esempio 5 (pura)", tipo: "b = 0: radici opposte", dis: "x² " + M + " 16 &lt; 0",
+    passi: [["x² = 16", "porto 16 a destra"], ["x = ±4 → x₁ = " + M + "4, x₂ = 4", "le radici sono opposte"]],
+    disegno: function () { return svgPar({ caso: 2, et: ["-4", "4"], verso: "<" }); }, lettura: "Verso &lt; → <b>sotto</b> l'asse: valori interni.",
+    sol: M + "4 &lt; x &lt; 4", int: "S = (" + M + "4, 4)",
+    dopo: '<div class="attenzione"><b class="t">Errore tipico!</b> x² &lt; 16 <b>non</b> vuol dire x &lt; 4. Prova con x = ' + M + "5: (" + M + "5)² = 25, che non è minore di 16. La soluzione giusta è " + M + "4 &lt; x &lt; 4.</div>" },
+  { nome: "Esempio 6", tipo: "da portare in forma normale", dis: "x(x + 3) ≤ 2x + 6",
+    passi: [["x² + 3x " + M + " 2x " + M + " 6 ≤ 0", "svolgo il prodotto e porto tutto a sinistra"], ["x² + x " + M + " 6 ≤ 0", "forma normale"], ["Δ = 1 + 24 = 25 → x = " + fr(M + "1 ± 5", "2"), ""], ["x₁ = " + M + "3, x₂ = 2", ""]],
+    disegno: function () { return svgPar({ caso: 2, et: ["-3", "2"], verso: "<=" }); }, lettura: "Verso ≤ → <b>sotto</b> l'asse, radici incluse.",
+    sol: M + "3 ≤ x ≤ 2", int: "S = [" + M + "3, 2]" },
+]);
+
+/* ===================== 3 · CASI SPECIALI ===================== */
+(function () {
+  var t = document.getElementById("tab-riass"), V = [">", ">=", "<", "<="], C = [2, 1, 0];
+  var h = "<tr><th></th><th>Δ &gt; 0<br><small>radici x₁ &lt; x₂</small></th><th>Δ = 0<br><small>radice x₀</small></th><th>Δ &lt; 0<br><small>nessuna radice</small></th></tr>";
+  V.forEach(function (v) {
+    h += '<tr><th>' + VERSO[v] + " 0</th>";
+    C.forEach(function (c) { var s = soluzione(c, v, c === 2 ? ["x₁", "x₂"] : ["x₀"]); h += '<td><button class="pulsante" type="button" style="min-height:40px;width:100%;justify-content:center;font-size:16px" data-v="' + v + '" data-c="' + c + '">' + s[0] + "</button></td>"; });
+    h += "</tr>";
+  });
+  t.innerHTML = h;
+  t.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    t.querySelectorAll("button").forEach(function (x) { x.style.background = ""; x.style.color = ""; });
+    b.style.background = "var(--ar)"; b.style.color = "var(--carta)";
+    var c = +b.dataset.c, v = b.dataset.v, s = soluzione(c, v, c === 2 ? ["x₁", "x₂"] : ["x₀"]);
+    disegnaParabola(document.getElementById("g3"), { a: 1, caso: c, verso: v });
+    var box = document.getElementById("r3");
+    box.className = "risposta" + (s[0] === "impossibile" ? " vuota" : "");
+    box.innerHTML = (c === 2 ? "Δ &gt; 0" : c === 1 ? "Δ = 0" : "Δ &lt; 0") + ", verso " + VERSO[v] + " 0<span class='big'>" + s[0] + "</span>Perché: " + s[2] + ".";
+  });
+})();
+gruppoEsempi("sc-es3", "box-es3", [
+  { nome: "Δ = 0", tipo: "un'unica soluzione", dis: "4x² " + M + " 4x + 1 ≤ 0",
+    passi: [["Δ = 16 " + M + " 16 = 0", "radice doppia"], ["x₀ = " + fr("4", "8") + " = " + fr("1", "2"), "infatti 4x² " + M + " 4x + 1 = (2x " + M + " 1)²"]],
+    disegno: function () { return svgPar({ caso: 1, et: ["1/2"], verso: "<=" }); }, lettura: "La parabola non scende mai sotto l'asse: vale ≤ 0 <b>solo dove tocca</b> l'asse.",
+    sol: "x = " + fr("1", "2") },
+  { nome: "Δ &lt; 0", tipo: "sempre vera o impossibile", dis: "x² + 2x + 5 &gt; 0",
+    passi: [["Δ = 4 " + M + " 20 = " + M + "16 &lt; 0", "nessuna radice reale"], ["La parabola ∪ non tocca l'asse: sta <b>sempre sopra</b>", "il trinomio è sempre positivo"]],
+    disegno: function () { return svgPar({ caso: 0, verso: ">" }); }, lettura: "Verso &gt; → serve che sia sopra: lo è <b>sempre</b>. (Con &lt; o ≤ sarebbe <b>impossibile</b>.)",
+    sol: "∀x ∈ ℝ" },
+  { nome: "a &lt; 0", tipo: "prima cambio segno", dis: M + "x² + 2x + 3 ≥ 0",
+    passi: [["a = " + M + "1 &lt; 0 → moltiplico per " + M + "1", "cambio segni e verso"], ["x² " + M + " 2x " + M + " 3 ≤ 0", "≥ diventa ≤"], ["Δ = 4 + 12 = 16 → x = " + fr("2 ± 4", "2"), ""], ["x₁ = " + M + "1, x₂ = 3", ""]],
+    disegno: function () { return svgPar({ caso: 2, et: ["-1", "3"], verso: "<=" }); }, lettura: "Ora il verso è ≤ → <b>sotto</b> l'asse, radici incluse.",
+    sol: M + "1 ≤ x ≤ 3", int: "S = [" + M + "1, 3]" },
+  { nome: "a &lt; 0 e Δ = 0", tipo: "due casi insieme", dis: M + "x² + 4x " + M + " 4 &lt; 0",
+    passi: [["x² " + M + " 4x + 4 &gt; 0", "moltiplico per " + M + "1 e cambio il verso"], ["(x " + M + " 2)² &gt; 0", "Δ = 0, radice doppia x₀ = 2"]],
+    disegno: function () { return svgPar({ caso: 1, et: ["2"], verso: ">" }); }, lettura: "Un quadrato è positivo dappertutto, <b>tranne</b> dove vale 0.",
+    sol: "∀x ≠ 2" },
+  { nome: "Problema", tipo: "un problema dall'azienda", dis: "G(x) = " + M + "x² + 12x " + M + " 20",
+    passi: [["Un'azienda di componenti meccatronici guadagna G(x) centinaia di euro al giorno, se produce x lotti. Quando <b>guadagna</b>?", "leggo il testo"], ["«Guadagna» → G(x) &gt; 0: " + M + "x² + 12x " + M + " 20 &gt; 0", "traduco in disequazione"], ["x² " + M + " 12x + 20 &lt; 0", "moltiplico per " + M + "1 e cambio il verso"], ["Δ = 144 " + M + " 80 = 64 → x = " + fr("12 ± 8", "2") + " → x₁ = 2, x₂ = 10", ""]],
+    disegno: function () { return svgPar({ caso: 2, et: ["2", "10"], verso: "<" }); }, lettura: "Verso &lt; → valori interni.",
+    sol: "2 &lt; x &lt; 10", int: "l'azienda guadagna se produce più di 2 e meno di 10 lotti" },
+]);
+
+/* ===================== 4 · FRATTE E PRODOTTI ===================== */
+function esFratta(nome, tipo, dis, passi, tab, sol, int, lettura) {
+  return { nome: nome, tipo: tipo, dis: dis, passi: passi, fasi: tab.righe.length + 1,
+    disegno: function (f) { return tabellaSegni(tab, f + 1); }, sol: sol, int: int, lettura: lettura || "Leggi la tabella: tocca «Riga successiva» per aggiungere le righe." };
+}
+gruppoEsempi("sc-es4", "box-es4", [
+  esFratta("Esempio 13", "numeratore di 2° grado", fr("x² " + M + " 4", "x " + M + " 3") + " &lt; 0",
+    [["C.E.: x ≠ 3", "il denominatore non può essere 0"], ["N &gt; 0: x² " + M + " 4 &gt; 0 → x &lt; " + M + "2 ∨ x &gt; 2", "parabola: radici ±2, esterni"], ["D &gt; 0: x " + M + " 3 &gt; 0 → x &gt; 3", "primo grado"]],
+    { pts: [M + "2", "2", "3"], righe: [{ lab: "N: x² " + M + " 4", s: "+-++", z: { 0: 1, 1: 1 } }, { lab: "D: x " + M + " 3", s: "---+", z: { 2: 1 }, den: true }], verso: "<" },
+    "x &lt; " + M + "2 ∨ 2 &lt; x &lt; 3", "S = (" + M + "∞, " + M + "2) ∪ (2, 3)"),
+  esFratta("Esempio 14", "numeratore sempre positivo", fr("x² + 1", "x " + M + " 2") + " ≥ 0",
+    [["C.E.: x ≠ 2", ""], ["N &gt; 0: x² + 1 &gt; 0 → ∀x ∈ ℝ", "Δ &lt; 0: sempre positivo"], ["D &gt; 0: x &gt; 2", ""]],
+    { pts: ["2"], righe: [{ lab: "N: x² + 1", s: "++" }, { lab: "D: x " + M + " 2", s: "-+", z: { 0: 1 }, den: true }], verso: ">=" },
+    "x &gt; 2", "S = (2, +∞)", "<b>Scorciatoia:</b> se N è sempre positivo, il segno della frazione è quello di D. Il 2 è escluso perché annulla il denominatore."),
+  esFratta("Esempio 15", "denominatore di 2° grado", fr("x + 1", "x² " + M + " 5x + 6") + " ≤ 0",
+    [["C.E.: x ≠ 2, x ≠ 3", "le radici del denominatore"], ["N &gt; 0: x &gt; " + M + "1", "primo grado"], ["D &gt; 0: x² " + M + " 5x + 6 &gt; 0 → x &lt; 2 ∨ x &gt; 3", "parabola, esterni"]],
+    { pts: [M + "1", "2", "3"], righe: [{ lab: "N: x + 1", s: "-+++", z: { 0: 1 } }, { lab: "D: x² " + M + " 5x + 6", s: "++-+", z: { 1: 1, 2: 1 }, den: true }], verso: "<=" },
+    "x ≤ " + M + "1 ∨ 2 &lt; x &lt; 3", "S = (" + M + "∞, " + M + "1] ∪ (2, 3)"),
+  esFratta("Esempio 16", "N e D di 2° grado", fr("x² " + M + " 1", "x² " + M + " 9") + " &gt; 0",
+    [["C.E.: x ≠ ±3", ""], ["N &gt; 0: x &lt; " + M + "1 ∨ x &gt; 1", "parabola, esterni"], ["D &gt; 0: x &lt; " + M + "3 ∨ x &gt; 3", "parabola, esterni"]],
+    { pts: [M + "3", M + "1", "1", "3"], righe: [{ lab: "N: x² " + M + " 1", s: "++-++", z: { 1: 1, 2: 1 } }, { lab: "D: x² " + M + " 9", s: "+---+", z: { 0: 1, 3: 1 }, den: true }], verso: ">" },
+    "x &lt; " + M + "3 ∨ " + M + "1 &lt; x &lt; 1 ∨ x &gt; 3", ""),
+  esFratta("Esempio 17", "da portare in forma normale", fr("1", "x") + " ≤ x",
+    [[fr("1", "x") + " " + M + " x ≤ 0 → " + fr("1 " + M + " x²", "x") + " ≤ 0", "tutto a sinistra, denominatore comune"], ["C.E.: x ≠ 0", ""], ["N &gt; 0: 1 " + M + " x² &gt; 0 → x² " + M + " 1 &lt; 0 → " + M + "1 &lt; x &lt; 1", "cambio verso, poi parabola: interno"], ["D &gt; 0: x &gt; 0", ""]],
+    { pts: [M + "1", "0", "1"], righe: [{ lab: "N: 1 " + M + " x²", s: "-++-", z: { 0: 1, 2: 1 } }, { lab: "D: x", s: "--++", z: { 1: 1 }, den: true }], verso: "<=" },
+    M + "1 ≤ x &lt; 0 ∨ x ≥ 1", "S = [" + M + "1, 0) ∪ [1, +∞)"),
+  esFratta("Prodotto", "un fattore di 2° grado", "(x " + M + " 1)(x² " + M + " 4) ≤ 0",
+    [["x " + M + " 1 &gt; 0 → x &gt; 1", "primo grado"], ["x² " + M + " 4 &gt; 0 → x &lt; " + M + "2 ∨ x &gt; 2", "parabola, esterni"], ["Non c'è denominatore: nessuna C.E.", "è un prodotto"]],
+    { pts: [M + "2", "1", "2"], righe: [{ lab: "x " + M + " 1", s: "--++", z: { 1: 1 } }, { lab: "x² " + M + " 4", s: "+--+", z: { 0: 1, 2: 1 } }], verso: "<=" },
+    "x ≤ " + M + "2 ∨ 1 ≤ x ≤ 2", "S = (" + M + "∞, " + M + "2] ∪ [1, 2]"),
+]);
+
+/* ===================== 5 · SISTEMI ===================== */
+function graffa(a, b) { return '<span class="graffa"><span class="gr">{</span><span class="righe"><span>' + a + "</span><span>" + b + "</span></span></span>"; }
+function esSistema(nome, tipo, dis, passi, bis, sol, int, lettura) {
+  return { nome: nome, tipo: tipo, dis: dis, passi: passi, fasi: bis.righe.length, disegno: function (f) { return biscioline(bis, f + 1); }, sol: sol, int: int, lettura: lettura || "Tocca «Riga successiva»: aggiungi una bisciolina alla volta, poi la soluzione." };
+}
+gruppoEsempi("sc-es5", "box-es5", [
+  esSistema("Esempio 18", "intersezione", graffa("x² " + M + " 5x + 6 &gt; 0", "2x " + M + " 1 &gt; 0"),
+    [["I: x &lt; 2 ∨ x &gt; 3", "parabola (esempio 1)"], ["II: x &gt; " + fr("1", "2"), "primo grado"]],
+    { pts: [{ v: .5, l: "1/2" }, { v: 2, l: "2" }, { v: 3, l: "3" }], righe: [{ lab: "I", iv: [[null, 2, 0, 0], [3, null, 0, 0]] }, { lab: "II", iv: [[.5, null, 0, 0]] }], sol: [[.5, 2, 0, 0], [3, null, 0, 0]] },
+    fr("1", "2") + " &lt; x &lt; 2 ∨ x &gt; 3", "S = (1/2, 2) ∪ (3, +∞)"),
+  esSistema("Esempio 19", "una impossibile", graffa("x² + 2x + 5 &lt; 0", "x + 3 ≥ 0"),
+    [["I: impossibile", "Δ &lt; 0: la parabola è sempre sopra"], ["II: x ≥ " + M + "3", ""]],
+    { pts: [{ v: -3, l: "-3" }], righe: [{ lab: "I", iv: [] }, { lab: "II", iv: [[-3, null, 1, 0]] }], sol: [] },
+    "impossibile", "S = ∅", "Nessuna zona comune: se una è impossibile, tutto il sistema è impossibile."),
+  esSistema("Esempio 20", "una sempre vera", graffa("(x " + M + " 3)² ≥ 0", "3 " + M + " 2x &gt; 0"),
+    [["I: ∀x ∈ ℝ", "un quadrato è sempre ≥ 0: non toglie niente"], ["II: " + M + "2x &gt; " + M + "3 → x &lt; " + fr("3", "2"), "divido per " + M + "2 e cambio verso"]],
+    { pts: [{ v: 1.5, l: "3/2" }], righe: [{ lab: "I", iv: [[null, null, 0, 0]] }, { lab: "II", iv: [[null, 1.5, 0, 0]] }], sol: [[null, 1.5, 0, 0]] },
+    "x &lt; " + fr("3", "2"), "S = (" + M + "∞, 3/2)"),
+  esSistema("Esempio 21", "due di 2° grado", graffa("x² " + M + " 4 ≥ 0", "x² " + M + " 2x " + M + " 3 &lt; 0"),
+    [["I: x ≤ " + M + "2 ∨ x ≥ 2", "radici ±2, esterni inclusi"], ["II: " + M + "1 &lt; x &lt; 3", "radici " + M + "1 e 3, interno"]],
+    { pts: [{ v: -2, l: "-2" }, { v: -1, l: "-1" }, { v: 2, l: "2" }, { v: 3, l: "3" }], righe: [{ lab: "I", iv: [[null, -2, 0, 1], [2, null, 1, 0]] }, { lab: "II", iv: [[-1, 3, 0, 0]] }], sol: [[2, 3, 1, 0]] },
+    "2 ≤ x &lt; 3", "S = [2, 3)"),
+  esSistema("Esempio 22", "con una fratta", graffa(fr("x " + M + " 1", "x + 2") + " ≥ 0", "3 " + M + " x &gt; 0"),
+    [["I: x &lt; " + M + "2 ∨ x ≥ 1", "tabella dei segni; " + M + "2 escluso (C.E.)"], ["II: x &lt; 3", ""]],
+    { pts: [{ v: -2, l: "-2" }, { v: 1, l: "1" }, { v: 3, l: "3" }], righe: [{ lab: "I", iv: [[null, -2, 0, 0], [1, null, 1, 0]] }, { lab: "II", iv: [[null, 3, 0, 0]] }], sol: [[null, -2, 0, 0], [1, 3, 1, 0]] },
+    "x &lt; " + M + "2 ∨ 1 ≤ x &lt; 3", "S = (" + M + "∞, " + M + "2) ∪ [1, 3)"),
+]);
+
+/* ===================== 6 · QUALE METODO ===================== */
+(function () {
+  var D = [
+    ["Graffa?", "C'è la parentesi graffa { ?"],
+    ["Frazione?", "C'è la x al denominatore (sotto la linea di frazione)?"],
+    ["Trinomio?", "È un solo trinomio di 2° grado (ax² + bx + c)?"],
+  ];
+  var METODI = {
+    sistema: ["SISTEMA", "Risolvo ogni disequazione col suo metodo, poi uso le <b>biscioline</b>.", 5],
+    fratta: ["FRATTA", "Forma normale, <b>C.E.</b>, <b>tabella dei segni</b>; le righe di 2° grado con la parabola.", 4],
+    parabola: ["METODO DELLA PARABOLA", "Se a &lt; 0 cambio segno; Δ, radici, disegno, leggo.", 2],
+    prodotto: ["PRODOTTO DI FATTORI", "Scompongo e uso la <b>tabella dei segni</b>.", 4],
+  };
+  var ES = [
+    ["x² " + M + " 7x + 10 &lt; 0", [0, 0, 1], "parabola"],
+    ["(x " + M + " 1)(x² " + M + " 4) ≤ 0", [0, 0, 0], "prodotto"],
+    [fr("x² " + M + " 9", "x + 1") + " ≥ 0", [0, 1], "fratta"],
+    [graffa("x² " + M + " x " + M + " 2 ≤ 0", "x &gt; 0"), [1], "sistema"],
+    [M + "x² + x + 6 &gt; 0", [0, 0, 1], "parabola"],
+    [fr("1", "x") + " ≤ x", [0, 1], "fratta"],
+  ];
+  var sc = document.getElementById("sc-albero"), alb = document.getElementById("albero"), cur = 0, passo = 0;
+  sc.innerHTML = ES.map(function (e, i) { return '<button type="button" aria-pressed="' + (i ? "false" : "true") + '" data-i="' + i + '">Disequazione ' + (i + 1) + "</button>"; }).join("");
+  function disegna() {
+    var e = ES[cur];
+    document.getElementById("albero-dis").innerHTML = '<span class="dis">' + e[0] + "</span>";
+    var h = "";
+    for (var i = 0; i < D.length && i <= passo; i++) {
+      var fatto = i < passo, risposta = e[1][i];
+      h += '<div class="nodo-a' + (fatto ? " fatto" : " attivo") + '" data-i="' + i + '"><span class="q">' + (i + 1) + ". " + D[i][1] + '</span><button type="button" data-r="1"' + (fatto ? " disabled" : "") + (fatto && risposta === 1 ? ' class="scelto"' : "") + '>Sì</button><button type="button" data-r="0"' + (fatto ? " disabled" : "") + (fatto && risposta === 0 ? ' class="scelto"' : "") + ">No</button></div>";
+      if (fatto && risposta === 1) break;
+    }
+    var fine = passo >= e[1].length;
+    if (fine) { var m = METODI[e[2]]; h += '<div class="metodo-card"><b class="t">' + m[0] + "</b>" + m[1] + ' <a href="#" data-vai="' + m[2] + '">Rivedi la scheda ' + m[2] + " →</a></div>"; }
+    h += '<div id="avviso-albero"></div>';
+    alb.innerHTML = h;
+  }
+  sc.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return; premi(sc, b); cur = +b.dataset.i; passo = 0; disegna(); });
+  alb.addEventListener("click", function (ev) {
+    var a = ev.target.closest("[data-vai]"); if (a) { ev.preventDefault(); apriScheda(+a.dataset.vai); return; }
+    var b = ev.target.closest("button[data-r]"); if (!b || b.disabled) return;
+    var giusta = ES[cur][1][passo];
+    if (+b.dataset.r === giusta) { passo++; if (giusta === 1) passo = ES[cur][1].length; disegna(); }
+    else {
+      var aiuti = ["Guarda bene se all'inizio c'è la parentesi graffa {.", "Guarda se c'è una linea di frazione con la x sotto.", "Conta i pezzi: è un trinomio solo, o sono più fattori moltiplicati?"];
+      document.getElementById("avviso-albero").innerHTML = '<div class="avviso">Non è così. ' + aiuti[passo] + "</div>";
+    }
+  });
+  disegna();
+  var CONTROLLI = [
+    "Se a &lt; 0, ho moltiplicato per " + M + "1 e <b>cambiato il verso</b>?",
+    "Ho calcolato bene <b>Δ = b² " + M + " 4ac</b>? (attenzione ai segni di b e c)",
+    "Ho scritto le radici in <b>ordine</b>: x₁ è la più piccola?",
+    "Con <b>≥ e ≤</b> ho incluso le radici? Con <b>&gt; e &lt;</b> le ho escluse?",
+    "x² &lt; 16 <b>non</b> dà x &lt; 4: ho scritto " + M + "4 &lt; x &lt; 4?",
+    "Con Δ &lt; 0 o Δ = 0 ho usato la <b>tabella riassuntiva</b> invece di inventare radici?",
+    "Nelle fratte ho <b>escluso gli zeri del denominatore</b>?",
+    "<b>Verifica veloce:</b> ho sostituito un numero dentro la soluzione e uno fuori?",
+  ];
+  document.getElementById("controllo").innerHTML = CONTROLLI.map(function (c) { return "<li><label><input type='checkbox'><span>" + c + "</span></label></li>"; }).join("");
+})();
+
+/* ===================== 7 · RISOLUTORE ===================== */
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a || 1; }
+function num(n) { var s = Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : String(+n.toFixed(2)).replace(".", ","); return meno(s); }
+function frazione(p, q) { // p/q interi
+  if (q < 0) { p = -p; q = -q; }
+  var g = gcd(p, q); p /= g; q /= g;
+  if (q === 1) return { h: meno(p), t: meno(p), v: p };
+  return { h: (p < 0 ? M : "") + fr(Math.abs(p), q), t: meno(p) + "/" + q, v: p / q };
+}
+function polinomio(a, b, c) {
+  var s = "";
+  function termine(k, lett, primo) {
+    if (k === 0) return "";
+    var segno = k < 0 ? (primo ? M : " " + M + " ") : (primo ? "" : " + ");
+    var v = Math.abs(k), cf = (v === 1 && lett) ? "" : num(v);
+    return segno + cf + lett;
+  }
+  s += termine(a, "x²", true);
+  s += termine(b, "x", !s);
+  s += termine(c, "", !s);
+  return s || "0";
+}
+function leggiNum(id) { var v = document.getElementById(id).value.trim().replace(",", ".").replace(M, "-"); return v === "" ? NaN : +v; }
+var versoProva = "<";
+function risolvi() {
+  var a = leggiNum("ca"), b = leggiNum("cb"), c = leggiNum("cc"), v = versoProva, out = document.getElementById("esito");
+  if ([a, b, c].some(isNaN)) { document.getElementById("anteprima").innerHTML = ""; out.innerHTML = '<div class="avviso">Scrivi un numero in a, b e c.</div>'; return; }
+  document.getElementById("anteprima").innerHTML = polinomio(a, b, c) + " " + VERSO[v] + " 0";
+  if (a === 0) { out.innerHTML = '<div class="avviso">Con a = 0 non c\'è x²: è una disequazione di <b>primo grado</b>.</div>'; return; }
+  var P = [], n = 1;
+  function passo(t, nota) { P.push('<div class="passo"><span class="n">' + (n++) + "</span><span>" + t + (nota ? '<br><span class="nota">' + nota + "</span>" : "") + "</span></div>"); }
+  if (a < 0) {
+    a = -a; b = -b; c = -c; v = OPPOSTO[v];
+    passo("a è negativo: moltiplico per " + M + "1. Cambio tutti i segni e il verso:<br><b>" + polinomio(a, b, c) + " " + VERSO[v] + " 0</b>", "ora la parabola è ∪");
+  } else passo("a = " + num(a) + " &gt; 0: la parabola è già ∪", "non devo cambiare niente");
+  passo("Equazione associata: <b>" + polinomio(a, b, c) + " = 0</b>", "per le radici il verso non serve");
+  var D = b * b - 4 * a * c;
+  passo("Δ = b² " + M + " 4ac = (" + num(b) + ")² " + M + " 4·(" + num(a) + ")·(" + num(c) + ") = <b>" + num(D) + "</b>", D > 0 ? "Δ &gt; 0: due radici" : D === 0 ? "Δ = 0: una radice doppia" : "Δ &lt; 0: nessuna radice");
+  var caso = D > 1e-12 ? 2 : Math.abs(D) <= 1e-12 ? 1 : 0, r = [], et = [];
+  var interi = [a, b, c].every(function (k) { return Number.isInteger(k); });
+  if (caso === 2) {
+    var sq = Math.sqrt(D), esatta = interi && Number.isInteger(Math.round(sq)) && Math.round(sq) * Math.round(sq) === D;
+    var r1, r2;
+    if (esatta) { sq = Math.round(sq); r1 = frazione(-b - sq, 2 * a); r2 = frazione(-b + sq, 2 * a); }
+    else { var v1 = (-b - Math.sqrt(D)) / (2 * a), v2 = (-b + Math.sqrt(D)) / (2 * a); r1 = { h: "≈ " + num(v1), t: num(v1), v: v1 }; r2 = { h: "≈ " + num(v2), t: num(v2), v: v2 }; }
+    passo("x = " + fr(num(-b) + " ± " + (esatta ? sq : "√" + num(D)), num(2 * a)) + " → x₁ = " + r1.h + ", x₂ = " + r2.h, esatta ? "x₁ è la più piccola" : "Δ non è un quadrato: scrivo le radici arrotondate");
+    r = [r1.h.replace("≈ ", ""), r2.h.replace("≈ ", "")]; et = [r1.t, r2.t];
+  } else if (caso === 1) {
+    var r0 = interi ? frazione(-b, 2 * a) : { h: num(-b / (2 * a)), t: num(-b / (2 * a)) };
+    passo("x₀ = " + fr(M + "b", "2a") + " = " + r0.h, "la parabola tocca l'asse in un solo punto");
+    r = [r0.h]; et = [r0.t];
+  } else passo("Nessuna radice: la parabola ∪ <b>non tocca</b> l'asse", "sta sempre sopra");
+  var s = soluzione(caso, v, r);
+  var svg = svgPar({ caso: caso, et: et.length ? et : undefined, verso: v });
+  passo("Disegno e leggo: verso " + VERSO[v] + " 0 → " + (/</.test(v) ? "<b>sotto</b>" : "<b>sopra</b>") + " l'asse" + (/=/.test(v) ? ", radici incluse" : ""), s[2]);
+  out.innerHTML = P.join("") + '<div style="margin-top:10px">' + svg + '</div><div class="soluz">Soluzione: ' + s[0] + (caso === 2 ? "<small>" + s[1] + "</small>" : "") + "</div>";
+}
+["ca", "cb", "cc"].forEach(function (id) { document.getElementById(id).addEventListener("input", risolvi); });
+document.getElementById("pv").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; premi(this, b); versoProva = b.dataset.v; risolvi(); });
+risolvi();
+
+/* ===================== 7 · QUIZ ===================== */
+(function () {
+  var Q = [
+    ["x² " + M + " 7x + 10 &lt; 0", ["2 &lt; x &lt; 5", "x &lt; 2 ∨ x &gt; 5", "x &lt; 5"], ["Δ = 49 " + M + " 40 = 9", "x = " + fr("7 ± 3", "2") + " → 2 e 5", "&lt; → interno"]],
+    ["x² " + M + " 9 ≥ 0", ["x ≤ " + M + "3 ∨ x ≥ 3", M + "3 ≤ x ≤ 3", "x ≥ 3"], ["x² = 9 → x = ±3", "≥ → esterni, radici incluse"]],
+    ["3x² " + M + " 6x &gt; 0", ["x &lt; 0 ∨ x &gt; 2", "0 &lt; x &lt; 2", "x &gt; 2"], ["3x(x " + M + " 2) = 0 → 0 e 2", "&gt; → esterni"]],
+    ["x² + 4x + 4 ≤ 0", ["x = " + M + "2", "impossibile", "∀x ∈ ℝ"], ["Δ = 16 " + M + " 16 = 0 → x₀ = " + M + "2", "Δ = 0 e ≤ → solo x = x₀"]],
+    ["x² " + M + " x + 3 &gt; 0", ["∀x ∈ ℝ", "impossibile", "x &gt; 3"], ["Δ = 1 " + M + " 12 = " + M + "11 &lt; 0", "Δ &lt; 0 e &gt; → sempre vera"]],
+    [M + "x² + x + 6 &gt; 0", [M + "2 &lt; x &lt; 3", "x &lt; " + M + "2 ∨ x &gt; 3", "x &gt; 3"], ["a &lt; 0: x² " + M + " x " + M + " 6 &lt; 0 (cambio verso)", "Δ = 25 → x = " + fr("1 ± 5", "2") + " → " + M + "2 e 3", "&lt; → interno"]],
+    ["2x² " + M + " 5x + 2 ≥ 0", ["x ≤ " + fr("1", "2") + " ∨ x ≥ 2", fr("1", "2") + " ≤ x ≤ 2", "x ≥ 2"], ["Δ = 25 " + M + " 16 = 9", "x = " + fr("5 ± 3", "4") + " → " + fr("1", "2") + " e 2", "≥ → esterni, incluse"]],
+    [fr("x² " + M + " 9", "x + 1") + " ≥ 0", [M + "3 ≤ x &lt; " + M + "1 ∨ x ≥ 3", M + "3 ≤ x ≤ " + M + "1 ∨ x ≥ 3", "x ≥ 3"], ["C.E.: x ≠ " + M + "1", "N &gt; 0: x &lt; " + M + "3 ∨ x &gt; 3; D &gt; 0: x &gt; " + M + "1", "tabella dei segni; " + M + "1 sempre escluso"]],
+    [fr("x " + M + " 2", "x² " + M + " 1") + " &lt; 0", ["x &lt; " + M + "1 ∨ 1 &lt; x &lt; 2", M + "1 &lt; x &lt; 1", "x &lt; 2"], ["C.E.: x ≠ ±1", "N &gt; 0: x &gt; 2; D &gt; 0: x &lt; " + M + "1 ∨ x &gt; 1", "tabella dei segni, scelgo il segno " + M]],
+    [graffa("x² " + M + " x " + M + " 2 ≤ 0", "x &gt; 0"), ["0 &lt; x ≤ 2", M + "1 ≤ x ≤ 2", "x &gt; 0"], ["I: Δ = 9 → " + M + "1 e 2 → " + M + "1 ≤ x ≤ 2", "II: x &gt; 0", "biscioline: zona comune"]],
+  ];
+  var ordine = [[0, 1, 2], [1, 0, 2], [2, 0, 1], [0, 2, 1], [1, 2, 0], [2, 1, 0], [0, 1, 2], [1, 0, 2], [2, 0, 1], [1, 2, 0]];
+  var risposte = {};
+  document.getElementById("quiz").innerHTML = Q.map(function (q, i) {
+    return '<div class="domanda" data-i="' + i + '"><div class="q"><b>' + (i + 1) + '.</b> <span class="dis">' + q[0] + '</span></div><div class="opz">' +
+      ordine[i].map(function (k) { return '<button type="button" data-k="' + k + '">' + q[1][k] + "</button>"; }).join("") +
+      '</div><div class="esito-q" aria-live="polite"></div><details class="come"><summary>Come si fa</summary><ol>' + q[2].map(function (p) { return "<li>" + p + "</li>"; }).join("") + "</ol></details></div>";
+  }).join("");
+  document.getElementById("quiz").addEventListener("click", function (e) {
+    var b = e.target.closest(".opz button"); if (!b) return;
+    var d = b.closest(".domanda"), i = +d.dataset.i, ok = b.dataset.k === "0";
+    d.querySelectorAll(".opz button").forEach(function (x) { x.classList.remove("giusta", "sbagliata"); });
+    b.classList.add(ok ? "giusta" : "sbagliata");
+    d.querySelector(".esito-q").innerHTML = '<div class="spiega ' + (ok ? "ok" : "no") + '">' + (ok ? "<b>Giusto!</b>" : "<b>Non è questa.</b> Riprova, oppure apri «Come si fa».") + "</div>";
+    if (!(i in risposte)) risposte[i] = ok;
+    var n = Object.keys(risposte).length, g = Object.keys(risposte).filter(function (k) { return risposte[k]; }).length;
+    document.getElementById("punteggio").innerHTML = "Giuste al primo tentativo: <b>" + g + " su " + n + "</b>" + (n === Q.length && g === Q.length ? "<br>Perfetto: sai risolvere le disequazioni di secondo grado!" : "");
+  });
+})();
+
+/* ===================== GLOSSARIO ===================== */
+var GLOSSARIO = {
+  concavita: ["Concavità", "Da che parte è aperta la parabola: verso l'alto (∪, come una coppa) o verso il basso (∩, come un ombrello)."],
+  radici: ["Radici", "I numeri che rendono il trinomio uguale a 0. Sul disegno sono i punti dove la parabola tocca l'asse x."],
+  esterni: ["Valori esterni", "I numeri «fuori» dalle radici: più piccoli di x₁ oppure più grandi di x₂."],
+  interni: ["Valori interni", "I numeri «tra» le radici: più grandi di x₁ e più piccoli di x₂."],
+  tabella: ["Tabella dei segni", "Una tabella dove scrivo il segno (+ o −) di ogni pezzo, zona per zona, e poi li moltiplico."],
+  biscioline: ["Biscioline", "Linee curve sopra l'asse dei numeri: ognuna mostra dove è vera una disequazione. La soluzione è dove ci sono tutte."],
+};
+var glossa = document.getElementById("glossa");
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("button.g");
+  if (b) { var g = GLOSSARIO[b.dataset.g]; document.getElementById("glossa-titolo").textContent = g[0]; document.getElementById("glossa-testo").textContent = g[1]; glossa.hidden = false; return; }
+  if (!glossa.hidden && !e.target.closest("#glossa")) glossa.hidden = true;
+});
+glossa.querySelector(".chiudi").addEventListener("click", function () { glossa.hidden = true; });
+
+/* ===================== SCHEDE E SIMBOLI ===================== */
+function apriScheda(n) {
+  document.querySelectorAll(".scheda").forEach(function (b) { b.setAttribute("aria-selected", +b.dataset.p === n ? "true" : "false"); });
+  document.querySelectorAll(".pannello").forEach(function (p) { p.hidden = p.id !== "p" + n; });
+  if (history.replaceState) history.replaceState(null, "", "#scheda" + n);
+  window.scrollTo({ top: document.querySelector(".schede").getBoundingClientRect().top + window.scrollY - 12, behavior: "smooth" });
+}
+document.querySelector(".schede").addEventListener("click", function (e) { var b = e.target.closest(".scheda"); if (b) apriScheda(+b.dataset.p); });
+document.getElementById("apri-simboli").addEventListener("click", function () {
+  var s = document.getElementById("simboli"); s.hidden = !s.hidden; this.setAttribute("aria-expanded", s.hidden ? "false" : "true");
+  this.textContent = s.hidden ? "Che cosa vogliono dire i simboli?" : "Chiudi i simboli";
+});
+var mh = /^#scheda(\d)$/.exec(location.hash); if (mh) apriScheda(+mh[1]);
+</script>
+</body>
+</html>
