@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gli Arabi e l'Islam</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261014">
+<script src="materiali.js?v=20261014"></script>
+<script src="comune.js?v=20261014"></script>
+<style>
+  :root{--ac:#8A2E3B;--ac-chiaro:#F8ECEE;--ac-bordo:#E3B6BD;--ok:#2F6B2F;--ok-chiaro:#EAF4E8;--no:#A3302A;--no-chiaro:#FBEAEA;--mare:#D6E7F2;--terra:#F7F4EC;--confini:#B9B3A6;--oro:#B7791F;--oro-chiaro:#FFF3D4;--grigio:#8A8F9E}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ac:#F09AA8;--ac-chiaro:#2E1C20;--ac-bordo:#6B3440;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B;--mare:#182533;--terra:#262A35;--confini:#4A5060;--oro:#E0B25A;--oro-chiaro:#2E2717;--grigio:#6B7080}}
+  :root[data-theme="dark"]{--ac:#F09AA8;--ac-chiaro:#2E1C20;--ac-bordo:#6B3440;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B;--mare:#182533;--terra:#262A35;--confini:#4A5060;--oro:#E0B25A;--oro-chiaro:#2E2717;--grigio:#6B7080}
+
+  /* navigazione a tappe, divisa in due parti */
+  .parti-nav{display:flex;flex-wrap:wrap;gap:10px 22px;margin:8px 0 10px}
+  .gruppo{display:flex;flex-direction:column;gap:6px}
+  .gruppo .etich{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue)}
+  .gruppo .bottoni{display:flex;flex-wrap:wrap;gap:6px}
+  .gruppo button{min-width:46px;min-height:46px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;font-size:16px;cursor:pointer;padding:6px 10px}
+  .gruppo button[aria-current="step"]{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+  .gruppo button.vista{border-color:var(--ac)}
+  .avanzamento{height:10px;border-radius:99px;background:var(--bordo);overflow:hidden;margin:0 0 22px}
+  .avanzamento span{display:block;height:100%;background:var(--ac);transition:width .3s}
+  .tappa[hidden]{display:none}
+  .tappa h2{font-size:clamp(24px,4vw,32px);margin:0 0 6px;color:var(--ac)}
+  .tappa .num{font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--tenue);text-transform:uppercase}
+  .domanda-guida{display:inline-block;margin:2px 0 14px;padding:6px 12px;border-radius:999px;background:var(--ac-chiaro);border:1px solid var(--ac-bordo);font-size:17px}
+  .domanda-guida b{color:var(--ac)}
+  .testo{max-width:44em;font-size:19px;line-height:1.7}
+  .testo p{margin:0 0 14px}
+  .testo ul{margin:0 0 14px;padding-left:24px}
+  .testo li{margin:6px 0}
+  .strumenti{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+  .semplice{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:12px;padding:14px 16px;margin:20px 0;font-size:20px;line-height:1.5;max-width:44em}
+  .semplice .tag,.ricorda .tag{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:4px}
+  .ricorda{background:var(--oro-chiaro);border:2px solid var(--oro);border-radius:12px;padding:12px 16px;margin:20px 0;max-width:44em}
+  .ricorda .tag{color:var(--oro)}
+  .ricorda ul{margin:0;padding-left:22px;font-size:18px}
+  .ricorda li{margin:4px 0}
+  .attenzione{background:var(--no-chiaro);border:2px solid var(--no);border-radius:12px;padding:12px 16px;margin:14px 0;max-width:44em;font-size:18px}
+  h3.sotto{font-size:20px;margin:26px 0 8px}
+  .aiuto{color:var(--tenue);font-size:16px;margin:-4px 0 10px}
+  .navbasso{display:flex;justify-content:space-between;gap:12px;margin:30px 0 10px;flex-wrap:wrap}
+  .navbasso .pulsante{min-height:52px;font-size:18px;padding:10px 22px}
+  .navbasso .avanti{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+
+  /* parole toccabili */
+  button.g{font:inherit;color:inherit;background:none;border:0;padding:0 1px;cursor:pointer;font-weight:700;text-decoration:underline dotted var(--ac) 2px;text-underline-offset:4px;border-radius:4px}
+  button.g:hover{background:var(--ac-chiaro)}
+  #glossa{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(560px,calc(100% - 32px));background:var(--carta);border:2px solid var(--ac);border-radius:16px;padding:16px 18px 14px;box-shadow:0 10px 40px rgba(0,0,0,.25);z-index:20}
+  #glossa[hidden]{display:none}
+  #glossa h3{margin:0 0 4px;color:var(--ac);font-size:22px;padding-right:44px}
+  #glossa p{margin:0;font-size:18px;line-height:1.55}
+  #glossa .chiudi{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:10px;border:1px solid var(--bordo);background:var(--carta);color:var(--inchiostro);cursor:pointer;font-size:22px;line-height:1}
+
+  /* linea del tempo in cima a ogni tappa */
+  .tempo{background:var(--carta);border:1px solid var(--bordo);border-radius:14px;padding:10px 14px 12px;margin:0 0 18px;max-width:44em}
+  .tempo .tit{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .tempo .fuori{display:flex;gap:6px;flex-wrap:wrap}
+  .tempo .fuori span{font-size:12px;border-radius:999px;padding:1px 8px;background:var(--ac);color:var(--carta);letter-spacing:0;text-transform:none}
+  .binario{position:relative;height:58px;margin:4px 6px 0}
+  .binario .riga{position:absolute;left:0;right:0;top:26px;height:6px;border-radius:99px;background:var(--bordo)}
+  .binario .tacca{position:absolute;top:36px;transform:translateX(-50%);font-size:12px;color:var(--tenue)}
+  .binario .pt{position:absolute;top:21px;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:var(--grigio);border:2px solid var(--carta);padding:0;cursor:pointer}
+  .binario .pt.on{width:22px;height:22px;top:18px;background:var(--ac);box-shadow:0 0 0 2px var(--ac)}
+  .binario .lab{position:absolute;top:0;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--ac);white-space:nowrap}
+  .tempo output{display:block;font-size:16px;min-height:24px;margin-top:2px}
+
+  /* catena causa → conseguenza */
+  .catena{max-width:44em;margin:10px 0 16px}
+  .anello{display:flex;gap:12px;align-items:flex-start;background:var(--carta);border:2px solid var(--ac-bordo);border-radius:12px;padding:10px 14px;font-size:18px}
+  .anello .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:var(--carta);display:grid;place-items:center;font-weight:700;font-size:15px}
+  .anello.fine{border-color:var(--ac);background:var(--ac-chiaro)}
+  .giu{display:flex;align-items:center;gap:8px;padding:2px 0 2px 20px;color:var(--ac);font-style:italic;font-weight:700;font-size:15px;min-height:34px}
+  .catena .poi{margin-top:10px}
+  .anello[hidden],.giu[hidden]{display:none}
+
+  /* personaggi */
+  .personaggi{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:10px 0 16px;max-width:44em}
+  .pers{display:flex;flex-direction:column;gap:6px;text-align:left;min-height:150px;border-radius:14px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;cursor:pointer;padding:12px 14px}
+  .pers .faccia{display:flex;align-items:center;gap:10px}
+  .pers .ini{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff}
+  .pers b{font-size:19px;line-height:1.2}
+  .pers .ruolo{font-size:15px;color:var(--tenue)}
+  .pers .dopo{display:none;font-size:17px;line-height:1.45}
+  .pers .gira{margin-top:auto;font-size:14px;color:var(--tenue)}
+  .pers[aria-pressed="true"]{border-color:var(--ac);background:var(--ac-chiaro)}
+  .pers[aria-pressed="true"] .dopo{display:block}
+  .pers[aria-pressed="true"] .ruolo{display:none}
+
+  /* confronti */
+  .confronto{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:6px 0 16px;max-width:44em}
+  .confronto.tre{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:640px){.confronto,.confronto.tre{grid-template-columns:1fr}}
+  .scatola{background:var(--carta);border:2px solid var(--ac-bordo);border-radius:12px;padding:12px 14px}
+  .scatola h4{margin:0 0 6px;font-size:18px;color:var(--ac)}
+  .scatola p{margin:0;font-size:17px}
+  .scatola ul{margin:0;padding-left:20px;font-size:17px}
+  .scatola.verde{border-color:var(--ok)} .scatola.verde h4{color:var(--ok)}
+  .scatola.rossa{border-color:var(--no)} .scatola.rossa h4{color:var(--no)}
+  .bollo{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;margin-bottom:6px}
+  .bollo.si{background:var(--ok-chiaro);color:var(--ok);border:1px solid var(--ok)}
+  .bollo.no{background:var(--no-chiaro);color:var(--no);border:1px solid var(--no)}
+
+  /* carte che si girano (teorie) */
+  .carte{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:10px 0 16px;max-width:44em}
+  @media (max-width:640px){.carte{grid-template-columns:1fr}}
+  .carta{min-height:150px;border-radius:14px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;cursor:pointer;padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:6px}
+  .carta .q{font-size:19px;font-weight:700;color:var(--ac)}
+  .carta .dopo{display:none;font-size:17px}
+  .carta .gira{margin-top:auto;font-size:14px;color:var(--tenue)}
+  .carta[aria-pressed="true"]{background:var(--no-chiaro);border-color:var(--no)}
+  .carta[aria-pressed="true"] .dopo{display:block}
+  .carta[aria-pressed="true"] .prima{display:none}
+
+  /* cartine */
+  .cartina-box{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start;margin:10px 0 16px}
+  @media (max-width:820px){.cartina-box{grid-template-columns:1fr}}
+  .cartina{width:100%;height:auto;border-radius:14px;border:1px solid var(--bordo);background:var(--mare);display:block}
+  .cartina .terra{fill:var(--terra);stroke:var(--confini);stroke-width:1}
+  .cartina .terra.acc{fill:var(--ac-chiaro);stroke:var(--ac)}
+  .cartina .luogo circle{fill:#1F2230;stroke:#fff;stroke-width:2}
+  .cartina text{font:700 20px "Atkinson",system-ui,sans-serif;fill:#1F2230;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+  .cartina .tratto{fill:none;stroke-width:6;stroke-linecap:round}
+  .cartina .tratto.anim{stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:disegna 1.2s ease forwards}
+  @keyframes disegna{to{stroke-dashoffset:0}}
+  .cartina .pin{cursor:pointer;outline:none}
+  .cartina .pin circle{stroke:#fff;stroke-width:3}
+  .cartina .pin.attivo circle,.cartina .pin:focus-visible circle{stroke:#1F2230;stroke-width:4}
+  .cartina .fascia{fill:rgba(122,78,143,.22);stroke:#7A4E8F;stroke-width:2;stroke-dasharray:6 5}
+  .info-mappa{background:var(--carta);border:2px solid var(--zona,var(--ac));border-radius:14px;padding:14px 16px;min-height:130px}
+  .info-mappa h4{margin:0 0 2px;color:var(--zona,var(--ac));font-size:21px}
+  .info-mappa .area{font-size:13px;font-weight:700;color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}
+  .info-mappa p{margin:6px 0 0;font-size:18px}
+  .passi{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .passi button,.scelte-chip button{min-height:44px;border-radius:999px;border:2px solid var(--zona,var(--bordo));background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;padding:4px 14px;cursor:pointer}
+  .passi button[aria-pressed="true"],.scelte-chip button[aria-pressed="true"]{background:var(--zona,var(--inchiostro));border-color:var(--zona,var(--inchiostro));color:#fff}
+  .scelte-chip{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+
+  /* insegne */
+  .insegne{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0 10px;max-width:44em}
+  @media (max-width:560px){.insegne{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .insegne button{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:104px;border-radius:12px;border:2px solid var(--oro);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;cursor:pointer;padding:8px 4px}
+  .insegne button svg{width:48px;height:48px;color:var(--oro)}
+  .insegne button[aria-pressed="true"]{background:var(--oro-chiaro)}
+  .box-info{background:var(--carta);border:2px solid var(--oro);border-radius:12px;padding:12px 14px;max-width:44em;min-height:72px;font-size:18px}
+
+  /* ciclo */
+  .ciclo-box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;max-width:44em;margin:10px 0 16px}
+  @media (max-width:640px){.ciclo-box{grid-template-columns:1fr}}
+  .ciclo{width:100%;max-width:360px;height:auto;display:block;margin:0 auto}
+  .ciclo .nodo-c rect{fill:var(--carta);stroke:var(--ac-bordo);stroke-width:2}
+  .ciclo .nodo-c.on rect{fill:var(--ac);stroke:var(--ac)}
+  .ciclo .nodo-c text{font:700 14px "Atkinson",system-ui,sans-serif;fill:var(--inchiostro)}
+  .ciclo .nodo-c.on text{fill:var(--carta)}
+  .ciclo .freccia-c{fill:none;stroke:var(--ac);stroke-width:3}
+
+  /* puntini e proporzioni */
+  .puntini{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;max-width:440px;margin:10px 0}
+  .puntini i{aspect-ratio:1;border-radius:50%;background:var(--bordo);display:block}
+  .puntini i.got{background:var(--ac)}
+  .legenda-p{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px}
+  .legenda-p span{display:inline-flex;align-items:center;gap:6px}
+  .legenda-p i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  .omini{display:flex;flex-wrap:wrap;gap:4px;max-width:440px;margin:8px 0}
+  .omini svg{width:30px;height:30px;color:var(--ac);transition:opacity .4s}
+  .omini svg.via{opacity:.15}
+  .terre{display:grid;gap:10px;max-width:44em;margin:10px 0}
+  .barra-terra{display:flex;height:46px;border-radius:10px;overflow:hidden;border:2px solid var(--bordo)}
+  .barra-terra div{display:grid;place-items:center;font-size:14px;font-weight:700;color:#fff;border-right:2px dashed rgba(255,255,255,.7)}
+  .barra-terra div:last-child{border-right:0}
+
+  /* eliminazioni */
+  .regni{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .regni span{display:inline-flex;align-items:center;min-height:40px;padding:4px 12px;border-radius:10px;border:2px solid var(--ac-bordo);background:var(--carta);font-weight:700;font-size:16px;transition:all .3s}
+  .regni span.out{text-decoration:line-through;opacity:.45;border-style:dashed}
+  .regni span.salvo{background:var(--ok-chiaro);border-color:var(--ok);color:var(--ok)}
+
+  /* verifica */
+  .domanda{background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:14px 16px;margin:0 0 12px;max-width:44em}
+  .domanda p{margin:0 0 10px;font-size:19px}
+  .vf{display:flex;gap:10px;flex-wrap:wrap}
+  .vf button{min-width:110px;min-height:48px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .vf button.giusta{background:var(--ok-chiaro);border-color:var(--ok)}
+  .vf button.sbagliata{background:var(--no-chiaro);border-color:var(--no)}
+  .spiega{margin-top:10px;font-size:17px;border-radius:8px;padding:8px 12px}
+  .spiega.ok{background:var(--ok-chiaro)} .spiega.no{background:var(--no-chiaro)}
+  .ordina{display:grid;gap:8px;max-width:44em}
+  .ordina button{display:flex;align-items:center;gap:12px;text-align:left;min-height:52px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:18px;padding:8px 12px;cursor:pointer}
+  .ordina button .pos{flex:none;width:32px;height:32px;border-radius:50%;border:2px dashed var(--bordo);display:grid;place-items:center;font-weight:700}
+  .ordina button.fatto{border-color:var(--ok);background:var(--ok-chiaro);cursor:default}
+  .ordina button.fatto .pos{background:var(--ok);border:0;color:#fff}
+  .ordina button.errore{animation:scuoti .35s;border-color:var(--no)}
+  @keyframes scuoti{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .abbina{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center;max-width:44em}
+  .abbina label{font-weight:700;font-size:18px}
+  .abbina select{min-height:48px;font:inherit;font-size:17px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);padding:4px 8px;max-width:100%}
+  .abbina select.ok{border-color:var(--ok);background:var(--ok-chiaro)} .abbina select.no{border-color:var(--no);background:var(--no-chiaro)}
+  @media (max-width:560px){.abbina{grid-template-columns:1fr}}
+  .smista{max-width:44em}
+  .smista .carta-s{background:var(--carta);border:2px solid var(--ac);border-radius:12px;padding:12px 14px;font-size:19px;font-weight:700;margin:6px 0 10px;min-height:56px}
+  .smista .lati{display:flex;gap:10px;flex-wrap:wrap}
+  .smista .lati button{flex:1;min-width:140px;min-height:52px;border-radius:12px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;font-size:18px;cursor:pointer}
+  .punteggio{font-size:22px;font-weight:700;margin:16px 0}
+  details.originale{margin:40px 0 0;background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:12px 16px}
+  details.originale summary{cursor:pointer;font-weight:700;min-height:32px}
+  details.originale h3{margin:18px 0 6px}
+  details.originale p{font-size:17px;line-height:1.6}
+  /* strumenti di questa pagina */
+  .detective{max-width:44em;margin:10px 0 16px;display:grid;gap:10px;justify-items:start}
+  .indizio,.deduzione{border-radius:12px;padding:12px 16px;font-size:18px;width:100%}
+  .indizio{background:var(--carta);border:2px dashed var(--ac)}
+  .deduzione{background:var(--ok-chiaro);border:2px solid var(--ok)}
+  .deduzione[hidden]{display:none}
+  .indizio .tag,.deduzione .tag{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:4px;color:var(--ac)}
+  .deduzione .tag{color:var(--ok)}
+  .mura-box{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:center;max-width:44em;margin:10px 0 16px}
+  @media (max-width:640px){.mura-box{grid-template-columns:1fr}}
+  .mura{width:100%;height:auto;background:var(--carta);border:1px solid var(--bordo);border-radius:14px}
+  .mura text{font-family:"Atkinson",system-ui,sans-serif}
+  .numeri-mura{display:grid;gap:8px}
+  .numeri-mura div{border:2px solid var(--oro);background:var(--oro-chiaro);border-radius:12px;padding:8px 12px;font-size:16px;line-height:1.35}
+  .numeri-mura b{display:block;font-family:"Cinzel",Georgia,serif;font-size:26px;color:var(--oro)}
+  .bilancia{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:44em;margin:10px 0 16px;position:relative;padding-top:34px}
+  .bilancia::before{content:"";position:absolute;top:10px;left:20%;right:20%;height:6px;border-radius:3px;background:var(--tenue);transform:rotate(4deg)}
+  .bilancia::after{content:"";position:absolute;top:0;left:calc(50% - 10px);width:20px;height:20px;border-radius:50%;background:var(--tenue)}
+  @media (max-width:560px){.bilancia{grid-template-columns:1fr}.bilancia::before,.bilancia::after{display:none}.bilancia{padding-top:0}}
+  .piatto{border-radius:14px;padding:12px 16px;border:2px solid}
+  .piatto h4{margin:0 0 6px;font-size:19px}
+  .piatto ul{margin:0;padding-left:20px;font-size:17px}
+  .piatto.verde{border-color:var(--ok);background:var(--ok-chiaro)} .piatto.verde h4{color:var(--ok)}
+  .piatto.rosso{border-color:var(--no);background:var(--no-chiaro);margin-top:24px} .piatto.rosso h4{color:var(--no)}
+  .azzurri{color:#1F5F99} .verdi{color:#2F6B2F}
+  .cartina .terra{stroke-width:calc(1px * var(--k,1))} .cartina text{font-size:calc(20px * var(--k,1))} .cartina .tratto{stroke-width:calc(6px * var(--k,1))} .cartina .luogo circle{stroke-width:calc(2px * var(--k,1))}
+  .domanda .risp-mod{margin-top:10px;padding:10px 14px;border-radius:10px;background:var(--ok-chiaro);border:2px solid var(--ok);font-size:18px;line-height:1.55}
+  .domanda .risp-mod[hidden]{display:none}
+  .domanda>button{min-height:44px;padding:6px 14px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .aiuto{color:var(--tenue);font-size:16px}
+  .piramide{display:grid;gap:6px;max-width:44em;margin:10px 0 16px;justify-items:center}
+  .piramide>div{border-radius:10px;padding:10px 14px;text-align:center;font-size:17px;color:#fff}
+  .piramide b{display:block;font-size:19px}
+  .icone{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;max-width:44em;margin:10px 0 16px}
+  .icone button{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:110px;padding:10px 8px;border-radius:12px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;font-size:16px;cursor:pointer;text-align:center}
+  .icone button .num-g{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--ac);color:var(--carta);font-size:20px}
+  .icone button[aria-pressed="true"]{background:var(--ac-chiaro);border-color:var(--ac)}
+  .palinsesto{position:relative;max-width:30em;min-height:200px;border-radius:12px;background:#EFE3C8;border:2px solid #C9B27A;padding:16px 18px;font-family:Georgia,serif;font-size:19px;line-height:1.6;color:#3A2A10;overflow:hidden}
+  .palinsesto .vecchio,.palinsesto .nuovo{position:absolute;inset:16px 18px;transition:opacity .8s}
+  .palinsesto .vecchio{font-style:italic}
+  .palinsesto .nuovo{top:96px !important}
+  .palinsesto.raschiato .vecchio{opacity:.14}
+  .palinsesto .nuovo{opacity:0;font-weight:700;color:#5A1A10}
+  .palinsesto.riscritto .nuovo{opacity:1}
+  .palinsesto.luce .vecchio{opacity:.75;color:#1F5F99}
+  .numeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:44em}
+  .numeri div{border:2px solid var(--ac-bordo);border-radius:12px;padding:10px 14px;background:var(--carta);font-size:18px}
+  .numeri b{display:block;font-size:26px;font-family:"Cinzel",Georgia,serif;color:var(--ac);word-break:break-all}
+  .profeti{display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-width:44em;margin:10px 0 16px}
+  .profeti span{border-radius:10px;padding:8px 12px;border:2px solid var(--ac-bordo);background:var(--carta);font-weight:700}
+  .profeti span.ultimo{background:var(--ac);color:var(--carta);border-color:var(--ac)}
+  .profeti i{font-style:normal;color:var(--ac);font-weight:700}
+  #corpus .carta[aria-pressed="true"]{background:var(--ok-chiaro);border-color:var(--ok)}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=storia">Storia</a></p>
+  <h1>Gli Arabi e l'Islam</h1>
+  <p class="sottotitolo">Tre parti: l'Arabia e Maometto, l'Impero islamico, la religione e la civiltà. Le parole <b style="text-decoration:underline dotted var(--ac) 2px;text-underline-offset:4px">sottolineate</b> si possono toccare: si apre la spiegazione.</p>
+
+  <nav class="parti-nav" id="percorso" aria-label="Tappe"></nav>
+  <div class="avanzamento" aria-hidden="true"><span id="barra"></span></div>
+
+  <!-- ================= PARTE 1 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="L'Arabia prima di Maometto">
+    <div class="num">Parte 1 · Tappa 1</div>
+    <h2>L'Arabia prima di Maometto</h2>
+    <div class="domanda-guida"><b>Domanda:</b> quali popoli vivevano in Arabia e come erano organizzati?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <h3 class="sotto">Un'idea sbagliata</h3>
+    <div class="confronto">
+      <div class="scatola rossa"><h4>Si diceva…</h4><p>L'Arabia era un luogo <b>selvaggio</b>, abitato solo da <button class="g" data-g="beduini">beduini</button> nomadi e incivili.</p></div>
+      <div class="scatola verde"><h4>In realtà…</h4><p>Era da moltissimo tempo <b>in contatto</b> con le civiltà dell'Asia e del Mediterraneo: un incrocio di <b>commerci, culture e idee</b>.</p></div>
+    </div>
+    <div class="testo leggibile">
+      <p>Il territorio è quasi tutto <b>deserto</b>, poco adatto all'agricoltura. Ma è la strada per l'<b>oceano Indiano</b>, lo <b>Yemen</b> e il <b>Corno d'Africa</b>, dove cresce l'albero dell'<button class="g" data-g="incenso">incenso</button>.</p>
+    </div>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-arabia" data-vista="400 250 260 300" role="img" aria-label="Cartina dell'Arabia"></svg>
+      <div><div class="passi" id="passi-arabia"></div><div class="info-mappa" id="info-arabia" aria-live="polite"><h4>Tocca il pulsante 1</h4><p>Scopri come si viaggiava in Arabia.</p></div></div>
+    </div>
+    <h3 class="sotto">Come erano organizzati: dalle tribù ai regni</h3>
+    <div class="catena" data-catena="tribu"></div>
+    <h3 class="sotto">Quali religioni?</h3>
+    <div class="testo leggibile"><p>All'inizio i beduini credono in tanti dei: è il <button class="g" data-g="politeismo">politeismo</button>. Poi incontrano molte altre religioni: culti pagani, <b>ebraismo</b>, <b>mazdeismo</b> (la religione persiana), <b>cristianesimo</b>. In questo ambiente pieno di idee cresce Maometto.</p></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>In Arabia vivono i <b>beduini</b>, pastori nomadi divisi in <b>tribù</b> che spesso si fanno la guerra. Con il tempo nascono <b>regni</b> più stabili. Le carovane portano merci e idee.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Beduini = pastori <b>nomadi</b>, organizzati in <b>tribù</b>.</li><li>Poi <b>regni stabili</b> al confine con l'Impero romano e sulle coste.</li><li><b>Piste carovaniere</b>: merci, idee e conoscenze su cammelli e dromedari.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 1 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="Maometto e la rivelazione" hidden>
+    <div class="num">Parte 1 · Tappa 2</div>
+    <h2>Maometto e la rivelazione</h2>
+    <div class="domanda-guida"><b>Domanda:</b> che cos'è il Corano?</div>
+    <div class="tempo" data-anni="570,610"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p><b>Maometto</b> (in arabo <i>Muhammad</i>) nasce alla <b>Mecca</b> nel <b>570</b>, in una famiglia di <b>mercanti</b>. La famiglia gestisce il pellegrinaggio alla <button class="g" data-g="kaba">Ka'ba</button>, un tempio a forma di cubo dove si conserva un meteorite considerato divino.</p>
+      <p>Rimane <b>orfano</b> da piccolo ed è molto povero, finché non sposa <b>Khadigia</b>, una vedova ricca, più grande di lui.</p>
+    </div>
+    <h3 class="sotto">La rivelazione</h3>
+    <div class="catena" data-catena="rivelazione"></div>
+    <h3 class="sotto">I profeti secondo l'Islam</h3>
+    <p class="aiuto">Dio ha mandato tanti profeti. Maometto è l'ultimo.</p>
+    <div class="profeti"><span>Abramo</span><i>→</i><span>Mosè</span><i>→</i><span>Gesù</span><i>→</i><span class="ultimo">Maometto, il «sigillo dei profeti»</span></div>
+    <div class="confronto">
+      <div class="scatola"><h4>Allah</h4><p>È il nome arabo di <b>Dio</b>: il Dio di <b>tutti</b> gli uomini, non di un solo popolo.</p></div>
+      <div class="scatola"><h4>Islam</h4><p>Vuol dire «<b>perfetta sottomissione a Dio</b>». È quello che Dio chiede a tutti.</p></div>
+    </div>
+    <div class="regola" style="border:2px solid var(--ok);background:var(--ok-chiaro);border-radius:12px;padding:12px 16px;max-width:44em;font-size:19px"><b>Il Corano</b> è il <b>libro sacro</b> dell'Islam. Per i musulmani contiene le parole che Dio ha rivelato a Maometto attraverso l'arcangelo <b>Gabriele</b>, a partire dal <b>610</b>.</div>
+    <div class="personaggi" data-pers="maometto,khadigia"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Maometto, un mercante della Mecca, dice di aver ricevuto da Dio, tramite l'arcangelo Gabriele, il <b>Corano</b>: il libro sacro della nuova religione, l'<b>Islam</b>.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>570</b>: nasce Maometto alla Mecca.</li><li><b>610</b>: sul monte Hira, la rivelazione del <b>Corano</b>.</li><li>Islam = <b>sottomissione</b> a Dio · Allah = Dio.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 1 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="L'Egira e la conquista della Mecca" hidden>
+    <div class="num">Parte 1 · Tappa 3</div>
+    <h2>L'Egira e la conquista della Mecca</h2>
+    <div class="domanda-guida"><b>Domanda:</b> che cos'è l'Egira?</div>
+    <div class="tempo" data-anni="610,622,629,632"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>Maometto predica soprattutto ai <b>poveri</b>: parla di <b>giustizia</b> e di <b>uguaglianza</b>. Ma non tutti sono contenti.</p></div>
+    <h3 class="sotto">Perché i mercanti della Mecca sono contro di lui?</h3>
+    <div class="confronto tre">
+      <div class="scatola"><h4>La religione</h4><p>Non riconoscono il nuovo Dio: sono legati agli <b>idoli</b> e a tanti dei.</p></div>
+      <div class="scatola"><h4>I soldi</h4><p>Guadagnano molto con i <b>pellegrinaggi</b> agli idoli della Ka'ba.</p></div>
+      <div class="scatola"><h4>La paura</h4><p>Le sue prediche sembrano l'inizio di una <b>rivolta</b> contro l'ordine della città.</p></div>
+    </div>
+    <h3 class="sotto">Segui Maometto sulla cartina</h3>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-egira" data-vista="420 300 220 170" role="img" aria-label="Cartina: dalla Mecca a Medina e ritorno"></svg>
+      <div><div class="passi" id="passi-egira"></div><div class="info-mappa" id="info-egira" aria-live="polite"><h4>Tocca il pulsante 1</h4><p>Dalla Mecca a Medina e ritorno.</p></div></div>
+    </div>
+    <div class="regola" style="border:2px solid var(--ok);background:var(--ok-chiaro);border-radius:12px;padding:12px 16px;max-width:44em;font-size:19px"><b><button class="g" data-g="egira">Egira</button></b> = la <b>fuga di Maometto dalla Mecca a Medina</b>, nel <b>622</b>. Per i musulmani è l'<b>inizio della storia</b>: da quell'anno contano gli anni del loro calendario.</div>
+    <h3 class="sotto">I due compiti di Maometto</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>1. La profezia</h4><p>Fare da <b>tramite</b> fra Dio e gli uomini: comunicare la verità di Dio.</p></div>
+      <div class="scatola"><h4>2. Governo e <button class="g" data-g="proselitismo">proselitismo</button></h4><p>Governare e <b>diffondere</b> la nuova fede tra gruppi e popoli diversi.</p></div>
+    </div>
+    <div class="testo leggibile"><p>Le tribù e le città arabe passano alla nuova religione: alcune perché <b>convinte</b>, altre perché <b>sconfitte</b>. La Mecca diventa la <b>città santa</b>: Maometto distrugge gli idoli, ma conserva la <b>pietra nera</b> della Ka'ba. Quando muore, nel <b>632</b>, tutta l'Arabia è dei <b>musulmani</b> (<i>muslimin</i> = «i credenti»).</p></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>I mercanti cacciano Maometto. Nel <b>622</b> lui fugge a <b>Medina</b>: è l'<b>Egira</b>. Lì trova molti seguaci, torna e conquista la Mecca.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>622</b>: Egira, fuga a Medina = <b>inizio del calendario</b> musulmano.</li><li><b>629</b>: Maometto conquista la Mecca con le armi.</li><li><b>632</b>: muore Maometto; l'Arabia è tutta musulmana.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="Un impero dall'Atlantico alla Cina" hidden>
+    <div class="num">Parte 2 · Tappa 1</div>
+    <h2>Un impero dall'Atlantico alla Cina</h2>
+    <div class="domanda-guida"><b>Domanda:</b> quali terre conquistano gli Arabi?</div>
+    <div class="tempo" data-anni="632,637,711"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>Dopo le prime vittorie contro i Bizantini, i musulmani si sentono <b>invincibili</b>. In pochi decenni costruiscono un impero enorme. Guardalo crescere, un pulsante alla volta.</p></div>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-impero" role="img" aria-label="Cartina dell'espansione islamica"></svg>
+      <div><div class="passi" id="passi-impero"></div><div class="info-mappa" id="info-impero" aria-live="polite"><h4>Tocca il pulsante 1</h4><p>I colori mostrano le terre conquistate. I confini disegnati sono quelli di oggi.</p></div></div>
+    </div>
+    <div class="testo leggibile"><p>Il <button class="g" data-g="maghreb">Maghreb</button> resiste a lungo: lo abitano i Mauri, che gli Arabi chiamano con disprezzo «<b>berberi</b>», cioè barbari. Poi saranno proprio i Berberi a invadere la Spagna.</p></div>
+    <div class="personaggi" data-pers="tariq"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>In meno di cento anni gli Arabi conquistano un impero che va dall'<b>oceano Atlantico</b> fino alle porte della <b>Cina</b>.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Conquistano Gerusalemme, <b>Siria, Palestina, Iraq, Egitto</b>.</li><li><b>637</b>: cade l'Impero persiano.</li><li><b>711</b>: i Berberi passano lo stretto di <b>Gibilterra</b> e conquistano la Spagna dei Visigoti.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="Perché l'espansione fu così rapida?" hidden>
+    <div class="num">Parte 2 · Tappa 2</div>
+    <h2>Perché l'espansione fu così rapida?</h2>
+    <div class="domanda-guida"><b>Domanda:</b> perché gli Arabi vincono così in fretta?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>Non c'è un motivo solo: tanti fattori insieme, e anche un po' di <b>fortuna</b> (una coincidenza di circostanze).</p></div>
+    <div class="confronto tre">
+      <div class="scatola"><h4>Le forze degli Arabi</h4><p><b>Entusiasmo religioso</b> e una <b>cavalleria</b> fortissima.</p></div>
+      <div class="scatola"><h4>Motivi politici</h4><p>Impero romano d'Oriente e Impero persiano sono <b>deboli</b>: hanno appena finito una lunga guerra. In Europa nessun regno barbarico è abbastanza forte.</p></div>
+      <div class="scatola"><h4>Motivi religiosi e sociali</h4><p>Siria ed Egitto vogliono liberarsi da <b>Costantinopoli</b>, che impone la sua religione. I contadini sono schiacciati dalle <b>tasse</b> e sperano nei nuovi padroni.</p></div>
+    </div>
+    <h3 class="sotto">Conquistare è veloce, convertire è lento</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>La lingua araba</h4><p>Per l'Islam Dio parla <b>arabo</b>: il Corano va letto nella lingua originale. <i>Qur'an</i> vuol dire «<b>lettura ad alta voce</b>». Chi non impara l'arabo fa fatica a diventare musulmano.</p></div>
+      <div class="scatola"><h4>La <button class="g" data-g="jizya">jizya</button></h4><p>Ebrei e cristiani possono tenere la loro fede se pagano una <b>tassa</b>, la jizya. Ma è così pesante che spesso <b>convertirsi</b> è l'unica scelta.</p></div>
+    </div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Gli Arabi sono forti e i loro nemici sono deboli. Conquistano in fretta, ma le persone cambiano religione <b>lentamente</b>.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Imperi persiano e bizantino <b>deboli</b> dopo la guerra tra loro.</li><li><i>Qur'an</i> = lettura ad alta voce, in <b>arabo</b>.</li><li><b>Jizya</b> = tassa pagata da ebrei e cristiani.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="I successori di Maometto" hidden>
+    <div class="num">Parte 2 · Tappa 3</div>
+    <h2>I successori di Maometto</h2>
+    <div class="domanda-guida"><b>Domanda:</b> chi sono i califfi? Chi sono sciiti e sunniti?</div>
+    <div class="tempo" data-anni="632,660,661,750"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>Dopo Maometto, la successione è piena di <b>uccisioni</b> e <b>congiure</b>. Comandano i <button class="g" data-g="califfo">califfi</button>: i primi quattro erano suoi compagni.</p></div>
+    <h3 class="sotto">Come nasce il libro del Corano</h3>
+    <div class="catena" data-catena="corano"></div>
+    <h3 class="sotto">La grande divisione: una cosa porta all'altra</h3>
+    <div class="catena" data-catena="scissione"></div>
+    <div class="confronto">
+      <div class="scatola"><h4>Sciiti</h4><p>Da <i>shi'at Ali</i> = «il <b>partito di Ali</b>». Diffusi soprattutto in <b>Iran</b>.</p></div>
+      <div class="scatola"><h4>Sunniti</h4><p>Considerano sacra anche la <b>Sunna</b>. La divisione dura ancora oggi.</p></div>
+    </div>
+    <h3 class="sotto">Due dinastie</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>Omayyadi (dal 660)</h4><p>Capitale <b>Damasco</b> (Siria). Organizzano l'impero usando i funzionari bizantini. Gli studiosi cristiani traducono i grandi libri greci.</p></div>
+      <div class="scatola"><h4>Abbasidi (dal 750)</h4><p>Fondati da Ibn Abbas. Capitale <b>Baghdad</b> (Iraq), sul fiume Tigri: il centro dell'impero si sposta a <b>Oriente</b>.</p></div>
+    </div>
+    <div class="personaggi" data-pers="ali,muawiya,abbas"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Dopo Maometto si litiga su chi deve comandare. I musulmani si dividono in <b>sciiti</b> e <b>sunniti</b>. Comandano prima gli <b>Omayyadi</b> (Damasco), poi gli <b>Abbasidi</b> (Baghdad).</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Califfo = <b>successore</b> dell'inviato di Dio.</li><li>Corano + Sunna (i detti del Profeta) = i testi sacri.</li><li><b>660</b> Omayyadi · <b>661</b> Ali ucciso → sciiti · <b>750</b> Abbasidi.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="La legge e i cinque pilastri" hidden>
+    <div class="num">Parte 3 · Tappa 1</div>
+    <h2>La legge e i cinque pilastri</h2>
+    <div class="domanda-guida"><b>Domanda:</b> che cosa deve fare un buon musulmano?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Nel mondo arabo non c'erano raccolte di leggi come nell'Impero romano. Così il <b>Corano</b> dà alla <button class="g" data-g="umma">umma</button>, la comunità dei credenti, anche le regole per la <b>vita sociale</b>: matrimonio, eredità, comportamento.</p>
+      <p>Religione e politica <b>non sono separate</b>. La <button class="g" data-g="sharia">Shari'a</button>, la legge islamica, vale per tutti.</p>
+    </div>
+    <h3 class="sotto">I cinque pilastri dell'Islam (+1)</h3>
+    <p class="aiuto">Tocca un pilastro per leggere la spiegazione.</p>
+    <div class="icone" id="pilastri"></div>
+    <div class="box-info" id="info-pilastri" aria-live="polite" style="border-color:var(--ac)">Sono i doveri <b>fondamentali</b> di ogni musulmano.</div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Il Corano non è solo un libro di preghiere: è anche una <b>legge</b>. Ogni musulmano ha 5 doveri: credere in un solo Dio, pregare, fare il pellegrinaggio, l'elemosina e il digiuno del Ramadan.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>Shari'a</b> = legge islamica, basata sul Corano.</li><li><b>Umma</b> = comunità di tutti i credenti.</li><li>5 pilastri: fede, preghiera, pellegrinaggio, elemosina, Ramadan (+ jihad).</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="Il mondo diviso in due" hidden>
+    <div class="num">Parte 3 · Tappa 2</div>
+    <h2>Il mondo diviso in due</h2>
+    <div class="domanda-guida"><b>Domanda:</b> come vedono il mondo i musulmani?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="confronto">
+      <div class="scatola verde"><h4>Terra della pace · <i>Dar al-Islam</i></h4><ul><li>ci vivono i <b>credenti</b> (la umma);</li><li>vale la <b>Shari'a</b>;</li><li>non si può uccidere né fare schiavi;</li><li>vivono in pace anche ebrei e cristiani, i «popoli del libro», se pagano la jizya: sono <button class="g" data-g="dhimmi">dhimmi</button>, «persone protette»;</li><li>non sono tollerati i pagani e gli eretici.</li></ul></div>
+      <div class="scatola rossa"><h4>Terra della guerra · <i>Dar al-harb</i></h4><ul><li>non vale la legge del Corano;</li><li>si può combattere, fare <b>razzie</b> e prendere <b>schiavi</b>;</li><li>a sud: l'<b>Africa nera</b>;</li><li>a nord: il <b>Mediterraneo</b> e le terre dell'antico Impero romano.</li></ul></div>
+    </div>
+    <h3 class="sotto">Come una terra «di guerra» diventa «di pace»</h3>
+    <div class="catena" data-catena="avanzata"></div>
+    <h3 class="sotto">L'Europa vista dagli Arabi: tre regioni</h3>
+    <div class="confronto tre">
+      <div class="scatola"><h4>Bilad al-Rum</h4><p>L'<b>Impero romano</b> (d'Oriente), capitale Bisanzio.</p></div>
+      <div class="scatola"><h4>Il regno franco</h4><p>La seconda potenza d'Europa. Con Franchi e Bizantini, quando non c'è guerra, si fanno <b>trattati e commerci</b>.</p></div>
+      <div class="scatola"><h4>Sakaliba</h4><p>La terra degli <b>Slavi</b>: una terra di guerra, da cui tutti (cristiani e musulmani) prendono schiavi.</p></div>
+    </div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Per l'Islam il mondo ha due parti: la <b>terra della pace</b>, dove si vive secondo il Corano, e la <b>terra della guerra</b>, da conquistare.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>Dar al-Islam</b> = terra della pace · <b>Dar al-harb</b> = terra della guerra.</li><li><b>Dhimmi</b> = ebrei e cristiani protetti, che pagano la jizya.</li><li>Europa: Bilad al-Rum, regno franco, Sakaliba.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="La civiltà araba" hidden>
+    <div class="num">Parte 3 · Tappa 3</div>
+    <h2>La civiltà araba</h2>
+    <div class="domanda-guida"><b>Domanda:</b> che cosa ci hanno lasciato gli Arabi?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>Dove arrivano, gli Arabi sanno prendere <b>il meglio</b> della cultura dei popoli conquistati, senza cancellare la propria identità. Religione e <b>lingua araba</b> uniscono tutti.</p></div>
+    <div class="confronto tre">
+      <div class="scatola"><h4>Libri e scienza</h4><p>Traducono in arabo i <b>classici greci</b> e li conservano. Studiano <b>chimica, medicina, astronomia</b> e soprattutto <b>matematica</b>.</p></div>
+      <div class="scatola"><h4>Agricoltura</h4><p>Nuove <b>tecniche agricole</b> per rendere fertili le oasi; portano frutti e ortaggi prima sconosciuti.</p></div>
+      <div class="scatola"><h4>Commercio e artigianato</h4><p>Oggetti preziosi decorati con gli <button class="g" data-g="arabeschi">arabeschi</button>, venduti nei <button class="g" data-g="suq">suq</button>, i mercati delle città.</p></div>
+    </div>
+    <h3 class="sotto">I numeri arabi e lo zero</h3>
+    <p class="aiuto">Agli Arabi dobbiamo lo <b>zero</b> e i numeri che usiamo ancora oggi. Tocca un numero e confronta con i numeri romani.</p>
+    <div class="passi" id="numeri-btn"></div>
+    <div class="numeri" id="numeri"></div>
+    <h3 class="sotto">Le città</h3>
+    <div class="confronto">
+      <div class="scatola verde"><h4>Città arabe</h4><p><b>Damasco, Baghdad, Cordoba</b>: fognature, acquedotti, bagni pubblici, palazzi splendidi e moschee. La popolazione cresce.</p></div>
+      <div class="scatola rossa"><h4>Città europee</h4><p>Nello stesso periodo sono <b>povere</b>, quasi vuote: scompaiono in confronto.</p></div>
+    </div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>La civiltà araba è ricca e moderna: conserva i libri antichi, fa progredire la scienza, inventa lo <b>zero</b> e costruisce città splendide.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Lingua araba = lingua della cultura.</li><li>Classici greci tradotti · matematica · <b>zero</b> e numeri arabi.</li><li>Città ricche: Damasco, Baghdad, Cordoba.</li></ul></div>
+  </section>
+
+  <!-- ================= VERIFICA ================= -->
+  <section class="tappa" data-parte="v" data-titolo="Verifica" hidden>
+    <div class="num">Verifica</div>
+    <h2>Mettiti alla prova</h2>
+    <h3 class="sotto">1. Vero o falso?</h3>
+    <div id="domande"></div>
+    <h3 class="sotto">2. Metti in ordine gli eventi</h3>
+    <p class="aiuto">Tocca prima l'evento più antico, poi quello dopo, e così via.</p>
+    <div class="ordina" id="ordina"></div>
+    <p style="margin:10px 0 0"><button class="pulsante" type="button" id="rimescola">Ricomincia</button></p>
+    <div id="esito-ordina" aria-live="polite"></div>
+    <h3 class="sotto">3. Che cosa vuol dire?</h3>
+    <div class="abbina" id="abbina"></div>
+    <p style="margin:12px 0 0"><button class="pulsante" type="button" id="controlla-abbina">Controlla</button></p>
+    <div id="esito-abbina" aria-live="polite"></div>
+    <h3 class="sotto">4. Domande come in verifica</h3>
+    <p class="aiuto">Rispondi con frasi complete. Poi confronta con la risposta modello.</p>
+    <div id="aperte"></div>
+    <div class="punteggio" id="punteggio" aria-live="polite"></div>
+  </section>
+
+  <div class="navbasso">
+    <button class="pulsante" type="button" id="indietro">← Indietro</button>
+    <button class="pulsante avanti" type="button" id="avanti">Avanti →</button>
+  </div>
+
+  <details class="originale">
+    <summary>Leggi le mappe originali</summary>
+    <h3>Mappa: Islam</h3><ul>
+    <li>MAOMETTO</li>
+    <li>nasce a La Mecca nel 570</li>
+    <li>I DUE COMPITI DI MAOMETTO</li>
+    <li>LA PROFEZIA: fare da tramite tra Dio e popolo</li>
+    <li>GOVERNIO E PROSELITISMO: diffondere la nuova fede fra</li>
+    <li>gruppi e popoli diversi</li>
+    <li>Famiglia di mercanti che gestisce il pellegrinaggio alla Ka'ba</li>
+    <li>Orfano e povero finché non sposa la ricca vedova Khadigia</li>
+    <li>In meditazione sui monti vicino alla città, l'arcangelo Gabriele gli annuncia</li>
+    <li>che lui è il SIGILLO DEI PROFETI</li>
+    <li>ALLAH è Dio di tutti i popoli, e chiede islam = sottomissione- Gabriele</li>
+    <li>dona a Maometto il CORANO nel 610</li>
+    <li>Maometto predica uguaglianza e giustizia e si scontra con i mercanti de</li>
+    <li>La Mecca</li>
+    <li>622 inizia l'EGIRA = la fuga di Maometto a Medina e la data dalla quale</li>
+    <li>per i musulmani inizia il conteggio della storia</li>
+    <li>629 Maometto torna a La Mecca e la conquista con le armi</li>
+    <li>632 morte di maometto</li>
+    <li>ARABIA PRIMA DI MAOMETTO</li>
+    <li>luogo selvaggio abitato da beduini nomadi e incivili</li>
+    <li>poco adatto all'agricoltura, ma dove nasceva l'albero dell'incenso</li>
+    <li>in contatto con Asia e Mediterraneo</li>
+    <li>da tribù nomadi divennero regni stabili lungo il confino dell'impero romano</li>
+    <li>e sulle coste</li>
+    <li>in origine praticavano il politeismo, poi questo si era fuso con ebraismo, e</li>
+    <li>cristianesimo</li>
+    <li>Percorsa da piste carovaniere= "strade" su cui le merci venivano trasportate da</li>
+    <li>DROMEDARI e CAMMELLI</li>
+    <li>strumento di scambi non solo commerciali, ma di idee e conoscenze</li>
+    </ul>
+    <h3>Mappa: le conquiste dell&#x27;Impero islamico</h3><ul>
+    <li>LE CONQUISTE DELL'IMPERO ISLAMICO I</li>
+    <li>SUCCESSORI DI MAOMETTO</li>
+    <li>4 CALIFFI = SUCCESSORI DELL'INVIATO DA DIO CORANO E SUNNA</li>
+    <li>GUERRA TRA MU'AWIJA E ALI' - DINASTIA</li>
+    <li>DEGLI AMAYYADI</li>
+    <li>SCISSIONE TRA SCIITI = PARTITO DI ALI' E SUNNITI =</li>
+    <li>SEGUACI DELLA SUNNA</li>
+    <li>AD OCCIDENTE - IL MAGHREB - GLI RESISTE</li>
+    <li>SIRIA PALESTINA IRAQ EGITTO</li>
+    <li>GLI ARABI ARRIVANO FINO IN INDIA</li>
+    <li>750 DALLA DINASTIA OMAYYADE ALLA DINASTIA</li>
+    <li>ABBASIDE = CAPITALE BAGHDAD IN IRAQ = INTERESSI</li>
+    <li>PIU' AD ORIENTE</li>
+    <li>I BERBERI INVADONO LA SPAGNA E SCONFIGGONO I</li>
+    <li>VISIGOTI</li>
+    <li>IN MENO DI UN SECOLO CREANO UN IMPERO</li>
+    <li>DALL'ATLANTICO ALLA CINA: PERCHE'?</li>
+    <li>DEBOLEZZA DEGLI IMPERI PERSIANO (SASANIDI) E</li>
+    <li>ROMANO (D'ORIENTE) - EUROPA SENZA POPOLO</li>
+    <li>BARBARICO FORTE</li>
+    <li>CONVERSIONE RELIGIOSA LENTA = IMPORTANZA</li>
+    <li>DELLA CONOSCENZA DELLA LINGUA ARABA</li>
+    <li>"TOLLERANZA" ARABA VERSO CRISTIANI ED EBREI =</li>
+    <li>LA JIZYA E LA CONVERSIONE</li>
+    </ul>
+    <h3>Mappa: la civiltà islamica</h3><ul>
+    <li>LA SHARI'A = LGGE ISLAMICA FONDATA SUL CORANO FORNISCE ALLA UNNA</li>
+    <li>l'insieme dei credenti LE REGOLE DI COMPORTAMENTO NON SOLO RELIGIOSO MA</li>
+    <li>ANCHE POLITICO E SOCIALE CHE REGOLANO TUTTA LA LORO VITA</li>
+    <li>LA TERRA DELLA PACE = DAR AL-ISLAM = TUTTI VIVONO IN PACE - SI</li>
+    <li>RISPETTAVA LA SHARI'A - CHI NON PROFESSAVA L'ISLAMISMO ERA RISPETTATO</li>
+    <li>PURCHE' PAGASSE</li>
+    <li>LA TERRA DELLA GUERRA = = DAR AL- HARB = NON SI APPLICA IL CORANO</li>
+    <li>TUTTO E' PERMESSO - SCORRERIE, OMICIDI, VIOLENZE - AFRICA NERA E L'IMPERO</li>
+    <li>ROMANO D'OCCIDENTE</li>
+    <li>I CINQUE PILASTRI + 1</li>
+    <li>LA DOPPIA PROFESSIONE DI FEDE ( CHI RICONOSCE ALLAH E CHI NON</li>
+    <li>LO RICONOSCE)</li>
+    <li>LA PREGHIERA = OBBLIGO DI PREGARE 5 VOLTE AL GIORNO, IN</li>
+    <li>MOSCHEA O SU UN LUOGO RESO SACRO DALLA PRESENZA DI TAPPETO, VERSO LA</li>
+    <li>MECCA,</li>
+    <li>PELLEGRINAGGIO A LA MECCA ALMENO UNA VOLTA NELLA VITA</li>
+    <li>ELEMOSINA= 1/10 DEL REDDITO</li>
+    <li>RAMADAN = ASSENZA DI CIBO E BEVANDE NEL NONO MESE DELL'ANNO</li>
+    <li>LUNARE</li>
+    <li>JIHAD =</li>
+    <li>Impegno di ogni credente per far trionfare Dio, dove:</li>
+    <li>1.Nella propria interiorità</li>
+    <li>2.Nella sua comunità</li>
+    <li>3.Nel mondo esterno</li>
+    <li>L'EUROPA DIVISA IN TRE: BILAD AL-RUM = IMPERO ROMANO D'ORIENTE +</li>
+    <li>REGNO FRANCO + SAKALIBA = GLI SLAVI, DOVE SI POTEVANO PRELEVARE SCHIAVI</li>
+    <li>PREGIATI</li>
+    <li>CAPACITA' DI ASSORBIRE IL MEGLIO - TRADUZIONE DEI CLASSICI GRECI</li>
+    <li>-ABILITA' SCIENTFICHE E SOPRATTUTTO MATEMATICHE - TECNICHE AGRICOLE - ABILI</li>
+    <li>ARTIGIANI E TESSITORI - IMPORTANZA DELLE CITTA' E DEI SUQ = I MERCATI CITTADINI</li>
+    </ul>
+  </details>
+</main>
+<footer id="piede"></footer>
+
+<div id="glossa" role="dialog" aria-modal="false" aria-labelledby="glossa-titolo" hidden>
+  <button class="chiudi" type="button" aria-label="Chiudi">×</button>
+  <h3 id="glossa-titolo"></h3>
+  <p id="glossa-testo"></p>
+</div>
+
+<script>
+var MAPPA = {"W":900,"H":560,"paths":[["732","M101,297L101,297L100,299L95,313L69,302L60,324L52,322L48,326L44,339L12,324L8,327L11,323L11,323L29,331L32,328L37,326L45,315L60,310L69,300L72,301L77,295L84,297L87,299L90,301L94,299L99,301L100,296Z"],["398","M777,49L776,58L772,61L777,70L776,76L763,79L767,97L765,101L754,110L768,123L765,127L768,132L763,132L758,131L748,135L738,139L736,142L725,142L722,145L723,151L711,153L707,156L708,160L704,163L698,173L698,181L695,182L692,178L683,181L679,174L675,175L673,166L662,162L651,167L644,170L635,164L628,162L616,158L615,158L599,168L608,202L604,204L598,198L592,196L585,200L583,204L582,202L583,197L580,194L572,193L567,185L563,183L562,180L569,180L567,173L573,170L579,170L578,160L576,155L569,157L563,155L556,161L550,164L547,163L547,158L541,152L536,154L530,148L532,140L530,138L533,126L541,131L540,124L551,110L561,108L576,112L584,114L590,108L599,106L609,108L610,105L618,103L618,98L607,94L611,88L609,85L614,81L608,76L609,72L630,61L632,58L644,49L648,43L658,41L664,51L669,46L678,46L679,51L685,48L694,33L694,37L704,41L728,58L729,52L739,53L746,46L750,46L755,49L760,49L765,51L771,46Z"],["860","M608,202L599,168L615,158L616,158L628,162L635,164L644,170L651,167L662,162L673,166L675,175L679,174L683,181L692,178L695,182L698,181L698,173L704,163L708,160L710,160L707,168L713,170L717,166L727,167L721,177L715,178L713,179L711,177L710,173L702,178L702,185L701,191L695,193L695,198L700,198L704,204L704,214L698,215L694,216L692,210L681,210L672,208L666,205L656,201L650,193L647,192L640,195L636,194L633,186L623,184L619,191L613,196L616,200Z"],["706","M587,560L604,535L610,525L613,518L612,513L611,503L610,499L610,498L613,498L617,495L622,493L626,489L630,488L631,491L631,497L632,502L631,506L630,518L627,530L624,544L618,560L587,560Z"],["729","M366,547L358,542L355,538L355,535L356,531L357,527L351,520L350,516L351,513L347,510L348,504L346,500L342,500L344,497L346,493L346,488L349,486L347,483L350,477L355,470L363,471L365,432L365,428L376,429L377,409L413,410L448,410L483,408L487,418L485,420L487,429L491,441L495,443L500,446L496,452L489,454L487,458L486,464L483,479L484,483L483,492L480,502L474,507L470,515L469,519L465,522L462,533L463,543L462,534L461,534L461,529L459,526L454,522L453,515L454,507L449,506L448,509L442,509L445,512L446,518L440,524L436,532L430,533L422,527L418,529L417,532L412,534L411,536L401,536L400,534L393,533L389,535L386,534L381,528L379,525L372,526L369,530L366,539L362,541L359,542Z"],["148","M365,432L363,471L355,470L350,477L347,483L349,486L346,488L346,493L344,497L342,500L346,500L348,504L347,510L351,513L350,516L344,517L339,521L330,531L320,535L311,534L308,534L308,538L303,541L298,544L284,547L282,544L281,544L278,546L270,546L272,543L269,536L269,531L264,529L259,522L262,518L267,519L270,519L275,520L271,510L272,503L273,496L270,489L271,485L265,484L266,477L263,473L269,461L282,453L285,441L291,421L293,417L290,414L290,411L287,408L287,392L297,388L330,411Z"],["250","M269,128L271,132L280,135L275,141L273,148L271,149L268,148L268,150L262,155L261,159L264,158L265,163L265,165L266,169L263,172L263,180L266,182L265,186L257,190L244,184L233,184L231,190L223,189L216,182L213,184L202,176L200,171L206,167L213,149L209,137L206,130L197,124L199,117L208,117L217,123L219,112L223,118L240,114L244,107L250,106L250,110L253,111L255,115L258,121L261,121L266,127L267,128ZM272,198L277,195L276,203L273,210L270,207L269,201Z"],["686","M0,372L1,373L6,373L11,375L14,380L19,385L21,394L25,403L23,409L22,415L24,419L24,423L22,425L21,425L16,423L15,423L13,423L7,418L3,416L0,414L0,407L0,407L0,407L5,406L5,403L1,403L0,403L0,372Z"],["466","M22,425L24,423L24,419L22,415L23,409L25,403L28,402L32,397L35,398L40,404L46,404L49,406L51,404L87,417L92,412L90,410L100,368L110,328L123,332L145,361L168,390L169,395L174,399L177,402L176,408L186,409L181,431L174,436L172,442L163,442L150,439L146,441L140,440L134,438L132,436L127,436L117,437L114,439L105,441L103,444L99,444L95,441L92,443L88,449L78,454L77,458L73,461L72,467L67,467L64,467L64,463L61,463L60,462L57,464L50,461L48,459L46,459L44,455L46,453L45,451L43,451L44,448L47,447L45,441L45,438L43,435L42,434L39,435L35,435L32,436L29,434L27,430L26,429L23,430L21,429Z"],["478","M0,362L4,356L7,347L8,342L11,338L11,332L8,327L8,327L12,324L44,339L48,326L52,322L60,324L69,302L95,313L100,299L123,332L110,328L100,368L90,410L92,412L87,417L51,404L49,406L46,404L40,404L35,398L32,397L28,402L25,403L21,394L19,385L14,380L11,375L6,373L1,373L0,372L0,362Z"],["204","M139,532L130,531L129,523L136,500L135,498L136,493L133,488L131,484L134,480L138,479L141,476L146,476L149,474L152,472L156,473L162,480L161,483L161,490L158,493L159,496L152,501L149,503L145,509L144,516Z"],["562","M287,392L287,408L290,411L290,414L293,417L291,421L285,441L282,453L269,461L263,473L266,477L265,484L271,485L270,489L267,490L266,493L264,493L259,481L257,480L249,484L242,480L237,479L234,479L228,478L222,481L217,481L206,473L201,474L196,473L193,469L185,463L174,462L171,463L168,468L165,472L162,480L156,473L152,472L149,474L151,467L140,462L141,457L138,449L138,445L140,440L146,441L150,439L163,442L172,442L174,436L181,431L186,409L200,408L230,395L263,383L276,389L281,395Z"],["566","M166,560L162,553L161,545L155,536L148,534L139,532L139,532L144,516L145,509L149,503L152,501L159,496L158,493L161,490L161,483L162,480L165,472L168,468L171,463L174,462L185,463L193,469L196,473L201,474L206,473L217,481L222,481L228,478L234,479L237,479L242,480L249,484L257,480L259,481L264,493L266,493L269,497L268,499L267,502L258,509L254,515L252,520L249,522L246,529L240,532L237,537L234,541L233,545L225,547L220,542L216,541L209,546L206,545L199,554L196,560L166,560Z"],["120","M196,560L199,554L206,545L209,546L216,541L220,542L225,547L233,545L234,541L237,537L240,532L246,529L249,522L252,520L254,515L258,509L267,502L268,499L269,497L266,493L267,490L270,489L270,489L273,496L272,503L271,510L275,520L270,519L267,519L262,518L259,522L264,529L269,531L269,536L272,543L270,546L263,556L260,557L260,560L196,560Z"],["768","M134,480L131,484L133,488L136,493L135,498L136,500L129,523L130,531L121,531L120,527L119,519L120,514L125,506L123,501L124,493L127,486L124,480L126,477Z"],["288","M126,477L124,480L127,486L124,493L123,501L125,506L120,514L119,519L120,527L121,531L104,532L97,534L87,534L79,528L81,524L79,514L85,504L92,497L94,482L95,474L97,469L114,474L118,476L121,475Z"],["384","M46,459L48,459L50,461L57,464L60,462L61,463L64,463L64,467L67,467L72,467L75,470L76,474L79,478L83,476L88,477L94,482L92,497L85,504L79,514L81,524L79,528L74,527L68,523L61,521L49,518L41,519L30,519L28,518L32,510L33,509L34,505L31,499L29,497L27,494L31,490L31,485L33,482L34,483L37,479L37,477L38,476L42,476L43,467L42,462L44,459Z"],["324","M0,419L1,419L3,416L3,416L7,418L13,423L15,423L16,423L21,425L22,425L21,429L23,430L26,429L27,430L29,434L32,436L35,435L39,435L42,434L43,435L45,438L45,441L47,447L44,448L43,451L45,451L46,453L44,455L46,459L44,459L42,462L43,467L42,476L38,476L37,477L37,479L34,483L33,482L30,481L27,484L24,483L23,480L25,477L24,469L21,469L18,469L16,468L17,465L17,461L18,459L18,454L16,449L9,446L6,447L3,446L1,448L0,449L0,419Z"],["624","M0,414L3,416L1,419L0,419L0,414Z"],["430","M33,482L31,485L31,490L27,494L29,497L31,499L34,505L33,509L32,510L28,518L25,517L17,508L11,497L4,488L0,480L4,477L6,475L12,471L18,469L21,469L24,469L25,477L23,480L24,483L27,484L30,481Z"],["694","M0,449L1,448L3,446L6,447L9,446L16,449L18,454L18,459L17,461L17,465L16,468L18,469L12,471L6,475L4,477L0,480L0,479L0,449Z"],["854","M72,467L73,461L77,458L78,454L88,449L92,443L95,441L99,444L103,444L105,441L114,439L117,437L127,436L132,436L134,438L140,440L138,445L138,449L141,457L140,462L151,467L149,474L146,476L141,476L138,479L134,480L126,477L121,475L118,476L114,474L97,469L95,474L94,482L88,477L83,476L79,478L76,474L75,470Z"],["140","M260,560L260,557L263,556L270,546L278,546L281,544L282,544L284,547L298,544L303,541L308,538L308,534L311,534L320,535L330,531L339,521L344,517L350,516L351,520L357,527L356,531L355,535L355,538L358,542L366,547L371,551L371,554L378,560L260,560Z"],["376","M468,306L466,310L463,308L462,315L464,316L462,317L462,320L466,318L466,322L463,337L462,335L457,321L459,318L458,317L460,313L461,306L463,303L463,303L465,303L466,301L468,301L469,305L467,306Z"],["422","M468,301L466,301L465,303L463,303L465,295L469,288L469,288L472,288L474,292L470,296Z"],["275","M466,318L462,320L462,317L464,316L462,315L463,308L466,310L467,315Z"],["270","M0,403L1,403L5,403L5,406L0,407L0,407L0,403Z"],["788","M254,314L254,297L250,292L250,290L245,283L246,276L252,272L255,264L256,255L258,251L267,248L272,251L271,255L278,253L278,255L274,259L273,263L275,266L272,274L266,278L267,283L271,284L272,289L275,291L273,298L269,300L266,302L260,305L260,309L258,313Z"],["012","M100,299L101,297L101,297L105,286L120,284L129,286L136,285L141,282L151,281L153,275L158,276L163,273L173,275L176,272L174,269L175,259L176,253L175,246L184,244L192,244L198,242L206,241L219,243L231,245L235,248L242,246L250,247L253,250L258,251L256,255L255,264L252,272L246,276L245,283L250,290L250,292L254,297L254,314L255,323L255,327L252,335L251,339L249,344L249,350L245,354L248,361L248,365L250,371L254,370L260,376L263,383L230,395L200,408L186,409L176,408L177,402L174,399L169,395L168,390L145,361L123,332Z"],["400","M466,310L468,306L477,310L492,298L496,310L495,311L479,317L487,326L485,328L484,331L478,333L476,337L472,340L463,339L463,337L466,322L466,318L467,315Z"],["784","M610,369L611,369L612,371L619,368L626,367L631,366L636,358L640,351L644,344L647,346L650,354L645,355L646,361L648,362L645,365L646,368L644,373L645,377L643,379L616,380L611,372Z"],["634","M602,366L601,359L602,354L604,352L607,355L608,360L608,366L605,367Z"],["414","M570,321L572,325L572,327L576,334L570,335L567,331L559,331L564,321Z"],["368","M496,310L492,298L508,287L510,275L508,268L512,265L516,259L519,257L528,257L531,259L534,257L540,268L546,270L547,275L544,279L543,287L550,295L561,299L566,305L566,312L568,312L569,317L575,321L570,321L564,321L559,331L544,333L519,317L506,311Z"],["512","M645,377L644,373L646,368L645,365L648,362L646,361L645,355L650,354L655,359L661,361L667,361L673,361L678,365L681,368L685,368L685,370L684,376L683,379L680,383L679,391L675,391L673,394L673,399L676,405L676,407L671,408L667,413L667,418L666,420L660,422L657,425L658,429L654,432L649,433L643,437L639,439L635,433L624,418L649,403L650,383ZM647,346L644,344L646,340L647,340L647,345Z"],["356","M900,232L899,232L900,239L900,330L900,330L895,340L897,344L894,348L888,355L885,358L886,366L893,377L898,384L898,394L900,398L900,428L900,428L898,430L898,438L896,442L883,438L873,427L865,419L860,416L851,409L843,399L839,394L826,385L815,369L807,359L802,348L797,340L787,350L781,352L766,345L768,340L764,338L752,334L755,326L773,319L768,312L762,309L758,302L751,300L756,288L766,285L770,272L771,261L774,249L771,243L775,235L768,233L762,229L757,222L758,217L770,214L778,209L781,199L793,205L796,212L801,215L803,220L797,221L804,229L814,231L827,232L824,238L826,248L834,247L844,248L856,247L867,242L873,244L880,242L890,238L896,234L895,231L890,226L889,222L892,218L897,224L898,225L900,225L900,232Z"],["524","M889,222L890,226L895,231L896,234L890,238L880,242L873,244L867,242L856,247L844,248L834,247L826,248L824,238L827,232L829,228L836,228L847,229L851,228L856,231L863,229L871,229L880,227Z"],["586","M781,199L778,209L770,214L758,217L757,222L762,229L768,233L775,235L771,243L774,249L771,261L770,272L766,285L756,288L751,300L758,302L762,309L768,312L773,319L755,326L752,334L745,334L740,328L731,324L717,331L703,335L692,340L692,328L702,320L700,316L696,316L693,308L684,306L679,302L674,298L688,299L696,295L701,294L702,292L708,291L717,283L714,276L717,269L722,267L722,264L728,261L731,261L733,257L730,252L731,245L735,241L730,236L737,234L738,230L736,227L738,221L735,217L732,214L735,209L741,204L749,199L752,196L756,193L763,195L768,201Z"],["004","M694,216L698,215L704,214L706,215L711,210L714,211L714,206L719,204L719,202L718,199L720,194L725,195L725,198L727,197L730,205L734,207L736,204L738,202L741,196L746,194L753,191L756,193L752,196L749,199L741,204L735,209L732,214L735,217L738,221L736,227L738,230L737,234L730,236L735,241L731,245L730,252L733,257L731,261L728,261L722,264L722,267L717,269L714,276L717,283L708,291L702,292L701,294L696,295L688,299L674,298L678,288L676,282L670,282L667,277L663,270L664,264L661,264L661,257L660,244L669,245L674,242L674,238L680,234L683,230L682,223L687,219L687,215L692,216Z"],["762","M704,214L704,204L700,198L695,198L695,193L701,191L702,185L702,178L710,173L711,177L713,179L715,178L714,182L706,183L707,189L714,185L724,184L736,178L742,185L744,183L749,183L750,187L753,191L746,194L741,196L738,202L736,204L734,207L730,205L727,197L725,198L725,195L720,194L718,199L719,202L719,204L714,206L714,211L711,210L706,215Z"],["417","M708,160L707,156L711,153L723,151L722,145L725,142L736,142L738,139L748,135L758,131L763,132L768,132L768,134L760,144L759,148L751,153L752,160L744,162L740,166L736,173L737,175L736,178L724,184L714,185L707,189L706,183L714,182L715,178L721,177L727,167L717,166L713,170L707,168L710,160Z"],["795","M583,204L585,200L592,196L598,198L604,204L608,202L616,200L613,196L619,191L623,184L633,186L636,194L640,195L647,192L650,193L656,201L666,205L672,208L681,210L692,210L694,216L692,216L687,215L687,219L682,223L683,230L680,234L674,238L674,242L669,245L660,244L657,237L652,238L641,232L635,233L626,230L620,231L617,234L612,234L608,241L602,244L600,238L598,228L592,226L592,219L588,220L587,212L595,212L600,208L594,204L590,199L585,202L586,209Z"],["364","M575,321L569,317L568,312L566,312L566,305L561,299L550,295L543,287L544,279L547,275L546,270L540,268L534,257L529,250L530,247L526,237L531,233L532,237L537,240L542,241L545,240L552,232L555,231L557,233L556,238L561,242L563,242L567,248L574,249L580,252L591,252L602,247L602,244L608,241L612,234L617,234L620,231L626,230L635,233L641,232L652,238L657,237L660,244L661,257L661,264L664,264L663,270L667,277L670,282L676,282L678,288L674,298L679,302L684,306L693,308L696,316L700,316L702,320L692,328L692,340L676,342L666,342L656,344L650,333L645,333L639,336L632,343L621,342L611,336L603,335L595,328L587,316L583,319L577,317Z"],["760","M468,306L467,306L469,305L468,301L470,296L474,292L472,288L469,288L468,281L469,277L471,274L473,272L473,267L476,269L484,265L488,267L495,266L503,262L507,262L516,259L512,265L508,268L510,275L508,287L492,298L477,310Z"],["051","M545,240L542,241L538,236L538,234L535,235L532,233L531,233L527,231L522,229L522,224L520,221L530,218L532,221L535,222L534,225L538,227L536,231L540,233L543,234Z"],["752","M362,0L359,2L354,17L356,26L361,32L355,44L348,46L344,63L340,72L333,70L328,78L321,77L321,67L318,55L317,39L317,39L320,33L326,27L330,14L328,8L329,0L362,0Z"],["112","M411,77L417,80L418,82L421,81L427,84L428,88L426,91L430,98L433,100L432,102L436,103L438,106L436,108L431,108L430,109L431,113L433,119L428,120L426,122L425,127L423,126L417,127L415,124L413,126L411,124L406,124L399,121L393,120L388,120L384,123L381,123L381,119L380,114L384,112L384,108L382,104L382,99L388,100L395,96L397,90L402,87L401,83L405,81Z"],["804","M433,119L435,119L437,117L439,118L445,116L449,122L448,124L448,127L454,127L456,132L456,134L464,137L469,135L473,139L477,139L487,141L487,144L485,150L487,155L486,158L480,160L477,163L477,167L472,168L467,172L461,172L455,176L456,182L455,181L454,180L452,179L447,177L445,180L444,179L434,177L433,173L427,174L424,180L419,187L416,185L413,187L410,185L411,184L413,180L415,177L414,176L416,175L416,176L420,176L422,176L421,175L421,173L419,171L418,167L415,165L416,162L413,159L410,159L406,155L401,156L400,158L397,158L395,160L390,161L388,162L385,159L381,159L377,158L374,160L373,157L370,154L371,150L373,148L375,148L373,144L380,136L383,135L384,132L381,123L384,123L388,120L393,120L399,121L406,124L411,124L413,126L415,124L417,127L423,126L425,127L426,122L428,120Z"],["616","M382,99L382,104L384,108L384,112L380,114L381,119L381,123L384,132L383,135L380,136L373,144L375,148L373,148L367,143L363,144L360,143L356,145L353,141L350,142L350,142L347,136L343,135L342,132L338,130L337,133L334,130L334,128L330,126L327,122L326,116L327,112L326,107L324,103L326,100L326,95L330,93L340,89L348,87L354,89L354,92L360,92L367,94L378,95L381,96Z"],["040","M336,154L335,158L331,157L332,159L329,165L328,167L322,166L318,168L313,167L304,162L303,159L296,159L295,161L291,159L288,158L285,156L287,154L287,152L289,152L291,155L293,153L299,154L304,153L307,154L308,156L309,155L309,148L312,147L315,143L319,147L324,144L326,143L331,147L334,147L336,149L336,150Z"],["348","M370,154L373,157L374,160L369,161L366,168L361,174L355,176L351,175L346,177L343,178L338,175L333,171L331,169L330,166L329,165L332,159L331,157L335,158L336,154L339,157L341,158L347,157L348,155L350,155L354,154L354,155L358,154L359,152L362,151L368,155Z"],["498","M400,158L401,156L406,155L410,159L413,159L416,162L415,165L418,167L419,171L421,173L421,175L422,176L420,176L416,176L416,175L414,176L415,177L413,180L411,184L410,185L409,180L409,176L409,172L405,166L403,162L401,159Z"],["642","M410,185L413,187L416,185L419,187L419,189L416,191L414,190L412,202L408,201L403,197L394,199L391,202L380,201L375,199L372,199L371,195L370,194L371,192L370,191L367,193L363,190L363,186L359,183L359,180L355,176L361,174L366,168L369,161L374,160L377,158L381,159L385,159L388,162L390,161L395,160L397,158L400,158L401,159L403,162L405,166L409,172L409,176L409,180Z"],["440","M401,83L402,87L397,90L395,96L388,100L382,99L381,96L378,95L378,92L379,89L376,88L370,85L370,76L376,74L386,75L392,74L393,77L396,77Z"],["428","M406,63L409,66L409,71L411,77L405,81L401,83L396,77L393,77L392,74L386,75L376,74L370,76L370,69L374,62L379,59L383,67L388,67L390,59L394,57L397,59L402,63Z"],["276","M326,95L326,100L324,103L326,107L327,112L326,116L327,122L324,123L323,122L321,123L316,125L313,127L309,128L309,131L309,135L312,138L315,143L312,147L309,148L309,155L308,156L307,154L304,153L299,154L293,153L291,155L289,152L287,152L280,147L278,149L273,148L275,141L280,135L271,132L269,128L270,124L269,122L271,115L273,105L276,105L279,102L282,93L282,90L284,88L289,88L289,91L294,87L294,83L295,77L299,79L303,78L302,82L308,86L307,89L314,88L317,86L323,91Z"],["100","M371,195L372,199L375,199L380,201L391,202L394,199L403,197L408,201L412,202L408,206L405,213L407,219L401,217L394,220L394,225L387,225L382,222L376,224L371,223L371,217L367,214L369,212L368,211L369,208L372,205L369,201L369,197Z"],["300","M393,283L392,285L381,286L381,284L371,282L373,278L377,281L383,281L389,282L389,283ZM371,223L376,224L382,222L387,225L394,225L394,220L397,223L395,229L393,230L389,229L385,228L376,230L381,236L377,237L373,237L369,232L368,234L369,240L372,244L369,246L373,251L377,254L377,259L370,256L372,261L367,262L369,271L364,270L358,266L356,258L355,251L353,247L349,241L349,238L353,234L354,231L356,230L356,227L361,227L364,225L368,225L369,224Z"],["792","M534,257L531,259L528,257L519,257L516,259L507,262L503,262L495,266L488,267L484,265L476,269L473,267L473,272L471,274L469,277L466,272L469,269L464,270L458,268L453,274L441,275L435,270L427,270L425,274L420,275L412,270L404,270L399,260L394,255L398,247L393,243L402,234L413,234L416,226L430,228L439,221L447,218L459,217L472,224L482,227L491,224L497,225L505,219L513,217L520,221L522,224L522,229L527,231L531,233L526,237L530,247L529,250ZM394,220L401,217L407,219L408,222L415,226L413,228L405,228L401,231L395,236L393,232L393,230L395,229L397,223Z"],["008","M356,227L356,230L354,231L353,234L349,238L348,237L348,235L344,232L344,227L345,221L347,218L346,216L345,213L349,209L349,210L351,210L352,213L354,214L354,217L353,220L354,225Z"],["191","M331,169L333,171L338,175L343,178L346,177L347,181L349,184L346,187L343,185L338,184L333,182L329,182L328,184L326,181L324,185L326,190L327,193L330,197L333,199L335,204L341,208L340,210L333,205L330,201L324,198L319,190L320,189L318,185L318,182L314,179L311,183L310,180L310,176L311,176L315,177L317,176L319,178L321,178L322,176L324,175L326,171Z"],["756","M287,152L287,154L285,156L288,158L291,159L290,163L287,164L282,162L280,165L276,165L276,163L271,166L268,165L265,163L264,158L261,159L262,155L268,150L268,148L271,149L273,148L278,149L280,147Z"],["442","M269,122L270,124L269,128L267,128L266,127L268,122Z"],["056","M271,115L269,122L268,122L266,127L261,121L258,121L255,115L253,111L250,110L250,106L255,106L260,108L266,107L269,112Z"],["528","M282,90L282,93L279,102L276,105L273,105L271,115L269,112L266,107L260,108L255,106L259,104L268,91L277,88Z"],["620","M148,169L151,167L154,167L154,172L158,174L160,173L163,175L164,180L160,181L157,188L155,189L154,193L150,193L151,199L147,205L149,208L147,210L143,213L142,216L139,217L135,214L131,214L135,207L136,202L134,200L133,196L136,190L140,188L142,184L145,180L147,176L147,172Z"],["724","M142,216L143,213L147,210L149,208L147,205L151,199L150,193L154,193L155,189L157,188L160,181L164,180L163,175L160,173L158,174L154,172L154,167L151,167L148,169L150,162L149,157L161,155L168,159L177,162L184,166L190,168L200,171L202,176L213,184L216,182L223,189L231,190L230,195L222,200L212,199L211,202L205,206L200,213L201,219L196,222L193,227L187,227L179,233L170,230L163,227L158,229L154,232L150,230L149,226L148,220Z"],["372","M207,64L205,71L198,78L185,80L177,75L186,67L187,56L197,52L203,49L203,54L199,59L203,60Z"],["156","M900,211L898,215L897,224L892,218L889,222L880,227L871,229L863,229L856,231L851,228L847,229L836,228L829,228L827,232L814,231L804,229L797,221L803,220L801,215L796,212L793,205L781,199L768,201L763,195L756,193L753,191L750,187L749,183L744,183L742,185L736,178L737,175L736,173L740,166L744,162L752,160L751,153L759,148L760,144L768,134L768,132L768,132L765,127L768,123L754,110L765,101L767,97L763,79L776,76L777,70L772,61L776,58L777,49L779,47L784,52L791,54L801,52L810,56L814,67L818,69L826,66L834,62L845,63L849,61L857,66L863,69L869,64L883,57L889,50L896,46L900,46L900,211Z"],["380","M291,159L295,161L296,159L303,159L304,162L313,167L311,171L312,176L307,173L301,176L301,181L299,183L301,189L306,194L309,203L315,212L321,212L323,215L320,216L326,221L331,224L337,230L337,232L336,235L332,230L326,228L322,234L327,238L325,243L322,243L317,250L314,251L315,248L317,243L319,241L316,235L315,230L312,229L310,224L306,222L304,217L298,216L294,211L288,203L284,197L284,187L281,185L276,181L272,182L268,185L265,186L266,182L263,180L263,172L266,169L265,165L265,163L268,165L271,166L276,163L276,165L280,165L282,162L287,164L290,163ZM308,248L313,248L310,255L310,258L308,262L303,258L299,256L289,250L291,245L300,247ZM268,214L272,212L275,219L272,231L268,230L265,233L263,230L265,218L264,213Z"],["208","M303,78L299,79L295,77L294,71L296,60L297,58L299,55L304,55L307,53L312,51L311,56L309,59L309,62L312,64L309,68L308,66L302,73ZM319,69L320,75L315,82L310,76L310,71Z"],["826","M207,64L203,60L199,59L203,54L203,49L208,50L212,58ZM223,74L223,74L226,69L224,62L224,62L217,58L217,54L221,51L220,47L215,51L218,41L217,35L223,26L230,19L234,21L240,22L231,32L237,32L243,34L239,42L231,49L237,52L237,53L238,66L242,69L242,81L242,85L249,89L247,95L243,97L244,103L237,107L229,104L218,104L215,101L210,104L205,101L199,103L196,100L209,93L215,93L215,93L206,88L206,84L213,83L211,77L215,71Z"],["031","M539,211L541,211L547,216L550,216L551,213L555,209L559,213L564,219L568,219L570,221L565,223L565,231L564,234L562,237L563,242L561,242L556,238L557,233L555,231L552,232L545,240L543,234L540,233L536,231L538,227L534,225L535,222L532,221L530,218L531,217L537,219L541,218L542,217L538,213ZM542,241L537,240L532,237L531,233L532,233L535,235L538,234L538,236Z"],["268","M492,202L493,200L499,201L509,202L519,205L521,207L525,205L532,206L535,209L539,211L538,213L542,217L541,218L537,219L531,217L530,218L520,221L513,217L505,219L506,215L503,208L499,205L495,204Z"],["705","M313,167L318,168L322,166L328,167L329,165L330,166L331,169L326,171L324,175L322,176L321,178L319,178L317,176L315,177L311,176L312,176L311,171Z"],["703","M373,148L371,150L370,154L368,155L362,151L359,152L358,154L354,155L354,154L350,155L348,155L347,157L341,158L339,157L336,154L336,150L336,149L338,147L340,147L343,147L343,146L344,145L345,143L347,143L348,141L350,142L350,142L353,141L356,145L360,143L363,144L367,143Z"],["203","M327,122L330,126L334,128L334,130L337,133L338,130L342,132L343,135L347,136L350,142L348,141L347,143L345,143L344,145L343,146L343,147L340,147L338,147L336,149L334,147L331,147L326,143L324,144L319,147L315,143L312,138L309,135L309,131L309,128L313,127L316,125L321,123L323,122L324,123Z"],["232","M484,483L483,479L486,464L487,458L489,454L496,452L500,446L507,457L510,466L516,470L530,479L536,484L542,489L545,492L550,494L548,497L543,497L540,494L535,488L530,486L528,482L519,479L512,480L510,478L504,481L498,477L496,484Z"],["887","M624,418L635,433L639,439L633,443L632,448L633,451L624,457L610,465L603,473L599,474L596,474L591,479L585,482L577,484L574,485L573,488L570,489L569,492L564,492L561,494L554,494L551,489L551,483L549,481L546,474L543,470L545,469L543,465L544,463L543,458L547,455L545,451L547,446L551,448L554,446L565,445L566,445L576,445L579,444L582,447L586,445L591,433L599,427Z"],["682","M463,339L472,340L476,337L478,333L484,331L485,328L487,326L479,317L495,311L496,310L506,311L519,317L544,333L559,331L567,331L570,335L576,334L580,341L585,343L587,346L593,349L595,353L594,356L596,359L599,361L601,364L602,366L605,367L608,366L610,369L611,372L616,380L643,379L645,377L650,383L649,403L624,418L599,427L591,433L586,445L582,447L579,444L576,445L566,445L565,445L554,446L551,448L547,446L545,451L547,455L543,458L541,454L538,452L537,448L532,445L526,437L522,430L515,424L511,422L504,414L503,407L503,401L497,391L492,388L487,386L484,381L485,378L482,374L479,372L475,365L470,357L465,351L461,351L462,346L462,343Z"],["","M443,284L444,284L445,282L450,282L457,279L452,283L453,285L452,284L451,285L449,285L449,285L449,284L448,284L447,284L445,285Z"],["196","M443,284L445,285L447,284L448,284L449,284L449,285L449,285L451,285L452,284L453,285L453,286L445,290L441,288L439,285Z"],["504","M175,246L176,253L175,259L174,269L176,272L173,275L163,273L158,276L153,275L151,281L141,282L136,285L129,286L120,284L105,286L101,297L100,296L99,301L94,299L90,301L87,299L84,297L77,295L72,301L69,300L60,310L45,315L37,326L32,328L29,331L11,323L11,323L13,319L17,318L22,315L23,312L28,307L35,303L39,303L43,299L45,294L51,290L57,289L66,283L66,283L72,281L79,283L88,279L93,279L102,274L105,262L111,255L113,251L121,247L130,246L136,244L145,237L149,232L154,234L157,239L165,241L172,245Z"],["818","M483,408L448,410L413,410L377,409L379,374L380,340L378,332L380,326L379,322L383,318L393,318L401,321L409,324L413,325L419,322L423,319L430,319L436,320L438,324L440,321L446,323L453,324L457,321L462,335L463,337L461,341L459,349L457,354L455,355L452,352L448,348L442,335L441,336L445,346L450,355L457,370L461,375L464,380L472,390L470,392L471,398L482,406Z"],["434","M377,409L376,429L365,428L365,432L330,411L297,388L287,392L281,395L276,389L263,383L260,376L254,370L250,371L248,365L248,361L245,354L249,350L249,344L251,339L252,335L255,327L255,323L254,314L258,313L260,309L260,305L266,302L269,300L273,298L275,291L284,296L287,295L293,298L303,304L306,313L313,315L324,321L332,326L336,324L341,320L339,313L342,308L349,305L354,304L365,306L367,311L370,311L373,313L381,314L383,318L379,322L380,326L378,332L380,340L379,374Z"],["231","M465,560L464,558L459,553L452,552L456,546L461,546L463,543L462,533L465,522L469,519L470,515L474,507L480,502L483,492L484,483L496,484L498,477L504,481L510,478L512,480L519,479L528,482L530,486L535,488L540,494L543,497L541,502L538,507L539,509L539,512L545,512L547,511L550,513L548,516L552,522L557,526L561,529L596,536L604,535L604,535L587,560L465,560Z"],["262","M543,497L548,497L550,494L553,497L553,501L548,504L553,507L550,513L547,511L545,512L539,512L539,509L538,507L541,502Z"],["","M610,498L610,499L611,503L612,513L613,518L610,525L604,535L596,536L561,529L557,526L552,522L548,516L550,513L553,507L556,508L559,512L564,516L569,515L578,511L588,508L596,504L601,502L604,500Z"],["070","M341,208L335,204L333,199L330,197L327,193L326,190L324,185L326,181L328,184L329,182L333,182L338,184L343,185L346,187L348,187L346,191L349,195L348,200L346,200L345,201L342,203Z"],["807","M367,214L371,217L371,223L369,224L368,225L364,225L361,227L356,227L354,225L353,220L354,217L355,217L356,215L360,214L362,214L364,214Z"],["688","M346,177L351,175L355,176L359,180L359,183L363,186L363,190L367,193L370,191L371,192L370,194L371,195L369,197L369,201L372,205L369,208L368,211L369,212L367,214L364,214L362,214L361,213L362,212L363,210L362,210L361,208L360,207L359,206L358,205L357,204L356,204L354,207L353,208L353,207L351,205L349,203L348,202L346,200L348,200L349,195L346,191L348,187L346,187L349,184L347,181Z"],["499","M351,210L349,210L349,209L345,213L346,216L344,215L342,212L340,210L341,208L342,203L345,201L346,200L348,202L349,203L351,205L353,207L353,208Z"],["","M354,217L354,214L352,213L351,210L353,208L354,207L356,204L357,204L358,205L359,206L360,207L361,208L362,210L363,210L362,212L361,213L362,214L360,214L356,215L355,217Z"],["728","M378,560L371,554L371,551L366,547L359,542L362,541L366,539L369,530L372,526L379,525L381,528L386,534L389,535L393,533L400,534L401,536L411,536L412,534L417,532L418,529L422,527L430,533L436,532L440,524L446,518L445,512L442,509L448,509L449,506L454,507L453,515L454,522L459,526L461,529L461,534L462,534L463,543L461,546L456,546L452,552L459,553L464,558L465,560L378,560Z"]],"P":{"mecca":[511,412],"medina":[506,383],"hira":[511,411],"gerusalemme":[464,315],"damasco":[472,299],"baghdad":[536,294],"egitto":[432,333],"persia":[606,294],"cartagine":[272,254],"tangeri":[150,232],"gibilterra":[154,230],"spagna":[179,195],"cordoba":[164,216],"costantinopoli":[414,228],"india":[759,286],"samarcanda":[690,194],"yemen":[565,464],"corno":[584,523],"arabia":[553,382],"siria":[484,284],"iraq":[535,307],"cina":[756,162],"iran":[628,280],"mediterraneo":[328,281]}};
+var GRUPPI = { "1": "Parte 1 · Arabia e Maometto", "2": "Parte 2 · L'Impero islamico", "3": "Parte 3 · Religione e civiltà", "v": "Alla fine" };
+
+/* ===================== GLOSSARIO ===================== */
+var GLOSSARIO = {
+  beduini: ["Beduini", "Pastori nomadi del deserto: si spostano con i loro animali e non hanno una casa fissa."],
+  incenso: ["Incenso", "Una resina profumata che si brucia nei riti religiosi e per profumare le case. Era molto preziosa."],
+  politeismo: ["Politeismo", "Credere in tanti dei. «Poli» = molti, «theos» = dio. Il contrario è monoteismo: un solo Dio."],
+  carovana: ["Carovana", "Un gruppo di mercanti che viaggia insieme, con cammelli e dromedari carichi di merci."],
+  kaba: ["Ka'ba", "In arabo «cubo». Un tempio di pietra a forma di cubo, alla Mecca. Dentro c'è la pietra nera, venerata come sacra."],
+  egira: ["Egira", "La fuga di Maometto dalla Mecca a Medina, nel 622. Per i musulmani è l'anno 1 del calendario."],
+  proselitismo: ["Proselitismo", "Cercare di convincere altre persone ad abbracciare la propria religione."],
+  maghreb: ["Maghreb", "In arabo «Occidente». La parte ovest dell'Africa del Nord: oggi Marocco, Algeria, Tunisia."],
+  jizya: ["Jizya", "La tassa che ebrei e cristiani pagavano per poter vivere in pace nella terra islamica, mantenendo la loro religione."],
+  califfo: ["Califfo", "Dall'arabo khalifa: «successore dell'inviato di Dio». Il capo religioso e politico dei musulmani dopo Maometto."],
+  sunna: ["Sunna", "La «tradizione»: la raccolta dei detti e dei fatti del Profeta (gli Hadit). Per i sunniti è un testo sacro."],
+  umma: ["Umma", "La comunità di tutti i musulmani, da qualunque paese vengano."],
+  sharia: ["Shari'a", "La legge islamica, basata sul Corano: regola la religione, ma anche la vita sociale e politica."],
+  dhimmi: ["Dhimmi", "«Persone protette»: ebrei e cristiani che pagando la jizya potevano vivere in pace nella terra islamica."],
+  arabeschi: ["Arabeschi", "Decorazioni fatte di linee, foglie e forme intrecciate, senza figure di persone o animali."],
+  suq: ["Suq", "Il mercato della città araba, pieno di botteghe e di gente."],
+  muezzin: ["Muezzin", "L'uomo che dall'alto della moschea chiama i fedeli alla preghiera."],
+  imam: ["Imam", "Un esperto dei testi sacri che guida la preghiera nella moschea."],
+};
+var glossa = document.getElementById("glossa"), ultimoG = null;
+function apriGlossa(k) {
+  var g = GLOSSARIO[k]; if (!g) return;
+  document.getElementById("glossa-titolo").textContent = g[0];
+  document.getElementById("glossa-testo").textContent = g[1];
+  glossa.hidden = false;
+}
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("button.g");
+  if (b) { e.stopPropagation(); ultimoG = b; apriGlossa(b.dataset.g); return; }
+  if (!glossa.hidden && !e.target.closest("#glossa")) glossa.hidden = true;
+}, true);
+glossa.querySelector(".chiudi").addEventListener("click", function () { glossa.hidden = true; if (ultimoG) ultimoG.focus(); });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") glossa.hidden = true; });
+
+/* ===================== VOCE ===================== */
+var voce = "speechSynthesis" in window;
+function parla(testo) {
+  if (!voce) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(testo);
+  u.lang = "it-IT"; u.rate = 0.9;
+  var v = speechSynthesis.getVoices().filter(function (x) { return /^it/i.test(x.lang); });
+  if (v.length) u.voice = v[0];
+  speechSynthesis.speak(u);
+}
+var ICONA_VOCE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
+document.querySelectorAll(".ascolta").forEach(function (b) {
+  if (!voce) { b.hidden = true; return; }
+  b.innerHTML = ICONA_VOCE + " Ascolta";
+  b.addEventListener("click", function () {
+    if (speechSynthesis.speaking) { speechSynthesis.cancel(); b.innerHTML = ICONA_VOCE + " Ascolta"; return; }
+    var t = Array.prototype.map.call(b.closest(".tappa").querySelectorAll("h2, .leggibile, .semplice"), function (el) {
+      return el.innerText.replace(/IN PAROLE SEMPLICI/, "In parole semplici.");
+    }).join(". ");
+    parla(t);
+    b.innerHTML = ICONA_VOCE + " Ferma";
+    var c = setInterval(function () { if (!speechSynthesis.speaking) { b.innerHTML = ICONA_VOCE + " Ascolta"; clearInterval(c); } }, 500);
+  });
+});
+
+
+
+/* ===================== LINEA DEL TEMPO ===================== */
+var ANNI = {
+  570: "Nasce Maometto alla Mecca.",
+  610: "La rivelazione: Maometto comincia a predicare.",
+  622: "Egira: Maometto fugge a Medina. Inizia il calendario musulmano.",
+  629: "Maometto conquista la Mecca.",
+  632: "Muore Maometto. Iniziano i califfi.",
+  637: "Gli Arabi conquistano l'Impero persiano.",
+  660: "Guerra tra Mu'awiya e Ali. Nasce la dinastia degli Omayyadi.",
+  661: "Ali viene ucciso: nascono gli sciiti.",
+  711: "I Berberi passano lo stretto di Gibilterra e conquistano la Spagna.",
+  750: "Inizia la dinastia degli Abbasidi, capitale Baghdad.",
+};
+var DA = 560, A = 760, TACCHE = [600, 650, 700, 750];
+function pos(a) { return ((a - DA) / (A - DA) * 100).toFixed(2) + "%"; }
+document.querySelectorAll(".tempo").forEach(function (box) {
+  var on = box.dataset.anni ? box.dataset.anni.split(",").map(Number) : [];
+  var fuori = on.filter(function (a) { return a < DA || a > A; });
+  var h = '<div class="tit"><span>Quando siamo?</span><span class="fuori">' +
+    fuori.map(function (a) { return "<span>" + (a < DA ? "prima: " : "dopo: ") + a + "</span>"; }).join("") + "</span></div>";
+  h += '<div class="binario"><div class="riga"></div>';
+  TACCHE.forEach(function (t) { h += '<span class="tacca" style="left:' + pos(t) + '">' + t + "</span>"; });
+  Object.keys(ANNI).map(Number).filter(function (a) { return a >= DA && a <= A; }).forEach(function (a) {
+    var acceso = on.indexOf(a) >= 0;
+    h += '<button type="button" class="pt' + (acceso ? " on" : "") + '" style="left:' + pos(a) + '" data-a="' + a + '" aria-label="Anno ' + a + '"></button>';
+  });
+  var ultimo = -99;
+  on.filter(function (a) { return a >= DA && a <= A; }).sort(function (x, y) { return x - y; }).forEach(function (a) {
+    var p = (a - DA) / (A - DA) * 100;
+    var sposta = p - ultimo < 5;
+    h += '<span class="lab" style="left:' + pos(a) + (sposta ? ";top:-16px" : "") + '">' + a + "</span>";
+    ultimo = sposta ? -99 : p;
+  });
+  h += "</div><output>" + (on.length ? "Tocca un pallino per sapere che cosa succede." : "Tocca un pallino per sapere che cosa succede in quell'anno.") + "</output>";
+  box.innerHTML = h;
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".pt"); if (!b) return;
+    box.querySelector("output").innerHTML = "<b>" + b.dataset.a + "</b> · " + ANNI[b.dataset.a];
+  });
+});
+document.querySelectorAll(".tempo .fuori span").forEach(function (s) {
+  s.style.cursor = "pointer";
+  s.addEventListener("click", function () {
+    var a = s.textContent.replace(/\D/g, "");
+    s.closest(".tempo").querySelector("output").innerHTML = "<b>" + a + "</b> · " + ANNI[a];
+  });
+});
+
+
+
+/* ===================== CATENE ===================== */
+var CATENE = {
+  tribu: [
+    ["All'inizio la società è molto <b>semplice</b>: ci sono le <b>tribù</b> di beduini.", "che cosa sono?"],
+    ["Piccoli gruppi di persone, che spesso si fanno la <b>guerra</b> tra loro.", "con il tempo"],
+    ["Al loro posto nascono <b>regni</b> e organizzazioni politiche <b>stabili e complesse</b>.", "dove?"],
+    ["Sul <b>confine con l'Impero romano</b> e lungo le <b>coste</b>. Qui arrivano anche le grandi religioni del Mediterraneo e della Persia."],
+  ],
+  rivelazione: [
+    ["Da adulto Maometto si ritira a <b>meditare</b> in una grotta sul monte <b>Hira</b>.", "lì"],
+    ["Ha delle visioni: vede l'arcangelo <b>Gabriele</b> e sente una voce che gli porta un messaggio di Dio.", "il messaggio dice"],
+    ["Dio ha già mandato altri profeti. Maometto è l'<b>ultimo</b>, il «sigillo dei profeti»: deve fondare la nuova comunità dei credenti.", "nel 610"],
+    ["Nella «notte del destino» Gabriele gli rivela il <b>Corano</b>. Maometto comincia a <b>predicare</b> la nuova religione."],
+  ],
+  corano: [
+    ["Maometto <b>non sapeva scrivere</b>. Le sue parole erano state imparate <b>a memoria</b> dai compagni.", "dopo la sua morte"],
+    ["I primi califfi raccolgono i testimoni e fanno <b>scrivere</b> le sue parole.", "risultato"],
+    ["Nasce il <b>Corano</b>, il libro sacro dell'Islam. La lingua araba scritta si diffonde proprio dal Corano.", "inoltre"],
+    ["Gli studiosi raccolgono anche altri detti del Profeta (gli <i>Hadit</i>): è la <button class='g' data-g='sunna'>Sunna</button>, la «tradizione»."],
+  ],
+  scissione: [
+    ["<b>660</b> · Scoppia una guerra tra <b>Mu'awiya</b>, appoggiato dai musulmani arabi, e <b>Ali</b>, cugino e genero di Maometto.", "vince"],
+    ["Mu'awiya: si stabilisce a <b>Damasco</b> e fonda la dinastia degli <b>Omayyadi</b>.", "poi"],
+    ["<b>661</b> · Ali viene <b>ucciso</b>. I suoi seguaci formano un gruppo a parte: gli <b>sciiti</b>.", "risultato"],
+    ["È la prima grande <b>divisione</b> dell'Islam: <b>sciiti</b> contro <b>sunniti</b>. Una lotta dura e sanguinosa, che continua ancora oggi."],
+  ],
+  avanzata: [
+    ["<b>Scorrerie</b> e razzie nella terra della guerra.", "se hanno successo"],
+    ["Gli Arabi fondano <b>insediamenti</b> e iniziano i <b>commerci</b>.", "se hanno successo"],
+    ["<b>Conquista</b>: quel territorio entra nella <b>terra della pace</b>."],
+  ],
+};
+var GIU = '<svg width="14" height="26" viewBox="0 0 14 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 1V23"/><path d="M1 17l6 7 6-7"/></svg>';
+document.querySelectorAll(".catena").forEach(function (box) {
+  var c = CATENE[box.dataset.catena];
+  var h = "";
+  c.forEach(function (s, i) {
+    h += '<div class="anello' + (i === c.length - 1 ? " fine" : "") + '" data-i="' + i + '"' + (i ? " hidden" : "") + '><span class="n">' + (i + 1) + "</span><span>" + s[0] + "</span></div>";
+    if (s[1]) h += '<div class="giu" data-i="' + i + '" hidden>' + GIU + s[1] + "</div>";
+  });
+  h += '<div class="poi"><button class="pulsante" type="button">E poi? ↓</button> <button class="pulsante tutto" type="button">Mostra tutto</button></div>';
+  box.innerHTML = h;
+  var visti = 1;
+  function aggiorna() {
+    box.querySelectorAll(".anello").forEach(function (a) { a.hidden = +a.dataset.i >= visti; });
+    box.querySelectorAll(".giu").forEach(function (g) { g.hidden = +g.dataset.i >= visti - 1; });
+    var b = box.querySelector(".poi button");
+    b.textContent = visti >= c.length ? "Ricomincia ↺" : "E poi? ↓";
+    box.querySelector(".tutto").hidden = visti >= c.length;
+  }
+  box.querySelector(".poi button").addEventListener("click", function () { visti = visti >= c.length ? 1 : visti + 1; aggiorna(); });
+  box.querySelector(".tutto").addEventListener("click", function () { visti = c.length; aggiorna(); });
+  aggiorna();
+});
+
+
+
+/* ===================== PERSONAGGI ===================== */
+var PERS = {
+  maometto: ["Maometto", "#2F6B2F", "il Profeta dell'Islam", "Nasce alla Mecca nel <b>570</b>, riceve la rivelazione nel <b>610</b>, fugge a Medina nel <b>622</b>, muore nel <b>632</b>."],
+  khadigia: ["Khadigia", "#7A4E8F", "moglie di Maometto", "Una <b>vedova ricca</b>, di una famiglia di commercianti, più grande di lui."],
+  tariq: ["Tariq ibn Ziyad", "#B7791F", "generale berbero", "Nel <b>711</b> passa lo stretto e conquista la Spagna. Gibilterra = <i>Gebel-Tariq</i>, «monte di Tariq»."],
+  ali: ["Ali", "#1E6A73", "cugino e genero di Maometto", "Combatte contro Mu'awiya e viene ucciso nel <b>661</b>. I suoi seguaci sono gli <b>sciiti</b>."],
+  muawiya: ["Mu'awiya", "#8A2E3B", "califfo", "Vince la guerra, si stabilisce a <b>Damasco</b> e fonda la dinastia degli <b>Omayyadi</b>."],
+  abbas: ["Ibn Abbas", "#1F5F99", "fondatore degli Abbasidi", "Nel <b>750</b> rovescia gli Omayyadi. Capitale: <b>Baghdad</b>."],
+};
+document.querySelectorAll(".personaggi").forEach(function (box) {
+  box.innerHTML = box.dataset.pers.split(",").map(function (k) {
+    var p = PERS[k];
+    var ini = p[0].split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2);
+    return '<button class="pers" type="button" aria-pressed="false"><span class="faccia"><span class="ini" style="background:' + p[1] + '">' + ini +
+      '</span><span><b>' + p[0] + '</b></span></span><span class="ruolo">' + p[2] + '</span><span class="dopo">' + p[3] + '</span><span class="gira">Tocca per scoprire</span></button>';
+  }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".pers"); if (!b) return;
+    var on = b.getAttribute("aria-pressed") !== "true";
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.querySelector(".gira").textContent = on ? "Tocca per chiudere" : "Tocca per scoprire";
+  });
+});
+
+
+
+/* ===================== CARTINE ===================== */
+var NS = "http://www.w3.org/2000/svg";
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function preparaMappa(id, paesiEvidenziati) {
+  var svg = document.getElementById(id);
+  svg.setAttribute("viewBox", svg.dataset.vista || ("0 0 " + MAPPA.W + " " + MAPPA.H)); svg._k = svg.dataset.vista ? +svg.dataset.vista.split(" ")[2] / MAPPA.W : 1; svg.style.setProperty("--k", svg._k);
+  var g = el("g", {}, svg);
+  MAPPA.paths.forEach(function (p) {
+    el("path", { d: p[1], "class": "terra" + (paesiEvidenziati && paesiEvidenziati.indexOf(p[0]) >= 0 ? " acc" : ""), "data-id": p[0] }, g);
+  });
+  var defs = el("defs", {}, svg);
+  ["#8A2E3B", "#1F5F99", "#7A4E8F", "#5A5F6E", "#B7791F", "#2F6B2F"].forEach(function (c) {
+    var m = el("marker", { id: id + "-f" + c.slice(1), viewBox: "0 0 10 10", refX: 6, refY: 5, markerWidth: 3.5, markerHeight: 3.5, orient: "auto" }, defs);
+    el("path", { d: "M0 0L10 5L0 10z", fill: c }, m);
+  });
+  return { svg: svg, sopra: el("g", {}, svg), luoghi: el("g", {}, svg) };
+}
+function curva(a, b, piega) {
+  var P = MAPPA.P, A = P[a] || a, B = P[b] || b;
+  var mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2, dx = B[0] - A[0], dy = B[1] - A[1];
+  var k = piega === undefined ? 0.18 : piega;
+  return "M" + A[0] + " " + A[1] + " Q" + (mx - dy * k) + " " + (my + dx * k) + " " + B[0] + " " + B[1];
+}
+function tratto(m, a, b, colore, piega, anim) {
+  var p = el("path", { d: curva(a, b, piega), "class": "tratto", stroke: colore, "marker-end": "url(#" + m.svg.id + "-f" + colore.slice(1) + ")" }, m.sopra);
+  if (anim) { var l = Math.ceil(p.getTotalLength()); p.style.setProperty("--l", l); p.classList.add("anim"); }
+  return p;
+}
+function luogo(m, k, nome, dove) {
+  var P = MAPPA.P[k], g = el("g", { "class": "luogo" }, m.luoghi), q = m.svg._k;
+  el("circle", { cx: P[0], cy: P[1], r: 7 * q }, g);
+  var t = el("text", { x: P[0] + (dove === "s" ? -10 : 10) * q, y: P[1] + (dove === "g" ? 22 : dove === "su" ? -10 : 5) * q, "text-anchor": dove === "s" ? "end" : "start" }, g);
+  t.textContent = nome;
+}
+function mappaAPassi(id, passiId, infoId, PASSI, sempre) {
+  var m = preparaMappa(id);
+  (sempre || []).forEach(function (s) { luogo(m, s[0], s[1], s[2]); });
+  var box = document.getElementById(passiId);
+  box.innerHTML = PASSI.map(function (p, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '" style="--zona:' + p.c + '">' + (i + 1) + " · " + p.b + "</button>"; }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var i = +b.dataset.i;
+    m.sopra.innerHTML = "";
+    box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", +x.dataset.i <= i ? "true" : "false"); });
+    for (var k = 0; k <= i; k++) PASSI[k].tratti.forEach(function (t) { tratto(m, t[0], t[1], PASSI[k].c, t[2], k === i); });
+    var info = document.getElementById(infoId);
+    info.style.setProperty("--zona", PASSI[i].c);
+    info.innerHTML = "<div class='area'>" + PASSI[i].anno + "</div><h4>" + PASSI[i].t + "</h4><p>" + PASSI[i].d + "</p>";
+  });
+}
+
+mappaAPassi("mappa-arabia", "passi-arabia", "info-arabia", [
+  { b: "Incenso", c: "#B7791F", anno: "a sud", t: "Le terre dell'incenso", d: "Dallo <b>Yemen</b> e dal <b>Corno d'Africa</b> arriva l'incenso, usato nei riti sacri e per profumare le case.", tratti: [["corno", "yemen", 0.3]] },
+  { b: "Carovane", c: "#8A2E3B", anno: "attraverso il deserto", t: "Le piste carovaniere", d: "I <b>beduini</b> trasportano le merci su <b>cammelli e dromedari</b>, lungo le piste del deserto, fino alla Mecca e più a nord.", tratti: [["yemen", "mecca", 0.15], ["mecca", "medina", 0.2], ["medina", "damasco", -0.15]] },
+  { b: "Idee", c: "#1F5F99", anno: "non solo merci", t: "Scambi di idee", d: "Con le merci viaggiano anche <b>idee e conoscenze</b>. L'Arabia è in contatto con l'Asia e con il Mediterraneo.", tratti: [["damasco", "gerusalemme", 0.4], ["mecca", "egitto", -0.2]] },
+], [["mecca", "La Mecca", "s"], ["medina", "Medina", "s"], ["yemen", "Yemen"], ["corno", "Corno d'Africa", "s"], ["damasco", "Damasco"], ["gerusalemme", "Gerusalemme", "s"], ["egitto", "Egitto", "s"]]);
+
+mappaAPassi("mappa-egira", "passi-egira", "info-egira", [
+  { b: "622 · Egira", c: "#8A2E3B", anno: "622", t: "La fuga a Medina", d: "Maometto deve <b>fuggire</b> dalla Mecca a <b>Medina</b> (in arabo <i>al-Madinat</i>, «la Città»). È l'<b>Egira</b>.", tratti: [["mecca", "medina", 0.35]] },
+  { b: "A Medina", c: "#B7791F", anno: "622–629", t: "Il successo", d: "A Medina la sua predicazione ha <b>successo</b>: la nuova religione riunisce gruppi e popoli diversi.", tratti: [] },
+  { b: "629 · Ritorno", c: "#2F6B2F", anno: "629", t: "La conquista della Mecca", d: "Con tanti fedeli Maometto torna e <b>conquista la Mecca con le armi</b>. Ora è capo <b>religioso, politico e militare</b>.", tratti: [["medina", "mecca", 0.35]] },
+], [["mecca", "La Mecca", "g"], ["medina", "Medina", "su"]]);
+
+(function () {
+  var m = preparaMappa("mappa-impero");
+  var FASI = [
+    { b: "632 · Arabia", c: "#2F6B2F", t: "Alla morte di Maometto", d: "Nel <b>632</b> tutta la penisola <b>Arabica</b> è musulmana.", p: ["682", "887", "512", "784", "634", "414", "048"] },
+    { b: "Medio Oriente", c: "#1E6A73", t: "Le prime conquiste", d: "Gerusalemme, poi <b>Siria, Palestina, Iraq ed Egitto</b>. Per due volte gli Arabi attaccano Bisanzio.", p: ["760", "376", "275", "400", "422", "368", "818"] },
+    { b: "637 · Persia", c: "#1F5F99", t: "Cade l'Impero persiano", d: "Nel <b>637</b> l'Impero persiano si sbriciola «come un castello di sabbia».", p: ["364"] },
+    { b: "Africa del Nord", c: "#B7791F", t: "Verso occidente", d: "Cadono una dopo l'altra le antiche città romane: Cirene, Leptis Magna, <b>Cartagine</b>, fino a <b>Tangeri</b>. Il <b>Maghreb</b> resiste più a lungo.", p: ["434", "788", "012", "504", "732"] },
+    { b: "711 · Spagna", c: "#8A2E3B", t: "La Spagna dei Visigoti", d: "Nel <b>711</b> le armate berbere di <b>Tariq</b> passano lo stretto di Gibilterra e conquistano la Spagna, tranne le montagne del nord.", p: ["724", "620"] },
+    { b: "Fino alla Cina", c: "#7A4E8F", t: "Verso oriente", d: "Gli Arabi prendono Iran e Pakistan, arrivano in <b>India</b> e nell'<b>Asia centrale</b>, fino alle porte della <b>Cina</b>.", p: ["004", "586", "795", "860", "762"] },
+  ];
+  var box = document.getElementById("passi-impero");
+  box.innerHTML = FASI.map(function (f, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '" style="--zona:' + f.c + '">' + (i + 1) + " · " + f.b + "</button>"; }).join("");
+  luogo(m, "mecca", "La Mecca", "s"); luogo(m, "costantinopoli", "Bisanzio", "su"); luogo(m, "baghdad", "Baghdad"); luogo(m, "damasco", "Damasco", "s"); luogo(m, "tangeri", "Tangeri", "g"); luogo(m, "cordoba", "Cordoba", "su"); luogo(m, "cina", "Cina", "su");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var i = +b.dataset.i;
+    box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", +x.dataset.i <= i ? "true" : "false"); });
+    m.svg.querySelectorAll("path.terra").forEach(function (p) { p.style.fill = ""; p.style.opacity = ""; });
+    for (var k = 0; k <= i; k++) FASI[k].p.forEach(function (id) {
+      m.svg.querySelectorAll('path.terra[data-id="' + id + '"]').forEach(function (p) { p.style.fill = FASI[k].c; p.style.opacity = k === i ? "0.85" : "0.5"; });
+    });
+    var info = document.getElementById("info-impero"); info.style.setProperty("--zona", FASI[i].c);
+    info.innerHTML = "<h4>" + FASI[i].t + "</h4><p>" + FASI[i].d + "</p>";
+  });
+})();
+
+/* ===================== PILASTRI / NUMERI ===================== */
+(function () {
+  var P = [
+    ["Professione di fede", "La <b>doppia professione di fede</b>: «Non esiste altro Dio al di fuori di Allah, e Maometto è il suo profeta». Divide il mondo tra chi crede e chi no."],
+    ["Preghiera", "Pregare <b>5 volte al giorno</b>, rivolti verso la <b>Mecca</b>, quando il <button class='g' data-g='muezzin'>muezzin</button> chiama. In moschea o su un tappeto. Il <b>venerdì</b> si prega tutti insieme, guidati dall'<button class='g' data-g='imam'>imam</button>."],
+    ["Pellegrinaggio", "Andare alla <b>Mecca</b> almeno <b>una volta nella vita</b>."],
+    ["Elemosina", "Dare ai poveri un <b>decimo</b> di quello che si guadagna. Serve anche a evitare troppe differenze tra ricchi e poveri."],
+    ["Ramadan", "Nel <b>nono mese</b> dell'anno lunare non si mangia e non si beve <b>di giorno</b>. Ricorda la rivelazione del Corano."],
+    ["+1 · Jihad", "La «guerra santa» ha due significati: 1) la <b>lotta interiore</b> contro i propri difetti; 2) l'impegno a <b>diffondere e difendere</b> la religione, anche con le armi."],
+  ];
+  var box = document.getElementById("pilastri");
+  box.innerHTML = P.map(function (p, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '"><span class="num-g">' + (i < 5 ? i + 1 : "+") + "</span>" + p[0] + "</button>"; }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var i = +b.dataset.i;
+    box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    document.getElementById("info-pilastri").innerHTML = "<b>" + P[i][0] + ":</b> " + P[i][1];
+  });
+  function romano(n) {
+    var V = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]], s = "";
+    V.forEach(function (v) { while (n >= v[0]) { s += v[1]; n -= v[0]; } }); return s;
+  }
+  var N = [10, 105, 2026, 3888];
+  var nb = document.getElementById("numeri-btn");
+  nb.innerHTML = N.map(function (n, i) { return '<button type="button" aria-pressed="false" data-n="' + n + '">' + n + "</button>"; }).join("");
+  function mostra(n) {
+    nb.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", +x.dataset.n === n ? "true" : "false"); });
+    var r = romano(n), zero = String(n).indexOf("0") >= 0;
+    document.getElementById("numeri").innerHTML = '<div><b>' + n + "</b>numeri arabi: " + String(n).length + " cifre" + (zero ? ". Lo <b>0</b> dice che in quel posto non c'è niente." : ".") + '</div><div><b>' + r + "</b>numeri romani: " + r.length + " simboli. I Romani non avevano lo zero.</div>";
+  }
+  nb.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) mostra(+b.dataset.n); });
+  mostra(2026);
+})();
+
+/* ===================== VERIFICA ===================== */
+var VF = [
+  ["Prima di Maometto l'Arabia era isolata dal resto del mondo.", false, "Era in contatto con l'Asia e il Mediterraneo, grazie alle piste carovaniere."],
+  ["I beduini erano pastori nomadi organizzati in tribù.", true, "Piccoli gruppi, spesso in guerra tra loro."],
+  ["L'Egira è la fuga di Maometto dalla Mecca a Medina.", true, "Nel 622: è l'inizio del calendario musulmano."],
+  ["Il Corano è stato scritto da Maometto di sua mano.", false, "Maometto non sapeva scrivere: le sue parole furono raccolte e scritte dopo la sua morte."],
+  ["«Islam» vuol dire «sottomissione a Dio».", true, "Perfetta sottomissione a Dio."],
+  ["Nel 711 i Berberi conquistano la Spagna.", true, "Guidati da Tariq, passano lo stretto di Gibilterra."],
+  ["Gli sciiti sono i seguaci di Ali.", true, "Shi'at Ali = il partito di Ali."],
+  ["I musulmani pregano 3 volte al giorno.", false, "Pregano 5 volte al giorno, rivolti verso la Mecca."],
+  ["Ebrei e cristiani potevano vivere nella terra della pace pagando la jizya.", true, "Diventavano dhimmi, persone protette."],
+  ["Agli Arabi dobbiamo lo zero e i numeri che usiamo oggi.", true, "I numeri arabi."],
+];
+var EVENTI_ORD = [
+  [570, "Nasce Maometto"],
+  [610, "La rivelazione del Corano"],
+  [622, "L'Egira: fuga a Medina"],
+  [632, "Muore Maometto"],
+  [711, "Conquista della Spagna"],
+  [750, "Inizia la dinastia degli Abbasidi"],
+];
+var ABBINA = [
+  ["Egira", "la fuga di Maometto a Medina"],
+  ["Corano", "il libro sacro dell'Islam"],
+  ["Islam", "sottomissione a Dio"],
+  ["califfo", "successore del Profeta"],
+  ["Sunna", "la tradizione: i detti del Profeta"],
+  ["umma", "la comunità dei credenti"],
+  ["Shari'a", "la legge islamica"],
+  ["jizya", "la tassa di ebrei e cristiani"],
+];
+var APERTE = [
+  ["Quali popoli vivevano in Arabia prima di Maometto e come erano organizzati?", "beduini, nomadi, tribù, guerra, regni stabili, carovane, politeismo",
+   "In Arabia vivevano soprattutto i <b>beduini</b>, pastori <b>nomadi</b> che trasportavano le merci su cammelli e dromedari lungo le <b>piste carovaniere</b>. Erano organizzati in <b>tribù</b>, piccoli gruppi spesso in guerra tra loro. Con il tempo, al confine con l'Impero romano e lungo le coste, nacquero <b>regni</b> più stabili e complessi. L'Arabia era in contatto con l'Asia e il Mediterraneo. All'inizio i beduini erano <b>politeisti</b>; poi conobbero anche ebraismo, cristianesimo e mazdeismo."],
+  ["Che cos'è l'Egira e che cos'è il Corano?", "622, fuga, Mecca, Medina, calendario · libro sacro, Gabriele, 610, arabo, scritto dopo la morte",
+   "L'<b>Egira</b> è la <b>fuga di Maometto dalla Mecca a Medina</b>, nel <b>622</b>: i mercanti della Mecca erano contro di lui. Per i musulmani è l'<b>inizio della storia</b>: da quell'anno comincia il loro calendario. Il <b>Corano</b> è il <b>libro sacro dell'Islam</b>. Per i musulmani contiene le parole di Dio rivelate a Maometto dall'arcangelo <b>Gabriele</b>, a partire dal <b>610</b>. È scritto in <b>arabo</b> (<i>qur'an</i> = «lettura ad alta voce»). Maometto non sapeva scrivere: dopo la sua morte i califfi raccolsero le sue parole e le fecero scrivere. Il Corano contiene anche le regole della vita sociale (la Shari'a)."],
+  ["Perché l'espansione araba fu così rapida?", "entusiasmo, cavalleria, imperi deboli, tasse, religione",
+   "Per tanti motivi insieme: l'<b>entusiasmo religioso</b> e una <b>cavalleria</b> fortissima; la <b>debolezza</b> dell'Impero bizantino e di quello persiano, appena usciti da una lunga guerra; in Europa nessun regno era abbastanza forte. Inoltre Siria ed Egitto volevano liberarsi dall'oppressione religiosa di Costantinopoli, e i contadini, schiacciati dalle <b>tasse</b>, speravano nei nuovi padroni."],
+  ["Quali sono i cinque pilastri dell'Islam?", "fede, preghiera, pellegrinaggio, elemosina, Ramadan",
+   "1) La <b>professione di fede</b>: «Non esiste altro Dio al di fuori di Allah, e Maometto è il suo profeta». 2) La <b>preghiera</b> cinque volte al giorno, verso la Mecca. 3) Il <b>pellegrinaggio</b> alla Mecca almeno una volta nella vita. 4) L'<b>elemosina</b>, un decimo del reddito. 5) Il digiuno del <b>Ramadan</b>, di giorno, nel nono mese dell'anno lunare. Alcuni aggiungono un sesto precetto, il <b>jihad</b>."],
+];
+var risposte = {};
+document.getElementById("domande").innerHTML = VF.map(function (q, i) {
+  return '<div class="domanda" data-i="' + i + '"><p>' + (i + 1) + ". " + q[0] + '</p><div class="vf"><button type="button" data-v="1">Vero</button><button type="button" data-v="0">Falso</button></div><div class="spiega-box" aria-live="polite"></div></div>';
+}).join("");
+document.getElementById("domande").addEventListener("click", function (e) {
+  var b = e.target.closest(".vf button"); if (!b) return;
+  var d = b.closest(".domanda"), i = +d.dataset.i, giusto = (b.dataset.v === "1") === VF[i][1];
+  d.querySelectorAll(".vf button").forEach(function (x) { x.classList.remove("giusta", "sbagliata"); });
+  b.classList.add(giusto ? "giusta" : "sbagliata");
+  d.querySelector(".spiega-box").innerHTML = '<div class="spiega ' + (giusto ? "ok" : "no") + '"><b>' + (giusto ? "Giusto! " : "Non è così. ") + "</b>" + VF[i][2] + "</div>";
+  if (!(i in risposte)) risposte[i] = giusto;
+  aggiornaPunteggio();
+});
+var prossimo = 0, ordineOk = false;
+function preparaOrdina() {
+  prossimo = 0; ordineOk = false;
+  var mesc = EVENTI_ORD.map(function (e, i) { return i; });
+  for (var i = mesc.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = mesc[i]; mesc[i] = mesc[j]; mesc[j] = t; }
+  if (mesc.join() === EVENTI_ORD.map(function (e, i) { return i; }).join()) mesc.reverse();
+  document.getElementById("ordina").innerHTML = mesc.map(function (i) { return '<button type="button" data-i="' + i + '"><span class="pos"></span><span>' + EVENTI_ORD[i][1] + "</span></button>"; }).join("");
+  document.getElementById("esito-ordina").innerHTML = "";
+}
+document.getElementById("ordina").addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b || b.classList.contains("fatto")) return;
+  if (+b.dataset.i === prossimo) {
+    b.classList.add("fatto"); prossimo++;
+    b.querySelector(".pos").textContent = prossimo;
+    b.querySelector("span:last-child").innerHTML = "<b>" + EVENTI_ORD[+b.dataset.i][0] + "</b> · " + EVENTI_ORD[+b.dataset.i][1];
+    if (prossimo === EVENTI_ORD.length) { ordineOk = true; document.getElementById("esito-ordina").innerHTML = '<div class="spiega ok"><b>Perfetto!</b> Tutti gli eventi sono in ordine.</div>'; aggiornaPunteggio(); }
+  } else {
+    b.classList.remove("errore"); void b.offsetWidth; b.classList.add("errore");
+    document.getElementById("esito-ordina").innerHTML = '<div class="spiega no">Non ancora: cerca l\'evento <b>più antico</b> tra quelli rimasti.</div>';
+  }
+});
+document.getElementById("rimescola").addEventListener("click", preparaOrdina);
+preparaOrdina();
+var esitiAbbina = {};
+function abbinamento(dati, boxId, btnId, esitoId) {
+  var opz = dati.map(function (a) { return a[1]; }).slice().sort();
+  document.getElementById(boxId).innerHTML = dati.map(function (a, i) {
+    return '<label for="' + boxId + i + '">' + a[0] + '</label><select id="' + boxId + i + '"><option value="">scegli…</option>' + opz.map(function (o) { return "<option>" + o + "</option>"; }).join("") + "</select>";
+  }).join("");
+  document.getElementById(btnId).addEventListener("click", function () {
+    var g = 0;
+    dati.forEach(function (a, i) { var s = document.getElementById(boxId + i), ok = s.value === a[1]; s.classList.remove("ok", "no"); if (s.value) s.classList.add(ok ? "ok" : "no"); if (ok) g++; });
+    esitiAbbina[boxId] = g === dati.length;
+    document.getElementById(esitoId).innerHTML = '<div class="spiega ' + (g === dati.length ? "ok" : "no") + '">' + (g === dati.length ? "<b>Perfetto!</b> Tutte giuste." : "Ne hai giuste <b>" + g + " su " + dati.length + "</b>. Correggi quelle rosse e riprova.") + "</div>";
+    aggiornaPunteggio();
+  });
+}
+abbinamento(ABBINA, "abbina", "controlla-abbina", "esito-abbina");
+if (typeof ABBINA2 !== "undefined") abbinamento(ABBINA2, "abbina2", "controlla-abbina2", "esito-abbina2");
+if (typeof APERTE !== "undefined") {
+  document.getElementById("aperte").innerHTML = APERTE.map(function (q, i) {
+    return '<div class="domanda"><p><b>' + (i + 1) + ".</b> " + q[0] + '</p><p class="aiuto" style="margin:0 0 8px">Prima rispondi a voce o sul quaderno. Parole chiave da usare: <b>' + q[1] + '</b></p><button type="button" aria-expanded="false">Mostra una risposta modello</button><div class="risp-mod" hidden>' + q[2] + "</div></div>";
+  }).join("");
+  document.getElementById("aperte").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var r = b.nextElementSibling, apri = r.hidden;
+    r.hidden = !apri; b.setAttribute("aria-expanded", apri ? "true" : "false"); b.textContent = apri ? "Nascondi la risposta" : "Mostra una risposta modello";
+  });
+}
+function aggiornaPunteggio() {
+  var n = Object.keys(risposte).length, g = Object.keys(risposte).filter(function (k) { return risposte[k]; }).length;
+  var t = n ? "Vero o falso: <b>" + g + " giuste</b> su " + n + " risposte." : "";
+  var parti = [ordineOk ? "ordine ✓" : null, esitiAbbina.abbina ? "abbinamenti 1 ✓" : null, esitiAbbina.abbina2 ? "abbinamenti 2 ✓" : null].filter(Boolean);
+  if (parti.length) t += (t ? "<br>" : "") + "Completati: " + parti.join(" · ");
+  if (n === VF.length && g === VF.length && ordineOk && esitiAbbina.abbina && (typeof ABBINA2 === "undefined" || esitiAbbina.abbina2)) t += "<br>Bravissimo: hai capito tutto l'argomento!";
+  document.getElementById("punteggio").innerHTML = t;
+}
+/* ===================== TAPPE ===================== */
+var tappe = document.querySelectorAll(".tappa"), corrente = 0, viste = {};
+var nav = document.getElementById("percorso");
+var h = "", ultimoGr = null, conta = {};
+tappe.forEach(function (t, i) {
+  var p = t.dataset.parte;
+  if (p !== ultimoGr) { if (ultimoGr !== null) h += "</div></div>"; h += '<div class="gruppo"><span class="etich">' + GRUPPI[p] + '</span><div class="bottoni">'; ultimoGr = p; }
+  conta[p] = (conta[p] || 0) + 1;
+  h += '<button type="button" data-i="' + i + '" aria-label="' + t.dataset.titolo + '">' + (p === "v" ? "Verifica" : conta[p]) + "</button>";
+});
+nav.innerHTML = h + "</div></div>";
+function vai(i, scorri) {
+  corrente = Math.max(0, Math.min(tappe.length - 1, i));
+  viste[corrente] = true;
+  tappe.forEach(function (t, k) { t.hidden = k !== corrente; });
+  nav.querySelectorAll("button").forEach(function (b) {
+    var k = +b.dataset.i;
+    if (k === corrente) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    b.classList.toggle("vista", !!viste[k] && k !== corrente);
+  });
+  document.getElementById("barra").style.width = ((corrente + 1) / tappe.length * 100) + "%";
+  document.getElementById("indietro").style.visibility = corrente === 0 ? "hidden" : "visible";
+  var av = document.getElementById("avanti");
+  av.style.visibility = corrente === tappe.length - 1 ? "hidden" : "visible";
+  av.textContent = corrente === tappe.length - 2 ? "Vai alla verifica →" : (tappe[corrente].dataset.parte !== tappe[corrente + 1 < tappe.length ? corrente + 1 : corrente].dataset.parte ? "Vai alla parte 2 →" : "Avanti →");
+  if (voce) speechSynthesis.cancel();
+  glossa.hidden = true;
+  if (history.replaceState) history.replaceState(null, "", "#tappa" + (corrente + 1));
+  if (scorri) window.scrollTo({ top: nav.getBoundingClientRect().top + window.scrollY - 16, behavior: "smooth" });
+}
+nav.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) vai(+b.dataset.i, true); });
+document.getElementById("avanti").addEventListener("click", function () { vai(corrente + 1, true); });
+document.getElementById("indietro").addEventListener("click", function () { vai(corrente - 1, true); });
+var m = /^#tappa(\d+)$/.exec(location.hash);
+vai(m ? +m[1] - 1 : 0, false);
+
+</script>
+</body>
+</html>

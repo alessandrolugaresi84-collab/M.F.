@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Longobardi, la Chiesa e il monachesimo</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="stile.css?v=20261014">
+<script src="materiali.js?v=20261014"></script>
+<script src="comune.js?v=20261014"></script>
+<style>
+  :root{--ac:#8A2E3B;--ac-chiaro:#F8ECEE;--ac-bordo:#E3B6BD;--ok:#2F6B2F;--ok-chiaro:#EAF4E8;--no:#A3302A;--no-chiaro:#FBEAEA;--mare:#D6E7F2;--terra:#F7F4EC;--confini:#B9B3A6;--oro:#B7791F;--oro-chiaro:#FFF3D4;--grigio:#8A8F9E}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ac:#F09AA8;--ac-chiaro:#2E1C20;--ac-bordo:#6B3440;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B;--mare:#182533;--terra:#262A35;--confini:#4A5060;--oro:#E0B25A;--oro-chiaro:#2E2717;--grigio:#6B7080}}
+  :root[data-theme="dark"]{--ac:#F09AA8;--ac-chiaro:#2E1C20;--ac-bordo:#6B3440;--ok:#8FCB86;--ok-chiaro:#1C2A1B;--no:#EE9A94;--no-chiaro:#331C1B;--mare:#182533;--terra:#262A35;--confini:#4A5060;--oro:#E0B25A;--oro-chiaro:#2E2717;--grigio:#6B7080}
+
+  /* navigazione a tappe, divisa in due parti */
+  .parti-nav{display:flex;flex-wrap:wrap;gap:10px 22px;margin:8px 0 10px}
+  .gruppo{display:flex;flex-direction:column;gap:6px}
+  .gruppo .etich{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue)}
+  .gruppo .bottoni{display:flex;flex-wrap:wrap;gap:6px}
+  .gruppo button{min-width:46px;min-height:46px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;font-size:16px;cursor:pointer;padding:6px 10px}
+  .gruppo button[aria-current="step"]{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+  .gruppo button.vista{border-color:var(--ac)}
+  .avanzamento{height:10px;border-radius:99px;background:var(--bordo);overflow:hidden;margin:0 0 22px}
+  .avanzamento span{display:block;height:100%;background:var(--ac);transition:width .3s}
+  .tappa[hidden]{display:none}
+  .tappa h2{font-size:clamp(24px,4vw,32px);margin:0 0 6px;color:var(--ac)}
+  .tappa .num{font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--tenue);text-transform:uppercase}
+  .domanda-guida{display:inline-block;margin:2px 0 14px;padding:6px 12px;border-radius:999px;background:var(--ac-chiaro);border:1px solid var(--ac-bordo);font-size:17px}
+  .domanda-guida b{color:var(--ac)}
+  .testo{max-width:44em;font-size:19px;line-height:1.7}
+  .testo p{margin:0 0 14px}
+  .testo ul{margin:0 0 14px;padding-left:24px}
+  .testo li{margin:6px 0}
+  .strumenti{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+  .semplice{background:var(--semplice);border:1px solid var(--semplice-bordo);border-radius:12px;padding:14px 16px;margin:20px 0;font-size:20px;line-height:1.5;max-width:44em}
+  .semplice .tag,.ricorda .tag{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--semplice-testo);margin-bottom:4px}
+  .ricorda{background:var(--oro-chiaro);border:2px solid var(--oro);border-radius:12px;padding:12px 16px;margin:20px 0;max-width:44em}
+  .ricorda .tag{color:var(--oro)}
+  .ricorda ul{margin:0;padding-left:22px;font-size:18px}
+  .ricorda li{margin:4px 0}
+  .attenzione{background:var(--no-chiaro);border:2px solid var(--no);border-radius:12px;padding:12px 16px;margin:14px 0;max-width:44em;font-size:18px}
+  h3.sotto{font-size:20px;margin:26px 0 8px}
+  .aiuto{color:var(--tenue);font-size:16px;margin:-4px 0 10px}
+  .navbasso{display:flex;justify-content:space-between;gap:12px;margin:30px 0 10px;flex-wrap:wrap}
+  .navbasso .pulsante{min-height:52px;font-size:18px;padding:10px 22px}
+  .navbasso .avanti{background:var(--ac);border-color:var(--ac);color:var(--carta)}
+
+  /* parole toccabili */
+  button.g{font:inherit;color:inherit;background:none;border:0;padding:0 1px;cursor:pointer;font-weight:700;text-decoration:underline dotted var(--ac) 2px;text-underline-offset:4px;border-radius:4px}
+  button.g:hover{background:var(--ac-chiaro)}
+  #glossa{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(560px,calc(100% - 32px));background:var(--carta);border:2px solid var(--ac);border-radius:16px;padding:16px 18px 14px;box-shadow:0 10px 40px rgba(0,0,0,.25);z-index:20}
+  #glossa[hidden]{display:none}
+  #glossa h3{margin:0 0 4px;color:var(--ac);font-size:22px;padding-right:44px}
+  #glossa p{margin:0;font-size:18px;line-height:1.55}
+  #glossa .chiudi{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:10px;border:1px solid var(--bordo);background:var(--carta);color:var(--inchiostro);cursor:pointer;font-size:22px;line-height:1}
+
+  /* linea del tempo in cima a ogni tappa */
+  .tempo{background:var(--carta);border:1px solid var(--bordo);border-radius:14px;padding:10px 14px 12px;margin:0 0 18px;max-width:44em}
+  .tempo .tit{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .tempo .fuori{display:flex;gap:6px;flex-wrap:wrap}
+  .tempo .fuori span{font-size:12px;border-radius:999px;padding:1px 8px;background:var(--ac);color:var(--carta);letter-spacing:0;text-transform:none}
+  .binario{position:relative;height:58px;margin:4px 6px 0}
+  .binario .riga{position:absolute;left:0;right:0;top:26px;height:6px;border-radius:99px;background:var(--bordo)}
+  .binario .tacca{position:absolute;top:36px;transform:translateX(-50%);font-size:12px;color:var(--tenue)}
+  .binario .pt{position:absolute;top:21px;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:var(--grigio);border:2px solid var(--carta);padding:0;cursor:pointer}
+  .binario .pt.on{width:22px;height:22px;top:18px;background:var(--ac);box-shadow:0 0 0 2px var(--ac)}
+  .binario .lab{position:absolute;top:0;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--ac);white-space:nowrap}
+  .tempo output{display:block;font-size:16px;min-height:24px;margin-top:2px}
+
+  /* catena causa → conseguenza */
+  .catena{max-width:44em;margin:10px 0 16px}
+  .anello{display:flex;gap:12px;align-items:flex-start;background:var(--carta);border:2px solid var(--ac-bordo);border-radius:12px;padding:10px 14px;font-size:18px}
+  .anello .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:var(--carta);display:grid;place-items:center;font-weight:700;font-size:15px}
+  .anello.fine{border-color:var(--ac);background:var(--ac-chiaro)}
+  .giu{display:flex;align-items:center;gap:8px;padding:2px 0 2px 20px;color:var(--ac);font-style:italic;font-weight:700;font-size:15px;min-height:34px}
+  .catena .poi{margin-top:10px}
+  .anello[hidden],.giu[hidden]{display:none}
+
+  /* personaggi */
+  .personaggi{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:10px 0 16px;max-width:44em}
+  .pers{display:flex;flex-direction:column;gap:6px;text-align:left;min-height:150px;border-radius:14px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;cursor:pointer;padding:12px 14px}
+  .pers .faccia{display:flex;align-items:center;gap:10px}
+  .pers .ini{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff}
+  .pers b{font-size:19px;line-height:1.2}
+  .pers .ruolo{font-size:15px;color:var(--tenue)}
+  .pers .dopo{display:none;font-size:17px;line-height:1.45}
+  .pers .gira{margin-top:auto;font-size:14px;color:var(--tenue)}
+  .pers[aria-pressed="true"]{border-color:var(--ac);background:var(--ac-chiaro)}
+  .pers[aria-pressed="true"] .dopo{display:block}
+  .pers[aria-pressed="true"] .ruolo{display:none}
+
+  /* confronti */
+  .confronto{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:6px 0 16px;max-width:44em}
+  .confronto.tre{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:640px){.confronto,.confronto.tre{grid-template-columns:1fr}}
+  .scatola{background:var(--carta);border:2px solid var(--ac-bordo);border-radius:12px;padding:12px 14px}
+  .scatola h4{margin:0 0 6px;font-size:18px;color:var(--ac)}
+  .scatola p{margin:0;font-size:17px}
+  .scatola ul{margin:0;padding-left:20px;font-size:17px}
+  .scatola.verde{border-color:var(--ok)} .scatola.verde h4{color:var(--ok)}
+  .scatola.rossa{border-color:var(--no)} .scatola.rossa h4{color:var(--no)}
+  .bollo{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;margin-bottom:6px}
+  .bollo.si{background:var(--ok-chiaro);color:var(--ok);border:1px solid var(--ok)}
+  .bollo.no{background:var(--no-chiaro);color:var(--no);border:1px solid var(--no)}
+
+  /* carte che si girano (teorie) */
+  .carte{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:10px 0 16px;max-width:44em}
+  @media (max-width:640px){.carte{grid-template-columns:1fr}}
+  .carta{min-height:150px;border-radius:14px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;cursor:pointer;padding:12px 14px;text-align:left;display:flex;flex-direction:column;gap:6px}
+  .carta .q{font-size:19px;font-weight:700;color:var(--ac)}
+  .carta .dopo{display:none;font-size:17px}
+  .carta .gira{margin-top:auto;font-size:14px;color:var(--tenue)}
+  .carta[aria-pressed="true"]{background:var(--no-chiaro);border-color:var(--no)}
+  .carta[aria-pressed="true"] .dopo{display:block}
+  .carta[aria-pressed="true"] .prima{display:none}
+
+  /* cartine */
+  .cartina-box{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start;margin:10px 0 16px}
+  @media (max-width:820px){.cartina-box{grid-template-columns:1fr}}
+  .cartina{width:100%;height:auto;border-radius:14px;border:1px solid var(--bordo);background:var(--mare);display:block}
+  .cartina .terra{fill:var(--terra);stroke:var(--confini);stroke-width:1}
+  .cartina .terra.acc{fill:var(--ac-chiaro);stroke:var(--ac)}
+  .cartina .luogo circle{fill:#1F2230;stroke:#fff;stroke-width:2}
+  .cartina text{font:700 20px "Atkinson",system-ui,sans-serif;fill:#1F2230;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+  .cartina .tratto{fill:none;stroke-width:6;stroke-linecap:round}
+  .cartina .tratto.anim{stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:disegna 1.2s ease forwards}
+  @keyframes disegna{to{stroke-dashoffset:0}}
+  .cartina .pin{cursor:pointer;outline:none}
+  .cartina .pin circle{stroke:#fff;stroke-width:3}
+  .cartina .pin.attivo circle,.cartina .pin:focus-visible circle{stroke:#1F2230;stroke-width:4}
+  .cartina .fascia{fill:rgba(122,78,143,.22);stroke:#7A4E8F;stroke-width:2;stroke-dasharray:6 5}
+  .info-mappa{background:var(--carta);border:2px solid var(--zona,var(--ac));border-radius:14px;padding:14px 16px;min-height:130px}
+  .info-mappa h4{margin:0 0 2px;color:var(--zona,var(--ac));font-size:21px}
+  .info-mappa .area{font-size:13px;font-weight:700;color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}
+  .info-mappa p{margin:6px 0 0;font-size:18px}
+  .passi{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .passi button,.scelte-chip button{min-height:44px;border-radius:999px;border:2px solid var(--zona,var(--bordo));background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;padding:4px 14px;cursor:pointer}
+  .passi button[aria-pressed="true"],.scelte-chip button[aria-pressed="true"]{background:var(--zona,var(--inchiostro));border-color:var(--zona,var(--inchiostro));color:#fff}
+  .scelte-chip{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+
+  /* insegne */
+  .insegne{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0 10px;max-width:44em}
+  @media (max-width:560px){.insegne{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .insegne button{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:104px;border-radius:12px;border:2px solid var(--oro);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:15px;font-weight:700;cursor:pointer;padding:8px 4px}
+  .insegne button svg{width:48px;height:48px;color:var(--oro)}
+  .insegne button[aria-pressed="true"]{background:var(--oro-chiaro)}
+  .box-info{background:var(--carta);border:2px solid var(--oro);border-radius:12px;padding:12px 14px;max-width:44em;min-height:72px;font-size:18px}
+
+  /* ciclo */
+  .ciclo-box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;max-width:44em;margin:10px 0 16px}
+  @media (max-width:640px){.ciclo-box{grid-template-columns:1fr}}
+  .ciclo{width:100%;max-width:360px;height:auto;display:block;margin:0 auto}
+  .ciclo .nodo-c rect{fill:var(--carta);stroke:var(--ac-bordo);stroke-width:2}
+  .ciclo .nodo-c.on rect{fill:var(--ac);stroke:var(--ac)}
+  .ciclo .nodo-c text{font:700 14px "Atkinson",system-ui,sans-serif;fill:var(--inchiostro)}
+  .ciclo .nodo-c.on text{fill:var(--carta)}
+  .ciclo .freccia-c{fill:none;stroke:var(--ac);stroke-width:3}
+
+  /* puntini e proporzioni */
+  .puntini{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;max-width:440px;margin:10px 0}
+  .puntini i{aspect-ratio:1;border-radius:50%;background:var(--bordo);display:block}
+  .puntini i.got{background:var(--ac)}
+  .legenda-p{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px}
+  .legenda-p span{display:inline-flex;align-items:center;gap:6px}
+  .legenda-p i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  .omini{display:flex;flex-wrap:wrap;gap:4px;max-width:440px;margin:8px 0}
+  .omini svg{width:30px;height:30px;color:var(--ac);transition:opacity .4s}
+  .omini svg.via{opacity:.15}
+  .terre{display:grid;gap:10px;max-width:44em;margin:10px 0}
+  .barra-terra{display:flex;height:46px;border-radius:10px;overflow:hidden;border:2px solid var(--bordo)}
+  .barra-terra div{display:grid;place-items:center;font-size:14px;font-weight:700;color:#fff;border-right:2px dashed rgba(255,255,255,.7)}
+  .barra-terra div:last-child{border-right:0}
+
+  /* eliminazioni */
+  .regni{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .regni span{display:inline-flex;align-items:center;min-height:40px;padding:4px 12px;border-radius:10px;border:2px solid var(--ac-bordo);background:var(--carta);font-weight:700;font-size:16px;transition:all .3s}
+  .regni span.out{text-decoration:line-through;opacity:.45;border-style:dashed}
+  .regni span.salvo{background:var(--ok-chiaro);border-color:var(--ok);color:var(--ok)}
+
+  /* verifica */
+  .domanda{background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:14px 16px;margin:0 0 12px;max-width:44em}
+  .domanda p{margin:0 0 10px;font-size:19px}
+  .vf{display:flex;gap:10px;flex-wrap:wrap}
+  .vf button{min-width:110px;min-height:48px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .vf button.giusta{background:var(--ok-chiaro);border-color:var(--ok)}
+  .vf button.sbagliata{background:var(--no-chiaro);border-color:var(--no)}
+  .spiega{margin-top:10px;font-size:17px;border-radius:8px;padding:8px 12px}
+  .spiega.ok{background:var(--ok-chiaro)} .spiega.no{background:var(--no-chiaro)}
+  .ordina{display:grid;gap:8px;max-width:44em}
+  .ordina button{display:flex;align-items:center;gap:12px;text-align:left;min-height:52px;border-radius:12px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-size:18px;padding:8px 12px;cursor:pointer}
+  .ordina button .pos{flex:none;width:32px;height:32px;border-radius:50%;border:2px dashed var(--bordo);display:grid;place-items:center;font-weight:700}
+  .ordina button.fatto{border-color:var(--ok);background:var(--ok-chiaro);cursor:default}
+  .ordina button.fatto .pos{background:var(--ok);border:0;color:#fff}
+  .ordina button.errore{animation:scuoti .35s;border-color:var(--no)}
+  @keyframes scuoti{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .abbina{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center;max-width:44em}
+  .abbina label{font-weight:700;font-size:18px}
+  .abbina select{min-height:48px;font:inherit;font-size:17px;border-radius:10px;border:2px solid var(--bordo);background:var(--carta);color:var(--inchiostro);padding:4px 8px;max-width:100%}
+  .abbina select.ok{border-color:var(--ok);background:var(--ok-chiaro)} .abbina select.no{border-color:var(--no);background:var(--no-chiaro)}
+  @media (max-width:560px){.abbina{grid-template-columns:1fr}}
+  .smista{max-width:44em}
+  .smista .carta-s{background:var(--carta);border:2px solid var(--ac);border-radius:12px;padding:12px 14px;font-size:19px;font-weight:700;margin:6px 0 10px;min-height:56px}
+  .smista .lati{display:flex;gap:10px;flex-wrap:wrap}
+  .smista .lati button{flex:1;min-width:140px;min-height:52px;border-radius:12px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;font-size:18px;cursor:pointer}
+  .punteggio{font-size:22px;font-weight:700;margin:16px 0}
+  details.originale{margin:40px 0 0;background:var(--carta);border:1px solid var(--bordo);border-radius:12px;padding:12px 16px}
+  details.originale summary{cursor:pointer;font-weight:700;min-height:32px}
+  details.originale h3{margin:18px 0 6px}
+  details.originale p{font-size:17px;line-height:1.6}
+  /* strumenti di questa pagina */
+  .detective{max-width:44em;margin:10px 0 16px;display:grid;gap:10px;justify-items:start}
+  .indizio,.deduzione{border-radius:12px;padding:12px 16px;font-size:18px;width:100%}
+  .indizio{background:var(--carta);border:2px dashed var(--ac)}
+  .deduzione{background:var(--ok-chiaro);border:2px solid var(--ok)}
+  .deduzione[hidden]{display:none}
+  .indizio .tag,.deduzione .tag{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:4px;color:var(--ac)}
+  .deduzione .tag{color:var(--ok)}
+  .mura-box{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:center;max-width:44em;margin:10px 0 16px}
+  @media (max-width:640px){.mura-box{grid-template-columns:1fr}}
+  .mura{width:100%;height:auto;background:var(--carta);border:1px solid var(--bordo);border-radius:14px}
+  .mura text{font-family:"Atkinson",system-ui,sans-serif}
+  .numeri-mura{display:grid;gap:8px}
+  .numeri-mura div{border:2px solid var(--oro);background:var(--oro-chiaro);border-radius:12px;padding:8px 12px;font-size:16px;line-height:1.35}
+  .numeri-mura b{display:block;font-family:"Cinzel",Georgia,serif;font-size:26px;color:var(--oro)}
+  .bilancia{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:44em;margin:10px 0 16px;position:relative;padding-top:34px}
+  .bilancia::before{content:"";position:absolute;top:10px;left:20%;right:20%;height:6px;border-radius:3px;background:var(--tenue);transform:rotate(4deg)}
+  .bilancia::after{content:"";position:absolute;top:0;left:calc(50% - 10px);width:20px;height:20px;border-radius:50%;background:var(--tenue)}
+  @media (max-width:560px){.bilancia{grid-template-columns:1fr}.bilancia::before,.bilancia::after{display:none}.bilancia{padding-top:0}}
+  .piatto{border-radius:14px;padding:12px 16px;border:2px solid}
+  .piatto h4{margin:0 0 6px;font-size:19px}
+  .piatto ul{margin:0;padding-left:20px;font-size:17px}
+  .piatto.verde{border-color:var(--ok);background:var(--ok-chiaro)} .piatto.verde h4{color:var(--ok)}
+  .piatto.rosso{border-color:var(--no);background:var(--no-chiaro);margin-top:24px} .piatto.rosso h4{color:var(--no)}
+  .azzurri{color:#1F5F99} .verdi{color:#2F6B2F}
+  .cartina .terra{stroke-width:calc(1px * var(--k,1))} .cartina text{font-size:calc(20px * var(--k,1))} .cartina .tratto{stroke-width:calc(6px * var(--k,1))} .cartina .luogo circle{stroke-width:calc(2px * var(--k,1))}
+  .domanda .risp-mod{margin-top:10px;padding:10px 14px;border-radius:10px;background:var(--ok-chiaro);border:2px solid var(--ok);font-size:18px;line-height:1.55}
+  .domanda .risp-mod[hidden]{display:none}
+  .domanda>button{min-height:44px;padding:6px 14px;border-radius:10px;border:2px solid var(--bordo);background:var(--fondo);color:var(--inchiostro);font:inherit;font-weight:700;cursor:pointer}
+  .aiuto{color:var(--tenue);font-size:16px}
+  .piramide{display:grid;gap:6px;max-width:44em;margin:10px 0 16px;justify-items:center}
+  .piramide>div{border-radius:10px;padding:10px 14px;text-align:center;font-size:17px;color:#fff}
+  .piramide b{display:block;font-size:19px}
+  .icone{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;max-width:44em;margin:10px 0 16px}
+  .icone button{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:110px;padding:10px 8px;border-radius:12px;border:2px solid var(--ac-bordo);background:var(--carta);color:var(--inchiostro);font:inherit;font-weight:700;font-size:16px;cursor:pointer;text-align:center}
+  .icone button .num-g{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--ac);color:var(--carta);font-size:20px}
+  .icone button[aria-pressed="true"]{background:var(--ac-chiaro);border-color:var(--ac)}
+  .palinsesto{position:relative;max-width:30em;min-height:200px;border-radius:12px;background:#EFE3C8;border:2px solid #C9B27A;padding:16px 18px;font-family:Georgia,serif;font-size:19px;line-height:1.6;color:#3A2A10;overflow:hidden}
+  .palinsesto .vecchio,.palinsesto .nuovo{position:absolute;inset:16px 18px;transition:opacity .8s}
+  .palinsesto .vecchio{font-style:italic}
+  .palinsesto .nuovo{top:96px !important}
+  .palinsesto.raschiato .vecchio{opacity:.14}
+  .palinsesto .nuovo{opacity:0;font-weight:700;color:#5A1A10}
+  .palinsesto.riscritto .nuovo{opacity:1}
+  .palinsesto.luce .vecchio{opacity:.75;color:#1F5F99}
+  .numeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:44em}
+  .numeri div{border:2px solid var(--ac-bordo);border-radius:12px;padding:10px 14px;background:var(--carta);font-size:18px}
+  .numeri b{display:block;font-size:26px;font-family:"Cinzel",Georgia,serif;color:var(--ac);word-break:break-all}
+  .profeti{display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-width:44em;margin:10px 0 16px}
+  .profeti span{border-radius:10px;padding:8px 12px;border:2px solid var(--ac-bordo);background:var(--carta);font-weight:700}
+  .profeti span.ultimo{background:var(--ac);color:var(--carta);border-color:var(--ac)}
+  .profeti i{font-style:normal;color:var(--ac);font-weight:700}
+  #corpus .carta[aria-pressed="true"]{background:var(--ok-chiaro);border-color:var(--ok)}
+</style>
+</head>
+<body>
+<header id="testata"></header>
+<main class="contenitore">
+  <p class="briciole"><a href="index.html">Tutte le materie</a> › <a href="materia.html?m=storia">Storia</a></p>
+  <h1>I Longobardi, la Chiesa e il monachesimo</h1>
+  <p class="sottotitolo">Tre parti: i Longobardi in Italia, il potere dei vescovi e del papa, i monaci e i monasteri. Le parole <b style="text-decoration:underline dotted var(--ac) 2px;text-underline-offset:4px">sottolineate</b> si possono toccare: si apre la spiegazione.</p>
+
+  <nav class="parti-nav" id="percorso" aria-label="Tappe"></nav>
+  <div class="avanzamento" aria-hidden="true"><span id="barra"></span></div>
+
+  <!-- ================= PARTE 1 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="I Longobardi arrivano in Italia">
+    <div class="num">Parte 1 · Tappa 1</div>
+    <h2>I Longobardi arrivano in Italia</h2>
+    <div class="domanda-guida"><b>Domanda:</b> come arrivano i Longobardi in Italia?</div>
+    <div class="tempo" data-anni="535,553,568"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Teoderico aveva fatto dell'Italia un regno <b>indipendente</b>. A Bisanzio questo non piaceva: voleva riprendersi la penisola.</p>
+    </div>
+    <h3 class="sotto">Una cosa porta all'altra</h3>
+    <div class="catena" data-catena="arrivo"></div>
+    <div class="attenzione"><b style="color:var(--no)">Come rimane l'Italia dopo la guerra greco-gotica?</b> La guerra, durata circa <b>vent'anni</b>, ha <b>distrutto l'Italia</b>: le città più grandi sono state <b>saccheggiate</b>. Per questo i Longobardi trovano un paese debole.</div>
+    <h3 class="sotto">Il percorso dei Longobardi</h3>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-arrivo" role="img" aria-label="Cartina: i Longobardi entrano in Italia"></svg>
+      <div><div class="passi" id="passi-arrivo"></div><div class="info-mappa" id="info-arrivo" aria-live="polite"><h4>Tocca il pulsante 1</h4><p>Segui i Longobardi dalla Pannonia all'Italia.</p></div></div>
+    </div>
+    <h3 class="sotto">Quanti erano? Non lo sappiamo con certezza</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>Le fonti dicono…</h4><p>Alcuni storici: <b>80.000</b> persone.<br>Altri: <b>200.000</b>, contando le famiglie.</p></div>
+      <div class="scatola"><h4>Un popolo fatto di tanti popoli</h4><p>Alboino entra con poche migliaia di guerrieri. Poi si uniscono a lui <b>Suebi, Bulgari, Turingi, Bavari, Sassoni</b>, perfino qualche reparto dell'Impero.</p></div>
+    </div>
+    <div class="personaggi" data-pers="narsete,alboino"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Dopo la guerra l'Italia è distrutta. Nel <b>568</b> i Longobardi, guidati dal re <b>Alboino</b>, attraversano le Alpi e la invadono.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>La guerra greco-gotica dura circa <b>vent'anni</b> e distrugge l'Italia.</li><li>I Longobardi vengono probabilmente dalla <b>Pannonia</b> (Ungheria).</li><li><b>568</b>: Alboino invade l'Italia dalle Alpi orientali.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 1 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="Da bande di guerrieri a popolo" hidden>
+    <div class="num">Parte 1 · Tappa 2</div>
+    <h2>Da bande di guerrieri a popolo</h2>
+    <div class="domanda-guida"><b>Domanda:</b> dove si trova il palatium del re longobardo?</div>
+    <div class="tempo" data-anni="568,572,584"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>All'inizio i Longobardi hanno poco in comune: soprattutto il <b>nome</b> e la venerazione per il re <b>Alboino</b>. Si stabiliscono spesso con la <b>violenza</b>. L'Impero d'Oriente è impegnato contro i Persiani e difende solo <b>Ravenna</b> e <b>Roma</b>.</p>
+    </div>
+    <div class="catena" data-catena="popolo"></div>
+    <h3 class="sotto">I due strumenti per unire il popolo</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>1. La religione</h4><p>Prima c'erano <b>pagani</b> (veneravano vipere e alberi sacri), <b>cattolici</b> e <b>ariani</b>. Poi i re vietano l'arianesimo: l'unica religione ammessa è quella <b>cattolica</b>, con il culto di <b>San Michele</b>.</p></div>
+      <div class="scatola"><h4>2. La politica</h4><p>Il re riorganizza la corte e crea il <button class="g" data-g="palatium">palatium</button>, il palazzo reale, nella capitale <b>Pavia</b>.</p></div>
+    </div>
+    <div class="attenzione" style="background:var(--semplice);border-color:var(--semplice-bordo)"><b>Che cosa dicono gli storici?</b> Una volta si pensava che i Longobardi si fossero <b>integrati</b> con gli Italiani. Oggi gli storici pensano che proprio in quel momento sia <b>nato il popolo longobardo</b>: prima era solo un miscuglio di popoli.</div>
+    <div class="testo leggibile"><p>Nell'VIII secolo i re vengono chiamati <b>re d'Italia</b>, non più re dei Longobardi. Nel Sud, invece, i Longobardi restano tali per circa <b>500 anni</b>, nel Ducato di Benevento.</p></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>I re longobardi trasformano bande di guerrieri in un <b>popolo</b>: una sola religione (cattolica) e un palazzo del re a <b>Pavia</b>, il palatium.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>572</b>: Alboino ucciso → nascono i ducati di <b>Spoleto</b> e <b>Benevento</b>.</li><li><b>584</b>: gli arimanni eleggono re <b>Autari</b> a Pavia.</li><li><b>Palatium</b> = palazzo reale, a <b>Pavia</b>.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 1 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="1" data-titolo="La società longobarda e l'Editto di Rotari" hidden>
+    <div class="num">Parte 1 · Tappa 3</div>
+    <h2>La società longobarda e l'Editto di Rotari</h2>
+    <div class="domanda-guida"><b>Domanda:</b> com'era organizzata la società prima di Rotari? Chi erano i gastaldi?</div>
+    <div class="tempo" data-anni="643"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Prima dell'Editto di Rotari la società longobarda è organizzata in modo <b>semplice</b>. Il potere è degli <button class="g" data-g="arimanni">arimanni</button>, gli uomini liberi, organizzati in <button class="g" data-g="fare">fare</button>.</p>
+    </div>
+    <h3 class="sotto">Chi c'è nella società longobarda</h3>
+    <div class="piramide">
+      <div style="background:#8A2E3B;width:min(260px,70%)"><b>Duca</b>guida la fara</div>
+      <div style="background:#1F5F99;width:min(400px,84%)"><b>Arimanni</b>uomini liberi, guerrieri: hanno il potere</div>
+      <div style="background:#B7791F;width:min(520px,94%)"><b>Aldii</b>semiliberi: agricoltura, allevamento, artigianato</div>
+      <div style="background:#5A5F6E;width:100%"><b>Servi</b>lavorano per gli altri</div>
+    </div>
+    <div class="confronto">
+      <div class="scatola"><h4>La fara</h4><p>Un gruppo di <b>famiglie parenti tra loro</b> (consanguinee), guidato da un <b>duca</b>.</p></div>
+      <div class="scatola"><h4>Che cosa conta</h4><p>L'attività più importante è la <b>guerra</b>. Agricoltura molto semplice; si allevano soprattutto <b>maiali</b>. Questi lavori sono considerati meno importanti.</p></div>
+    </div>
+    <h3 class="sotto">Prima e dopo l'Editto di Rotari (643)</h3>
+    <p class="aiuto">Tocca una carta per girarla.</p>
+    <div class="carte" id="rotari"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Prima comandano i guerrieri liberi (arimanni), divisi in gruppi di famiglie (fare). Nel <b>643</b> il re Rotari scrive le <b>leggi</b> in latino. I <b>gastaldi</b> sono i funzionari del re, pagati con le tasse.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Prima di Rotari: <b>arimanni</b> in <b>fare</b> guidate da un <b>duca</b>; <b>aldii</b> e <b>servi</b> lavorano.</li><li><b>643</b>: Editto di Rotari, in <b>latino</b>: denaro al posto della faida.</li><li><b>Gastaldi</b> = funzionari del re, pagati dal <b>fisco</b> del re.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="L'Italia divisa: Langobardia e Romania" hidden>
+    <div class="num">Parte 2 · Tappa 1</div>
+    <h2>L'Italia divisa: Langobardia e Romania</h2>
+    <div class="domanda-guida"><b>Domanda:</b> come si divide l'Italia nel VII secolo?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Dalla Seconda guerra punica l'Italia era sempre stata <b>unita</b>. Nel <button class="g" data-g="secolo">VII secolo</button> si divide in tanti piccoli Stati.</p>
+    </div>
+    <p class="aiuto">Tocca un pallino o un nome.</p>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-italia" role="img" aria-label="Cartina dell'Italia divisa"></svg>
+      <div><div class="info-mappa" id="info-italia" aria-live="polite"><h4>Tocca un pallino</h4><p><b style="color:#8A2E3B">Rosso</b> = Langobardia · <b style="color:#1F5F99">blu</b> = Romania · <b style="color:#B7791F">oro</b> = Roma</p></div><div class="scelte-chip" id="chip-italia"></div></div>
+    </div>
+    <div class="confronto">
+      <div class="scatola"><h4 style="color:#8A2E3B">Langobardia</h4><p>Nord e centro, circa <b>30 ducati</b>. I più grandi: <b>Friuli</b>, <b>Spoleto</b>, <b>Benevento</b>.</p></div>
+      <div class="scatola"><h4 style="color:#1F5F99">Romania</h4><p>Le coste dell'<b>Impero d'Oriente</b>: Esarcato (Romagna), Pentapoli (Marche), Puglia, Calabria, Sicilia, Sardegna.</p></div>
+    </div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>L'Italia è divisa: i <b>Longobardi</b> all'interno, l'<b>Impero d'Oriente</b> sulle coste, e <b>Roma</b> governata dal papa.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><b>Langobardia</b> = terre dei Longobardi.</li><li><b>Romania</b> = terre dell'Impero d'Oriente (la Romagna prende il nome da qui).</li><li><b>Roma</b> = città indipendente, governata dal papa.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="Il vescovo, capo della città" hidden>
+    <div class="num">Parte 2 · Tappa 2</div>
+    <h2>Il vescovo, capo della città</h2>
+    <div class="domanda-guida"><b>Domanda:</b> da chi erano eletti i vescovi? Che ruolo avevano nelle città?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Con la crisi dell'Impero, nelle città italiane l'autorità più importante diventa il <button class="g" data-g="vescovo">vescovo</button>.</p>
+    </div>
+    <h3 class="sotto">Come si diventa vescovo?</h3>
+    <div class="confronto">
+      <div class="scatola"><h4>Eletto dal popolo</h4><p>Anche il vescovo di Roma è <b>eletto dal popolo</b>, che lo acclama come faceva un tempo con l'<b>imperatore</b>.</p></div>
+      <div class="scatola"><h4>Le famiglie nobili lottano</h4><p>Le famiglie nobili della città combattono tra loro per far eleggere vescovo <b>un loro parente</b>: sanno che è un posto di grande potere.</p></div>
+    </div>
+    <h3 class="sotto">Che cosa fa il vescovo?</h3>
+    <div class="confronto tre">
+      <div class="scatola"><h4>Guida religiosa</h4><p><b>Predica</b> ai fedeli.</p></div>
+      <div class="scatola"><h4>Giudice</h4><p>Amministra la <b>giustizia</b>, seduto sulla <button class="g" data-g="cathedra">cathedra</button>.</p></div>
+      <div class="scatola"><h4>Governatore</h4><p>È insieme <b>vescovo e governatore</b> della città.</p></div>
+    </div>
+    <div class="regola" style="border:2px solid var(--ok);background:var(--ok-chiaro);border-radius:12px;padding:12px 16px;max-width:44em;font-size:18px"><b>Parole che nascono qui:</b><br><b>cathedra</b> (il trono del vescovo) → <b>cattedrale</b>, l'edificio più importante della città.<br><b>domus</b> (casa signorile) → <b>Duomo</b>: l'unica «casa signorile» rimasta è la casa di Dio.</div>
+    <h3 class="sotto">Roma, una città speciale</h3>
+    <div class="testo leggibile">
+      <p>Roma è una delle <b>5 sedi patriarcali</b>, le città dei vescovi più importanti: Roma, Costantinopoli, Alessandria, Gerusalemme, Antiochia. È l'<b>unica</b> che l'imperatore d'Oriente non può controllare direttamente.</p>
+      <p>La Chiesa di Roma diventa anche <b>ricca</b>: i fedeli, prima di morire, le lasciano le loro terre. Così può agire da sola, senza dipendere da nessuno.</p>
+    </div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Il vescovo è <b>eletto dal popolo</b>. Con la crisi dell'Impero diventa il <b>capo della città</b>: predica, giudica e governa.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Vescovi <b>eletti dal popolo</b>; i nobili lottano per avere un vescovo di famiglia.</li><li>Il vescovo = guida religiosa + <b>giudice</b> + <b>governatore</b>.</li><li>cathedra → cattedrale · domus → Duomo.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 2 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="2" data-titolo="Il papa e la Chiesa cattolica" hidden>
+    <div class="num">Parte 2 · Tappa 3</div>
+    <h2>Il papa e la Chiesa «cattolica»</h2>
+    <div class="domanda-guida"><b>Domanda:</b> perché il vescovo di Roma diventa così importante?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Dopo la caduta dell'Impero d'Occidente, il vescovo di Roma diventa un <b>punto di riferimento</b> per tutti. Non comanda ancora sulle altre Chiese, ma si diffonde l'idea di una Chiesa <b>universale</b>.</p>
+    </div>
+    <div class="confronto tre">
+      <div class="scatola"><h4>cattolico</h4><p>dal greco <i>katholikós</i> = «<b>universale</b>», cioè di tutto il mondo.</p></div>
+      <div class="scatola"><h4>papa</h4><p>dal latino <i>pater</i> = «<b>padre</b>».</p></div>
+      <div class="scatola"><h4>Perché è così rispettato?</h4><p>È il <b>successore di Pietro</b>, scelto da Cristo come capo dei fedeli, e vive a <b>Roma</b>, per secoli centro dell'Impero.</p></div>
+    </div>
+    <div class="attenzione"><b style="color:var(--no)">Un problema:</b> all'imperatore d'Oriente questo non piace. Lui comanda in modo assoluto sulla Chiesa di Costantinopoli, ma non su quella di Roma.</div>
+    <h3 class="sotto">La strategia della Chiesa: una cosa porta all'altra</h3>
+    <div class="catena" data-catena="missione"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Il papa diventa sempre più importante. Per avere alleati contro l'imperatore d'Oriente, la Chiesa manda i <b>monaci</b> a convertire i popoli germanici al cattolicesimo.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>cattolico = <b>universale</b> · papa = <b>padre</b>.</li><li>Il papa è il successore di <b>Pietro</b>.</li><li>Missioni: dai Germani ariani al <b>cattolicesimo</b>; nelle campagne nasce il <b>culto dei santi</b>.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 1 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="Eremiti e monaci" hidden>
+    <div class="num">Parte 3 · Tappa 1</div>
+    <h2>Eremiti e monaci</h2>
+    <div class="domanda-guida"><b>Domanda:</b> chi sono i monaci e che cosa vuol dire il loro nome?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p>Nelle grandi città d'Oriente la vita è <b>frenetica</b>, piena di rumore e di confusione. Così si diffonde un'idea: per essere un cristiano perfetto bisogna <b>allontanarsi dal mondo</b> e vivere da soli, pregando.</p>
+    </div>
+    <div class="confronto">
+      <div class="scatola"><h4>Gli eremiti</h4><p>Lasciano le città e vanno in luoghi isolati: <b>deserti, boschi, montagne</b>. Meditano sul Vangelo e fanno penitenza.</p></div>
+      <div class="scatola"><h4>Gli stiliti</h4><p>Eremiti «estremi»: vivono sopra le <b>colonne</b> degli antichi templi pagani, lontani da tutti.</p></div>
+    </div>
+    <div class="regola" style="border:2px solid var(--ok);background:var(--ok-chiaro);border-radius:12px;padding:14px 16px;max-width:44em;font-size:20px"><b>monaco</b> viene dal greco <b><i>monos</i></b> = «<b>solo</b>».<br>Il <b>monachesimo</b> è la scelta di chi vuole diventare perfetto nello spirito vivendo in solitudine.</div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>I monaci sono persone che lasciano la vita di tutti i giorni per <b>pregare</b> e avvicinarsi a Dio. All'inizio vivono <b>da soli</b>: «monaco» vuol dire proprio «solo».</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li><i>monos</i> = <b>solo</b>.</li><li>Eremiti: nei deserti, nei boschi, sulle montagne.</li><li>Stiliti: sulle colonne.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 2 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="Benedetto da Norcia e la Regola" hidden>
+    <div class="num">Parte 3 · Tappa 2</div>
+    <h2>Benedetto da Norcia e la Regola</h2>
+    <div class="domanda-guida"><b>Domanda:</b> come è organizzato un monastero?</div>
+    <div class="tempo" data-anni="480,547"></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile">
+      <p><b>Benedetto da Norcia</b> (480–547) vive al tempo di Teoderico e della guerra greco-gotica. Segui la sua vita sulla cartina.</p>
+    </div>
+    <div class="cartina-box">
+      <svg class="cartina" id="mappa-benedetto" data-vista="200 250 220 190" role="img" aria-label="Cartina: Norcia, Subiaco, Cassino"></svg>
+      <div><div class="passi" id="passi-benedetto"></div><div class="info-mappa" id="info-benedetto" aria-live="polite"><h4>Tocca il pulsante 1</h4><p>Da Norcia a Montecassino.</p></div></div>
+    </div>
+    <h3 class="sotto">La grande idea: il cenobio</h3>
+    <div class="regola" style="border:2px solid var(--ok);background:var(--ok-chiaro);border-radius:12px;padding:12px 16px;max-width:44em;font-size:19px"><b><button class="g" data-g="cenobio">Cenobio</button></b> = dal greco «<b>vita in comune</b>». Si cerca la perfezione spirituale non da soli, ma <b>insieme</b>, in una comunità.</div>
+    <div class="confronto">
+      <div class="scatola verde"><h4>Perché vivere insieme conviene?</h4><ul><li>ci si <b>difende</b> meglio dai malintenzionati;</li><li>si diventa <b>indipendenti economicamente</b>: il monastero produce da solo quello che serve.</li></ul></div>
+      <div class="scatola"><h4>Chi vive nel monastero</h4><ul><li><b>presbiteri</b>: i sacerdoti, celebrano la messa;</li><li><b>monaci</b>: pregano e lavorano;</li><li><b>lavoratori</b> liberi e <b>schiavi</b>.</li></ul></div>
+    </div>
+    <h3 class="sotto">La Regola: «ora et labora»</h3>
+    <div class="testo leggibile">
+      <p>A Cassino Benedetto scrive la <b>Regola</b>: le regole che dicono i compiti di tutti nel monastero. La formula <b>«ora et labora»</b> («prega e lavora») non l'ha scritta lui, ma riassume bene la sua idea: <b>tutti lavorano</b> (copiano libri, lavorano nelle officine o nei campi) e <b>tutti pregano</b>.</p>
+    </div>
+    <div class="confronto">
+      <div class="scatola rossa"><h4>Prima: nell'antichità</h4><p>Il lavoro con le mani è una cosa <b>inferiore</b>, da servi e gente comune.</p></div>
+      <div class="scatola verde"><h4>Dopo: con la Regola</h4><p>Per la prima volta il lavoro è <b>sacro</b> e riguarda <b>tutti</b>.</p></div>
+    </div>
+    <div class="personaggi" data-pers="benedetto"></div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>Benedetto inventa un nuovo modo di vivere: i monaci stanno <b>insieme</b> nel monastero, seguono una <b>Regola</b>, <b>pregano e lavorano</b>.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Benedetto: Norcia → Subiaco → <b>Cassino</b>.</li><li>Cenobio = <b>vita in comune</b>.</li><li>Ora et labora: il lavoro diventa <b>sacro</b>.</li></ul></div>
+  </section>
+
+  <!-- ================= PARTE 3 · TAPPA 3 ================= -->
+  <section class="tappa" data-parte="3" data-titolo="I monasteri: aziende e biblioteche" hidden>
+    <div class="num">Parte 3 · Tappa 3</div>
+    <h2>I monasteri: aziende e biblioteche</h2>
+    <div class="domanda-guida"><b>Domanda:</b> che ruolo hanno i monasteri nell'economia e nella cultura?</div>
+    <div class="tempo" data-anni=""></div>
+    <div class="strumenti"><button class="pulsante ascolta" type="button">Ascolta</button></div>
+    <div class="testo leggibile"><p>La Chiesa di Roma appoggia l'opera di Benedetto e affida ai monaci le <b>missioni</b> presso i Germani e i pagani.</p></div>
+    <h3 class="sotto">Clero e laici</h3>
+    <div class="confronto">
+      <div class="scatola"><h4><button class="g" data-g="clero">Clero</button>: preti, monaci, vescovi</h4><p>Dedicano la vita alla religione. Seguono regole più severe. Sanno <b>leggere</b>: possono leggere da soli le Sacre Scritture.</p></div>
+      <div class="scatola"><h4><button class="g" data-g="laici">Laici</button>: tutti gli altri</h4><p>Si occupano del lavoro e della vita materiale: una vita «meno perfetta». Possono restare <b>analfabeti</b>: hanno bisogno del clero per conoscere le Scritture.</p></div>
+    </div>
+    <h3 class="sotto">Il ruolo economico: aziende ricche</h3>
+    <div class="catena" data-catena="ricchezza"></div>
+    <h3 class="sotto">Il ruolo culturale: custodi dei libri</h3>
+    <div class="confronto tre">
+      <div class="scatola"><h4>Scuole</h4><p>Solo nei monasteri ci sono <b>scuole</b> dove si impara a leggere e scrivere.</p></div>
+      <div class="scatola"><h4>Copiatura</h4><p>I monaci <b>copiano</b> e conservano i libri, a mano.</p></div>
+      <div class="scatola"><h4>Memoria</h4><p>Conservano il <b>patrimonio culturale</b> dell'Occidente.</p></div>
+    </div>
+    <h3 class="sotto">Prova: come nasce un palinsesto</h3>
+    <p class="aiuto">La pergamena costava moltissimo. Tocca i pulsanti in ordine.</p>
+    <div class="passi" id="passi-palinsesto"></div>
+    <div class="palinsesto" id="palinsesto"><div class="vecchio">Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani…</div><div class="nuovo">In principio erat Verbum, et Verbum erat apud Deum…</div></div>
+    <div class="box-info" id="info-palinsesto" style="margin-top:10px;border-color:var(--ac)">Tocca «1 · Libro antico».</div>
+    <div class="semplice"><span class="tag">IN PAROLE SEMPLICI</span>I monasteri diventano <b>ricchi</b> e producono tutto da soli. Sono anche le uniche <b>scuole</b>: i monaci copiano i libri e così salvano la cultura antica.</div>
+    <div class="ricorda"><span class="tag">DA RICORDARE</span><ul><li>Economia: terre, mulini, boschi, pascoli; monasteri <b>autosufficienti</b>.</li><li>Cultura: <b>scuole</b> e <b>copiatura</b> dei libri.</li><li>Palinsesto: da <i>palin</i> (di nuovo) + <i>psao</i> (raschio).</li></ul></div>
+  </section>
+
+  <!-- ================= VERIFICA ================= -->
+  <section class="tappa" data-parte="v" data-titolo="Verifica" hidden>
+    <div class="num">Verifica</div>
+    <h2>Mettiti alla prova</h2>
+    <h3 class="sotto">1. Vero o falso?</h3>
+    <div id="domande"></div>
+    <h3 class="sotto">2. Metti in ordine gli eventi</h3>
+    <p class="aiuto">Tocca prima l'evento più antico, poi quello dopo, e così via.</p>
+    <div class="ordina" id="ordina"></div>
+    <p style="margin:10px 0 0"><button class="pulsante" type="button" id="rimescola">Ricomincia</button></p>
+    <div id="esito-ordina" aria-live="polite"></div>
+    <h3 class="sotto">3. Che cosa vuol dire?</h3>
+    <div class="abbina" id="abbina"></div>
+    <p style="margin:12px 0 0"><button class="pulsante" type="button" id="controlla-abbina">Controlla</button></p>
+    <div id="esito-abbina" aria-live="polite"></div>
+    <h3 class="sotto">4. Chi ha fatto che cosa?</h3>
+    <div class="abbina" id="abbina2"></div>
+    <p style="margin:12px 0 0"><button class="pulsante" type="button" id="controlla-abbina2">Controlla</button></p>
+    <div id="esito-abbina2" aria-live="polite"></div>
+    <h3 class="sotto">5. Domande come in verifica</h3>
+    <p class="aiuto">Rispondi con frasi complete. Poi confronta con la risposta modello.</p>
+    <div id="aperte"></div>
+    <div class="punteggio" id="punteggio" aria-live="polite"></div>
+  </section>
+
+  <div class="navbasso">
+    <button class="pulsante" type="button" id="indietro">← Indietro</button>
+    <button class="pulsante avanti" type="button" id="avanti">Avanti →</button>
+  </div>
+
+  <details class="originale">
+    <summary>Leggi il testo originale</summary>
+    <h3>I Longobardi</h3>
+    <p>Il re ostrogoto Teodorico aveva fatto dell’Italia un Regno indipendente e questa situazione non piaceva a Bisanzio, che cercò in tutti i modi di rientrare in possesso della penisola. Alla morte di Teodorico scoppiò una violenta lotta per la successione e Giustiniano, l’imperatore d’Oriente, approfittò dello sbandamento delle truppe ostrogote per iniziare la guerra greco-gotica, che durò vent’anni.</p>
+    <p>La guerra distrusse l’Italia e le più grandi città vennero saccheggiate. Giustiniano inviò un esercito capeggiato dal generale Narsete. Questo esercito era multietnico e comprendeva un contingente di circa 5.000 barbari chiamati Longobardi, la cui origine era probabilmente la Pannonia, l’attuale Ungheria, che si era da tempo federata con l’Impero. Erano talmente indisciplinati e violenti che Narsete li aveva rimandati in patria sotto scorta.</p>
+    <p>Ma nel 568, al comando del loro re Alboino, questi Longobardi tornarono in Italia, varcando le Alpi orientali, e invasero la penisola.</p>
+    <p>Quanti erano? Le fonti a nostra disposizione non ci danno certezze: alcuni storici parlano di 80.000 unità, altri di 200.000, comprese le famiglie. Non giunsero però in Italia tutti insieme. Alboino portò con sé poche migliaia di guerrieri e, una volta entrato nella penisola, aggregò alle sue truppe i contingenti barbari che già vi abitavano. Allargò quindi le sue truppe a Suebi, Bulgari, Turingi, Bavari e Sassoni. Addirittura, qualche contingente imperiale passò sotto il suo comando.</p>
+    <p>Erano reparti militari che, insieme alle loro famiglie, si aggregavano ai Longobardi e ogni famiglia aveva un capo, un generale. Si insediavano spesso con violenza, approfittando del fatto che l’Impero era impegnato nella guerra contro i Persiani e aveva scelto di difendere Ravenna e Roma, disinteressandosi degli altri territori della penisola.</p>
+    <p>Avevano poco in comune: sostanzialmente avevano il nome “Longobardi”, che racchiudeva genti di stirpe diversa. Avevano inoltre una forte venerazione per il loro re Alboino. Quando però, nel 572, il re venne ucciso dalla moglie, le bande dei Longobardi si sgretolarono. Esse crearono due Ducati, a Spoleto e a Benevento, che resistettero nel tempo.</p>
+    <p>Nel 584 gli arimanni, cioè quella parte della società longobarda costituita dagli uomini liberi, si riunirono a Pavia ed elessero re Autari. Da allora il re e la sua corte iniziarono il lavoro di costruzione del popolo longobardo, un’etnogenesi molto particolare.</p>
+    <p>Cercarono di dare alle bande di guerrieri un’identità comune, una storia condivisa e un progetto: quello di governare l’Italia, che, nonostante tutto, era ancora il territorio più urbanizzato dell’Occidente.</p>
+    <h3>La società longobarda</h3>
+    <p>Fino a quel momento, la società longobarda era organizzata in maniera piuttosto elementare, basandosi sul potere degli Arimanni, che erano organizzati in fare. La fara era costituita da un gruppo di famiglie guidata ciascuna da un duca.</p>
+    <p>L’attività ritenuta essenziale era la guerra. L’agricoltura era praticata in maniera molto rudimentale e si allevavano soprattutto maiali. Agricoltura, allevamento e artigianato erano attività di secondaria importanza, affidate agli aldii, cioè ai semiliberi, o ai servi.</p>
+    <p>Nelle fare si riunivano diverse famiglie consanguinee. Bisognava quindi fare in modo che queste genti così diverse tra loro fossero regolate da leggi. Questo fu ciò che fece il re Rotari nel 643, emanando un codice di leggi chiamato Editto di Rotari, scritto in latino. Il suo scopo primario era sostituire molte usanze barbare con regole di tipo romano. Per esempio, cercò di eliminare la faida, cioè la legge del taglione, sostituendola con una compensazione pecuniaria: l’offeso veniva risarcito con una somma di denaro.</p>
+    <p>Fu istituito anche il fisco del re, che avrebbe raccolto le tasse necessarie per pagare i funzionari del re, i cosiddetti gastaldi.</p>
+    <p>Le genti chiamate Longobardi non avevano una fede comune. Molti erano pagani e veneravano vipere e alberi sacri; a volte praticavano ancora sacrifici umani. Alcuni erano cattolici, altri ariani.</p>
+    <p>A un certo punto, però, i re Longobardi decisero di bandire l’arianesimo e l’unica religione accettata nel Regno fu quella cattolica, centrata sul culto di San Michele.</p>
+    <p>Da allora i sovrani poterono disporre di due strumenti unificatori del loro popolo: la religione e la politica. La monarchia aveva inoltre riorganizzato la corte e creato il palatium, cioè il palazzo reale, nella sede regia di Pavia.</p>
+    <p>Molti storici hanno interpretato questi fatti come il segno di un’integrazione tra i Longobardi e i popoli italici. Al contrario, gli storici odierni considerano questi fatti la prova della nascita di quel popolo: il popolo longobardo si formò proprio in quel momento, mentre in origine i Longobardi erano soltanto una mescolanza di popoli.</p>
+    <p>Infatti, quando nell’VIII secolo venne istituita la monarchia longobarda, i re vennero considerati re d’Italia e non re dei Longobardi.</p>
+    <p>Nell’Italia meridionale, invece, i Longobardi sopravvissero per circa 500 anni, governando nel Ducato di Benevento e in altre città, proprio come appartenenti alla stirpe longobarda.</p>
+    <h3>Il monachesimo</h3>
+    <p>Dalla Seconda guerra punica il territorio italiano era sempre stato unito. Nel VII secolo si frammentò invece in tanti piccoli Stati.</p>
+    <p>La parte più grande, situata nell’Italia settentrionale e centrale, venne chiamata Langobardia ed era divisa in circa trenta Ducati longobardi. I più vasti erano il Ducato del Friuli a nord, quello di Spoleto al centro e quello di Benevento a sud.</p>
+    <p>Lungo le coste si trovavano invece le zone poste sotto il controllo dell’Impero d’Oriente, chiamate Romania. Esse comprendevano l’Esarcato, corrispondente all’attuale Romagna, le due Pentapoli, cioè territori formati da cinque città nella zona dell’attuale Marche, la Puglia, la Calabria e le due grandi isole, Sicilia e Sardegna.</p>
+    <p>Roma era una città indipendente, governata dal papa, ed era una delle cinque sedi patriarcali dell’antichità, cioè quelle in cui risiedevano i principali vescovi. Le altre erano Costantinopoli, Alessandria, Gerusalemme e Antiochia.</p>
+    <p>Roma, a differenza delle altre sedi patriarcali, non poteva essere controllata direttamente dall’imperatore dell’Impero romano d’Oriente, e questo favorì la sua autonomia. La Chiesa romana acquistò inoltre una solida autosufficienza economica, perché cominciò ad accumulare immensi appezzamenti di terreno grazie ai lasciti dei fedeli, che prima di morire donavano i propri possedimenti alla Chiesa.</p>
+    <p>L’autorità principale delle città della penisola italiana era ormai il vescovo, anche perché le nobiltà locali lottavano fra loro per far eleggere a questa carica un membro della propria famiglia. Anche il vescovo di Roma era eletto dal popolo, che lo acclamava come aveva fatto un tempo con l’imperatore. Era quindi, al tempo stesso, un vescovo e un governatore. L’unico edificio che in quegli anni era in grado di definirsi domus, cioè casa signorile, era l’edificio destinato a Dio: il Duomo. Il vescovo predicava e amministrava la giustizia seduto su una specie di trono, la cathedra. L’edificio in cui si trovava la cathedra era la cattedrale e divenne il più importante della città.</p>
+    <p>Dopo la caduta dell’Impero romano d’Occidente, il vescovo di Roma era quindi diventato un importante punto di riferimento. Non aveva ancora un potere di comando sulle altre Chiese, ma si andava affermando progressivamente l’idea di una Chiesa universale, cioè cattolica: questo aggettivo, in greco, significa infatti “universale”.</p>
+    <p>Il suo prestigio era immenso perché era considerato il successore di Pietro, l’apostolo che Cristo aveva scelto come capo della propria comunità di fedeli, e inoltre risiedeva nella città che per secoli era stata il centro dell’Impero.</p>
+    <p>L’autorevolezza acquistata dal vescovo di Roma si manifesta anche nel suo nome: papa, che deriva da pater, padre. Questa crescente autonomia non poteva che essere vista negativamente dall’imperatore d’Oriente, che esercitava invece un’autorità assoluta sulla Chiesa di Costantinopoli.</p>
+    <p>La Chiesa intuì che la conversione dei Germani e dei popoli barbari poteva rappresentare un’occasione per ottenere l’appoggio dei nemici dell’imperatore e si impegnò quindi in un’intensa attività missionaria, con lo scopo di convertire i Germani dall’arianesimo al cattolicesimo.</p>
+    <p>A questa attività si dedicarono soprattutto i monaci, tra i pochi ecclesiastici che conservavano ancora qualche traccia di cultura. Essi si occuparono anche della conversione delle popolazioni delle campagne, dove continuavano a essere praticati culti pagani che spesso si mescolavano alla fede cristiana. Si crearono così forme di religiosità ibride, dalle quali nacquero, per esempio, forti tradizioni come il culto dei santi.</p>
+    <h3>La nascita del monachesimo</h3>
+    <p>Le grandi città orientali erano caratterizzate da una vita molto frenetica. Per questo si diffuse l’idea che, per raggiungere la perfezione cristiana, fosse necessario allontanarsi dal caos cittadino e vivere in solitudine.</p>
+    <p>Gli eremiti erano credenti che si allontanavano dalle città per meditare sul Vangelo e sottoporsi a penitenze. Vivevano in luoghi isolati e lontani, come deserti, boschi e montagne.</p>
+    <p>Alcuni praticavano la ricerca della perfezione spirituale in forme particolarmente estreme, come gli stiliti, eremiti che vivevano appollaiati sulle colonne degli antichi templi pagani. Si diffuse così la pratica del monachesimo, cioè la scelta di coloro che volevano raggiungere la perfezione spirituale attraverso una vita solitaria. Il termine monachesimo deriva dal greco monos, che significa “solo”.</p>
+    <h3>Benedetto da Norcia</h3>
+    <p>Benedetto da Norcia, che visse tra il 480 e il 547, fu contemporaneo di Teoderico e della terribile guerra greco-gotica. Creò un sistema di vita religiosa che ebbe moltissimo successo.</p>
+    <p>Inizialmente si ritirò a vivere in una grotta presso Subiaco, dove si dedicò alla preghiera e alla penitenza. Ben presto attorno a lui si raccolse una vasta schiera di discepoli e fedeli. Benedetto ebbe una straordinaria intuizione: la ricerca individuale della perfezione spirituale poteva unirsi alla vita di una comunità. Questa comunità veniva chiamata cenobio, una parola greca che significa “vita in comune”.</p>
+    <p>La vita comunitaria offriva molti vantaggi: ci si poteva difendere dai malintenzionati e si poteva raggiungere una maggiore indipendenza economica.</p>
+    <p>Benedetto cominciò quindi a fondare monasteri nei quali i monaci vivevano insieme.</p>
+    <p>Questi monasteri erano anche aziende autosufficienti, che non avevano bisogno dell’aiuto economico della Chiesa di Roma o dei fedeli delle città.</p>
+    <p>Benedetto si trasferì poi a Cassino, dove scrisse la Regola, cioè un codice di comportamento spirituale che stabiliva i compiti degli abitanti del monastero.</p>
+    <p>Nel monastero vivevano diverse categorie di persone. I presbiteri, cioè i sacerdoti, celebravano la messa; i monaci non celebravano necessariamente la messa; vi erano inoltre lavoratori liberi e schiavi.</p>
+    <p>San Benedetto non scrisse mai la formula ora et labora, cioè “prega e lavora”, ma questa espressione riassume efficacemente l’idea centrale che ispirava la sua Regola.</p>
+    <p>Tutti nel monastero dovevano lavorare secondo i propri compiti: alcuni copiavano i manoscritti, altri lavoravano nelle officine artigianali o nei campi. Tutti, però, dovevano pregare.</p>
+    <p>Questa Regola fu decisiva per la vita sociale dell’Europa. Nell’antichità il lavoro era considerato un’attività inferiore, riservata ai servi e alla gente comune. Con la Regola di san Benedetto, per la prima volta, si affermò l’idea che il lavoro fosse sacro e riguardasse tutti.</p>
+    <h3>I monasteri e la cultura</h3>
+    <p>La Chiesa di Roma appoggiò l’opera di Benedetto. Ai monaci venne addirittura affidato il compito di svolgere attività missionaria presso i Germani e i pagani.</p>
+    <p>Prendendo esempio dalla rigida organizzazione dei Benedettini, la Chiesa cominciò anche a riflettere sulla propria struttura gerarchica e diede progressivamente vita alla separazione della comunità dei fedeli tra coloro che dedicavano la propria vita alla religione, il clero, e coloro che si occupavano delle attività materiali e conducevano quindi una vita considerata meno perfetta, i laici.</p>
+    <p>Al clero, composto da preti, monaci e vescovi, veniva richiesto di attenersi alle prescrizioni cristiane in maniera più rigorosa. Solo il clero, essendo istruito o almeno capace di leggere e scrivere, poteva leggere direttamente le Sacre Scritture. I laici potevano invece rimanere analfabeti, perché avevano bisogno della mediazione del clero.</p>
+    <p>Piano piano, l’iniziale semplicità dei monasteri venne sostituita da strutture molto più complesse. I ricchi proprietari lasciavano in eredità ai monasteri le proprie terre, gli edifici e le strutture necessarie alla conservazione e alla trasformazione dei prodotti, come per esempio i mulini.</p>
+    <p>I monasteri si ingrandirono e si arricchirono di boschi, pascoli, servi e coloni. I monaci divennero quindi amministratori di queste vaste proprietà.</p>
+    <p>Oltre alla preghiera, l’attività dei monaci comprendeva il lavoro e la produzione. Era quindi necessaria una certa cultura e si svilupparono scuole capaci di formare monaci in grado di leggere e scrivere.</p>
+    <p>In pratica, solo nei monasteri esistevano le condizioni necessarie per conservare le opere che costituivano il patrimonio culturale dell’Occidente.</p>
+    <p>I monaci si dedicarono alla copiatura e alla conservazione dei libri della fede cristiana. Poiché però il materiale su cui scrivere era raro e molto costoso, spesso riciclavano gli antichi libri pagani, raschiando le scritture originarie e sovrascrivendo nuovi testi.</p>
+    <p>In questo modo sono giunti fino a noi alcuni testi chiamati palinsesti, cioè manoscritti che erano stati raschiati e scritti nuovamente.</p>
+  </details>
+</main>
+<footer id="piede"></footer>
+
+<div id="glossa" role="dialog" aria-modal="false" aria-labelledby="glossa-titolo" hidden>
+  <button class="chiudi" type="button" aria-label="Chiudi">×</button>
+  <h3 id="glossa-titolo"></h3>
+  <p id="glossa-testo"></p>
+</div>
+
+<script>
+var MAPPA = {"W":600,"H":700,"paths":[["336","M278,366.5L277.6,366.6L277.6,366.4L277.6,366.1L278,366.1Z"],["788","M97.9,700L98.5,695L98.2,691.1L96.8,687.6L95.5,683.1L95.7,679.5L97.8,670L99.3,662.7L101.7,653.4L101,650.7L99.9,648.7L96.1,646.3L96,645L97.1,643.7L103.2,639.5L106.8,632.8L109.4,631.5L113.7,629.3L113.7,626.7L112.9,623.8L123.4,621.1L133.8,613.2L137.4,611.3L160.7,604.6L163.6,605.2L166.9,606.5L165.9,609.3L164.4,611.5L166.2,615.6L169.1,613.3L168.5,611.6L168.4,609.5L173.2,609.5L177.4,609.9L181.9,612.4L181.3,621.6L187.1,630.7L185.2,635.1L190.2,637.9L194.7,634.8L197.1,630.2L205.4,627.7L213.5,621.1L217.8,620.5L218.6,626.1L220.6,631.1L217.7,632.7L213.7,637.9L206.2,650.9L199.5,654.6L194.3,659.6L192.7,663.2L192.1,667.4L193.1,675L196.4,682.8L200.6,687.6L204.6,689.1L213.9,696.7L213.7,700L97.9,700Z"],["756","M175.6,66.9L176.6,67.6L179.1,70.1L178.4,74L175.2,80.3L173.5,85.4L173.2,89.4L173.3,91.3L173.9,91.3L176.7,91.7L178.1,91.7L182.5,92.9L186.1,94.6L186.8,96.4L187.1,98.4L191.3,101.3L196.2,103.3L197.9,102.8L204.2,96.4L206.7,97.6L208,101.1L207.8,102.9L205.9,109.7L205.5,113.5L206.9,115.9L207,117.8L206.5,119.6L204,119.7L200.8,118.6L198.1,115.5L195.9,115.8L194,116.5L193,119.3L192.1,122.6L192.3,124.5L193.6,126L194.5,129.1L195.1,133.1L195.7,134.9L195,135.7L193.2,136.1L191.8,135.6L189.4,130.8L188.2,128.9L186.3,128.6L182.7,129.5L177.2,132L175,131.9L173.1,131.3L171.5,129L170.3,124.6L169.9,121.8L168.8,121.9L165.4,120.9L163.8,122L163.6,126.4L163,131.9L161.1,135.3L156,141.4L154.1,143.9L153.2,145.8L153,147.5L153.7,150.4L154.5,153.2L153.6,154.9L151.1,155.6L149.3,153.7L148.8,150.8L145,146.4L146.9,143.1L146.7,142.2L140.3,140.1L137.7,137.4L133.9,132.6L133.3,130.7L133.9,124.4L133.7,122.8L133.2,122L131.4,121.9L128.6,124L125.9,127.1L120.7,130.6L120.2,131.3L121.7,135.1L121.5,136.5L117.2,142L116.3,143.9L110.9,147.2L108.4,148.4L101.5,145.3L99.5,144.8L96.1,146.4L91.5,147.8L84.1,149L81.4,147.5L80.3,146.3L79.8,144.5L78.2,141.3L76.2,139.3L74.9,137.2L73.2,134.9L72.1,133.1L74.1,127.3L73.1,125.2L72.7,122.2L73.2,120.3L72.6,119.8L66.1,118.2L60.6,118.1L56.6,119.7L53.1,122.7L52.7,123.4L52.9,124L54.2,127L51.3,130L46.9,132.1L44,132.1L42.7,131.5L43,128.1L45.5,127.1L47.9,125.1L48.8,122.1L49.2,120L47.2,117.2L47.6,115.6L49.3,112.6L50.3,110L51.7,107.8L56.4,104.3L61.2,100.9L62.2,96.9L63,91.9L63.7,90.8L70,88.3L71.6,87.2L72.5,85.7L77.6,80.5L82.8,75.3L83.9,73.6L84.7,72.5L84.8,71.6L84.3,70.9L82,70.3L81.4,68.5L84,65.6L87.3,63.8L90.2,64.1L91.3,65L91.1,66L92.3,67.1L94.6,67.7L97.4,67.5L100.3,66.5L102.1,63.8L103.1,61.8L107.7,59.7L110.5,61L118.6,61.9L124.7,61.6L128.5,60.2L133.1,60.4L136.2,61.5L136.7,61.5L137.6,61.2L138.4,60.4L141.4,60L141.8,59.2L141.7,58.5L141.3,58.1L137.6,58.3L136.3,57.7L136.1,56.3L137.4,54L140,52.3L142.3,52L143.9,52.5L147.7,56.2L148.5,56.4L149.2,55.8L150,55.5L151.4,56.2L152.7,58.5L152.9,58.9L161.8,58.5L163.8,58.5L169.6,62.7Z"],["703","M600,2.4L598.6,1.6L596.6,0.2L594.2,0.4L587.8,3.3L583.3,3.9L580.4,3.5L576.2,2.5L568.4,3L563,4.7L562.7,6.4L558.7,17.3L551.8,21.9L545.8,26.4L544,27.3L540.8,26.3L537,24.3L534,23.2L531.9,24L529.7,26.8L528.9,29.6L521.9,32.2L509.5,34.2L505.4,37.1L504.2,40.5L504.2,42.9L505.5,45L504.3,47.5L503.8,48.6L495,49.7L483.3,51.2L476.2,51.4L469.6,51.6L465,49.8L459.2,45.9L453.2,40.8L452.6,40.6L451.8,40.1L448.1,39.9L447.2,40.2L444.9,38.6L444.2,36.3L440.5,30.4L436.2,20.6L436.1,17.6L437.3,14.3L438.6,11.7L438.6,9.8L438.8,9.2L439.8,5L441.9,0L600,0Z"],["705","M428,121L424.8,119.9L420.8,119.5L420.2,120.1L418.7,120.9L417.9,122.2L418.7,127.3L417.8,128.1L413.3,127.8L411.9,128.4L409.6,132L407.2,133.6L404.2,134.7L401.9,136L399,137.2L396.5,138L395.5,139.5L395,141.2L395.2,142.9L397.8,146L398.3,149.4L398.2,153.6L397.6,155.8L396.7,157.3L390.4,159.4L384,163.1L383.9,163.8L386.9,166.9L387,167.6L384.7,169.4L384.5,171.2L384.8,173.2L386.2,175.2L386.6,177.1L383.1,178.5L378.3,178.1L372.5,175.7L370.3,176.1L368.5,177.5L366.5,176.9L364.2,175.4L361.1,172.2L359.4,170.1L358.8,168L357.9,167.6L356.7,168.3L355.7,171L352.9,175.7L350.7,177L347.5,176.8L343,177L340.2,177.5L336.7,175.8L335.9,176.1L335.9,177.2L334.6,179L332.6,180.1L322.7,177.6L321.4,175.5L323.6,174.5L326.7,171.7L328.7,172.1L331.2,171.4L332.4,170.3L330.6,166.8L326.6,162.5L324.5,161L321.5,159.9L321,158.7L322.6,152L322,151L318.7,151.4L317.9,150.7L317.6,149.5L317.9,147.9L320.1,145.2L322.6,142.9L323.3,141.6L323.1,140.6L320,139.6L318,138.6L316.5,138.2L315.5,138.8L314.7,138.1L313.9,136.2L314.7,133.3L317.4,130.5L320.5,128.1L323.3,126.2L324.7,125.5L325.5,122.4L327.1,122.7L330.3,122.9L333.9,123.5L337.2,124.3L340.1,125.4L346.3,126.4L351.8,127L353.5,127.6L354.8,127.5L356.5,128.4L357.6,127.7L358.2,126.5L361.2,125L364,123L365.8,120.6L367,118.6L368.8,117.3L370.8,116.8L372.7,116.1L380.5,115L388.6,115.5L392.5,114.1L395.6,111.6L400.1,110.8L400.4,110.8L407.4,112.3L407.8,111.3L408.1,110.8L407.8,105.8L409.9,103.4L412,102.3L418.9,102.4L419.9,104L420.2,106.3L421,109.5L422.2,110.4L422.9,111.7L422.9,113.9L424.2,115.5L427.6,119.8Z"],["688","M600,281.8L599.2,281L597.9,281.3L595.7,283.2L592.8,284.9L592.3,286L593.7,288.5L594.6,290L594.4,291.6L593.6,293.6L588.3,298.4L587.7,299.9L589,302.2L588.4,303.4L583.8,305.4L583.9,304.1L583.3,302L580.4,300L576.4,298.5L567.2,293.3L564,292.8L560.9,292.4L556.5,289.8L554.3,289.5L551.6,287.7L545.8,281.1L541.2,277.7L538,276.1L537,274.3L536.6,272.4L536.7,271.8L538.9,268.9L540.6,268.4L542.8,268.1L544.4,269.4L546.5,269.5L547.5,267.7L547.8,265.2L547.3,262L542,254.9L537.6,250L537,248.9L537.9,247.8L539.2,247.3L540.7,247.5L544.7,247.6L548.5,246.8L549.6,245.5L549.5,243.8L548,242.3L543.3,238.4L539.5,234.9L535.4,232.3L532.2,231.4L531.2,230L530.7,228.4L530.9,225.5L530.8,221.9L531.3,219.5L533.7,215.1L535.9,210.2L537.2,205.7L537.7,201.5L537.4,200.4L535.9,199.6L533.1,198.9L529.2,200L526,201.7L524.6,201.9L524.1,200.1L524.6,199.3L525.7,199.3L526.5,199.6L527.4,198.7L527.7,196.2L525.8,187.7L528.1,186.7L528.2,185.5L528.2,184.4L530.9,185.7L534.5,185.4L537.7,184.9L538.2,184L537.9,182.7L537.2,181.9L536.1,181.1L535.2,180L533,179.7L526.1,177.1L522.7,174L522.4,170.4L523.2,168.5L524.4,167.7L524.1,167.1L520.1,165.7L518.6,163.6L519.6,160.6L517.2,154.9L515,151.4L516.8,149.7L517,147.5L517,146.2L517.8,146.1L521,144.4L522,143.2L522.6,141.6L523.3,141.2L525.6,142.6L527.9,142.6L530.3,141.5L532.2,139.9L534.4,138.7L535.4,137.9L536.6,136.5L539.1,132.7L542,131.7L546,132.3L550.5,132.3L553.8,131.3L562.1,131.6L563.9,132.3L565.2,133.1L567.7,136L570.1,139.7L573.2,141.3L576.8,143.2L578.7,144.6L581.7,149.1L584,151.2L584.7,151.1L585.3,150.4L585.8,149.9L586.4,150.3L586.5,151.7L586.9,154.8L586.8,158.3L587.8,161.5L587.9,162.5L587.6,163.4L587.6,164.3L588.5,165L591.5,166.9L594.5,169.9L597.6,172L600,172.9L600,281.8Z"],["674","M280.5,260.9L278.2,261.2L277.1,259L278.7,256.6L281.2,256.2L281.6,258.1Z"],["642","M600,172.9L597.6,172L594.5,169.9L591.5,166.9L588.5,165L587.6,164.3L587.6,163.4L587.9,162.5L587.8,161.5L586.8,158.3L586.9,154.8L586.5,151.7L586.4,150.3L585.8,149.9L585.3,150.4L584.7,151.1L584,151.2L581.7,149.1L578.7,144.6L576.8,143.2L573.2,141.3L570.1,139.7L567.7,136L565.2,133.1L566.5,131.7L574.6,129.2L578.6,130.6L580.4,129.8L582,128.2L582.8,127L582.8,125.7L583.4,124.2L586.3,123.2L593.7,123.4L596.5,121L597.4,119.7L597.9,117.2L598.4,115L600,114.2L600,172.9Z"],["499","M536.7,271.8L536.6,272.4L537,274.3L538,276.1L541.2,277.7L545.8,281.1L551.6,287.7L554.3,289.5L556.5,289.8L560.9,292.4L564,292.8L567.2,293.3L576.4,298.5L580.4,300L583.3,302L583.9,304.1L583.8,305.4L579,307.3L578.2,309.7L575.8,309.6L572.9,309.9L572,311.4L573.6,313.8L574.8,316.5L574.5,320.5L574.2,321.1L573.5,320.9L569.5,323.6L566.5,324.9L563.8,325.7L562.5,324.7L561.6,323.2L561.4,318.9L560.8,317.5L559.9,316.9L558,318L556,321.5L554.2,325.5L551.5,329.8L549.2,333.9L546.9,338.9L545.3,343.1L547.4,345.2L548.9,348.3L548.7,350.7L549.2,352.1L548.8,356.3L548.9,358.9L542.5,355.1L539.5,349.5L530,340.1L519.3,334.1L518.7,333L519.1,331.7L519.6,330.6L517.5,330.7L516,331.6L514.6,331.4L512.9,329L511.3,327L511.1,324.9L511.8,324.7L512.7,323.8L514.7,321.6L515,320.4L514.8,318.7L511.5,313.4L510.9,310L510,303.4L510.5,301.9L511.6,301.1L516.8,299.9L516.3,294.8L516.5,293.2L517.4,291L518,289.1L520.7,286L524.3,282.5L526,282.3L527.5,282.6L529.4,285.4L531.3,284.9L531.3,281.5L528.7,277.1L527.2,274.4L527.5,272.7L528.3,271.8L530.4,272.2L532.4,272.9L533.7,272.3L535.6,271.7Z"],["492","M88.2,262L85.8,262.8L86,261.7L86.6,261.1L87.3,260.9L88.1,261.4Z"],["470","M367.4,685.5L365.9,687.3L361.9,687.2L358.1,684.6L358,679L362.2,680.1L366.1,683.8ZM356.3,676.4L353.8,677.2L351.2,675.7L350.5,674.7L354.1,673.8L355.9,674.5L356.6,675.9Z"],["807","M600,393.2L596.6,386.6L596.1,383.3L596.2,380.3L593.9,373.7L594.7,371.9L596.2,370.7L595.9,367.9L595.1,363.8L596.4,355.4L596.8,354.8L597.4,355.1L600,355.2L600,393.2Z"],["438","M176.7,91.7L173.9,91.3L173.3,91.3L173.2,89.4L173.5,85.4L175.2,80.3L175.6,81.1L175.7,82.3L176,83.4L176.1,84.8L176.5,86.3L177.5,87.8L177.8,89.1L177.3,90.7Z"],["","M600,355.2L597.4,355.1L596.8,354.8L597.2,352.4L596.5,347.4L593.7,339.2L592,336.6L588.7,334.2L586.3,332.6L582,331.4L579.5,327.1L575.9,322.1L574.2,321.1L574.5,320.5L574.8,316.5L573.6,313.8L572,311.4L572.9,309.9L575.8,309.6L578.2,309.7L579,307.3L583.8,305.4L583.8,305.4L588.4,303.4L589,302.2L587.7,299.9L588.3,298.4L593.6,293.6L594.4,291.6L594.6,290L593.7,288.5L592.3,286L592.8,284.9L595.7,283.2L597.9,281.3L599.2,281L600,281.8L600,355.2Z"],["380","M80.3,146.3L81.4,147.5L84.1,149L91.5,147.8L96.1,146.4L99.5,144.8L101.5,145.3L108.4,148.4L110.9,147.2L116.3,143.9L117.2,142L121.5,136.5L121.7,135.1L120.2,131.3L120.7,130.6L125.9,127.1L128.6,124L131.4,121.9L133.2,122L133.7,122.8L133.9,124.4L133.3,130.7L133.9,132.6L137.7,137.4L140.3,140.1L146.7,142.2L146.9,143.1L145,146.4L148.8,150.8L149.3,153.7L151.1,155.6L153.6,154.9L154.5,153.2L153.7,150.4L153,147.5L153.2,145.8L154.1,143.9L156,141.4L161.1,135.3L163,131.9L163.6,126.4L163.8,122L165.4,120.9L168.8,121.9L169.9,121.8L170.3,124.6L171.5,129L173.1,131.3L175,131.9L177.2,132L182.7,129.5L186.3,128.6L188.2,128.9L189.4,130.8L191.8,135.6L193.2,136.1L195,135.7L195.7,134.9L195.1,133.1L194.5,129.1L193.6,126L192.3,124.5L192.1,122.6L193,119.3L194,116.5L195.9,115.8L198.1,115.5L200.8,118.6L204,119.7L206.5,119.6L207,117.8L206.9,115.9L205.5,113.5L205.9,109.7L207.8,102.9L208.7,103.5L212.4,103.7L216.4,104.1L218.8,107.1L221.2,108L224.9,108.4L227.2,108.1L228.4,107.1L229.9,103.8L232.5,99.8L236.6,97.8L243.4,97.5L246.9,96.8L250.4,97L253,97.6L255.7,97.6L262.8,94.8L270.1,92.6L271.1,93L271.2,93.8L269.9,95.5L268.6,97.8L269.5,100.4L273.5,105.7L275.6,109.8L277.8,112.8L281.1,114.4L285.4,115.4L289.1,115.8L293,116.9L306.1,119.8L312.8,120.5L317.9,120.7L325.5,122.4L324.7,125.5L323.3,126.2L320.5,128.1L317.4,130.5L314.7,133.3L313.9,136.2L314.7,138.1L315.5,138.8L316.5,138.2L318,138.6L320,139.6L323.1,140.6L323.3,141.6L322.6,142.9L320.1,145.2L317.9,147.9L317.6,149.5L317.9,150.7L318.7,151.4L322,151L322.6,152L321,158.7L321.5,159.9L324.5,161L326.6,162.5L330.6,166.8L332.4,170.3L331.2,171.4L328.7,172.1L326.7,171.7L328.9,169.6L323.2,162.1L320.6,162.1L317.2,165.4L307.6,162.1L305.8,163.5L304.4,166.1L301.1,169.3L296.5,170.6L291.1,174.1L285.7,176.6L281.4,178.5L279,178.1L282.9,174.1L281.1,174L276.1,176.8L273.1,179.2L272.1,183.3L271.1,190.1L273.4,191.8L277.3,200.7L282.2,204.5L281.2,208.2L280,211L277,213.5L274.4,211.6L273,211.6L271.8,217.5L273.9,232.9L277.2,243.8L280.6,248.5L288.3,256L296.5,259.8L311.3,272.3L319.5,276.1L321.5,278.3L326.6,287.8L330.9,298.8L335.7,316.1L339.1,324.6L346,334.2L360.2,347.8L373.1,357.7L385.1,363.6L394.4,364.5L416.3,362.4L420.1,362.8L424.3,364.4L425.3,368.7L424,371.7L419.4,374.9L414.9,379.2L414.5,385L419.1,388.9L440.8,398.8L463.1,406.8L470.2,411L478.4,417.7L498.2,426.5L501.7,431L514.1,440.5L519.8,448.1L521.2,454.2L519.2,460.4L518.3,464.9L516.5,469.4L511.3,468.1L505.4,463.9L495.8,446.4L480,445.5L476.8,444.2L471,441.4L470.6,439.4L469,436.9L467.7,436.1L461.6,435.8L457.7,438.9L453.1,446.1L448,456.3L443,471.2L442.9,477.1L446.2,482.7L455.6,485.5L462.9,490.3L467.8,495.4L468.9,508.2L471.3,515.5L468.4,519.7L462.3,519L454.4,522L448.8,526.9L446.7,531.5L447.7,543.2L446.7,547.7L436.2,556.6L430.8,565.4L429.5,569L427.5,573.2L413.5,573.8L410.2,568.8L409.9,561.4L412.1,556.8L417.1,554.4L420.1,544.7L418.8,537.9L420.8,534.8L422.5,532.6L426.3,531.2L431.7,529.8L431.8,520.2L427.5,515.9L425.8,509.9L423.4,498.7L416,484.5L411.9,471.8L408.9,465.6L404.5,462.3L396.6,462.6L392.7,461.8L378.5,453.2L377.6,451.9L377.6,449.6L379.8,445.8L378.2,441.1L376.4,436.6L373.7,432.7L370.7,430.7L364.5,432.1L362.3,433.1L358.4,432.8L355.4,434.6L353.7,434.7L358.4,427.8L357,426.2L352.2,423.5L345.8,423.1L344,422.8L342.9,424.6L341.7,423.6L341.9,420.6L334.1,406.9L329.1,401.4L326.6,400.4L322.1,401.6L314.3,399.2L309.8,398.7L307.3,399.3L303.5,401.1L301.6,400L300.9,398.1L294.1,392.4L285.4,389.1L268.8,371L263.8,364.2L253.3,356.6L246.8,345.6L241.4,341.6L233.6,338.2L231.8,338.6L229.4,339.7L227.6,339.8L226.2,338.4L227.6,337L229.3,336.4L228.8,332.3L220.1,321.3L214.9,317.7L213.6,315.5L212.6,312.6L211.5,310.7L209,309.4L206.9,309.6L204,308.8L204.3,303.6L205,299.7L204.7,296.3L202.2,287.4L197.4,279.8L195.3,261.8L193.1,256.7L187.9,252.7L176.1,248L159.9,235.8L156.4,235.5L146.6,230.5L140.4,229.5L132.2,233L121.8,243.6L113.1,254.6L110.1,256.7L99.6,260L90.3,261.3L90.3,258.3L90.2,256.1L91.9,253.7L94.7,251.1L97.2,247.6L98.3,245.1L98,243.3L97.1,240.7L95.6,240.4L86.9,241.9L84.9,241.2L78.7,237.5L72.2,232.8L69.8,229.7L69.1,226.7L69.9,224.9L69.5,223L68.3,220.4L69.8,217.7L72.2,214.3L73.4,212L75.2,211.5L76.1,210.1L75.2,204.1L74.5,203.1L73.3,202.3L71.4,202.1L68.3,200.7L66,198.5L65.7,195.7L64.7,193.1L62.7,190.4L62.8,187.9L65.1,186.7L68.5,186.8L70.7,187.5L76.2,183.7L78.1,183.5L79.9,182.7L81.7,177L83,175.3L83.3,174.3L82.3,173.1L78.5,168.7L76.8,164.3L74.2,159.4L71.6,157.1L71.2,155.5L71.2,153.3L72,151.6L77.1,149.2ZM278,366.5L278,366.1L277.6,366.1L277.6,366.4L277.6,366.6ZM280.5,260.9L281.6,258.1L281.2,256.2L278.7,256.6L277.1,259L278.2,261.2ZM199.3,314.5L200.5,316.5L200.6,317.7L199.7,319.1L200,322.1L196.8,319.4L191.8,320.5L188.9,320.2L188.2,318L188.9,316.6L193.5,316.5L195.1,315.9L197.8,316.3ZM337.5,429.3L335.8,429.7L334.8,429.2L334.2,428.4L334.9,426.4L338.5,427.5L338.4,428.6ZM259.7,637.9L257.7,638.5L255,636.7L254.9,634.1L255.4,633.3L258.7,634.5L259.6,636.9ZM406.9,559.1L404.3,565.3L403,567.6L393.4,582.6L392.4,586L391.7,589.7L390.8,592.9L389.5,596.1L388.2,600L388.5,604.4L389.1,606.5L390.4,607.9L392.4,609.1L393.9,611.1L391.6,613.1L394.4,616.7L396.6,618.9L396.9,621.1L397,623.3L392.5,627.6L390.8,629.9L389.6,632.7L389.2,635.6L389.8,638.2L389.7,640.7L385.1,640.5L380.1,639L375.4,639.9L368.5,637L366,636.6L363.7,635.4L357.8,626.3L353.2,622.4L348.2,619.5L343.2,619.3L338.2,619.8L333.8,618L324.8,611.8L315.2,606.8L311.1,603.6L309.3,601.4L307.2,599.9L301.7,598.5L296.7,595.1L294.6,594.9L289.8,595.2L287.4,595L285,593.8L280.2,589.8L277.2,584.2L276.5,581.9L278.6,575.5L281.2,569.6L283.4,567.8L286,566.7L287.6,564.8L289,562.7L293.8,569L296,570.5L298.1,570.2L302,568L302.3,565.5L306.6,562.3L312,562.3L314.6,562.8L315.9,565.6L318,566.5L320.4,566.9L328.4,572.3L330.7,573.1L332.9,573.2L339,570.9L343.7,570L353.6,571.1L359,569.6L362.7,569.4L368.1,567.2L372.2,563.7L374.4,562.8L376.7,562.5L382.4,562.5L388.1,563.2L390.4,562.3L392.3,560L394.7,558.9L397.2,559.6L403.7,555.5L406.5,555.2L409.3,556.6ZM165.7,417.6L167.6,421L171.5,435L171.8,438L170.8,441L169.6,443.1L164.8,449.9L165.3,455.7L166.8,459.3L166.9,463.3L165.9,468.2L161.9,498.1L160.4,503.4L159.3,507.9L156.2,509.3L152.1,507.5L147.2,504.7L144.9,504.8L142.5,505.6L140.6,504.7L138.7,503.2L136.9,513.5L134.4,517.6L130.8,520.1L127.4,520.1L124.1,519L121.3,518.8L119.2,516.8L117.6,513.2L115.1,508.8L112.6,503.6L112.6,499.1L112.7,489.1L113.5,487L114.8,484.9L115.6,480.5L115.4,476.5L116.3,475.2L117.9,476.6L119.1,476.2L119,474.2L119.6,470.6L117.6,467.3L114.2,466.2L114.1,462.9L114.5,459.7L116.5,457.7L117.3,455L117.9,446.4L115.4,443.2L114.8,438.4L113.7,435.3L111.5,432.1L109.1,429.4L107.5,427L107.6,420.6L108.7,415.4L109.7,413.2L110.5,413.6L113,416.4L115.1,417L119.2,417.9L123.4,417.3L128.6,415.2L133.6,412.6L141,404.4L145.4,403L147.8,400.8L148.6,397.8L150.5,397.1L152.5,400.2L155.2,400.5L159.2,403.1L160.9,405.5L162.3,408.4L163.7,409.6L165.3,410.4L165.5,411L164.2,411.6L162.6,414.8L163.5,415.7ZM114.7,511.1L112.1,516.2L109.8,512.4L109.8,509.2L110.3,508.3L113.2,509.8ZM112.5,406.7L111.1,409L109.2,408.7L110,407L112,403.6L114.2,402.5L115,403.5L113.9,405.6Z"],["348","M600,114.2L598.4,115L597.9,117.2L597.4,119.7L596.5,121L593.7,123.4L586.3,123.2L583.4,124.2L582.8,125.7L582.8,127L582,128.2L580.4,129.8L578.6,130.6L574.6,129.2L566.5,131.7L565.2,133.1L563.9,132.3L562.1,131.6L553.8,131.3L550.5,132.3L546,132.3L542,131.7L539.1,132.7L536.6,136.5L535.4,137.9L534.4,138.7L532.2,139.9L530.3,141.5L527.9,142.6L525.6,142.6L523.3,141.2L522.6,141.6L522,143.2L521,144.4L517.8,146.1L517,146.2L516.9,146.2L514.4,147.5L510.4,148.4L508.2,148.1L504.9,153.2L503.9,154.2L500.4,156L497.5,156.9L495,156.4L494,156.5L482.9,156.9L477.1,156.1L473.3,154.4L470.7,152.4L469.3,150L466.5,148.8L462,148.5L458.3,146.3L455.6,142.2L452,139L447.6,136.7L444.1,133.4L441.3,128.9L436.7,125.1L430,121.7L428,121L427.6,119.8L424.2,115.5L422.9,113.9L422.9,111.7L422.2,110.4L421,109.5L420.2,106.3L419.9,104L418.9,102.4L412,102.3L417.5,96.4L420.3,94.7L423.7,94.8L424.7,94.3L424.9,93.5L425.4,91.5L425.7,89.7L425.9,88.1L425.4,87.2L423.9,87L422.9,82.9L423.6,81.3L424.4,80.1L423.3,75.2L423.5,73.5L426,73.2L428,72L429.8,70.7L430.2,69.1L431.5,65.9L430.1,62.1L422.5,60L422.1,59L423.7,57.8L425.6,56.1L426.6,54.9L428,54.7L430,55.2L433.8,57.8L435.1,58.2L436.4,57.3L437.8,57.1L441.7,57L445,56.2L444.1,53.3L444,51.1L443.4,49.4L443.7,47.5L444.9,46L445.1,42.7L447.2,40.2L448.1,39.9L451.8,40.1L452.6,40.6L453.2,40.8L459.2,45.9L465,49.8L469.6,51.6L476.2,51.4L483.3,51.2L495,49.7L503.8,48.6L504.3,47.5L505.5,45L504.2,42.9L504.2,40.5L505.4,37.1L509.5,34.2L521.9,32.2L528.9,29.6L529.7,26.8L531.9,24L534,23.2L537,24.3L540.8,26.3L544,27.3L545.8,26.4L551.8,21.9L558.7,17.3L562.7,6.4L563,4.7L568.4,3L576.2,2.5L580.4,3.5L583.3,3.9L587.8,3.3L594.2,0.4L596.6,0.2L598.6,1.6L600,2.4L600,114.2Z"],["300","M588.4,484.8L589.5,487.6L584.2,486.2L580.4,483.9L576.8,477.6L569.6,470.7L569.4,468.6L571.8,466.7L576.9,465.2L579.2,466.2L580.6,467.3L581.2,468.7L578.5,471.8L577.9,473.1L580.4,475.5L580.5,476.5L581.9,481.4L583.2,483.2L586.3,484.4ZM600,490.5L597.9,489.6L592.4,478.5L588.3,473.7L584,470.4L584.8,470.4L586.5,470.8L589.4,472.5L592.5,472.7L594.2,471.2L595.1,470L595.5,468L595.6,465.6L596,464.8L598.3,464.9L599,464.3L598.8,462.2L597.1,459.8L595.4,456.7L595.3,455.2L596.4,454.5L598.2,453L598.9,451.1L600,450.6L600,490.5Z"],["276","M326.2,0L326.9,0.7L328.5,3.3L328.2,4.3L328,7.6L328,11.1L327.6,12.8L325.5,15.2L324.4,15.8L323.7,16.3L317.1,13.2L316.6,13.7L316.1,14.1L314.4,23.2L313.3,24.9L311.4,26.6L307.6,28.1L305,28.8L302.9,29.5L296.4,33.3L293.4,35.6L291.5,38.5L291.5,40.1L294.7,44.9L298.4,50L298.4,54.3L296.7,57.6L296.3,58.9L297.5,59.4L299.5,59.6L301.2,60.1L302,62.4L301.7,66.5L301.1,70.2L300.6,71.8L298.9,72L295.7,70.3L293.2,68.4L292.2,67.3L292.2,65.9L292.7,65L291.8,63.2L288.7,61.7L285.5,62.4L283.1,63.4L281.5,63.4L279.9,61.8L277.3,60.6L273.9,59.8L271.8,59L271.3,59.4L271.5,62.7L270.9,64.2L254.1,65.9L248.9,67.6L245.3,69.8L242.4,70.8L241.8,72.3L239,74L235.9,74.5L235.1,74L233.2,74.7L229.8,75.5L227.6,75.2L226.6,73.7L224.6,71.3L223.8,69.7L223.9,68.6L219.2,68.3L216.2,67L209.9,67.2L208.4,66.6L208.1,67.1L206.9,73.6L205.6,76.3L203.5,79L200.8,80.5L198.8,80.7L199,78.7L199.6,76.2L198,75.6L195.8,75.3L194.8,74.5L195.2,72.7L194.7,71.6L193.8,70.2L191.6,68.5L187,65.8L183.8,64.4L182.5,65.7L180.1,67L176.6,66.4L175.6,66.9L175.6,66.9L169.6,62.7L163.8,58.5L161.8,58.5L152.9,58.9L152.7,58.5L151.4,56.2L150,55.5L149.2,55.8L148.5,56.4L147.7,56.2L143.9,52.5L142.3,52L140,52.3L137.4,54L136.1,56.3L136.3,57.7L137.6,58.3L141.3,58.1L141.7,58.5L141.8,59.2L141.4,60L138.4,60.4L137.6,61.2L136.7,61.5L136.2,61.5L133.1,60.4L128.5,60.2L124.7,61.6L118.6,61.9L110.5,61L107.7,59.7L105.9,58.8L104.9,55.3L105.6,49.9L107.9,43.1L108.8,38L108.1,34.7L109.6,29.8L113.1,23.5L115.6,16.7L117.2,9.6L119,4.9L122.1,1.8L123.6,0L326.2,0Z"],["250","M163.8,315.9L162.5,323.6L163.1,325.9L164.5,327.6L165.1,329.4L165.4,350L165,351.6L159.9,359.8L158.8,362.1L158.1,372.4L157.1,375.1L155.3,377.8L152,386.5L149.1,390.3L142,385.1L137.9,382.9L136,380.5L134.7,378.9L135.6,376.8L137.7,374.8L138.1,373.1L133.6,370.9L131.6,369.6L131.7,367.4L133.4,364L132.8,361L130.3,361.1L128.2,360.5L128.1,358.9L129.7,357.1L131.7,354.7L131.7,352L129.6,350.7L127.6,348.3L126.9,345.2L128.7,343.2L131.3,341.9L129.6,338.7L128.2,338.6L127.3,337.9L128.2,336.5L130.2,334.4L133.5,328L137.6,325.2L144.6,323.5L146.6,322.8L148.4,320.6L150.4,319.2L152.7,319.5L154.8,320.4L156.1,321.5L157.2,320.5L158.2,317.7L157.7,315.2L158.3,308.4L159.7,304.6L161.8,304.4L163.5,306.7L163.3,308.5L163.8,313ZM123.6,0L122.1,1.8L119,4.9L117.2,9.6L115.6,16.7L113.1,23.5L109.6,29.8L108.1,34.7L108.8,38L107.9,43.1L105.6,49.9L104.9,55.3L105.9,58.8L107.7,59.7L107.7,59.7L103.1,61.8L102.1,63.8L100.3,66.5L97.4,67.5L94.6,67.7L92.3,67.1L91.1,66L91.3,65L90.2,64.1L87.3,63.8L84,65.6L81.4,68.5L82,70.3L84.3,70.9L84.8,71.6L84.7,72.5L83.9,73.6L82.8,75.3L77.6,80.5L72.5,85.7L71.6,87.2L70,88.3L63.7,90.8L63,91.9L62.2,96.9L61.2,100.9L56.4,104.3L51.7,107.8L50.3,110L49.3,112.6L47.6,115.6L47.2,117.2L49.2,120L48.8,122.1L47.9,125.1L45.5,127.1L43,128.1L42.7,131.5L44,132.1L46.9,132.1L51.3,130L54.2,127L52.9,124L52.7,123.4L53.1,122.7L56.6,119.7L60.6,118.1L66.1,118.2L72.6,119.8L73.2,120.3L72.7,122.2L73.1,125.2L74.1,127.3L72.1,133.1L73.2,134.9L74.9,137.2L76.2,139.3L78.2,141.3L79.8,144.5L80.3,146.3L77.1,149.2L72,151.6L71.2,153.3L71.2,155.5L71.6,157.1L74.2,159.4L76.8,164.3L78.5,168.7L82.3,173.1L83.3,174.3L83,175.3L81.7,177L79.9,182.7L78.1,183.5L76.2,183.7L70.7,187.5L68.5,186.8L65.1,186.7L62.8,187.9L62.7,190.4L64.7,193.1L65.7,195.7L66,198.5L68.3,200.7L71.4,202.1L73.3,202.3L74.5,203.1L75.2,204.1L76.1,210.1L75.2,211.5L73.4,212L72.2,214.3L69.8,217.7L68.3,220.4L69.5,223L69.9,224.9L69.1,226.7L69.8,229.7L72.2,232.8L78.7,237.5L84.9,241.2L86.9,241.9L95.6,240.4L97.1,240.7L98,243.3L98.3,245.1L97.2,247.6L94.7,251.1L91.9,253.7L90.2,256.1L90.3,258.3L90.3,261.3L88.2,262L88.1,261.4L87.3,260.9L86.6,261.1L86,261.7L85.8,262.8L81.3,264.4L78,266.1L65.1,276.9L59.2,279.9L58,281.9L56.6,285.6L53,288.7L49.9,290L42.5,291.1L34.9,294L31.9,292.2L23.3,291.6L18.4,287L8.4,283.4L5.7,277L1.2,276.3L0,276.2L0,0Z"],["203","M441.9,0L439.8,5L438.8,9.2L437.9,8L436.1,3.7L434.3,3.2L431.9,2.9L430.1,2.4L426.1,0L441.9,0ZM420.6,0L419.5,0.8L418,2.6L412.8,2.8L407.1,2.2L403.8,0L420.6,0ZM368,0L367.4,2.4L363.8,2.4L362.6,3.8L359.9,7.9L359.3,11.7L354.5,11.1L352.2,10.5L350.2,11.1L348,13.2L341.8,13.1L336.8,12L334.6,7.2L332.3,5.3L329.6,3.7L328.5,3.3L326.9,0.7L326.2,0L368,0Z"],["191","M321.4,175.5L322.7,177.6L332.6,180.1L334.6,179L335.9,177.2L335.9,176.1L336.7,175.8L340.2,177.5L343,177L347.5,176.8L350.7,177L352.9,175.7L355.7,171L356.7,168.3L357.9,167.6L358.8,168L359.4,170.1L361.1,172.2L364.2,175.4L366.5,176.9L368.5,177.5L370.3,176.1L372.5,175.7L378.3,178.1L383.1,178.5L386.6,177.1L386.2,175.2L384.8,173.2L384.5,171.2L384.7,169.4L387,167.6L386.9,166.9L383.9,163.8L384,163.1L390.4,159.4L396.7,157.3L397.6,155.8L398.2,153.6L398.3,149.4L397.8,146L395.2,142.9L395,141.2L395.5,139.5L396.5,138L399,137.2L401.9,136L404.2,134.7L407.2,133.6L409.6,132L411.9,128.4L413.3,127.8L417.8,128.1L418.7,127.3L417.9,122.2L418.7,120.9L420.2,120.1L420.8,119.5L424.8,119.9L428,121L430,121.7L436.7,125.1L441.3,128.9L444.1,133.4L447.6,136.7L452,139L455.6,142.2L458.3,146.3L462,148.5L466.5,148.8L469.3,150L470.7,152.4L473.3,154.4L477.1,156.1L482.9,156.9L494,156.5L495,156.4L497.5,156.9L500.4,156L503.9,154.2L504.9,153.2L508.2,148.1L510.4,148.4L514.4,147.5L516.9,146.2L517,146.2L517,147.5L516.8,149.7L515,151.4L517.2,154.9L519.6,160.6L518.6,163.6L520.1,165.7L524.1,167.1L524.4,167.7L523.2,168.5L522.4,170.4L522.7,174L526.1,177.1L533,179.7L535.2,180L536.1,181.1L537.2,181.9L537.9,182.7L538.2,184L537.7,184.9L534.5,185.4L530.9,185.7L528.2,184.4L528.2,185.5L528.1,186.7L525.8,187.7L527.7,196.2L527.4,198.7L526.5,199.6L525.7,199.3L524.6,199.3L524.1,200.1L524.6,201.9L522.2,202.3L518.3,201.6L516.3,200.1L515.9,198.4L515.8,196.8L514.4,194.3L511.1,191.8L504.5,191.8L502.1,191.1L499.6,190.3L496.9,189.7L494.3,189.9L491.4,190.9L486,190L484.4,191.6L481.8,193.6L479.4,193.8L474.6,189.8L473.2,189.6L469.3,191.9L467.7,192.1L466.5,191.5L461,190.1L458.6,190L456.8,190.8L453.6,190.1L445.6,184.9L441.1,189.3L431.3,188.8L428.6,191.7L425.5,197.3L422.9,200.1L420.6,199.2L417.8,196.9L412.8,190.9L410.3,189.8L407.5,189.7L405.1,190.5L403.8,191.8L403.2,200.8L402.5,208.8L402.6,213.7L408.2,217.9L414.8,225.3L416.9,226.1L417.9,228.6L419.6,234.9L421.5,242.1L425,246.7L428.1,250L431.8,252.9L436.5,257.4L440.4,262.4L441.4,264.3L448.9,270.8L456.2,277.5L462.7,279.6L463.7,280.9L464,286.3L464.7,288.2L469.2,293.6L478.2,301.4L479.3,303.2L479.6,304.6L479.1,305.7L477,306.9L475.1,305.9L466.6,298.2L458.8,293.5L449.6,284.4L437.9,281.1L429.7,277.2L425.1,278.1L419.8,279.6L416.6,279.8L414.2,279L412.5,276.5L412.7,274.5L412.3,271.9L407.5,267.9L401.1,264.1L395,259.1L382.8,245.6L380.2,241.2L382.5,240.3L384.3,240.2L386.3,239.3L389.6,239.2L393.4,240L389.9,237.2L385.6,234.3L374.5,223L371.1,217.6L370.6,211.7L371.2,203.6L369.2,197.9L360.7,190.5L357.6,186.6L351.5,184.4L348.7,184.7L347.2,187.6L346.1,194.2L340.8,202.8L339,206.5L336.2,211.3L333.8,211.7L332.3,211.3L327.8,203.3L323.4,197.1L322.9,194.2L322.4,190.6L319.1,177.4ZM440.9,305.7L448,306.8L453.3,305.8L458,306.5L461,308.1L461.7,308.9L457.9,309.2L453.5,308.7L448.7,310.6L444.4,309.9L442.7,308.9L441.5,307.6ZM461.5,297.8L458.7,298.5L441.7,298.9L436.7,298L431,295.4L429.7,294.7L435.4,293.6L440.5,294.2L442.3,296.2L456.3,297.2ZM445.4,291L439.3,291.3L434,290.6L431.3,289.1L431.5,287.7L432.3,285.4L438.1,285.4L447.1,286.7L449.3,288.5L448.8,289.4ZM384.6,251.3L385.3,253.1L380.4,249.8L378.6,247.4L378.2,246.4ZM367.6,203.4L363,204.6L360.8,202.6L360.3,201L356.4,200.5L354,198.3L353.6,197.3L356.8,194.6L358.5,190.5L360.6,192.9L363.4,197.5L364.9,198.8ZM368.6,214.9L369.6,217.2L366.1,215.2L362.9,214.4L362.2,212.9L362.6,211.6L363.3,210.3L365.7,210.4L366.1,211.7ZM382.6,236.9L381.6,238.4L379.1,235.8L376.9,234L375.2,231.9L372.1,229.3L370.9,226.2L366.2,219.9L365.3,218.2L367.8,220.7L369.7,222.3L371.4,222.7L375.5,226.6L379.7,231.7L384.6,236.1L383.5,236.3ZM383.3,258.8L383.8,259.5L383.7,260.1L381.8,259.4L381.2,259.6L371.7,248.2L370.7,246.1L374,248.6ZM390,255.9L392.7,259.7L390.2,259L387.7,256.6L386.1,254ZM355.9,220.4L355.7,222.4L353.3,219.9L352,215.3L349.1,207.8L348.6,205.7L350.1,203.5L350.1,201.4L347.9,194.9L349.5,193.8L350.6,193.6L351.1,198.2L352.1,200.9L354.8,204L354.4,209.3L355,216.9L355.6,218.6ZM478.4,315.9L483.8,319.1L468.1,315.3L469.8,314.8L471.5,314.6ZM511.1,324.9L511.3,327L512.9,329L514.6,331.4L507.2,326.9L500.1,321.8L486.7,313.9L477.3,312.3L464.3,306L455.9,304L459.1,303.3L462.7,303.1L482.6,311.3L480.3,309L483,307.9L485.4,308.4L487.1,311.3L490.3,313.2L495.3,316.4L498.6,318.8L505.8,323.3L507.6,323.8Z"],["070","M536.7,271.8L535.6,271.7L533.7,272.3L532.4,272.9L530.4,272.2L528.3,271.8L527.5,272.7L527.2,274.4L528.7,277.1L531.3,281.5L531.3,284.9L529.4,285.4L527.5,282.6L526,282.3L524.3,282.5L520.7,286L518,289.1L517.4,291L516.5,293.2L516.3,294.8L516.8,299.9L511.6,301.1L510.5,301.9L510,303.4L510.9,310L511.5,313.4L514.8,318.7L515,320.4L514.7,321.6L512.7,323.8L511.8,324.7L511.1,324.9L507.6,323.8L505.8,323.3L498.6,318.8L495.3,316.4L490.3,313.2L487.1,311.3L485.4,308.4L483,307.9L480.3,309L477,306.9L479.1,305.7L479.6,304.6L479.3,303.2L478.2,301.4L469.2,293.6L464.7,288.2L464,286.3L463.7,280.9L462.7,279.6L456.2,277.5L448.9,270.8L441.4,264.3L440.4,262.4L436.5,257.4L431.8,252.9L428.1,250L425,246.7L421.5,242.1L419.6,234.9L417.9,228.6L416.9,226.1L414.8,225.3L408.2,217.9L402.6,213.7L402.5,208.8L403.2,200.8L403.8,191.8L405.1,190.5L407.5,189.7L410.3,189.8L412.8,190.9L417.8,196.9L420.6,199.2L422.9,200.1L425.5,197.3L428.6,191.7L431.3,188.8L441.1,189.3L445.6,184.9L453.6,190.1L456.8,190.8L458.6,190L461,190.1L466.5,191.5L467.7,192.1L469.3,191.9L473.2,189.6L474.6,189.8L479.4,193.8L481.8,193.6L484.4,191.6L486,190L491.4,190.9L494.3,189.9L496.9,189.7L499.6,190.3L502.1,191.1L504.5,191.8L511.1,191.8L514.4,194.3L515.8,196.8L515.9,198.4L516.3,200.1L518.3,201.6L522.2,202.3L524.6,201.9L526,201.7L529.2,200L533.1,198.9L535.9,199.6L537.4,200.4L537.7,201.5L537.2,205.7L535.9,210.2L533.7,215.1L531.3,219.5L530.8,221.9L530.9,225.5L530.7,228.4L531.2,230L532.2,231.4L535.4,232.3L539.5,234.9L543.3,238.4L548,242.3L549.5,243.8L549.6,245.5L548.5,246.8L544.7,247.6L540.7,247.5L539.2,247.3L537.9,247.8L537,248.9L537.6,250L542,254.9L547.3,262L547.8,265.2L547.5,267.7L546.5,269.5L544.4,269.4L542.8,268.1L540.6,268.4L538.9,268.9Z"],["040","M403.8,0L407.1,2.2L412.8,2.8L418,2.6L419.5,0.8L420.6,0L426.1,0L426.1,0L430.1,2.4L431.9,2.9L434.3,3.2L436.1,3.7L437.9,8L438.8,9.2L438.6,9.8L438.6,11.7L437.3,14.3L436.1,17.6L436.2,20.6L440.5,30.4L444.2,36.3L444.9,38.6L447.2,40.2L445.1,42.7L444.9,46L443.7,47.5L443.4,49.4L444,51.1L444.1,53.3L445,56.2L441.7,57L437.8,57.1L436.4,57.3L435.1,58.2L433.8,57.8L430,55.2L428,54.7L426.6,54.9L425.6,56.1L423.7,57.8L422.1,59L422.5,60L430.1,62.1L431.5,65.9L430.2,69.1L429.8,70.7L428,72L426,73.2L423.5,73.5L423.3,75.2L424.4,80.1L423.6,81.3L422.9,82.9L423.9,87L425.4,87.2L425.9,88.1L425.7,89.7L425.4,91.5L424.9,93.5L424.7,94.3L423.7,94.8L420.3,94.7L417.5,96.4L412,102.3L409.9,103.4L407.8,105.8L408.1,110.8L407.8,111.3L407.4,112.3L400.4,110.8L400.1,110.8L395.6,111.6L392.5,114.1L388.6,115.5L380.5,115L372.7,116.1L370.8,116.8L368.8,117.3L367,118.6L365.8,120.6L364,123L361.2,125L358.2,126.5L357.6,127.7L356.5,128.4L354.8,127.5L353.5,127.6L351.8,127L346.3,126.4L340.1,125.4L337.2,124.3L333.9,123.5L330.3,122.9L327.1,122.7L325.5,122.4L317.9,120.7L312.8,120.5L306.1,119.8L293,116.9L289.1,115.8L285.4,115.4L281.1,114.4L277.8,112.8L275.6,109.8L273.5,105.7L269.5,100.4L268.6,97.8L269.9,95.5L271.2,93.8L271.1,93L270.1,92.6L262.8,94.8L255.7,97.6L253,97.6L250.4,97L246.9,96.8L243.4,97.5L236.6,97.8L232.5,99.8L229.9,103.8L228.4,107.1L227.2,108.1L224.9,108.4L221.2,108L218.8,107.1L216.4,104.1L212.4,103.7L208.7,103.5L207.8,102.9L208,101.1L206.7,97.6L204.2,96.4L197.9,102.8L196.2,103.3L191.3,101.3L187.1,98.4L186.8,96.4L186.1,94.6L182.5,92.9L178.1,91.7L176.7,91.7L177.3,90.7L177.8,89.1L177.5,87.8L176.5,86.3L176.1,84.8L176,83.4L175.7,82.3L175.6,81.1L175.2,80.3L175.2,80.3L178.4,74L179.1,70.1L176.6,67.6L175.6,66.9L176.6,66.4L180.1,67L182.5,65.7L183.8,64.4L187,65.8L191.6,68.5L193.8,70.2L194.7,71.6L195.2,72.7L194.8,74.5L195.8,75.3L198,75.6L199.6,76.2L199,78.7L198.8,80.7L200.8,80.5L203.5,79L205.6,76.3L206.9,73.6L208.1,67.1L208.4,66.6L209.9,67.2L216.2,67L219.2,68.3L223.9,68.6L223.8,69.7L224.6,71.3L226.6,73.7L227.6,75.2L229.8,75.5L233.2,74.7L235.1,74L235.9,74.5L239,74L241.8,72.3L242.4,70.8L245.3,69.8L248.9,67.6L254.1,65.9L270.9,64.2L271.5,62.7L271.3,59.4L271.8,59L273.9,59.8L277.3,60.6L279.9,61.8L281.5,63.4L283.1,63.4L285.5,62.4L288.7,61.7L291.8,63.2L292.7,65L292.2,65.9L292.2,67.3L293.2,68.4L295.7,70.3L298.9,72L300.6,71.8L301.1,70.2L301.7,66.5L302,62.4L301.2,60.1L299.5,59.6L297.5,59.4L296.3,58.9L296.7,57.6L298.4,54.3L298.4,50L294.7,44.9L291.5,40.1L291.5,38.5L293.4,35.6L296.4,33.3L302.9,29.5L305,28.8L307.6,28.1L311.4,26.6L313.3,24.9L314.4,23.2L316.1,14.1L316.6,13.7L317.1,13.2L323.7,16.3L324.4,15.8L325.5,15.2L327.6,12.8L328,11.1L328,7.6L328.2,4.3L328.5,3.3L329.6,3.7L332.3,5.3L334.6,7.2L336.8,12L341.8,13.1L348,13.2L350.2,11.1L352.2,10.5L354.5,11.1L359.3,11.7L359.9,7.9L362.6,3.8L363.8,2.4L367.4,2.4L368,0L403.8,0Z"],["012","M0,621.5L6.5,620.6L14.5,617.3L18.3,611.9L25.1,610.3L28.6,614.9L43.2,620.4L52.4,619.8L56.4,618.7L55.5,612.1L64.9,614.5L72.2,618.1L79.5,624.9L84.5,626.5L93.8,624.2L112.9,623.8L112.9,623.8L113.7,626.7L113.7,629.3L109.4,631.5L106.8,632.8L103.2,639.5L97.1,643.7L96,645L96.1,646.3L99.9,648.7L101,650.7L101.7,653.4L99.3,662.7L97.8,670L95.7,679.5L95.5,683.1L96.8,687.6L98.2,691.1L98.5,695L97.9,700L0,700Z"],["008","M600,450.6L598.9,451.1L598.2,453L596.4,454.5L595.3,455.2L595.4,456.7L597.1,459.8L598.8,462.2L599,464.3L598.3,464.9L596,464.8L595.6,465.6L595.5,468L595.1,470L594.2,471.2L592.5,472.7L589.4,472.5L586.5,470.8L584.8,470.4L584,470.4L583.4,465.7L581.8,462L576.6,453.4L561.1,445.8L557.4,442.1L555.5,438.9L553.8,435.8L555.3,435.6L556.8,436.3L558.7,437.2L559.3,435.5L558.2,432.2L553.9,424.5L553.4,422.4L554.8,415.5L557.2,407.7L556.4,398.7L556.9,391.8L555.4,387.4L554.6,382L556.1,374.6L558,372.6L558.9,370.2L558.5,362.5L553.8,359.2L548.9,358.9L548.9,358.9L548.8,356.3L549.2,352.1L548.7,350.7L548.9,348.3L547.4,345.2L545.3,343.1L546.9,338.9L549.2,333.9L551.5,329.8L554.2,325.5L556,321.5L558,318L559.9,316.9L560.8,317.5L561.4,318.9L561.6,323.2L562.5,324.7L563.8,325.7L566.5,324.9L569.5,323.6L573.5,320.9L574.2,321.1L575.9,322.1L579.5,327.1L582,331.4L586.3,332.6L588.7,334.2L592,336.6L593.7,339.2L596.5,347.4L597.2,352.4L596.8,354.8L596.4,355.4L595.1,363.8L595.9,367.9L596.2,370.7L594.7,371.9L593.9,373.7L596.2,380.3L596.1,383.3L596.6,386.6L600,393.2L600,450.6Z"]],"P":{"pavia":[157,190],"cividale":[316,145],"spoleto":[290,323],"benevento":[371,406],"ravenna":[270,233],"pentapoli":[308,272],"roma":[280,366],"puglia":[448,416],"calabria":[439,511],"sicilia":[350,598],"sardegna":[138,463],"norcia":[303,320],"subiaco":[304,365],"cassino":[333,388],"pannonia":[502,96],"milano":[159,175]}};
+var GRUPPI = { "1": "Parte 1 · I Longobardi", "2": "Parte 2 · Chiesa e papato", "3": "Parte 3 · Il monachesimo", "v": "Alla fine" };
+
+/* ===================== GLOSSARIO ===================== */
+var GLOSSARIO = {
+  palatium: ["Palatium", "Parola latina: il palazzo del re, dove vive e lavora la sua corte. Quello dei Longobardi era a Pavia."],
+  arimanni: ["Arimanni", "Gli uomini liberi longobardi: erano i guerrieri e avevano il potere."],
+  fare: ["Fara (plurale: fare)", "Un gruppo di famiglie parenti tra loro, guidato da un duca."],
+  aldii: ["Aldii", "Persone semilibere: non erano schiave, ma nemmeno del tutto libere. Facevano i lavori dei campi e dell'artigianato."],
+  faida: ["Faida", "La vendetta: chi subiva un'offesa si vendicava da solo, con la violenza."],
+  gastaldi: ["Gastaldi", "I funzionari del re longobardo, pagati con le tasse raccolte dal fisco del re."],
+  fisco: ["Fisco", "La cassa dello Stato, dove arrivano le tasse."],
+  secolo: ["Secolo", "Un periodo di 100 anni. VII secolo = gli anni dal 601 al 700."],
+  vescovo: ["Vescovo", "Il capo della Chiesa in una città. Il vescovo di Roma è il papa."],
+  cathedra: ["Cathedra", "Il seggio, come un trono, su cui sedeva il vescovo per predicare e giudicare. Da qui viene «cattedrale»."],
+  cenobio: ["Cenobio", "Parola greca: «vita in comune». Una comunità di monaci che vivono, pregano e lavorano insieme."],
+  clero: ["Clero", "Le persone che dedicano la vita alla religione: preti, monaci, vescovi."],
+  laici: ["Laici", "Tutti i cristiani che non fanno parte del clero."],
+  etnogenesi: ["Etnogenesi", "La nascita di un popolo: gruppi diversi diventano un popolo solo, con una storia e un'identità comuni."],
+  missione: ["Missione", "Andare tra popoli di un'altra religione per convertirli."],
+  ariani: ["Ariani", "Cristiani che seguono le idee di Ario: per loro Gesù è inferiore a Dio Padre. Per la Chiesa di Roma sono eretici."],
+};
+var glossa = document.getElementById("glossa"), ultimoG = null;
+function apriGlossa(k) {
+  var g = GLOSSARIO[k]; if (!g) return;
+  document.getElementById("glossa-titolo").textContent = g[0];
+  document.getElementById("glossa-testo").textContent = g[1];
+  glossa.hidden = false;
+}
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("button.g");
+  if (b) { e.stopPropagation(); ultimoG = b; apriGlossa(b.dataset.g); return; }
+  if (!glossa.hidden && !e.target.closest("#glossa")) glossa.hidden = true;
+}, true);
+glossa.querySelector(".chiudi").addEventListener("click", function () { glossa.hidden = true; if (ultimoG) ultimoG.focus(); });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") glossa.hidden = true; });
+
+/* ===================== VOCE ===================== */
+var voce = "speechSynthesis" in window;
+function parla(testo) {
+  if (!voce) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(testo);
+  u.lang = "it-IT"; u.rate = 0.9;
+  var v = speechSynthesis.getVoices().filter(function (x) { return /^it/i.test(x.lang); });
+  if (v.length) u.voice = v[0];
+  speechSynthesis.speak(u);
+}
+var ICONA_VOCE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
+document.querySelectorAll(".ascolta").forEach(function (b) {
+  if (!voce) { b.hidden = true; return; }
+  b.innerHTML = ICONA_VOCE + " Ascolta";
+  b.addEventListener("click", function () {
+    if (speechSynthesis.speaking) { speechSynthesis.cancel(); b.innerHTML = ICONA_VOCE + " Ascolta"; return; }
+    var t = Array.prototype.map.call(b.closest(".tappa").querySelectorAll("h2, .leggibile, .semplice"), function (el) {
+      return el.innerText.replace(/IN PAROLE SEMPLICI/, "In parole semplici.");
+    }).join(". ");
+    parla(t);
+    b.innerHTML = ICONA_VOCE + " Ferma";
+    var c = setInterval(function () { if (!speechSynthesis.speaking) { b.innerHTML = ICONA_VOCE + " Ascolta"; clearInterval(c); } }, 500);
+  });
+});
+
+
+
+/* ===================== LINEA DEL TEMPO ===================== */
+var ANNI = {
+  480: "Nasce Benedetto da Norcia.",
+  535: "Inizia la guerra greco-gotica.",
+  547: "Muore Benedetto da Norcia.",
+  553: "Finisce la guerra greco-gotica: l'Italia è distrutta.",
+  568: "Il re Alboino porta i Longobardi in Italia.",
+  572: "Alboino viene ucciso dalla moglie. Nascono i ducati di Spoleto e Benevento.",
+  584: "Gli arimanni, riuniti a Pavia, eleggono re Autari.",
+  643: "Il re Rotari scrive l'Editto, le leggi dei Longobardi.",
+};
+var DA = 470, A = 660, TACCHE = [500, 550, 600, 650];
+function pos(a) { return ((a - DA) / (A - DA) * 100).toFixed(2) + "%"; }
+document.querySelectorAll(".tempo").forEach(function (box) {
+  var on = box.dataset.anni ? box.dataset.anni.split(",").map(Number) : [];
+  var fuori = on.filter(function (a) { return a < DA || a > A; });
+  var h = '<div class="tit"><span>Quando siamo?</span><span class="fuori">' +
+    fuori.map(function (a) { return "<span>" + (a < DA ? "prima: " : "dopo: ") + a + "</span>"; }).join("") + "</span></div>";
+  h += '<div class="binario"><div class="riga"></div>';
+  TACCHE.forEach(function (t) { h += '<span class="tacca" style="left:' + pos(t) + '">' + t + "</span>"; });
+  Object.keys(ANNI).map(Number).filter(function (a) { return a >= DA && a <= A; }).forEach(function (a) {
+    var acceso = on.indexOf(a) >= 0;
+    h += '<button type="button" class="pt' + (acceso ? " on" : "") + '" style="left:' + pos(a) + '" data-a="' + a + '" aria-label="Anno ' + a + '"></button>';
+  });
+  var ultimo = -99;
+  on.filter(function (a) { return a >= DA && a <= A; }).sort(function (x, y) { return x - y; }).forEach(function (a) {
+    var p = (a - DA) / (A - DA) * 100;
+    var sposta = p - ultimo < 5;
+    h += '<span class="lab" style="left:' + pos(a) + (sposta ? ";top:-16px" : "") + '">' + a + "</span>";
+    ultimo = sposta ? -99 : p;
+  });
+  h += "</div><output>" + (on.length ? "Tocca un pallino per sapere che cosa succede." : "Tocca un pallino per sapere che cosa succede in quell'anno.") + "</output>";
+  box.innerHTML = h;
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".pt"); if (!b) return;
+    box.querySelector("output").innerHTML = "<b>" + b.dataset.a + "</b> · " + ANNI[b.dataset.a];
+  });
+});
+document.querySelectorAll(".tempo .fuori span").forEach(function (s) {
+  s.style.cursor = "pointer";
+  s.addEventListener("click", function () {
+    var a = s.textContent.replace(/\D/g, "");
+    s.closest(".tempo").querySelector("output").innerHTML = "<b>" + a + "</b> · " + ANNI[a];
+  });
+});
+
+
+
+/* ===================== CATENE ===================== */
+var CATENE = {
+  arrivo: [
+    ["Teoderico muore: scoppia una <b>lotta</b> per chi deve diventare re.", "approfittando del caos"],
+    ["Giustiniano comincia la <b>guerra greco-gotica</b>, che dura circa <b>vent'anni</b>. L'Italia viene <b>distrutta</b>, le grandi città saccheggiate.", "nell'esercito del generale Narsete"],
+    ["Ci sono circa <b>5.000 Longobardi</b>, venuti dalla Pannonia (Ungheria). Sono così violenti e indisciplinati che Narsete li <b>rimanda a casa</b> sotto scorta.", "ma"],
+    ["Nel <b>568</b>, guidati dal re <b>Alboino</b>, i Longobardi <b>tornano</b>: attraversano le Alpi orientali e invadono l'Italia."],
+  ],
+  popolo: [
+    ["<b>572</b> · Alboino viene <b>ucciso dalla moglie</b>.", "quindi"],
+    ["Le bande dei Longobardi si dividono. Nascono due ducati che durano a lungo: <b>Spoleto</b> e <b>Benevento</b>.", "poi"],
+    ["<b>584</b> · Gli <button class='g' data-g='arimanni'>arimanni</button> si riuniscono a <b>Pavia</b> ed eleggono re <b>Autari</b>.", "da quel momento"],
+    ["Il re e la corte costruiscono il <b>popolo longobardo</b> (gli storici la chiamano <button class='g' data-g='etnogenesi'>etnogenesi</button>): un'identità comune, una storia condivisa e un progetto, <b>governare l'Italia</b>."],
+  ],
+  missione: [
+    ["La Chiesa capisce un'occasione: convertire i <b>Germani</b>, che sono <button class='g' data-g='ariani'>ariani</button>, al <b>cattolicesimo</b>.", "perché"],
+    ["Così avrà come <b>alleati</b> i nemici dell'imperatore d'Oriente.", "chi se ne occupa?"],
+    ["I <b>monaci</b>: sono tra i pochi religiosi che conservano ancora un po' di cultura. Fanno <button class='g' data-g='missione'>missioni</button> tra i Germani e nelle campagne.", "nelle campagne"],
+    ["La gente mescola la fede cristiana con i vecchi riti pagani. Nascono tradizioni nuove, come il <b>culto dei santi</b>."],
+  ],
+  ricchezza: [
+    ["I ricchi proprietari lasciano in <b>eredità</b> ai monasteri terre, edifici e <b>mulini</b>.", "quindi"],
+    ["I monasteri si ingrandiscono: hanno <b>boschi, pascoli, servi e coloni</b>.", "quindi"],
+    ["I monaci diventano <b>amministratori</b> di grandi proprietà.", "risultato"],
+    ["I monasteri sono <b>aziende autosufficienti</b>: producono cibo e oggetti da soli, senza l'aiuto della Chiesa di Roma o delle città."],
+  ],
+};
+var GIU = '<svg width="14" height="26" viewBox="0 0 14 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 1V23"/><path d="M1 17l6 7 6-7"/></svg>';
+document.querySelectorAll(".catena").forEach(function (box) {
+  var c = CATENE[box.dataset.catena];
+  var h = "";
+  c.forEach(function (s, i) {
+    h += '<div class="anello' + (i === c.length - 1 ? " fine" : "") + '" data-i="' + i + '"' + (i ? " hidden" : "") + '><span class="n">' + (i + 1) + "</span><span>" + s[0] + "</span></div>";
+    if (s[1]) h += '<div class="giu" data-i="' + i + '" hidden>' + GIU + s[1] + "</div>";
+  });
+  h += '<div class="poi"><button class="pulsante" type="button">E poi? ↓</button> <button class="pulsante tutto" type="button">Mostra tutto</button></div>';
+  box.innerHTML = h;
+  var visti = 1;
+  function aggiorna() {
+    box.querySelectorAll(".anello").forEach(function (a) { a.hidden = +a.dataset.i >= visti; });
+    box.querySelectorAll(".giu").forEach(function (g) { g.hidden = +g.dataset.i >= visti - 1; });
+    var b = box.querySelector(".poi button");
+    b.textContent = visti >= c.length ? "Ricomincia ↺" : "E poi? ↓";
+    box.querySelector(".tutto").hidden = visti >= c.length;
+  }
+  box.querySelector(".poi button").addEventListener("click", function () { visti = visti >= c.length ? 1 : visti + 1; aggiorna(); });
+  box.querySelector(".tutto").addEventListener("click", function () { visti = c.length; aggiorna(); });
+  aggiorna();
+});
+
+
+
+/* ===================== PERSONAGGI ===================== */
+var PERS = {
+  narsete: ["Narsete", "#B7791F", "generale di Giustiniano", "Nel suo esercito ci sono circa 5.000 <b>Longobardi</b>, ma sono così violenti che li rimanda in patria."],
+  alboino: ["Alboino", "#8A2E3B", "re dei Longobardi", "Nel <b>568</b> porta i Longobardi in Italia. Viene ucciso dalla moglie nel <b>572</b>."],
+  benedetto: ["Benedetto da Norcia", "#2F6B2F", "monaco, 480–547", "Inventa il <b>cenobio</b> e scrive la <b>Regola</b> a Cassino: i monaci pregano e lavorano insieme."],
+};
+document.querySelectorAll(".personaggi").forEach(function (box) {
+  box.innerHTML = box.dataset.pers.split(",").map(function (k) {
+    var p = PERS[k];
+    var ini = p[0].split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2);
+    return '<button class="pers" type="button" aria-pressed="false"><span class="faccia"><span class="ini" style="background:' + p[1] + '">' + ini +
+      '</span><span><b>' + p[0] + '</b></span></span><span class="ruolo">' + p[2] + '</span><span class="dopo">' + p[3] + '</span><span class="gira">Tocca per scoprire</span></button>';
+  }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".pers"); if (!b) return;
+    var on = b.getAttribute("aria-pressed") !== "true";
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.querySelector(".gira").textContent = on ? "Tocca per chiudere" : "Tocca per scoprire";
+  });
+});
+
+
+
+/* ===================== CARTINE ===================== */
+var NS = "http://www.w3.org/2000/svg";
+function el(tag, a, p) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function preparaMappa(id, paesiEvidenziati) {
+  var svg = document.getElementById(id);
+  svg.setAttribute("viewBox", svg.dataset.vista || ("0 0 " + MAPPA.W + " " + MAPPA.H)); svg._k = svg.dataset.vista ? +svg.dataset.vista.split(" ")[2] / MAPPA.W : 1; svg.style.setProperty("--k", svg._k);
+  var g = el("g", {}, svg);
+  MAPPA.paths.forEach(function (p) {
+    el("path", { d: p[1], "class": "terra" + (paesiEvidenziati && paesiEvidenziati.indexOf(p[0]) >= 0 ? " acc" : ""), "data-id": p[0] }, g);
+  });
+  var defs = el("defs", {}, svg);
+  ["#8A2E3B", "#1F5F99", "#7A4E8F", "#5A5F6E", "#B7791F", "#2F6B2F"].forEach(function (c) {
+    var m = el("marker", { id: id + "-f" + c.slice(1), viewBox: "0 0 10 10", refX: 6, refY: 5, markerWidth: 3.5, markerHeight: 3.5, orient: "auto" }, defs);
+    el("path", { d: "M0 0L10 5L0 10z", fill: c }, m);
+  });
+  return { svg: svg, sopra: el("g", {}, svg), luoghi: el("g", {}, svg) };
+}
+function curva(a, b, piega) {
+  var P = MAPPA.P, A = P[a] || a, B = P[b] || b;
+  var mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2, dx = B[0] - A[0], dy = B[1] - A[1];
+  var k = piega === undefined ? 0.18 : piega;
+  return "M" + A[0] + " " + A[1] + " Q" + (mx - dy * k) + " " + (my + dx * k) + " " + B[0] + " " + B[1];
+}
+function tratto(m, a, b, colore, piega, anim) {
+  var p = el("path", { d: curva(a, b, piega), "class": "tratto", stroke: colore, "marker-end": "url(#" + m.svg.id + "-f" + colore.slice(1) + ")" }, m.sopra);
+  if (anim) { var l = Math.ceil(p.getTotalLength()); p.style.setProperty("--l", l); p.classList.add("anim"); }
+  return p;
+}
+function luogo(m, k, nome, dove) {
+  var P = MAPPA.P[k], g = el("g", { "class": "luogo" }, m.luoghi), q = m.svg._k;
+  el("circle", { cx: P[0], cy: P[1], r: 7 * q }, g);
+  var t = el("text", { x: P[0] + (dove === "s" ? -10 : 10) * q, y: P[1] + (dove === "g" ? 22 : dove === "su" ? -10 : 5) * q, "text-anchor": dove === "s" ? "end" : "start" }, g);
+  t.textContent = nome;
+}
+function mappaAPassi(id, passiId, infoId, PASSI, sempre) {
+  var m = preparaMappa(id);
+  (sempre || []).forEach(function (s) { luogo(m, s[0], s[1], s[2]); });
+  var box = document.getElementById(passiId);
+  box.innerHTML = PASSI.map(function (p, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '" style="--zona:' + p.c + '">' + (i + 1) + " · " + p.b + "</button>"; }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var i = +b.dataset.i;
+    m.sopra.innerHTML = "";
+    box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", +x.dataset.i <= i ? "true" : "false"); });
+    for (var k = 0; k <= i; k++) PASSI[k].tratti.forEach(function (t) { tratto(m, t[0], t[1], PASSI[k].c, t[2], k === i); });
+    var info = document.getElementById(infoId);
+    info.style.setProperty("--zona", PASSI[i].c);
+    info.innerHTML = "<div class='area'>" + PASSI[i].anno + "</div><h4>" + PASSI[i].t + "</h4><p>" + PASSI[i].d + "</p>";
+  });
+}
+
+mappaAPassi("mappa-arrivo", "passi-arrivo", "info-arrivo", [
+  { b: "Dalla Pannonia", c: "#8A2E3B", anno: "568", t: "Alboino passa le Alpi", d: "I Longobardi partono dalla <b>Pannonia</b> (Ungheria) e attraversano le <b>Alpi orientali</b>. Il primo ducato è quello del <b>Friuli</b>.", tratti: [["pannonia", "cividale", -0.15]] },
+  { b: "Verso ovest", c: "#B7791F", anno: "dopo il 568", t: "La pianura del Po", d: "Occupano la pianura del Po. <b>Pavia</b> diventerà la capitale del regno.", tratti: [["cividale", "pavia", 0.1]] },
+  { b: "Verso sud", c: "#1F5F99", anno: "fino al 572", t: "I ducati del centro e del sud", d: "Altre bande scendono verso sud e fondano i ducati di <b>Spoleto</b> e <b>Benevento</b>.", tratti: [["cividale", "spoleto", 0.15], ["spoleto", "benevento", -0.2]] },
+], [["pannonia", "Pannonia", "su"], ["cividale", "Friuli"], ["pavia", "Pavia", "s"], ["spoleto", "Spoleto", "s"], ["benevento", "Benevento"], ["ravenna", "Ravenna"], ["roma", "Roma", "s"]]);
+
+var ITALIA = [
+  { k: "pavia", c: "#8A2E3B", n: "Pavia (capitale)", a: "Langobardia", d: "La capitale del regno longobardo. Qui c'è il <b>palatium</b>, il palazzo del re." },
+  { k: "cividale", c: "#8A2E3B", n: "Ducato del Friuli", a: "Langobardia", d: "Uno dei tre ducati più grandi, a <b>nord</b>." },
+  { k: "spoleto", c: "#8A2E3B", n: "Ducato di Spoleto", a: "Langobardia", d: "Il grande ducato del <b>centro</b>." },
+  { k: "benevento", c: "#8A2E3B", n: "Ducato di Benevento", a: "Langobardia", d: "Il grande ducato del <b>sud</b>. Qui i Longobardi restano per circa <b>500 anni</b>." },
+  { k: "ravenna", c: "#1F5F99", n: "Esarcato (Ravenna)", a: "Romania", d: "Corrisponde più o meno all'attuale <b>Romagna</b>: il nome viene da «Romania»." },
+  { k: "pentapoli", c: "#1F5F99", n: "Pentapoli", a: "Romania", d: "Due zone di <b>cinque città</b> ciascuna, nelle attuali <b>Marche</b>." },
+  { k: "puglia", c: "#1F5F99", n: "Puglia", a: "Romania", d: "Costa dell'Impero d'Oriente." },
+  { k: "calabria", c: "#1F5F99", n: "Calabria", a: "Romania", d: "Costa dell'Impero d'Oriente." },
+  { k: "sicilia", c: "#1F5F99", n: "Sicilia", a: "Romania", d: "Isola dell'Impero d'Oriente." },
+  { k: "sardegna", c: "#1F5F99", n: "Sardegna", a: "Romania", d: "Isola dell'Impero d'Oriente." },
+  { k: "roma", c: "#B7791F", n: "Roma", a: "città indipendente", d: "Governata dal <b>papa</b>. L'imperatore d'Oriente non la può controllare direttamente." },
+];
+(function () {
+  var m = preparaMappa("mappa-italia");
+  var pin = el("g", {}, m.svg);
+  ITALIA.forEach(function (p, i) {
+    var P = MAPPA.P[p.k], g = el("g", { "class": "pin", tabindex: 0, role: "button", "aria-label": p.n, "data-i": i }, pin);
+    el("circle", { cx: P[0], cy: P[1], r: 15, fill: p.c }, g);
+    el("text", { x: P[0], y: P[1] + 5, "text-anchor": "middle", style: "font-size:15px;fill:#fff;stroke:none" }, g).textContent = i + 1;
+  });
+  var chip = document.getElementById("chip-italia");
+  chip.innerHTML = ITALIA.map(function (p, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '" style="--zona:' + p.c + '">' + (i + 1) + " · " + p.n + "</button>"; }).join("");
+  function mostra(i) {
+    var p = ITALIA[i], info = document.getElementById("info-italia");
+    info.style.setProperty("--zona", p.c);
+    info.innerHTML = "<div class='area'>" + p.a + "</div><h4>" + p.n + "</h4><p>" + p.d + "</p>";
+    pin.querySelectorAll(".pin").forEach(function (x) { x.classList.toggle("attivo", +x.dataset.i === i); });
+    chip.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", +b.dataset.i === i ? "true" : "false"); });
+  }
+  pin.addEventListener("click", function (e) { var x = e.target.closest(".pin"); if (x) mostra(+x.dataset.i); });
+  pin.addEventListener("keydown", function (e) { var x = e.target.closest(".pin"); if (x && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); mostra(+x.dataset.i); } });
+  chip.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) mostra(+b.dataset.i); });
+})();
+
+mappaAPassi("mappa-benedetto", "passi-benedetto", "info-benedetto", [
+  { b: "Norcia", c: "#2F6B2F", anno: "480", t: "Nasce a Norcia", d: "Benedetto nasce a <b>Norcia</b>, in Umbria.", tratti: [] },
+  { b: "Subiaco", c: "#B7791F", anno: "da giovane", t: "In una grotta a Subiaco", d: "Si ritira a vivere in una <b>grotta</b> vicino a <b>Subiaco</b>: preghiera e penitenza. Intorno a lui arrivano molti <b>discepoli</b>.", tratti: [["norcia", "subiaco", 0.2]] },
+  { b: "Cassino", c: "#8A2E3B", anno: "fino al 547", t: "Il monastero di Cassino", d: "Si trasferisce a <b>Cassino</b>, fonda il monastero e scrive la <b>Regola</b>. Muore nel <b>547</b>.", tratti: [["subiaco", "cassino", 0.2]] },
+], [["norcia", "Norcia"], ["subiaco", "Subiaco", "g"], ["cassino", "Cassino"], ["roma", "Roma", "s"]]);
+
+/* ===================== ROTARI / PALINSESTO ===================== */
+(function () {
+  var C = [
+    ["La legge", "Prima: usanze barbare, non scritte.", "Dopo: un <b>codice di leggi scritto in latino</b>, con regole di tipo romano."],
+    ["Le offese", "Prima: la <b>faida</b>, cioè la vendetta.", "Dopo: chi ha subito l'offesa riceve una <b>somma di denaro</b>."],
+    ["Le tasse", "Prima: il re non ha una cassa per pagare i funzionari.", "Dopo: nasce il <b>fisco del re</b>, che paga i <b>gastaldi</b>, i funzionari del re."],
+  ];
+  var box = document.getElementById("rotari");
+  box.innerHTML = C.map(function (t) { return '<button class="carta" type="button" aria-pressed="false"><span class="q">' + t[0] + '</span><span class="prima">' + t[1] + '</span><span class="dopo">' + t[2] + '</span><span class="gira">Tocca per vedere il dopo</span></button>'; }).join("");
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".carta"); if (!b) return;
+    var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.querySelector(".gira").textContent = on ? "Tocca per tornare al prima" : "Tocca per vedere il dopo";
+  });
+  var s = document.createElement("style"); s.textContent = "#rotari .carta[aria-pressed=\"true\"]{background:var(--ok-chiaro);border-color:var(--ok)}"; document.head.appendChild(s);
+
+  var P = [
+    ["Libro antico", "", "Ecco una pagina di un libro <b>antico e pagano</b>: un testo latino di Giulio Cesare, scritto su pergamena."],
+    ["Raschio", "raschiato", "La pergamena è <b>rara e costosa</b>. Il monaco <b>raschia</b> via l'inchiostro vecchio."],
+    ["Riscrivo", "raschiato riscritto", "Sopra scrive un testo <b>cristiano</b> (qui il Vangelo di Giovanni). È nato un <b>palinsesto</b>: <i>palin</i> = di nuovo, <i>psao</i> = raschio."],
+    ["Oggi", "raschiato riscritto luce", "Oggi gli scienziati, con luci e strumenti speciali, riescono a <b>rivedere il testo antico</b> sotto quello nuovo. Così abbiamo ritrovato libri che sembravano perduti!"],
+  ];
+  var pb = document.getElementById("passi-palinsesto"), pal = document.getElementById("palinsesto");
+  pb.innerHTML = P.map(function (p, i) { return '<button type="button" aria-pressed="false" data-i="' + i + '">' + (i + 1) + " · " + p[0] + "</button>"; }).join("");
+  pb.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var i = +b.dataset.i;
+    pb.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", +x.dataset.i <= i ? "true" : "false"); });
+    pal.className = "palinsesto " + P[i][1];
+    document.getElementById("info-palinsesto").innerHTML = P[i][2];
+  });
+})();
+
+/* ===================== VERIFICA ===================== */
+var VF = [
+  ["Dopo la guerra greco-gotica l'Italia era ricca e tranquilla.", false, "La guerra aveva distrutto l'Italia e le grandi città erano state saccheggiate."],
+  ["Nel 568 Alboino porta i Longobardi in Italia.", true, "Attraversano le Alpi orientali."],
+  ["I Longobardi erano un unico popolo fin dall'inizio.", false, "Erano un miscuglio di popoli: il popolo longobardo nasce dopo, in Italia."],
+  ["Il palatium del re longobardo si trovava a Pavia.", true, "Pavia era la capitale del regno."],
+  ["I gastaldi erano i funzionari del re.", true, "Erano pagati con le tasse raccolte dal fisco del re."],
+  ["L'Editto di Rotari era scritto in lingua longobarda.", false, "Era scritto in latino."],
+  ["Il vescovo di Roma era eletto dal popolo.", true, "Il popolo lo acclamava come faceva un tempo con l'imperatore."],
+  ["«Cattolico» vuol dire «universale».", true, "Viene dal greco katholikós."],
+  ["«Monaco» vuol dire «insieme».", false, "Viene da monos = solo. «Vita in comune» si dice cenobio."],
+  ["Nei monasteri si copiavano e conservavano i libri.", true, "Erano gli unici luoghi con scuole e biblioteche."],
+];
+var EVENTI_ORD = [
+  [480, "Nasce Benedetto da Norcia"],
+  [535, "Inizia la guerra greco-gotica"],
+  [568, "Alboino porta i Longobardi in Italia"],
+  [572, "Alboino viene ucciso"],
+  [584, "Gli arimanni eleggono re Autari"],
+  [643, "Rotari scrive l'Editto"],
+];
+var ABBINA = [
+  ["arimanni", "gli uomini liberi longobardi"],
+  ["fara", "un gruppo di famiglie guidato da un duca"],
+  ["aldii", "i semiliberi"],
+  ["gastaldi", "i funzionari del re"],
+  ["palatium", "il palazzo del re, a Pavia"],
+  ["cathedra", "il seggio del vescovo"],
+  ["cenobio", "la vita in comune dei monaci"],
+  ["palinsesto", "un manoscritto raschiato e riscritto"],
+];
+var ABBINA2 = [
+  ["Alboino", "porta i Longobardi in Italia"],
+  ["Autari", "viene eletto re a Pavia"],
+  ["Rotari", "scrive le leggi in latino"],
+  ["Narsete", "rimanda a casa i Longobardi violenti"],
+  ["Benedetto", "scrive la Regola a Cassino"],
+];
+var APERTE = [
+  ["In quali condizioni si trovò l'Italia dopo la guerra greco-gotica?", "vent'anni, distrutta, città saccheggiate, debole",
+   "La guerra greco-gotica durò circa vent'anni e <b>distrusse l'Italia</b>: le città più grandi furono <b>saccheggiate</b>. L'Italia era quindi debole, e nel 568 i Longobardi riuscirono a invaderla."],
+  ["Chi erano i gastaldi e dove si trovava il palatium del re dei Longobardi?", "funzionari del re, fisco, tasse, Pavia, palazzo reale",
+   "I <b>gastaldi</b> erano i <b>funzionari del re</b> longobardo. Erano pagati con le tasse raccolte dal <b>fisco del re</b>, istituito con l'Editto di Rotari. Il <b>palatium</b> era il <b>palazzo reale</b>, cioè la sede della corte, e si trovava a <b>Pavia</b>, la capitale del regno."],
+  ["Come era organizzata la società longobarda prima dell'editto di Rotari?", "arimanni, fare, duca, guerra, aldii, servi, faida",
+   "Prima dell'Editto la società era organizzata in modo semplice. Il potere era degli <b>arimanni</b>, gli uomini liberi e guerrieri, organizzati in <b>fare</b>: gruppi di famiglie parenti tra loro, ciascuna guidata da un <b>duca</b>. L'attività più importante era la <b>guerra</b>. L'agricoltura era molto semplice e si allevavano soprattutto maiali: questi lavori erano affidati agli <b>aldii</b> (semiliberi) e ai <b>servi</b>. Non c'erano leggi scritte: le offese si vendicavano con la <b>faida</b>."],
+  ["Da chi erano eletti i vescovi e quale ruolo assunsero nel governo delle città italiane con la crisi dell'Impero?", "eletti dal popolo, nobili, autorità principale, giustizia, governatore, cattedrale",
+   "I vescovi erano <b>eletti dal popolo</b>: anche il vescovo di Roma veniva acclamato dal popolo, come un tempo l'imperatore. Le famiglie nobili lottavano per far eleggere un loro parente. Con la crisi dell'Impero il vescovo diventò l'<b>autorità principale delle città</b>: predicava, <b>amministrava la giustizia</b> seduto sulla cathedra ed era insieme <b>vescovo e governatore</b>. L'edificio della cathedra, la <b>cattedrale</b>, diventò il più importante della città."],
+  ["Chi sono i monaci e che cosa significa originariamente questo nome?", "monos, solo, perfezione, preghiera, eremiti",
+   "I monaci sono persone che lasciano la vita di tutti i giorni per raggiungere la <b>perfezione spirituale</b> con la preghiera. Il nome viene dal greco <b><i>monos</i></b>, che significa «<b>solo</b>»: all'inizio i monaci (come gli eremiti) vivevano da soli, lontano dalle città."],
+  ["Come erano organizzati i monasteri e quale ruolo svolgevano dal punto di vista economico e culturale?", "Benedetto, cenobio, Regola, ora et labora, autosufficienti, terre, scuole, copiatura, palinsesti",
+   "Con <b>Benedetto da Norcia</b> i monaci vivono insieme in un <b>cenobio</b> («vita in comune») e seguono la <b>Regola</b>: <b>pregano e lavorano</b> (ora et labora). Nel monastero ci sono presbiteri, monaci, lavoratori liberi e schiavi. <b>Economia:</b> grazie alle eredità dei ricchi i monasteri hanno terre, mulini, boschi e pascoli; sono <b>aziende autosufficienti</b> e i monaci le amministrano. <b>Cultura:</b> solo nei monasteri ci sono <b>scuole</b> per imparare a leggere e scrivere; i monaci <b>copiano e conservano i libri</b> e così salvano il patrimonio culturale dell'Occidente (anche grazie ai palinsesti)."],
+];
+var risposte = {};
+document.getElementById("domande").innerHTML = VF.map(function (q, i) {
+  return '<div class="domanda" data-i="' + i + '"><p>' + (i + 1) + ". " + q[0] + '</p><div class="vf"><button type="button" data-v="1">Vero</button><button type="button" data-v="0">Falso</button></div><div class="spiega-box" aria-live="polite"></div></div>';
+}).join("");
+document.getElementById("domande").addEventListener("click", function (e) {
+  var b = e.target.closest(".vf button"); if (!b) return;
+  var d = b.closest(".domanda"), i = +d.dataset.i, giusto = (b.dataset.v === "1") === VF[i][1];
+  d.querySelectorAll(".vf button").forEach(function (x) { x.classList.remove("giusta", "sbagliata"); });
+  b.classList.add(giusto ? "giusta" : "sbagliata");
+  d.querySelector(".spiega-box").innerHTML = '<div class="spiega ' + (giusto ? "ok" : "no") + '"><b>' + (giusto ? "Giusto! " : "Non è così. ") + "</b>" + VF[i][2] + "</div>";
+  if (!(i in risposte)) risposte[i] = giusto;
+  aggiornaPunteggio();
+});
+var prossimo = 0, ordineOk = false;
+function preparaOrdina() {
+  prossimo = 0; ordineOk = false;
+  var mesc = EVENTI_ORD.map(function (e, i) { return i; });
+  for (var i = mesc.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = mesc[i]; mesc[i] = mesc[j]; mesc[j] = t; }
+  if (mesc.join() === EVENTI_ORD.map(function (e, i) { return i; }).join()) mesc.reverse();
+  document.getElementById("ordina").innerHTML = mesc.map(function (i) { return '<button type="button" data-i="' + i + '"><span class="pos"></span><span>' + EVENTI_ORD[i][1] + "</span></button>"; }).join("");
+  document.getElementById("esito-ordina").innerHTML = "";
+}
+document.getElementById("ordina").addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b || b.classList.contains("fatto")) return;
+  if (+b.dataset.i === prossimo) {
+    b.classList.add("fatto"); prossimo++;
+    b.querySelector(".pos").textContent = prossimo;
+    b.querySelector("span:last-child").innerHTML = "<b>" + EVENTI_ORD[+b.dataset.i][0] + "</b> · " + EVENTI_ORD[+b.dataset.i][1];
+    if (prossimo === EVENTI_ORD.length) { ordineOk = true; document.getElementById("esito-ordina").innerHTML = '<div class="spiega ok"><b>Perfetto!</b> Tutti gli eventi sono in ordine.</div>'; aggiornaPunteggio(); }
+  } else {
+    b.classList.remove("errore"); void b.offsetWidth; b.classList.add("errore");
+    document.getElementById("esito-ordina").innerHTML = '<div class="spiega no">Non ancora: cerca l\'evento <b>più antico</b> tra quelli rimasti.</div>';
+  }
+});
+document.getElementById("rimescola").addEventListener("click", preparaOrdina);
+preparaOrdina();
+var esitiAbbina = {};
+function abbinamento(dati, boxId, btnId, esitoId) {
+  var opz = dati.map(function (a) { return a[1]; }).slice().sort();
+  document.getElementById(boxId).innerHTML = dati.map(function (a, i) {
+    return '<label for="' + boxId + i + '">' + a[0] + '</label><select id="' + boxId + i + '"><option value="">scegli…</option>' + opz.map(function (o) { return "<option>" + o + "</option>"; }).join("") + "</select>";
+  }).join("");
+  document.getElementById(btnId).addEventListener("click", function () {
+    var g = 0;
+    dati.forEach(function (a, i) { var s = document.getElementById(boxId + i), ok = s.value === a[1]; s.classList.remove("ok", "no"); if (s.value) s.classList.add(ok ? "ok" : "no"); if (ok) g++; });
+    esitiAbbina[boxId] = g === dati.length;
+    document.getElementById(esitoId).innerHTML = '<div class="spiega ' + (g === dati.length ? "ok" : "no") + '">' + (g === dati.length ? "<b>Perfetto!</b> Tutte giuste." : "Ne hai giuste <b>" + g + " su " + dati.length + "</b>. Correggi quelle rosse e riprova.") + "</div>";
+    aggiornaPunteggio();
+  });
+}
+abbinamento(ABBINA, "abbina", "controlla-abbina", "esito-abbina");
+if (typeof ABBINA2 !== "undefined") abbinamento(ABBINA2, "abbina2", "controlla-abbina2", "esito-abbina2");
+if (typeof APERTE !== "undefined") {
+  document.getElementById("aperte").innerHTML = APERTE.map(function (q, i) {
+    return '<div class="domanda"><p><b>' + (i + 1) + ".</b> " + q[0] + '</p><p class="aiuto" style="margin:0 0 8px">Prima rispondi a voce o sul quaderno. Parole chiave da usare: <b>' + q[1] + '</b></p><button type="button" aria-expanded="false">Mostra una risposta modello</button><div class="risp-mod" hidden>' + q[2] + "</div></div>";
+  }).join("");
+  document.getElementById("aperte").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var r = b.nextElementSibling, apri = r.hidden;
+    r.hidden = !apri; b.setAttribute("aria-expanded", apri ? "true" : "false"); b.textContent = apri ? "Nascondi la risposta" : "Mostra una risposta modello";
+  });
+}
+function aggiornaPunteggio() {
+  var n = Object.keys(risposte).length, g = Object.keys(risposte).filter(function (k) { return risposte[k]; }).length;
+  var t = n ? "Vero o falso: <b>" + g + " giuste</b> su " + n + " risposte." : "";
+  var parti = [ordineOk ? "ordine ✓" : null, esitiAbbina.abbina ? "abbinamenti 1 ✓" : null, esitiAbbina.abbina2 ? "abbinamenti 2 ✓" : null].filter(Boolean);
+  if (parti.length) t += (t ? "<br>" : "") + "Completati: " + parti.join(" · ");
+  if (n === VF.length && g === VF.length && ordineOk && esitiAbbina.abbina && (typeof ABBINA2 === "undefined" || esitiAbbina.abbina2)) t += "<br>Bravissimo: hai capito tutto l'argomento!";
+  document.getElementById("punteggio").innerHTML = t;
+}
+/* ===================== TAPPE ===================== */
+var tappe = document.querySelectorAll(".tappa"), corrente = 0, viste = {};
+var nav = document.getElementById("percorso");
+var h = "", ultimoGr = null, conta = {};
+tappe.forEach(function (t, i) {
+  var p = t.dataset.parte;
+  if (p !== ultimoGr) { if (ultimoGr !== null) h += "</div></div>"; h += '<div class="gruppo"><span class="etich">' + GRUPPI[p] + '</span><div class="bottoni">'; ultimoGr = p; }
+  conta[p] = (conta[p] || 0) + 1;
+  h += '<button type="button" data-i="' + i + '" aria-label="' + t.dataset.titolo + '">' + (p === "v" ? "Verifica" : conta[p]) + "</button>";
+});
+nav.innerHTML = h + "</div></div>";
+function vai(i, scorri) {
+  corrente = Math.max(0, Math.min(tappe.length - 1, i));
+  viste[corrente] = true;
+  tappe.forEach(function (t, k) { t.hidden = k !== corrente; });
+  nav.querySelectorAll("button").forEach(function (b) {
+    var k = +b.dataset.i;
+    if (k === corrente) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    b.classList.toggle("vista", !!viste[k] && k !== corrente);
+  });
+  document.getElementById("barra").style.width = ((corrente + 1) / tappe.length * 100) + "%";
+  document.getElementById("indietro").style.visibility = corrente === 0 ? "hidden" : "visible";
+  var av = document.getElementById("avanti");
+  av.style.visibility = corrente === tappe.length - 1 ? "hidden" : "visible";
+  av.textContent = corrente === tappe.length - 2 ? "Vai alla verifica →" : (tappe[corrente].dataset.parte !== tappe[corrente + 1 < tappe.length ? corrente + 1 : corrente].dataset.parte ? "Vai alla parte 2 →" : "Avanti →");
+  if (voce) speechSynthesis.cancel();
+  glossa.hidden = true;
+  if (history.replaceState) history.replaceState(null, "", "#tappa" + (corrente + 1));
+  if (scorri) window.scrollTo({ top: nav.getBoundingClientRect().top + window.scrollY - 16, behavior: "smooth" });
+}
+nav.addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) vai(+b.dataset.i, true); });
+document.getElementById("avanti").addEventListener("click", function () { vai(corrente + 1, true); });
+document.getElementById("indietro").addEventListener("click", function () { vai(corrente - 1, true); });
+var m = /^#tappa(\d+)$/.exec(location.hash);
+vai(m ? +m[1] - 1 : 0, false);
+
+</script>
+</body>
+</html>
