@@ -49,6 +49,15 @@ const MATERIALI = [
     data: "2026-10-06",
   },
   {
+    materia: "meccanica",
+    unita: "Sistemi di forze",
+    titolo: "Composizione e scomposizione delle forze",
+    tipo: "pdf",
+    file: "meccanica-appunti-2.pdf",
+    descrizione: "Calcolatrice in gradi; teorema dei seni e di Carnot; risultante ed equilibrante; forze concorrenti e parallele; scomposizione; esercizi svolti passo passo.",
+    data: "2026-10-22",
+  },
+  {
     materia: "sistemi",
     unita: "Appunti fino al 1° ottobre",
     titolo: "Appunti di Sistemi",
